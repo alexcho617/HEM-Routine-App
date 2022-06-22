@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "438160748395",
+    "project_id": "hem-routine-app-dev",
+    "storage_bucket": "hem-routine-app-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438160748395:android:5139bc927cef6b81ffe62e",
+        "android_client_info": {
+          "package_name": "com.example.cloud_toy_proj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDENMWOD6788FUMTfm2w0J2kqs1iaIeyX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "438160748395-cligtbqnt6tc3ltgpeolc0p8a44g9ggk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cloudToyProj"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438160748395:android:42fd6d2496ec6ddcffe62e",
+        "android_client_info": {
+          "package_name": "com.example.hem_routine_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDENMWOD6788FUMTfm2w0J2kqs1iaIeyX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "438160748395-cligtbqnt6tc3ltgpeolc0p8a44g9ggk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cloudToyProj"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
