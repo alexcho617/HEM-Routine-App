@@ -16,6 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   FirebaseAuth _auth = FirebaseAuth.instance;
+  AuthCredential? appleCredential = null;
   @override
   Widget build(BuildContext context) {
     print("This is build function in login page");
@@ -24,36 +25,49 @@ class _LoginPageState extends State<LoginPage> {
         title: Text("Login Page"),
       ),
       body: Center(
-        child: SignInWithAppleButton(
-          onPressed: () async {
-            // if (SignInWithApple.isAvailable() == true) {
-            //   print("SIgn in with apple available");
-            //get apple credential
-            AuthCredential authCredential = await signInWithApple();
-            if (authCredential != null) {
-              print("auth credential not null");
-            } else {
-              print("auth credential null");
-            }
-            //login with apple credential
+        child: Column(
+          children: [
+            SignInWithAppleButton(
+              onPressed: () async {
+                //get apple credential
+                appleCredential = await signInWithApple();
+                if (appleCredential != null) {
+                  print("auth credential not null");
+                } else {
+                  print("auth credential null");
+                }
+                //login with apple credential
+                await _auth
+                    .signInWithCredential(appleCredential!)
+                    .then((value) {
+                  if (_auth.currentUser != null) {
+                    print("auth.currentuser not null");
+                    Get.to(HomePage());
+                    print(_auth.currentUser!.displayName);
+                  } else {
+                    print("auth current user is null");
+                  }
+                });
 
-            await _auth.signInWithCredential(authCredential).then((value) {
-              if (_auth.currentUser != null) {
-                print("auth.currentuser not null");
-                Get.to(HomePage());
-
-                print(_auth.currentUser!.displayName);
-              } else {
-                print("auth current user is null");
-              }
-            });
-
-            // apple sign in worked
-
-            // } else {
-            //   print("Apple Sign in unavailble");
-            // }
-          },
+              },
+            ),
+            TextButton(
+              onPressed: () {
+                if (appleCredential == null) {
+                  print('apple credential null');
+                } else {
+                  print(appleCredential);
+                }
+                if (_auth.currentUser == null) {
+                  print('auth user null');
+                } else {
+                  print(_auth.currentUser.hashCode);
+                  print(_auth.currentUser!.displayName);
+                }
+              },
+              child: Text('stat'),
+            )
+          ],
         ),
       ),
     );
@@ -87,10 +101,9 @@ Future<OAuthCredential> signInWithApple() async {
   );
 
   final oauthCredential = OAuthProvider("apple.com").credential(
-    idToken: appleCredential.identityToken,
-    // rawNonce: rawNonce,
-    accessToken: appleCredential.authorizationCode
-  );
+      idToken: appleCredential.identityToken,
+      rawNonce: rawNonce,
+      accessToken: appleCredential.authorizationCode);
 
   return oauthCredential;
 }
