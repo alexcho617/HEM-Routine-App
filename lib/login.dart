@@ -26,22 +26,33 @@ class _LoginPageState extends State<LoginPage> {
       body: Center(
         child: SignInWithAppleButton(
           onPressed: () async {
-            if (SignInWithApple.isAvailable() == true) {
-              //get apple credential
-              AuthCredential authCredential = await signInWithApple();
+            // if (SignInWithApple.isAvailable() == true) {
+            //   print("SIgn in with apple available");
+            //get apple credential
+            AuthCredential authCredential = await signInWithApple();
+            if (authCredential != null) {
+              print("auth credential not null");
+            } else {
+              print("auth credential null");
+            }
+            //login with apple credential
 
-              //login with apple credential
-              await _auth.signInWithCredential(authCredential);
-
-              // apple sign in worked
+            await _auth.signInWithCredential(authCredential).then((value) {
               if (_auth.currentUser != null) {
+                print("auth.currentuser not null");
                 Get.to(HomePage());
 
                 print(_auth.currentUser!.displayName);
+              } else {
+                print("auth current user is null");
               }
-            } else {
-              print("Apple Sign in unavailble");
-            }
+            });
+
+            // apple sign in worked
+
+            // } else {
+            //   print("Apple Sign in unavailble");
+            // }
           },
         ),
       ),
@@ -77,7 +88,8 @@ Future<OAuthCredential> signInWithApple() async {
 
   final oauthCredential = OAuthProvider("apple.com").credential(
     idToken: appleCredential.identityToken,
-    rawNonce: rawNonce,
+    // rawNonce: rawNonce,
+    accessToken: appleCredential.authorizationCode
   );
 
   return oauthCredential;
