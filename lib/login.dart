@@ -7,6 +7,8 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
+import 'getxController/loginController.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -15,8 +17,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  static FirebaseAuth auth = FirebaseAuth.instance;
+
   AuthCredential? appleCredential = null;
+  loginController controller = Get.put(loginController());
+
   @override
   Widget build(BuildContext context) {
     print("This is build function in login page");
@@ -37,18 +42,16 @@ class _LoginPageState extends State<LoginPage> {
                   print("auth credential null");
                 }
                 //login with apple credential
-                await _auth
-                    .signInWithCredential(appleCredential!)
-                    .then((value) {
-                  if (_auth.currentUser != null) {
+                await auth.signInWithCredential(appleCredential!).then((value) {
+                  if (auth.currentUser != null) {
                     print("auth.currentuser not null");
                     Get.to(HomePage());
-                    print(_auth.currentUser!.displayName);
+                    controller.uid.value = auth.currentUser!.uid;
+                    print(auth.currentUser!.displayName);
                   } else {
                     print("auth current user is null");
                   }
                 });
-
               },
             ),
             TextButton(
@@ -58,11 +61,11 @@ class _LoginPageState extends State<LoginPage> {
                 } else {
                   print(appleCredential);
                 }
-                if (_auth.currentUser == null) {
+                if (auth.currentUser == null) {
                   print('auth user null');
                 } else {
-                  print(_auth.currentUser.hashCode);
-                  print(_auth.currentUser!.displayName);
+                  print(auth.currentUser.hashCode);
+                  print(auth.currentUser!.displayName);
                 }
               },
               child: Text('stat'),
