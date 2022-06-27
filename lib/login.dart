@@ -7,6 +7,8 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
+import 'getxController/loginController.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -15,8 +17,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  static FirebaseAuth auth = FirebaseAuth.instance;
+
   AuthCredential? appleCredential = null;
+  loginController controller = Get.put(loginController());
+
   @override
   Widget build(BuildContext context) {
     print("This is build function in login page");
@@ -24,48 +29,31 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text("Login Page"),
       ),
-      body: Center(
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SignInWithAppleButton(
               onPressed: () async {
                 //get apple credential
                 appleCredential = await signInWithApple();
-                if (appleCredential != null) {
-                  print("auth credential not null");
-                } else {
-                  print("auth credential null");
-                }
                 //login with apple credential
-                await _auth
-                    .signInWithCredential(appleCredential!)
-                    .then((value) {
-                  if (_auth.currentUser != null) {
-                    print("auth.currentuser not null");
+                await auth.signInWithCredential(appleCredential!).then((value) {
+                  if (auth.currentUser != null) {
                     Get.to(HomePage());
-                    print(_auth.currentUser!.displayName);
+                    controller.uid.value = auth.currentUser!.uid;
                   } else {
                     print("auth current user is null");
                   }
                 });
-
               },
             ),
             TextButton(
               onPressed: () {
-                if (appleCredential == null) {
-                  print('apple credential null');
-                } else {
-                  print(appleCredential);
-                }
-                if (_auth.currentUser == null) {
-                  print('auth user null');
-                } else {
-                  print(_auth.currentUser.hashCode);
-                  print(_auth.currentUser!.displayName);
-                }
+                Get.to(HomePage());
               },
-              child: Text('stat'),
+              child: Text('bypass'),
             )
           ],
         ),
