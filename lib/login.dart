@@ -29,25 +29,20 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text("Login Page"),
       ),
-      body: Center(
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SignInWithAppleButton(
               onPressed: () async {
                 //get apple credential
                 appleCredential = await signInWithApple();
-                if (appleCredential != null) {
-                  print("auth credential not null");
-                } else {
-                  print("auth credential null");
-                }
                 //login with apple credential
                 await auth.signInWithCredential(appleCredential!).then((value) {
                   if (auth.currentUser != null) {
-                    print("auth.currentuser not null");
                     Get.to(HomePage());
                     controller.uid.value = auth.currentUser!.uid;
-                    print(auth.currentUser!.displayName);
                   } else {
                     print("auth current user is null");
                   }
@@ -56,19 +51,9 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextButton(
               onPressed: () {
-                if (appleCredential == null) {
-                  print('apple credential null');
-                } else {
-                  print(appleCredential);
-                }
-                if (auth.currentUser == null) {
-                  print('auth user null');
-                } else {
-                  print(auth.currentUser.hashCode);
-                  print(auth.currentUser!.displayName);
-                }
+                Get.to(HomePage());
               },
-              child: Text('stat'),
+              child: Text('bypass'),
             )
           ],
         ),

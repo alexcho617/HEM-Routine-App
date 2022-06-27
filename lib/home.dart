@@ -13,7 +13,8 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text(controller.uid.value),
+            if (controller.uid.value == '') Text('uid empty'),
+            if (controller.uid.value != '') Text(controller.uid.value),
           ],
         ),
       ),
