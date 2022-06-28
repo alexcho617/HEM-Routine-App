@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class loginController extends GetxController {
+class LoginController extends GetxController {
   var uid = ''.obs;
   var name = ''.obs;
 }
