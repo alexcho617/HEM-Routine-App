@@ -18,6 +18,7 @@ dependencies:
   crypto: ^3.0.2
   firebase_auth: ^3.3.20
   get: ^4.6.5
+  table_calendar: ^3.0.6
 
 dev_dependencies:
   flutter_test:
