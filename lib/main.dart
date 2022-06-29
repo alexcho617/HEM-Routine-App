@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/firebase_options.dart';
+import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/login.dart';
+import 'package:hem_routine_app/views/splash.dart';
 
 void main() async {
 
@@ -25,7 +27,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:LoginPage(),
+      initialRoute: '/splash',
+      routes: {
+        '/home': (context) => HomePage(),
+        '/splash': (context) => SplashScreen(),
+        '/login': (context) => LoginPage()
+      },
     );
   }
 }
