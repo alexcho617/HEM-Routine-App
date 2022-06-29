@@ -29,6 +29,9 @@ fonts:
   - family: GmarketSans
     fonts:
       - asset: fonts/GmarketSansTTFMedium.ttf
+  - family: AppleSDGothicNeo
+      fonts:
+        - asset: fonts/AppleSDGothicNeoM.ttf
 flutter:
   uses-material-design: true
   assets:
