@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/firebase_options.dart';
 import 'package:hem_routine_app/views/home.dart';
@@ -22,17 +23,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      initialRoute: '/splash',
-      routes: {
-        '/home': (context) => HomePage(),
-        '/splash': (context) => SplashScreen(),
-        '/login': (context) => LoginPage()
-      },
+
+    return ScreenUtilInit(
+      designSize: const Size(390,844),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, _) {
+        return GetMaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          initialRoute: '/splash',
+          routes: {
+            '/home': (context) => HomePage(),
+            '/splash': (context) => SplashScreen(),
+            '/login': (context) => LoginPage()
+          },
+        );
+      }
     );
   }
 }
