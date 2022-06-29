@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:hem_routine_app/controller/loginController.dart';
 import 'package:hem_routine_app/services/service.dart';
 import 'package:hem_routine_app/views/home.dart';
+import 'package:hem_routine_app/views/widgetTestPage.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
-  
+
   static FirebaseAuth auth = FirebaseAuth.instance;
   AuthCredential? appleCredential = null;
   LoginController controller = Get.put(LoginController());
@@ -45,6 +46,12 @@ class LoginPage extends StatelessWidget {
                 Get.to(HomePage());
               },
               child: Text('bypass'),
+            ),
+            TextButton(
+              onPressed: (() {
+                Get.to(WidgetTestPage());
+              }),
+              child: Text('Widgets'),
             )
           ],
         ),
