@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
 class WidgetTestPage extends StatefulWidget {
@@ -20,8 +18,8 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: NextButtonBig(voidFunction)
-            )
+              child: NextButtonBig(voidFunction),
+            ),
           ],
         ),
       ),

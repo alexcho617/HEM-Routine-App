@@ -6,6 +6,7 @@ import 'package:hem_routine_app/firebase_options.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/login.dart';
 import 'package:hem_routine_app/views/splash.dart';
+import 'package:hem_routine_app/views/widgetTestPage.dart';
 
 void main() async {
 
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
           routes: {
             '/home': (context) => HomePage(),
             '/splash': (context) => SplashScreen(),
-            '/login': (context) => LoginPage()
+            '/login': (context) => LoginPage(),
+            '/widgetTest': (context) => WidgetTestPage(),
           },
         );
       }
