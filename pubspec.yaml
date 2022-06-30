@@ -19,11 +19,23 @@ dependencies:
   firebase_auth: ^3.3.20
   get: ^4.6.5
   table_calendar: ^3.0.6
+  flutter_screenutil: ^5.5.3+2
+
+  animated_splash_screen: ^1.2.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+fonts:
+  - family: GmarketSans
+    fonts:
+      - asset: fonts/GmarketSansTTFMedium.ttf
+  - family: AppleSDGothicNeo
+    fonts:
+      - asset: fonts/AppleSDGothicNeoM.ttf
 flutter:
-
   uses-material-design: true
+  assets:
+    - assets/
