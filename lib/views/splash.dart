@@ -11,7 +11,6 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
         centered: false,
-        duration: 500000,
         //그냥 container로 하면 알아서 center로 된다.
         splashIconSize: MediaQuery.of(context).size.height,
         splash: Container(
