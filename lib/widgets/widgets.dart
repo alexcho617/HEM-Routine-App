@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../utils/constants.dart';
+import '../utils/colors.dart';
 
 Widget NextButtonBig(VoidCallback? onPressed) {
   return Container(
@@ -11,10 +12,10 @@ Widget NextButtonBig(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '다음',
-        style: FontButtonWhite14,
+        style: FontWhite14,
       ),
       style: ElevatedButton.styleFrom(
-        primary: Color.fromARGB(255, 51, 89, 183),
+        primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
         ),
@@ -48,7 +49,7 @@ Widget BackButtonSmall(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '이전',
-        style: FontButtonGray14,
+        style: FontGray14_4,
       ),
       style: ElevatedButton.styleFrom(
         primary: Color.fromARGB(255, 212, 212, 212),
@@ -68,10 +69,10 @@ Widget NextButtonSmall(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '다음',
-        style: FontButtonWhite14,
+        style: FontWhite14,
       ),
       style: ElevatedButton.styleFrom(
-        primary: Color.fromARGB(255, 51, 89, 183),
+        primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
         ),
@@ -88,7 +89,7 @@ Widget SaveButtonGray(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '저장',
-        style: FontButtonWhite14,
+        style: FontWhite14,
       ),
       style: ElevatedButton.styleFrom(
         primary: Color.fromARGB(255, 203, 203, 203),
@@ -108,10 +109,10 @@ Widget SaveButtonBlue(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '저장',
-        style: FontButtonWhite14,
+        style: FontWhite14,
       ),
       style: ElevatedButton.styleFrom(
-        primary: Color.fromARGB(255, 51, 89, 183),
+        primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
         ),
@@ -128,10 +129,10 @@ Widget MakeMyRoutineButton(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '나만의 쾌변 루틴 만들기',
-        style: FontButtonWhite14,
+        style: FontWhite14,
       ),
       style: ElevatedButton.styleFrom(
-        primary: Color.fromARGB(255, 51, 89, 183),
+        primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24.r),
         ),
@@ -155,12 +156,12 @@ Widget AddButton(VoidCallback? onPressed) {
           ),
           Text(
             '추가하기',
-            style: FontButtonWhite14,
+            style: FontWhite14,
           ),
         ],
       ),
       style: ElevatedButton.styleFrom(
-        primary: Color.fromARGB(255, 51, 89, 183),
+        primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24.r),
         ),
@@ -180,19 +181,19 @@ Widget AddRoutineButton(VoidCallback? onPressed) {
         children: [
           Icon(
             Icons.add,
-            color: Color.fromARGB(255, 151, 151, 151),
+            color: gray3,
           ),
           SizedBox(
             width: 6.w,
           ),
           Text(
             '나만의 루틴 항목 만들기',
-            style: FontButtonGray14_R,
+            style: FontGray14_3,
           ),
         ],
       ),
       style: OutlinedButton.styleFrom(
-        primary: Color.fromARGB(255, 30, 30, 30),
+        primary: gray2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24.r),
         ),
@@ -206,19 +207,20 @@ Widget PlusSquareButton(VoidCallback? onPressed) {
     width: 56.w,
     height: 56.h,
     decoration: BoxDecoration(
-      color: Color.fromARGB(255, 218, 226, 255),
+      color: blue1,
       borderRadius: BorderRadius.circular(16.r),
     ),
     child: IconButton(
       iconSize: 24.r,
       icon: Icon(Icons.add),
       onPressed: onPressed,
-      color: Color.fromARGB(255, 46, 67, 199),
+      color: primary,
     ),
   );
 }
 
-Widget DeleteAlertDialog(VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+Widget DeleteAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -233,7 +235,7 @@ Widget DeleteAlertDialog(VoidCallback? onPressedCancel, VoidCallback? onPressedD
         Container(
           width: 312.w,
           height: 120.h,
-          child: Center(child: Text('정말로 배변 기록을 \n삭제 하시겠습니까?')),
+          child: Center(child: Text('정말로 배변 기록을 \n삭제 하시겠습니까?',style: FontBlack16_1,)),
         ),
         Row(
           children: [
@@ -241,25 +243,36 @@ Widget DeleteAlertDialog(VoidCallback? onPressedCancel, VoidCallback? onPressedD
               onTap: onPressedCancel,
               child: Ink(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.r),),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
                   color: Color.fromARGB(255, 203, 203, 203),
                 ),
                 width: 124.w,
                 height: 56.h,
-                child: Center(child: Text('취소')),
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: FontBlack16_1,
+                )),
               ),
             ),
             InkWell(
               onTap: onPressedDelete,
               child: Ink(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(20.r),),
-                  color: Color.fromARGB(255, 51, 89, 183),
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
                 ),
                 width: 188.w,
                 height: 56.h,
                 child: Center(
-                  child: Text('삭제'),
+                  child: Text(
+                    '삭제',
+                    style: FontWhite16_1,
+                  ),
                 ),
               ),
             )
