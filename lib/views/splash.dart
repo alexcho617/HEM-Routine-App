@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
         centered: false,
-        // duration: 500000,
+        duration: 500000,
         //그냥 container로 하면 알아서 center로 된다.
         splashIconSize: MediaQuery.of(context).size.height,
         splash: Container(
@@ -23,9 +23,12 @@ class SplashScreen extends StatelessWidget {
                 SizedBox(height: 16,),
                 Text("쾌변루틴",style: TextStyle(fontFamily: 'GmarketSans', fontSize: 36),),
                 SizedBox(height: 80,),
-                Image.asset('assets/appIcon.png'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 70),
+                  child: Image.asset('assets/appIcon.png'),
+                ),
                 SizedBox(height: 25,),
-                Text("LOADING...",style: TextStyle(fontFamily: 'GmarketSans', fontSize: 16),),
+                Text("LOADING...",style: TextStyle(fontFamily: 'AppleSDGothicNeo', fontSize: 16),),
               ],
             ),
           ),
