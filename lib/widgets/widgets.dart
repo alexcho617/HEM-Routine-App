@@ -73,6 +73,8 @@ Widget NextButtonSmall(VoidCallback? onPressed) {
   );
 }
 
+
+
 TextStyle FontButtonWhite14 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
     fontWeight: FontWeight.w500,
