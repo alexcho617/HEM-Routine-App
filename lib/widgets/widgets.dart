@@ -1,6 +1,7 @@
 //define global widgets here such as appbar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:scroll_date_picker/scroll_date_picker.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
 
@@ -239,6 +240,7 @@ Widget DeleteAlertDialog(
               child: Text(
             '정말로 배변 기록을 \n삭제 하시겠습니까?',
             style: FontGray16_900,
+            textAlign: TextAlign.center,
           )),
         ),
         Row(
@@ -287,8 +289,7 @@ Widget DeleteAlertDialog(
   );
 }
 
-Widget SaveAlertDialog(
-    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+Widget SaveAlertDialog(VoidCallback? onPressed) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -307,50 +308,30 @@ Widget SaveAlertDialog(
               child: Text(
             '루틴 설정이 \n저장 되었습니다.',
             style: FontGray16_900,
+            textAlign: TextAlign.center,
           )),
         ),
-        Row(
-          children: [
-            InkWell(
-              onTap: onPressedCancel,
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.r),
-                  ),
-                  color: Color.fromARGB(255, 203, 203, 203),
-                ),
-                width: 124.w,
-                height: 56.h,
-                child: Center(
-                    child: Text(
-                  '취소',
-                  style: FontGray16_900,
-                )),
+        InkWell(
+          onTap: onPressed,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(20.r),
+              ),
+              color: primary,
+            ),
+            width: 312.w,
+            height: 56.h,
+            child: Center(
+              child: Text(
+                '확인',
+                style: FontGray16_50,
               ),
             ),
-            InkWell(
-              onTap: onPressedDelete,
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(20.r),
-                  ),
-                  color: primary,
-                ),
-                width: 188.w,
-                height: 56.h,
-                child: Center(
-                  child: Text(
-                    '삭제',
-                    style: FontGray16_50,
-                  ),
-                ),
-              ),
-            )
-          ],
+          ),
         )
       ]),
     ),
   );
 }
+

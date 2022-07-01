@@ -62,7 +62,12 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
               Padding(
                 padding: REdgeInsets.all(8),
                 child: DeleteAlertDialog(voidFunction, voidFunction),
-              )
+              ),
+              Text('SaveAlertDialog'),
+              Padding(
+                padding: REdgeInsets.all(8),
+                child: SaveAlertDialog(voidFunction),
+              ),
             ],
           ),
         ),
@@ -73,9 +78,11 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
   void voidFunction() {
     // void function for lint
   }
+
   void testFuntion1() {
     print("Test Function 1 Called!");
   }
+
   void testFuntion2() {
     print("Test Function 2 Called!");
   }
