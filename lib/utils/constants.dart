@@ -5,42 +5,43 @@ import 'colors.dart';
 TextStyle BottomNavigationOptionStyle =
     TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold);
 
-TextStyle FontWhite14 = TextStyle(
+TextStyle FontGray14_50 = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w500,
   fontSize: 14.sp,
   letterSpacing: 0.1.sp,
+  color: gray50,
 );
 
-TextStyle FontGray14_4 = TextStyle(
+TextStyle FontGray14_700 = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w500,
   fontSize: 14.sp,
   letterSpacing: 0.1.sp,
-  color: gray4,
+  color: gray700,
 );
 
-TextStyle FontGray14_3 = TextStyle(
+TextStyle FontGray14_600 = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
   fontSize: 14.sp,
   letterSpacing: 0.1.sp,
-  color: gray3,
+  color: gray600,
 );
 
-TextStyle FontBlack16_1 = TextStyle(
+TextStyle FontGray16_900 = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
   fontSize: 16.sp,
   letterSpacing: 0.5.sp,
-  color: black1,
+  color: gray900,
   height: 1.5,
 );
 
-TextStyle FontWhite16_1 = TextStyle(
+TextStyle FontGray16_50 = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
   fontSize: 16.sp,
   letterSpacing: 0.5.sp,
-  color: white1,
+  color: gray50,
 );

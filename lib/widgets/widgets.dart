@@ -12,7 +12,7 @@ Widget NextButtonBig(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '다음',
-        style: FontWhite14,
+        style: FontGray14_50,
       ),
       style: ElevatedButton.styleFrom(
         primary: primary,
@@ -49,7 +49,7 @@ Widget BackButtonSmall(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '이전',
-        style: FontGray14_4,
+        style: FontGray14_700,
       ),
       style: ElevatedButton.styleFrom(
         primary: Color.fromARGB(255, 212, 212, 212),
@@ -69,7 +69,7 @@ Widget NextButtonSmall(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '다음',
-        style: FontWhite14,
+        style: FontGray14_50,
       ),
       style: ElevatedButton.styleFrom(
         primary: primary,
@@ -89,10 +89,10 @@ Widget SaveButtonGray(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '저장',
-        style: FontWhite14,
+        style: FontGray14_50,
       ),
       style: ElevatedButton.styleFrom(
-        primary: Color.fromARGB(255, 203, 203, 203),
+        primary: gray500,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
         ),
@@ -109,7 +109,7 @@ Widget SaveButtonBlue(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '저장',
-        style: FontWhite14,
+        style: FontGray14_50,
       ),
       style: ElevatedButton.styleFrom(
         primary: primary,
@@ -129,7 +129,7 @@ Widget MakeMyRoutineButton(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '나만의 쾌변 루틴 만들기',
-        style: FontWhite14,
+        style: FontGray14_50,
       ),
       style: ElevatedButton.styleFrom(
         primary: primary,
@@ -156,7 +156,7 @@ Widget AddButton(VoidCallback? onPressed) {
           ),
           Text(
             '추가하기',
-            style: FontWhite14,
+            style: FontGray14_50,
           ),
         ],
       ),
@@ -181,19 +181,19 @@ Widget AddRoutineButton(VoidCallback? onPressed) {
         children: [
           Icon(
             Icons.add,
-            color: gray3,
+            color: gray50,
           ),
           SizedBox(
             width: 6.w,
           ),
           Text(
             '나만의 루틴 항목 만들기',
-            style: FontGray14_3,
+            style: FontGray14_600,
           ),
         ],
       ),
       style: OutlinedButton.styleFrom(
-        primary: gray2,
+        primary: gray600,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24.r),
         ),
@@ -207,7 +207,7 @@ Widget PlusSquareButton(VoidCallback? onPressed) {
     width: 56.w,
     height: 56.h,
     decoration: BoxDecoration(
-      color: blue1,
+      color: blue100,
       borderRadius: BorderRadius.circular(16.r),
     ),
     child: IconButton(
@@ -235,7 +235,11 @@ Widget DeleteAlertDialog(
         Container(
           width: 312.w,
           height: 120.h,
-          child: Center(child: Text('정말로 배변 기록을 \n삭제 하시겠습니까?',style: FontBlack16_1,)),
+          child: Center(
+              child: Text(
+            '정말로 배변 기록을 \n삭제 하시겠습니까?',
+            style: FontGray16_900,
+          )),
         ),
         Row(
           children: [
@@ -246,14 +250,14 @@ Widget DeleteAlertDialog(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20.r),
                   ),
-                  color: Color.fromARGB(255, 203, 203, 203),
+                  color: gray500,
                 ),
                 width: 124.w,
                 height: 56.h,
                 child: Center(
                     child: Text(
                   '취소',
-                  style: FontBlack16_1,
+                  style: FontGray16_900,
                 )),
               ),
             ),
@@ -271,7 +275,75 @@ Widget DeleteAlertDialog(
                 child: Center(
                   child: Text(
                     '삭제',
-                    style: FontWhite16_1,
+                    style: FontGray16_50,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
+Widget SaveAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: Container(
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 120.h,
+          child: Center(
+              child: Text(
+            '루틴 설정이 \n저장 되었습니다.',
+            style: FontGray16_900,
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: Color.fromARGB(255, 203, 203, 203),
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: FontGray16_900,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '삭제',
+                    style: FontGray16_50,
                   ),
                 ),
               ),
