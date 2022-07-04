@@ -1,9 +1,10 @@
 //define global widgets here such as appbar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:scroll_date_picker/scroll_date_picker.dart';
+import 'package:get/get.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
+import '../controller/routineItemController.dart';
 
 Widget NextButtonBig(VoidCallback? onPressed) {
   return Container(
@@ -335,3 +336,24 @@ Widget SaveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
+Widget RoutineItemList(RoutineItemController controller) {
+  return Container(
+    // TODO : basic structure implement
+    // TODO : increment function count
+    // TODO : draw gauze widget
+    width: 324,
+    height: 500,
+    child: ReorderableListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          key: Key('$index'),
+          title: Text(controller.list.value[index].name),
+        );
+      },
+      itemCount: controller.list.value.length,
+      onReorder: (int oldIndex, int newIndex) {
+        controller.itemReorder(oldIndex, newIndex);
+      },
+    ),
+  );
+}
