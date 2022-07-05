@@ -3,15 +3,15 @@ import '../models/routineItem.dart';
 
 class RoutineItemController extends GetxController {
   RoutineItem item = RoutineItem(name: 'RoutineA', goalCount: 4);
-  var list = List<RoutineItem>.generate(3, (int index) {
+  final list = List<RoutineItem>.generate(3, (int index) {
     return RoutineItem(name: '루틴 항목 이름 $index', goalCount: 4);
-  }).obs;
+  });
 
   itemReorder(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {
-      newIndex -= -1;
+      newIndex -= 1;
     }
-    final RoutineItem itemToSwap = list.value.removeAt(oldIndex);
+    final RoutineItem itemToSwap = list.removeAt(oldIndex);
     list.insert(newIndex, itemToSwap);
   }
 }
