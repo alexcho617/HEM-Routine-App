@@ -341,13 +341,49 @@ Widget RoutineItemList(RoutineItemController controller) {
     // TODO : basic structure implement
     // TODO : increment function count
     // TODO : draw gauze widget
-    width: 324,
-    height: 500,
+    width: 349.w,
     child: ReorderableListView.builder(
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           key: Key('$index'),
-          title: Text(controller.list.value[index].name),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.black, width: 1.r),
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          leading: Icon(Icons.menu),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+          horizontalTitleGap: 0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                controller.list.value[index].name,
+                style: FontGray18_900,
+              ),
+              Column(
+                children: [
+                  Text(
+                    '수행/목표',
+                    style: FontGray14_600,
+                  ),
+                  Text(
+                    '3/4',
+                    style: FontGray14_600,
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 5.w,
+              ),
+            ],
+          ),
+          trailing: CircleAvatar(
+            backgroundColor: blue600,
+            child: Icon(
+              Icons.add,
+              color: gray50,
+            ),
+          ),
         );
       },
       itemCount: controller.list.value.length,

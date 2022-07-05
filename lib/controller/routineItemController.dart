@@ -4,7 +4,7 @@ import '../models/routineItem.dart';
 class RoutineItemController extends GetxController {
   RoutineItem item = RoutineItem(name: 'RoutineA', goalCount: 4);
   var list = List<RoutineItem>.generate(3, (int index) {
-    return RoutineItem(name: '루틴 $index', goalCount: 4);
+    return RoutineItem(name: '루틴 항목 이름 $index', goalCount: 4);
   }).obs;
 
   itemReorder(int oldIndex, int newIndex) {
