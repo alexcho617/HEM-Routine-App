@@ -45,3 +45,11 @@ TextStyle FontGray16_50 = TextStyle(
   letterSpacing: 0.5.sp,
   color: gray50,
 );
+
+TextStyle FontGray18_900 = TextStyle(
+  fontFamily: 'AppleSDGothicNeoM',
+  fontWeight: FontWeight.w400,
+  fontSize: 16.sp,
+  letterSpacing: 0.5.sp,
+  color: gray900,
+);

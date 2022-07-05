@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
+import 'package:get/get.dart';
+import '../models/routineItem.dart';
+import '../widgets/widgets.dart';
+import '../controller/routineItemController.dart';
 
 class WidgetTestPage extends StatefulWidget {
   const WidgetTestPage({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class WidgetTestPage extends StatefulWidget {
 class _WidgetTestPageState extends State<WidgetTestPage> {
   @override
   Widget build(BuildContext context) {
+    RoutineItemController routineItemController =
+        Get.find();
     return Scaffold(
       appBar: AppBar(title: Text('Widget Test')),
       body: Center(
@@ -62,7 +67,16 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
               Padding(
                 padding: REdgeInsets.all(8),
                 child: DeleteAlertDialog(voidFunction, voidFunction),
-              )
+              ),
+              Text('SaveAlertDialog'),
+              Padding(
+                padding: REdgeInsets.all(8),
+                child: SaveAlertDialog(voidFunction),
+              ),
+              Padding(
+                padding: REdgeInsets.all(8),
+                child: RoutineItemList(routineItemController),
+              ),
             ],
           ),
         ),
@@ -73,9 +87,15 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
   void voidFunction() {
     // void function for lint
   }
+  dynamic dynamicFunction() {
+    // dymanic function for lint
+    return dynamic;
+  }
+
   void testFuntion1() {
     print("Test Function 1 Called!");
   }
+
   void testFuntion2() {
     print("Test Function 2 Called!");
   }

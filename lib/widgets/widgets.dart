@@ -1,8 +1,10 @@
 //define global widgets here such as appbar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
+import '../controller/routineItemController.dart';
 
 Widget NextButtonBig(VoidCallback? onPressed) {
   return Container(
@@ -239,6 +241,7 @@ Widget DeleteAlertDialog(
               child: Text(
             '정말로 배변 기록을 \n삭제 하시겠습니까?',
             style: FontGray16_900,
+            textAlign: TextAlign.center,
           )),
         ),
         Row(
@@ -287,8 +290,7 @@ Widget DeleteAlertDialog(
   );
 }
 
-Widget SaveAlertDialog(
-    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+Widget SaveAlertDialog(VoidCallback? onPressed) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -307,50 +309,87 @@ Widget SaveAlertDialog(
               child: Text(
             '루틴 설정이 \n저장 되었습니다.',
             style: FontGray16_900,
+            textAlign: TextAlign.center,
           )),
         ),
-        Row(
-          children: [
-            InkWell(
-              onTap: onPressedCancel,
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.r),
-                  ),
-                  color: Color.fromARGB(255, 203, 203, 203),
-                ),
-                width: 124.w,
-                height: 56.h,
-                child: Center(
-                    child: Text(
-                  '취소',
-                  style: FontGray16_900,
-                )),
+        InkWell(
+          onTap: onPressed,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(20.r),
+              ),
+              color: primary,
+            ),
+            width: 312.w,
+            height: 56.h,
+            child: Center(
+              child: Text(
+                '확인',
+                style: FontGray16_50,
               ),
             ),
-            InkWell(
-              onTap: onPressedDelete,
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(20.r),
-                  ),
-                  color: primary,
-                ),
-                width: 188.w,
-                height: 56.h,
-                child: Center(
-                  child: Text(
-                    '삭제',
-                    style: FontGray16_50,
-                  ),
-                ),
-              ),
-            )
-          ],
+          ),
         )
       ]),
+    ),
+  );
+}
+
+Widget RoutineItemList(RoutineItemController controller) {
+  return Container(
+    // TODO : basic structure implement
+    // TODO : increment function count
+    // TODO : draw gauze widget
+    width: 349.w,
+    child: ReorderableListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          key: Key('$index'),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.black, width: 1.r),
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          leading: Icon(Icons.menu),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+          horizontalTitleGap: 0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                controller.list.value[index].name,
+                style: FontGray18_900,
+              ),
+              Column(
+                children: [
+                  Text(
+                    '수행/목표',
+                    style: FontGray14_600,
+                  ),
+                  Text(
+                    '3/4',
+                    style: FontGray14_600,
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 5.w,
+              ),
+            ],
+          ),
+          trailing: CircleAvatar(
+            backgroundColor: blue600,
+            child: Icon(
+              Icons.add,
+              color: gray50,
+            ),
+          ),
+        );
+      },
+      itemCount: controller.list.value.length,
+      onReorder: (int oldIndex, int newIndex) {
+        controller.itemReorder(oldIndex, newIndex);
+      },
     ),
   );
 }
