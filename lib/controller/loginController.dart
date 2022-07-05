@@ -4,4 +4,5 @@ class LoginController extends GetxController {
   
   var uid = ''.obs;
   var name = ''.obs;
+  
 }

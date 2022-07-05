@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/firebase_options.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/login.dart';
+import 'package:hem_routine_app/views/onBoarding.dart';
 import 'package:hem_routine_app/views/splash.dart';
 import 'package:hem_routine_app/views/widgetTestPage.dart';
 import 'controller/routineItemController.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
               '/splash': (context) => SplashScreen(),
               '/login': (context) => LoginPage(),
               '/widgetTest': (context) => WidgetTestPage(),
+              '/onBoarding': (context) => onBoardingPage(),
             },
           );
         });
