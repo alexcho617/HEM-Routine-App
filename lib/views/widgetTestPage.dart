@@ -73,10 +73,10 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
                 padding: REdgeInsets.all(8),
                 child: SaveAlertDialog(voidFunction),
               ),
-              Padding(
-                padding: REdgeInsets.all(8),
-                child: RoutineItemList(routineItemController),
-              ),
+              // Padding(
+              //   padding: REdgeInsets.all(8),
+              //   child: RoutineItemList(routineItemController),
+              // ),
             ],
           ),
         ),
