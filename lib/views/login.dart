@@ -32,17 +32,7 @@ class LoginPage extends StatelessWidget {
           children: [
             SignInWithAppleButton(
               onPressed: () async {
-                //get apple credential
-                appleCredential = await signInWithApple();
-                //login with apple credential
-                await auth.signInWithCredential(appleCredential!).then((value) {
-                  if (auth.currentUser != null) {
-                    Get.to(HomePage());
-                    controller.uid.value = auth.currentUser!.uid;
-                  } else {
-                    Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
-                  }
-                });
+                
               },
             ),
            
