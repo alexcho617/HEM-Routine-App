@@ -15,8 +15,7 @@ class WidgetTestPage extends StatefulWidget {
 class _WidgetTestPageState extends State<WidgetTestPage> {
   @override
   Widget build(BuildContext context) {
-    RoutineItemController routineItemController =
-        Get.find();
+    RoutineItemController routineItemController = Get.find();
     return Scaffold(
       appBar: AppBar(title: Text('Widget Test')),
       body: Center(

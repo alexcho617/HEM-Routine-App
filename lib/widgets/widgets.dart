@@ -337,11 +337,13 @@ Widget SaveAlertDialog(VoidCallback? onPressed) {
 }
 
 Widget RoutineItemList(RoutineItemController controller) {
+  int itemLength = controller.list.length;
   return Container(
     // TODO : basic structure implement
     // TODO : increment function count
     // TODO : draw gauze widget
     width: 349.w,
+    height: 79.h * controller.list.length,
     child: ReorderableListView.builder(
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
@@ -357,7 +359,7 @@ Widget RoutineItemList(RoutineItemController controller) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                controller.list.value[index].name,
+                controller.list[index].name,
                 style: FontGray18_900,
               ),
               Column(
@@ -386,7 +388,7 @@ Widget RoutineItemList(RoutineItemController controller) {
           ),
         );
       },
-      itemCount: controller.list.value.length,
+      itemCount: itemLength,
       onReorder: (int oldIndex, int newIndex) {
         controller.itemReorder(oldIndex, newIndex);
       },
