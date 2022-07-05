@@ -71,3 +71,4 @@
 
 #user custom
 .flutter-plugins-dependencies
+*/.DS_Store
