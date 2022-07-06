@@ -72,10 +72,25 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
                 padding: REdgeInsets.all(8),
                 child: SaveAlertDialog(voidFunction),
               ),
-              // Padding(
-              //   padding: REdgeInsets.all(8),
-              //   child: RoutineItemList(routineItemController),
-              // ),
+              Text('RoutineItemList'),
+              Padding(
+                padding: REdgeInsets.all(8),
+                child: RoutineItemList(routineItemController),
+              ),
+              Text('CircularGuage'),
+              Padding(
+                padding: REdgeInsets.all(8),
+                child: Container(
+                  height: 50,
+                  child: CircluarGuage(0.75),),
+              ),
+              Text('HalfCircularGuage'),
+              Padding(
+                padding: REdgeInsets.all(8),
+                child: Container(
+                  height: 240,
+                  child: HalfCircluarGuage(0.75),),
+              ),
             ],
           ),
         ),
