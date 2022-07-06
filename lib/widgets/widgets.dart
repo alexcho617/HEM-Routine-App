@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
 import '../controller/routineItemController.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 Widget NextButtonBig(VoidCallback? onPressed) {
   return Container(
@@ -337,13 +338,16 @@ Widget SaveAlertDialog(VoidCallback? onPressed) {
 }
 
 Widget RoutineItemList(RoutineItemController controller) {
+  int itemLength = controller.list.length;
   return Container(
-    // TODO : basic structure implement
     // TODO : increment function count
     // TODO : draw gauze widget
     width: 349.w,
+    height: 79.h * controller.list.length,
     child: ReorderableListView.builder(
       itemBuilder: (BuildContext context, int index) {
+        double percent = controller.getPercent(
+            controller.countList[index], controller.list[index].goalCount);
         return ListTile(
           key: Key('$index'),
           shape: RoundedRectangleBorder(
@@ -357,7 +361,7 @@ Widget RoutineItemList(RoutineItemController controller) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                controller.list.value[index].name,
+                controller.list[index].name,
                 style: FontGray18_900,
               ),
               Column(
@@ -367,7 +371,7 @@ Widget RoutineItemList(RoutineItemController controller) {
                     style: FontGray14_600,
                   ),
                   Text(
-                    '3/4',
+                    '${controller.countList[index]}/${controller.list[index].goalCount}',
                     style: FontGray14_600,
                   ),
                 ],
@@ -377,19 +381,97 @@ Widget RoutineItemList(RoutineItemController controller) {
               ),
             ],
           ),
-          trailing: CircleAvatar(
-            backgroundColor: blue600,
-            child: Icon(
-              Icons.add,
-              color: gray50,
-            ),
+          trailing: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: 46.w,
+                height: 46.h,
+                child: CircluarGuage(percent),
+              ),
+              Container(
+                width: 34.w,
+                height: 34.h,
+                child: InkWell(
+                  onTap: () => controller.onPressed(),
+                  child: Ink(
+                    child: CircleAvatar(
+                      backgroundColor: blue600,
+                      child: Icon(
+                        Icons.add,
+                        color: gray50,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },
-      itemCount: controller.list.value.length,
+      itemCount: itemLength,
       onReorder: (int oldIndex, int newIndex) {
         controller.itemReorder(oldIndex, newIndex);
       },
+    ),
+  );
+}
+
+Widget CircluarGuage(double percent) {
+  return Container(
+    child: SfRadialGauge(
+      axes: <RadialAxis>[
+        RadialAxis(
+          showLabels: false,
+          showTicks: false,
+          startAngle: 270,
+          endAngle: 270,
+          minimum: 0,
+          maximum: 1,
+          axisLineStyle: AxisLineStyle(
+            color: white,
+          ),
+          ranges: <GaugeRange>[
+            GaugeRange(
+              startValue: 0,
+              endValue: percent,
+              color: yellow,
+              startWidth: 3.r,
+              endWidth: 3.r,
+            ),
+          ],
+        )
+      ],
+    ),
+  );
+}
+
+Widget HalfCircluarGuage(double percent) {
+  return Container(
+    child: SfRadialGauge(
+      axes: <RadialAxis>[
+        RadialAxis(
+          showLabels: false,
+          showTicks: false,
+          startAngle: 180,
+          endAngle: 0,
+          minimum: 0,
+          maximum: 1,
+          axisLineStyle: AxisLineStyle(
+            color: gray400,
+            thickness: 21.r
+          ),
+          ranges: <GaugeRange>[
+            GaugeRange(
+              startValue: 0,
+              endValue: percent,
+              color: primary,
+              startWidth: 21.r,
+              endWidth: 21.r,
+            ),
+          ],
+        )
+      ],
     ),
   );
 }
