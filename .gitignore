@@ -71,4 +71,10 @@
 
 #user custom
 .flutter-plugins-dependencies
+.packages 2
+ios/Flutter/Generated 3.xcconfig
+ios/Flutter/flutter_export_environment 3.sh
+ios/Flutter/Flutter 3.podspec
+.flutter-plugins-dependencies
 */.DS_Store
+
