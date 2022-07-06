@@ -24,7 +24,7 @@ class SplashScreen extends StatelessWidget {
                 Text("쾌변루틴",style: TextStyle(fontFamily: 'GmarketSans', fontSize: 36.sp),),
                 SizedBox(height: 80.h,),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 70.w),
+                  padding: EdgeInsets.symmetric(horizontal: 80.w),
                   child: Image.asset('assets/appIcon.png'),
                 ),
                 SizedBox(height: 25,),
