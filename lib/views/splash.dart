@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hem_routine_app/views/home.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -18,12 +19,12 @@ class SplashScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("나만의 변비 관리 루틴 앱",style: TextStyle(fontFamily: 'GmarketSans', fontSize: 16),),
-                SizedBox(height: 16,),
-                Text("쾌변루틴",style: TextStyle(fontFamily: 'GmarketSans', fontSize: 36),),
-                SizedBox(height: 80,),
+                Text("나만의 변비 관리 루틴 앱",style: TextStyle(fontFamily: 'GmarketSans', fontSize: 16.sp),),
+                SizedBox(height: 16.h,),
+                Text("쾌변루틴",style: TextStyle(fontFamily: 'GmarketSans', fontSize: 36.sp),),
+                SizedBox(height: 80.h,),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 70),
+                  padding: EdgeInsets.symmetric(horizontal: 70.w),
                   child: Image.asset('assets/appIcon.png'),
                 ),
                 SizedBox(height: 25,),
