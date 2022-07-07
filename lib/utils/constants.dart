@@ -5,51 +5,59 @@ import 'colors.dart';
 TextStyle BottomNavigationOptionStyle =
     TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold);
 
-TextStyle FontGray14_50 = TextStyle(
+TextStyle AppleFont14_White = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w500,
   fontSize: 14.sp,
   letterSpacing: 0.1.sp,
-  color: gray50,
+  color: grey50,
 );
 
-TextStyle FontGray14_700 = TextStyle(
+TextStyle AppleFont14_Grey700 = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w500,
   fontSize: 14.sp,
   letterSpacing: 0.1.sp,
-  color: gray700,
+  color: grey700,
 );
 
-TextStyle FontGray14_600 = TextStyle(
+TextStyle AppleFont14_Grey600 = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
   fontSize: 14.sp,
   letterSpacing: 0.1.sp,
-  color: gray600,
+  color: grey600,
 );
 
-TextStyle FontGray16_900 = TextStyle(
+TextStyle AppleFont16_Black = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
   fontSize: 16.sp,
   letterSpacing: 0.5.sp,
-  color: gray900,
+  color: grey900,
   height: 1.5,
 );
 
-TextStyle FontGray16_50 = TextStyle(
+TextStyle AppleFont16_White = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
   fontSize: 16.sp,
   letterSpacing: 0.5.sp,
-  color: gray50,
+  color: grey50,
 );
 
-TextStyle FontGray18_900 = TextStyle(
+TextStyle AppleFont18_Black = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
   fontSize: 16.sp,
   letterSpacing: 0.5.sp,
-  color: gray900,
+  color: grey900,
+);
+
+TextStyle AppleFont22_Black = TextStyle(
+  fontFamily: 'AppleSDGothicNeoM',
+  fontWeight: FontWeight.w400,
+  fontSize: 22.sp,
+  letterSpacing: 0.5.sp,
+  color: grey900,
 );

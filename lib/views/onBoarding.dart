@@ -22,7 +22,6 @@ class onBoardingPage extends StatefulWidget {
 }
 
 class _onBoardingPageState extends State<onBoardingPage> {
-
   AuthCredential? appleCredential = null;
   GoogleSignInAccount? googleCredential = null;
   LoginController controller = Get.put(LoginController());
@@ -249,10 +248,13 @@ class _onBoardingPageState extends State<onBoardingPage> {
                       );
 
                       // Once signed in, return the UserCredential
-                      await LoginPage.auth.signInWithCredential(credential).then((value) {
+                      await LoginPage.auth
+                          .signInWithCredential(credential)
+                          .then((value) {
                         if (LoginPage.auth.currentUser != null) {
                           Get.to(HomePage());
-                          controller.uid.value = LoginPage.auth.currentUser!.uid;
+                          controller.uid.value =
+                              LoginPage.auth.currentUser!.uid;
                         } else {
                           Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
                         }
@@ -289,7 +291,7 @@ Widget customBar(bool isActive) {
     height: 8.h,
     width: isActive ? 24.w : 16.w,
     decoration: BoxDecoration(
-        color: isActive ? primary : gray500,
+        color: isActive ? primary : grey500,
         borderRadius: BorderRadius.all(Radius.circular(20))),
   );
 }
