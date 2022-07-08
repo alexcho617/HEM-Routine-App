@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>438160748395-87sfk1ebil5qpt70snbpv235u5rkbjsv.apps.googleusercontent.com</string>
+	<string>438160748395-vld7ksdn471584at1vjmekl4fd3rd7qr.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.438160748395-87sfk1ebil5qpt70snbpv235u5rkbjsv</string>
+	<string>com.googleusercontent.apps.438160748395-vld7ksdn471584at1vjmekl4fd3rd7qr</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>438160748395-l9si0ao5hcvfb5q15g50abog52leqj7t.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCnOvTlNd0b-7KG_QQ6qVShH_5DKAfmrxM</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>coma.alexcho617.hemRoutineApp</string>
+	<string>com.example.hemRoutineApp</string>
 	<key>PROJECT_ID</key>
 	<string>hem-routine-app-dev</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:438160748395:ios:2a69a4eebe85a68fffe62e</string>
+	<string>1:438160748395:ios:ebc22194b71e1b2effe62e</string>
 </dict>
 </plist>
