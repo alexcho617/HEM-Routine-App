@@ -637,13 +637,17 @@ Widget RoutineFinishAlertDialog(VoidCallback? onPressed) {
           height: 302.h,
           child: Column(
             children: [
-              SizedBox(height: 48,),
+              SizedBox(
+                height: 48,
+              ),
               Container(
-                  height: 40.h,
-                  child: Text(
-                    '이번 루틴 어떠셨어요?',
-                    style: AppleFont22_Black,
-                  )),
+                height: 40.h,
+                child: Text(
+                  '이번 루틴 어떠셨어요?',
+                  style: AppleFont22_Black,
+                ),
+              ),
+              StarRank(2),
             ],
           ),
         ),
@@ -667,6 +671,26 @@ Widget RoutineFinishAlertDialog(VoidCallback? onPressed) {
           ),
         )
       ]),
+    ),
+  );
+}
+
+Widget StarRank(int value) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: List.generate(
+      5,
+      (index) {
+        return IconButton(
+          onPressed: () {},
+          color: index < value ? Colors.yellow : null,
+          iconSize: 42.r,
+          icon: Icon(
+            index < value ? Icons.star : Icons.star_outline,
+          ),
+          padding: EdgeInsets.zero,
+        );
+      },
     ),
   );
 }
