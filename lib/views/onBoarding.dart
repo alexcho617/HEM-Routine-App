@@ -22,8 +22,6 @@ class onBoardingPage extends StatefulWidget {
 }
 
 class _onBoardingPageState extends State<onBoardingPage> {
-  AuthCredential? appleCredential = null;
-  GoogleSignInAccount? googleCredential = null;
   LoginController controller = Get.put(LoginController());
   late Material materialButton;
   late int index;
@@ -230,35 +228,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
                         '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
                     onTap: () async {
                       //get apple credential
-                      googleCredential = await GoogleSignIn(
-                        scopes: [
-                          'email',
-                          'https://www.googleapis.com/auth/contacts.readonly',
-                        ],
-                      ).signIn();
-
-                      final GoogleSignInAuthentication? googleAuth =
-                          await googleCredential?.authentication;
-                      // print("auth_service.dart 38 : googleAuth assigned");
-
-                      // Create a new credential
-                      final credential = GoogleAuthProvider.credential(
-                        accessToken: googleAuth?.accessToken,
-                        idToken: googleAuth?.idToken,
-                      );
-
-                      // Once signed in, return the UserCredential
-                      await LoginPage.auth
-                          .signInWithCredential(credential)
-                          .then((value) {
-                        if (LoginPage.auth.currentUser != null) {
-                          Get.to(HomePage());
-                          controller.uid.value =
-                              LoginPage.auth.currentUser!.uid;
-                        } else {
-                          Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
-                        }
-                      });
+                      controller.signInwithGoogle();
                     },
                   ),
                 )
