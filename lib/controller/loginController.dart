@@ -14,35 +14,33 @@ class LoginController extends GetxController {
   var uid = ''.obs;
   var name = ''.obs;
 
-  
-
   Future<void> signInwithGoogle() async {
     googleCredential = await GoogleSignIn(
-                  scopes: [
-                    'email',
-                    'https://www.googleapis.com/auth/contacts.readonly',
-                  ],
-                ).signIn();
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    ).signIn();
 
-                final GoogleSignInAuthentication? googleAuth =
-                    await googleCredential?.authentication;
-                // print("auth_service.dart 38 : googleAuth assigned");
+    final GoogleSignInAuthentication? googleAuth =
+        await googleCredential?.authentication;
+    // print("auth_service.dart 38 : googleAuth assigned");
 
-                // Create a new credential
-                final credential = GoogleAuthProvider.credential(
-                  accessToken: googleAuth?.accessToken,
-                  idToken: googleAuth?.idToken,
-                );
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
 
-                // Once signed in, return the UserCredential
-                await auth.value.signInWithCredential(credential).then((value) {
-                  if (auth.value.currentUser != null) {
-                    Get.to(HomePage());
-                    uid.value = auth.value.currentUser!.uid;
-                  } else {
-                    Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
-                  }
-                });
+    // Once signed in, return the UserCredential
+    await auth.value.signInWithCredential(credential).then((value) {
+      if (auth.value.currentUser != null) {
+        Get.to(HomePage());
+        uid.value = auth.value.currentUser!.uid;
+      } else {
+        Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
+      }
+    });
   }
 
   Future<void> signInWithApple() async {
@@ -62,14 +60,14 @@ class LoginController extends GetxController {
         rawNonce: rawNonce,
         accessToken: appleCredential.authorizationCode);
 
-    await auth.value.signInWithCredential(oauthCredential!).then((value) {
-                  if (auth.value.currentUser != null) {
-                    Get.to(HomePage());
-                    uid.value = auth.value.currentUser!.uid;
-                  } else {
-                    Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
-                  }
-                });
+    await auth.value.signInWithCredential(oauthCredential).then((value) {
+      if (auth.value.currentUser != null) {
+        Get.to(HomePage());
+        uid.value = auth.value.currentUser!.uid;
+      } else {
+        Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
+      }
+    });
   }
 
   String generateNonce([int length = 32]) {
@@ -85,6 +83,4 @@ class LoginController extends GetxController {
     final digest = sha256.convert(bytes);
     return digest.toString();
   }
-
-  
 }
