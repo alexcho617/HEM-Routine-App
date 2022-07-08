@@ -24,26 +24,26 @@ Color blue800 = const Color.fromRGBO(0x00, 0x37, 0x9E, 1);
 
 Color blue900 = const Color.fromRGBO(0x00, 0x25, 0xBA, 1);
 
-Color gray50 = const Color.fromRGBO(0xFF, 0xFF, 0xFF, 1);
-Color white = gray50;
+Color grey50 = const Color.fromRGBO(0xFF, 0xFF, 0xFF, 1);
+Color white = grey50;
 
-Color gray100 = const Color.fromRGBO(0xFA, 0xFA, 0xFA, 1);
+Color grey100 = const Color.fromRGBO(0xFA, 0xFA, 0xFA, 1);
 
-Color gray200 = const Color.fromRGBO(0xF5, 0xF5, 0xF5, 1);
+Color grey200 = const Color.fromRGBO(0xF5, 0xF5, 0xF5, 1);
 
-Color gray300 = const Color.fromRGBO(0xF0, 0xF0, 0xF0, 1);
+Color grey300 = const Color.fromRGBO(0xF0, 0xF0, 0xF0, 1);
 
-Color gray400 = const Color.fromRGBO(0xDE, 0xDE, 0xDE, 1);
+Color grey400 = const Color.fromRGBO(0xDE, 0xDE, 0xDE, 1);
 
-Color gray500 = const Color.fromRGBO(0xC2, 0xC2, 0xC2, 1);
+Color grey500 = const Color.fromRGBO(0xC2, 0xC2, 0xC2, 1);
 
-Color gray600 = const Color.fromRGBO(0x97, 0x97, 0x97, 1);
+Color grey600 = const Color.fromRGBO(0x97, 0x97, 0x97, 1);
 
-Color gray700 = const Color.fromRGBO(0x81, 0x81, 0x81, 1);
+Color grey700 = const Color.fromRGBO(0x81, 0x81, 0x81, 1);
 
-Color gray800 = const Color.fromRGBO(0x60, 0x60, 0x60, 1);
+Color grey800 = const Color.fromRGBO(0x60, 0x60, 0x60, 1);
 
-Color gray900 = const Color.fromRGBO(0x3C, 0x3C, 0x3C, 1);
-Color black = gray900;
+Color grey900 = const Color.fromRGBO(0x3C, 0x3C, 0x3C, 1);
+Color black = grey900;
 
 Color yellow = const Color.fromRGBO(0xE7, 0xCD, 0x70, 1);

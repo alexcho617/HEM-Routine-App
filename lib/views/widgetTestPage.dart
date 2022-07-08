@@ -82,14 +82,30 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
                 padding: REdgeInsets.all(8),
                 child: Container(
                   height: 50,
-                  child: CircluarGuage(0.75),),
+                  child: CircluarGuage(0.75),
+                ),
               ),
               Text('HalfCircularGuage'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: Container(
                   height: 240,
-                  child: HalfCircluarGuage(0.75),),
+                  child: HalfCircluarGuage(0.75),
+                ),
+              ),
+              Text('AcheiveAlertDialog'),
+              Padding(
+                padding: REdgeInsets.all(8),
+                child: AchieveAlertDialog('\$\ 사용자', voidFunction),
+              ),
+              Text('RoutineStartAlertDialog'),
+              Padding(
+                padding: REdgeInsets.all(8),
+                child: RoutineStartAlertDialog(voidFunction, voidFunction),
+              ),Text('RoutineFinishAlertDialog'),
+              Padding(
+                padding: REdgeInsets.all(8),
+                child: RoutineFinishAlertDialog(voidFunction),
               ),
             ],
           ),

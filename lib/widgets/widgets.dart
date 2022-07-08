@@ -15,7 +15,7 @@ Widget NextButtonBig(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '다음',
-        style: FontGray14_50,
+        style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
         primary: primary,
@@ -52,7 +52,7 @@ Widget BackButtonSmall(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '이전',
-        style: FontGray14_700,
+        style: AppleFont14_Grey700,
       ),
       style: ElevatedButton.styleFrom(
         primary: Color.fromARGB(255, 212, 212, 212),
@@ -72,7 +72,7 @@ Widget NextButtonSmall(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '다음',
-        style: FontGray14_50,
+        style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
         primary: primary,
@@ -92,10 +92,10 @@ Widget SaveButtonGray(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '저장',
-        style: FontGray14_50,
+        style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
-        primary: gray500,
+        primary: grey500,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
         ),
@@ -112,7 +112,7 @@ Widget SaveButtonBlue(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '저장',
-        style: FontGray14_50,
+        style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
         primary: primary,
@@ -132,7 +132,7 @@ Widget MakeMyRoutineButton(VoidCallback? onPressed) {
       onPressed: onPressed,
       child: Text(
         '나만의 쾌변 루틴 만들기',
-        style: FontGray14_50,
+        style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
         primary: primary,
@@ -159,7 +159,7 @@ Widget AddButton(VoidCallback? onPressed) {
           ),
           Text(
             '추가하기',
-            style: FontGray14_50,
+            style: AppleFont14_White,
           ),
         ],
       ),
@@ -184,19 +184,19 @@ Widget AddRoutineButton(VoidCallback? onPressed) {
         children: [
           Icon(
             Icons.add,
-            color: gray50,
+            color: grey50,
           ),
           SizedBox(
             width: 6.w,
           ),
           Text(
             '나만의 루틴 항목 만들기',
-            style: FontGray14_600,
+            style: AppleFont14_Grey600,
           ),
         ],
       ),
       style: OutlinedButton.styleFrom(
-        primary: gray600,
+        primary: grey600,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24.r),
         ),
@@ -241,7 +241,7 @@ Widget DeleteAlertDialog(
           child: Center(
               child: Text(
             '정말로 배변 기록을 \n삭제 하시겠습니까?',
-            style: FontGray16_900,
+            style: AppleFont16_Black,
             textAlign: TextAlign.center,
           )),
         ),
@@ -254,14 +254,14 @@ Widget DeleteAlertDialog(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20.r),
                   ),
-                  color: gray500,
+                  color: grey500,
                 ),
                 width: 124.w,
                 height: 56.h,
                 child: Center(
                     child: Text(
                   '취소',
-                  style: FontGray16_900,
+                  style: AppleFont16_Black,
                 )),
               ),
             ),
@@ -279,7 +279,7 @@ Widget DeleteAlertDialog(
                 child: Center(
                   child: Text(
                     '삭제',
-                    style: FontGray16_50,
+                    style: AppleFont16_White,
                   ),
                 ),
               ),
@@ -309,7 +309,7 @@ Widget SaveAlertDialog(VoidCallback? onPressed) {
           child: Center(
               child: Text(
             '루틴 설정이 \n저장 되었습니다.',
-            style: FontGray16_900,
+            style: AppleFont16_Black,
             textAlign: TextAlign.center,
           )),
         ),
@@ -327,7 +327,7 @@ Widget SaveAlertDialog(VoidCallback? onPressed) {
             child: Center(
               child: Text(
                 '확인',
-                style: FontGray16_50,
+                style: AppleFont16_White,
               ),
             ),
           ),
@@ -362,17 +362,17 @@ Widget RoutineItemList(RoutineItemController controller) {
             children: [
               Text(
                 controller.list[index].name,
-                style: FontGray18_900,
+                style: AppleFont18_Black,
               ),
               Column(
                 children: [
                   Text(
                     '수행/목표',
-                    style: FontGray14_600,
+                    style: AppleFont14_Grey600,
                   ),
                   Text(
                     '${controller.countList[index]}/${controller.list[index].goalCount}',
-                    style: FontGray14_600,
+                    style: AppleFont14_Grey600,
                   ),
                 ],
               ),
@@ -399,7 +399,7 @@ Widget RoutineItemList(RoutineItemController controller) {
                       backgroundColor: blue600,
                       child: Icon(
                         Icons.add,
-                        color: gray50,
+                        color: grey50,
                       ),
                     ),
                   ),
@@ -457,10 +457,7 @@ Widget HalfCircluarGuage(double percent) {
           endAngle: 0,
           minimum: 0,
           maximum: 1,
-          axisLineStyle: AxisLineStyle(
-            color: gray400,
-            thickness: 21.r
-          ),
+          axisLineStyle: AxisLineStyle(color: grey400, thickness: 21.r),
           ranges: <GaugeRange>[
             GaugeRange(
               startValue: 0,
@@ -472,6 +469,228 @@ Widget HalfCircluarGuage(double percent) {
           ],
         )
       ],
+    ),
+  );
+}
+
+Widget AchieveAlertDialog(String name, VoidCallback? onPressed) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: Container(
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 302.h,
+          child: Column(
+            children: [
+              SizedBox(
+                // TODO: Change This SizedBox Widget to Icon
+                height: 178.w,
+              ),
+              Container(
+                  height: 40.h,
+                  child: Text(
+                    '오늘의 루틴 목표 달성!',
+                    style: AppleFont22_Black,
+                  )),
+              Container(
+                height: 48.h,
+                child: Text(
+                  '$name 님이 설정하신\n루틴 일일 목표를 100% 달성했어요!',
+                  style: AppleFont16_Black,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+        InkWell(
+          onTap: onPressed,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(20.r),
+              ),
+              color: primary,
+            ),
+            width: 312.w,
+            height: 56.h,
+            child: Center(
+              child: Text(
+                '확인',
+                style: AppleFont16_White,
+              ),
+            ),
+          ),
+        )
+      ]),
+    ),
+  );
+}
+
+Widget RoutineStartAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedStart) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: Container(
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 302.h,
+          child: Column(
+            children: [
+              SizedBox(
+                // TODO: Change This SizedBox Widget to Icon
+                height: 178.w,
+              ),
+              Container(
+                  height: 40.h,
+                  child: Text(
+                    '루틴을 도전하세요!',
+                    style: AppleFont22_Black,
+                  )),
+              Container(
+                height: 48.h,
+                child: Text(
+                  '설정하신 루틴을\n오늘부터 도전해 보세요!',
+                  style: AppleFont16_Black,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedStart,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '루틴 시작',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
+Widget RoutineFinishAlertDialog(VoidCallback? onPressed) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: Container(
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 302.h,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 48,
+              ),
+              Container(
+                height: 40.h,
+                child: Text(
+                  '이번 루틴 어떠셨어요?',
+                  style: AppleFont22_Black,
+                ),
+              ),
+              StarRank(2),
+            ],
+          ),
+        ),
+        InkWell(
+          onTap: onPressed,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(20.r),
+              ),
+              color: primary,
+            ),
+            width: 312.w,
+            height: 56.h,
+            child: Center(
+              child: Text(
+                '평가 제출',
+                style: AppleFont16_White,
+              ),
+            ),
+          ),
+        )
+      ]),
+    ),
+  );
+}
+
+Widget StarRank(int value) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: List.generate(
+      5,
+      (index) {
+        return IconButton(
+          onPressed: () {},
+          color: index < value ? Colors.yellow : null,
+          iconSize: 42.r,
+          icon: Icon(
+            index < value ? Icons.star : Icons.star_outline,
+          ),
+          padding: EdgeInsets.zero,
+        );
+      },
     ),
   );
 }

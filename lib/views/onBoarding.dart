@@ -22,7 +22,6 @@ class onBoardingPage extends StatefulWidget {
 }
 
 class _onBoardingPageState extends State<onBoardingPage> {
-  
   LoginController controller = Get.put(LoginController());
   late Material materialButton;
   late int index;
@@ -262,7 +261,7 @@ Widget customBar(bool isActive) {
     height: 8.h,
     width: isActive ? 24.w : 16.w,
     decoration: BoxDecoration(
-        color: isActive ? primary : gray500,
+        color: isActive ? primary : grey500,
         borderRadius: BorderRadius.all(Radius.circular(20))),
   );
 }
