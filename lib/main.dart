@@ -7,6 +7,7 @@ import 'package:hem_routine_app/firebase_options.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/login.dart';
 import 'package:hem_routine_app/views/onBoarding.dart';
+import 'package:hem_routine_app/views/routine/routine.dart';
 import 'package:hem_routine_app/views/splash.dart';
 import 'package:hem_routine_app/views/test.dart';
 
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
               '/widgetTest': (context) => WidgetTestPage(),
               '/onBoarding': (context) => onBoardingPage(),
               '/test' : (context) => App(),
+              '/routine' : (context) => RoutinePage(),
               // '/test1' : (context) => MyStatefulWidget(),
             },
           );
