@@ -7,7 +7,9 @@
 
 2.1 아이콘을 변경하려면 customCalendar 를 만들어야한다. CalendarBuilder를 사용하며 MarkerBuilder로 이벤트 표시해야함.
 
-3. When the event occurs, set a single event markr with the character image, however only one marker is allowed in the calendar. Which is a problem for adding a routine. If routine will be added as marker, then there must be a different way to show marker which is very unnatural.
+3. When the event occurs, set a single event marker with the character image, however only one marker is allowed in the calendar. Which is a problem for adding a routine. If routine will be added as marker, then there must be a different way to show marker which is very unnatural.
+use a single marker builder for dynamic marking https://github.com/aleksanderwozniak/table_calendar/issues/64#issuecomment-521781914
+
 
 Perhaps, find a option to display some kind of background color for the routined dates. This can be done by using a different calendarProperty to certain dates?
 */
@@ -15,10 +17,13 @@ Perhaps, find a option to display some kind of background color for the routined
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controller/eventController.dart';
+import 'package:hem_routine_app/models/event.dart';
+import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Calendar extends StatefulWidget {
   @override
@@ -31,48 +36,69 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     EventController controller = Get.find();
+    // DateTime date = DateTime(2022, 7, 5);
+    // UserEvent event = UserEvent(time: date, color: primary);
+    // controller.addEvent(date, event);
 
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TableCalendar(
-            focusedDay: controller.selectedDay,
-            firstDay: DateTime(2022),
-            lastDay: DateTime.now(),
-            calendarFormat: format,
-            startingDayOfWeek: StartingDayOfWeek.sunday,
-            daysOfWeekVisible: true,
-            //Day Changed
-            onDaySelected: (DateTime selectDay, DateTime focusDay) {
-              setState(() {
-                controller.selectedDay = selectDay;
-                controller.focusedDate = focusDay;
-              });
+    // return Scaffold(
+    //   body:
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        TableCalendar(
+          calendarBuilders: CalendarBuilders(
+            singleMarkerBuilder: (context, date, event) {
+              // event.memo
+              return Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: Colors.redAccent),
+                width: 7.0,
+                height: 7.0,
+                margin: const EdgeInsets.symmetric(horizontal: 1.5),
+              );
             },
-
-            selectedDayPredicate: (DateTime date) {
-              return isSameDay(controller.selectedDay, date);
-            },
-            eventLoader: _eventLoader,
-            calendarStyle: kCalendarStyle,
-            headerStyle: kHeaderStyle,
           ),
+          focusedDay: controller.selectedDay,
+          firstDay: DateTime(2022),
+          lastDay: DateTime.now(),
+          calendarFormat: format,
+          startingDayOfWeek: StartingDayOfWeek.sunday,
+          daysOfWeekVisible: true,
+          //Day Changed
+          onDaySelected: (DateTime selectDay, DateTime focusDay) {
+            print(focusDay);
+            setState(() {
+              controller.selectedDay = selectDay;
+              controller.focusedDate = focusDay;
+            });
+          },
 
-          //event loading
-          // ..._eventLoader(controller.selectedDay).map(
-          //   (Event event) => ListTile(
-          //     title: Text(
-          //       event.title,
-          //     ),
-          //   ),
-          // ),
-          // PlusSquareButton(onAddEventButtonPressed),
-          PlusSquareButton(() {
+          selectedDayPredicate: (DateTime date) {
+            return isSameDay(controller.selectedDay, date);
+          },
+          eventLoader: _eventLoader,
+          calendarStyle: kCalendarStyle,
+          headerStyle: kHeaderStyle,
+        ),
+        //event loading
+        // ..._eventLoader(controller.selectedDay).map(
+        //   (Event event) => ListTile(
+        //     title: Text(
+        //       event.title,
+        //     ),
+        //   ),
+        // ),
+        // PlusSquareButton(onAddEventButtonPressed),
+        SizedBox(
+          height: 100.0.h,
+        ),
+        PlusSquareButton(
+          () {
             Get.to(NewCalendarEvent());
-          }),
-        ],
-      ),
+          },
+        ),
+      ],
+      // ),
     );
   }
 
