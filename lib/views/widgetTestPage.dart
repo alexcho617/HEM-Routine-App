@@ -102,10 +102,6 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
               Padding(
                 padding: REdgeInsets.all(8),
                 child: RoutineStartAlertDialog(voidFunction, voidFunction),
-              ),Text('RoutineFinishAlertDialog'),
-              Padding(
-                padding: REdgeInsets.all(8),
-                child: RoutineFinishAlertDialog(voidFunction),
               ),
             ],
           ),
