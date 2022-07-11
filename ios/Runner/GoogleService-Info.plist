@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>438160748395-vld7ksdn471584at1vjmekl4fd3rd7qr.apps.googleusercontent.com</string>
+	<string>438160748395-g0rg9b9or8o7h865tq1v1f86ja5lnh0s.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.438160748395-vld7ksdn471584at1vjmekl4fd3rd7qr</string>
+	<string>com.googleusercontent.apps.438160748395-g0rg9b9or8o7h865tq1v1f86ja5lnh0s</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>438160748395-l9si0ao5hcvfb5q15g50abog52leqj7t.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.hemRoutineApp</string>
+	<string>com.swfact.hemRoutineApp</string>
 	<key>PROJECT_ID</key>
 	<string>hem-routine-app-dev</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:438160748395:ios:ebc22194b71e1b2effe62e</string>
+	<string>1:438160748395:ios:ac444f8851d7b438ffe62e</string>
 </dict>
 </plist>

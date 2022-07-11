@@ -3,12 +3,10 @@ import 'package:flutterfire_ui/auth.dart';
 // import 'package:flutterfire_ui/auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hem_routine_app/controller/loginController.dart';
-import 'package:hem_routine_app/services/service.dart';
 
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/widgetTestPage.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
