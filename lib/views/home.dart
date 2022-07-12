@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-        // child: Calendar(),
+        child: Calendar(),
         // TextButton(onPressed: () => Get.toNamed('/login'), child: Text('login'))
       )),
       // body: SafeArea(child: TableRangeExample()),
