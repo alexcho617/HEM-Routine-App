@@ -3,12 +3,12 @@ import 'package:table_calendar/table_calendar.dart';
 
 import 'dart:collection';
 
-class Event {
-  final String title;
-  Event({required this.title});
+// class Event {
+//   final String title;
+//   Event({required this.title});
 
-  String toString() => this.title;
-}
+//   String toString() => this.title;
+// }
 
 /// Example events.
 ///

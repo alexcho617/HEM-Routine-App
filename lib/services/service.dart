@@ -1,7 +1,5 @@
 //define services such as firebase or apple login
 
-
-
 import 'dart:convert';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
@@ -41,3 +39,5 @@ Future<OAuthCredential> signInWithApple() async {
 
   return oauthCredential;
 }
+
+
