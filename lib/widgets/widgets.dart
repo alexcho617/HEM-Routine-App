@@ -619,3 +619,64 @@ Widget RoutineStartAlertDialog(
     ),
   );
 }
+
+Widget RoutineCard(
+    String name, int day, double percent, int rank, VoidCallback? onPressed) {
+  return Card(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+      SizedBox(
+        width: 144.w,
+        height: 151.h,
+        child: Column(
+          children: [
+            SizedBox(
+                height: 24.h,
+                child: Text(
+                  name,
+                  style: AppleFont16_Black,
+                )),
+            SizedBox(
+              height: 16.h,
+              child: Text(
+                '$day 일간',
+                style: AppleFont12_Grey500,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Circlegauze indicator,
+                // Rank indicator,
+              ],
+            )
+          ],
+        ),
+      ),
+      InkWell(
+        onTap: onPressed,
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(20.r),
+            ),
+            color: primary,
+          ),
+          width: 144.w,
+          height: 40.h,
+          child: Center(
+            child: Text(
+              '자세히 보기 >',
+              style: AppleFont16_White,
+            ),
+          ),
+        ),
+      )
+    ]),
+  );
+}

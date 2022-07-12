@@ -15,6 +15,15 @@ TextStyle AppleFont12_Black = TextStyle(
   height: 1.25,
   color: grey900,
 );
+
+TextStyle AppleFont12_Grey500 = TextStyle(
+  fontFamily: 'AppleSDGothicNeoM',
+  fontWeight: FontWeight.w400,
+  fontSize: 12.sp,
+  letterSpacing: 0.4.sp,
+  height: 1.25,
+  color: grey500,
+);
 TextStyle AppleFont14_White = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w500,

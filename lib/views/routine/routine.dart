@@ -20,7 +20,10 @@ class RoutinePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Routine',style:AppleFont16_Grey600,),
+              Text(
+                'Routine',
+                style: AppleFont16_Grey600,
+              ),
               SizedBox(
                 width: 11.w,
               ),
@@ -28,35 +31,71 @@ class RoutinePage extends StatelessWidget {
                 width: 68.w,
                 height: 29.h,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24.r),
-                    border: Border.all(
-                      color: grey500,
-                    ),),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.circle, color: grey600,size:18.r,),
-                        SizedBox(
-                          width: 6.w,
-                        ),
-                        Text('OFF',style: AppleFont16_Grey600,)
-                      ],
+                  borderRadius: BorderRadius.circular(24.r),
+                  border: Border.all(
+                    color: grey500,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      color: grey600,
+                      size: 18.r,
                     ),
+                    SizedBox(
+                      width: 6.w,
+                    ),
+                    Text(
+                      'OFF',
+                      style: AppleFont16_Grey600,
+                    )
+                  ],
+                ),
               ),
             ],
           ),
-          SizedBox(height: 19.h,),
-          Text('루틴 도전',style: AppleFont24_Black,),
-          SizedBox(height: 15.h,),
-          Text('배가 많이 불편하신가요?\n \$사용자님에게 맞는 루틴을 만들어라',style: AppleFont12_Black,textAlign: TextAlign.center,),
-          SizedBox(height: 43.h,),
+          SizedBox(
+            height: 19.h,
+          ),
+          Text(
+            '루틴 도전',
+            style: AppleFont24_Black,
+          ),
+          SizedBox(
+            height: 15.h,
+          ),
+          Text(
+            '배가 많이 불편하신가요?\n \$사용자님에게 맞는 루틴을 만들어라',
+            style: AppleFont12_Black,
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 43.h,
+          ),
           MakeMyRoutineButton(onPressed),
+          SizedBox(
+            height: 98.h,
+          ),
+          Text('지난 나의 루틴'),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                RoutineCard('루틴이름 1', 7, 80, 3, onPressed),
+                RoutineCard('루틴이름 2', 7, 80, 3, onPressed),
+                RoutineCard('루틴이름 3', 7, 80, 3, onPressed),
+              ],
+            ),
+          ),
+          PlusSquareButton(onPressed),
         ],
       ),
     );
   }
 
-  void onPressed(){
+  void onPressed() {
     //void onPressed
   }
 }
