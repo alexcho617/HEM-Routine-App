@@ -17,7 +17,7 @@ Perhaps, find a option to display some kind of background color for the routined
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controller/eventController.dart';
-import 'package:hem_routine_app/models/event.dart';
+import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
 import 'package:table_calendar/table_calendar.dart';

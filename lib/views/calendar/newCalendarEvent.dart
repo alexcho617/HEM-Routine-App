@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controller/eventController.dart';
 import 'package:hem_routine_app/views/home.dart';
-import '../../models/event.dart';
+import '../../models/calendarEvent.dart';
 import '../../utils/calendarUtil.dart';
 
 class NewCalendarEvent extends StatefulWidget {
@@ -59,7 +59,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                       if (controller.selectedEvents[controller.selectedDay] !=
                           null) {
                         controller.selectedEvents[controller.selectedDay]!.add(
-                          UserEvent(
+                          CalendarEvent(
                               time: controller.selectedDay,
                               color: Colors.amber,
                               memo: eventTextController.text),
@@ -70,7 +70,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                       } else {
                         //listize and add
                         controller.selectedEvents[controller.selectedDay] = [
-                          UserEvent(
+                          CalendarEvent(
                               time: controller.selectedDay,
                               color: Colors.amber,
                               memo: eventTextController.text),
