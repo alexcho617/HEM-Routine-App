@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hem_routine_app/controller/loginController.dart';
+import 'package:hem_routine_app/controller/loginService.dart';
 import 'package:hem_routine_app/views/login.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import 'package:onboarding/onboarding.dart';
@@ -22,7 +22,7 @@ class onBoardingPage extends StatefulWidget {
 }
 
 class _onBoardingPageState extends State<onBoardingPage> {
-  LoginController controller = Get.put(LoginController());
+  LoginService controller = Get.find();
   late Material materialButton;
   late int index;
   final onboardingPagesList = [

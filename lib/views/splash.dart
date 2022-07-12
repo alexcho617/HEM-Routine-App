@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:hem_routine_app/views/home.dart';
+import 'package:hem_routine_app/views/onBoarding.dart';
+
+import '../controller/loginService.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  SplashScreen({Key? key}) : super(key: key);
+  LoginService service = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class SplashScreen extends StatelessWidget {
             ),
           ),
         ),
-        nextScreen: HomePage(),
+        nextScreen: service.auth.value.currentUser == null? onBoardingPage() : HomePage(),
     );
   }
 }

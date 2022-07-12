@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controller/eventController.dart';
+import 'package:hem_routine_app/controller/loginService.dart';
 import 'package:hem_routine_app/firebase_options.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/login.dart';
@@ -20,8 +21,17 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  initServices();
   runApp(const MyApp());
+}
+
+void initServices() {
+  print('starting services ...');
+
+  /// Here is where you put get_storage, hive, shared_pref initialization.
+  /// or moor connection, or whatever that's async.
+  Get.put(LoginService());
+  print('All services started...');
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +39,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Get.put(RoutineItemController());
     Get.put(EventController());
 
@@ -44,8 +53,8 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            initialRoute: '/login',
-          routes: {
+            initialRoute: '/splash',
+            routes: {
               '/home': (context) => HomePage(),
               '/splash': (context) => SplashScreen(),
               '/login': (context) => LoginPage(),
