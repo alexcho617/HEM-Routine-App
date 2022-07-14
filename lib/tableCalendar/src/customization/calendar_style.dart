@@ -145,6 +145,50 @@ class CalendarStyle {
   /// Border for the internal `Table` widget.
   final TableBorder tableBorder;
 
+  //alex
+  /// Decoration for routine bar
+  final Decoration routineMarkerDecoration;
+
+  /// Maximum amount of single event marker dots to be displayed.
+  final int routineMarkersMaxCount;
+
+  /// Specifies if event markers rendered for a day cell can overflow cell's boundaries.
+  /// * `true` - Event markers will be drawn over the cell boundaries
+  /// * `false` - Event markers will be clipped if they are too big
+  final bool canRoutineMarkersOverflow;
+
+  /// Determines if single event marker dots should be aligned automatically with `markersAnchor`.
+  /// If `false`, `markersOffset` will be used instead.
+  final bool routineMarkersAutoAligned;
+
+  /// Specifies the anchor point of single event markers if `markersAutoAligned` is `true`.
+  /// A value of `0.5` will center the markers at the bottom edge of day cell's decoration.
+  ///
+  /// Includes `cellMargin` for calculations.
+  final double routineMarkersAnchor;
+
+  /// The size of single event marker dot.
+  ///
+  /// By default `markerSizeScale` is used. To use `markerSize` instead, simply provide a non-null value.
+  final double? routineMarkerSize;
+
+  /// Proportion of single event marker dot size in relation to day cell size.
+  ///
+  /// Includes `cellMargin` for calculations.
+  final double routineMarkerSizeScale;
+
+  /// `PositionedOffset` for event markers. Allows to specify `top`, `bottom`, `start` and `end`.
+  final PositionedOffset routineMarkersOffset;
+
+  /// General `Alignment` for event markers.
+  /// Will have no effect on markers if `markersAutoAligned` or `markersOffset` is used.
+  final AlignmentGeometry routineMarkersAlignment;
+
+  /// Margin of single event markers. Affects each marker dot.
+  final EdgeInsets routineMarkerMargin;
+
+  //alex
+
   /// Creates a `CalendarStyle` used by `TableCalendar` widget.
   const CalendarStyle({
     this.isTodayHighlighted = true,
@@ -166,6 +210,20 @@ class CalendarStyle {
     this.markerDecoration = const BoxDecoration(
       color: const Color(0xFF263238),
       shape: BoxShape.circle,
+    ),
+    //alex
+    this.canRoutineMarkersOverflow = true,
+    this.routineMarkersAutoAligned = true,
+    this.routineMarkerSize,
+    this.routineMarkerSizeScale = 0.2,
+    this.routineMarkersAnchor = 0.7,
+    this.routineMarkersOffset = const PositionedOffset(),
+    this.routineMarkerMargin = const EdgeInsets.symmetric(horizontal: 0.3),
+    this.routineMarkersAlignment = Alignment.bottomCenter,
+    this.routineMarkersMaxCount = 1,
+    this.routineMarkerDecoration = const BoxDecoration(
+      color: Color.fromARGB(255, 10, 165, 242),
+      shape: BoxShape.rectangle,
     ),
     this.todayTextStyle = const TextStyle(
       color: const Color(0xFFFAFAFA),

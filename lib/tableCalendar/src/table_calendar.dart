@@ -161,6 +161,9 @@ class TableCalendar<T> extends StatefulWidget {
   /// Function that assigns a list of events to a specified day.
   final List<T> Function(DateTime day)? eventLoader;
 
+  /// Function that assigns a list of routine to a specified day.
+  final List<T> Function(DateTime day)? routineLoader;
+
   /// Function deciding whether given day should be enabled or not.
   /// If `false` is returned, this day will be disabled.
   final bool Function(DateTime day)? enabledDayPredicate;
@@ -243,6 +246,7 @@ class TableCalendar<T> extends StatefulWidget {
     this.calendarBuilders = const CalendarBuilders(),
     this.rangeSelectionMode = RangeSelectionMode.toggledOff,
     this.eventLoader,
+    this.routineLoader,
     this.enabledDayPredicate,
     this.selectedDayPredicate,
     this.holidayPredicate,
@@ -620,6 +624,12 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
           Widget? markerWidget =
               widget.calendarBuilders.markerBuilder?.call(context, day, events);
 
+          //alex
+          final routines = widget.eventLoader?.call(day) ?? [];
+          Widget? routineWidget = widget.calendarBuilders.routineMarkerBuilder
+              ?.call(context, day, routines);
+          //alex
+
           if (events.isNotEmpty && markerWidget == null) {
             final center = constraints.maxHeight / 2;
 
@@ -654,8 +664,47 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
             );
           }
 
+//alex
+          if (routines.isNotEmpty && routineWidget == null) {
+            final center = constraints.maxHeight / 2;
+
+            final routineSize = widget.calendarStyle.routineMarkerSize ??
+                (shorterSide - widget.calendarStyle.cellMargin.vertical) *
+                    widget.calendarStyle.routineMarkerSizeScale;
+
+            final markerAutoAlignmentTop = center +
+                (shorterSide - widget.calendarStyle.cellMargin.vertical) / 2 -
+                (routineSize * widget.calendarStyle.markersAnchor);
+
+            markerWidget = PositionedDirectional(
+              top: widget.calendarStyle.markersAutoAligned
+                  ? markerAutoAlignmentTop
+                  : widget.calendarStyle.markersOffset.top,
+              bottom: widget.calendarStyle.markersAutoAligned
+                  ? null
+                  : widget.calendarStyle.markersOffset.bottom,
+              start: widget.calendarStyle.markersAutoAligned
+                  ? null
+                  : widget.calendarStyle.markersOffset.start,
+              end: widget.calendarStyle.markersAutoAligned
+                  ? null
+                  : widget.calendarStyle.markersOffset.end,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: events
+                    .take(widget.calendarStyle.markersMaxCount)
+                    .map((event) => _buildSingleMarker(day, event, routineSize))
+                    .toList(),
+              ),
+            );
+          }
+
           if (markerWidget != null) {
             children.add(markerWidget);
+          }
+          //alex
+          if (routineWidget != null) {
+            children.add(routineWidget);
           }
         }
 

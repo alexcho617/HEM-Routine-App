@@ -15,6 +15,11 @@ typedef SingleMarkerBuilder<T> = Widget? Function(
 typedef MarkerBuilder<T> = Widget? Function(
     BuildContext context, DateTime day, List<T> events);
 
+/// Signature for a function that creates an event marker for a given `day`.
+/// Contains a list of `events` associated with that `day`.
+typedef RoutineMarkerBuilder<T> = Widget? Function(
+    BuildContext context, DateTime day, List<T> routines);
+
 /// Signature for a function that creates a background highlight for a given `day`.
 ///
 /// Used for highlighting current range selection.
@@ -71,6 +76,8 @@ class CalendarBuilders<T> {
   /// Custom builder for event markers. Use to provide your own marker UI for each day cell.
   /// Using `markerBuilder` will override `singleMarkerBuilder` and default event markers.
   final MarkerBuilder<T>? markerBuilder;
+  //alex
+  final RoutineMarkerBuilder<T>? routineMarkerBuilder;
 
   /// Custom builder for days of the week labels (Mon, Tue, Wed, etc.).
   final DayBuilder? dowBuilder;
@@ -93,6 +100,8 @@ class CalendarBuilders<T> {
     this.rangeHighlightBuilder,
     this.singleMarkerBuilder,
     this.markerBuilder,
+    //alex
+    this.routineMarkerBuilder,
     this.dowBuilder,
     this.headerTitleBuilder,
   });

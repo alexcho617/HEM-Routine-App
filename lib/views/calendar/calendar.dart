@@ -33,39 +33,50 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   CalendarFormat format = CalendarFormat.month;
-
   @override
   Widget build(BuildContext context) {
     EventController controller = Get.find();
-    // DateTime date = DateTime(2022, 7, 5);
-    // UserEvent event = UserEvent(time: date, color: primary);
-    // controller.addEvent(date, event);
+    DateTime date = DateTime(2022, 7, 5);
+    CalendarEvent event = CalendarEvent(time: date, color: primary);
+    controller.addEvent(date, event);
 
     // return Scaffold(
     //   body:
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        TableCalendar(
+        TableCalendar<CalendarEvent>(
           calendarBuilders: CalendarBuilders(
-            singleMarkerBuilder: (context, date, event) {
+            //this is acting like a singleMarkerbuilder. Need to change it as regular marker builder.
+            routineMarkerBuilder: (context, date, routines) {
               // event.memo
               return Container(
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.redAccent),
-                width: 7.0,
-                height: 7.0,
+                    shape: BoxShape.rectangle, color: Colors.redAccent),
+                width: 14.0.w,
+                height: 7.0.h,
                 margin: const EdgeInsets.symmetric(horizontal: 1.5),
               );
             },
           ),
-          focusedDay: controller.selectedDay,
-          firstDay: DateTime(2022),
-          lastDay: DateTime.now(),
+
+          firstDay: kFirstDay,
+          lastDay: kLastDay,
+          focusedDay: controller.focusedDate,
+          selectedDayPredicate: (DateTime date) {
+            return isSameDay(controller.selectedDay, date);
+          },
           calendarFormat: format,
-          startingDayOfWeek: StartingDayOfWeek.sunday,
-          daysOfWeekVisible: true,
-          //Day Changed
+          // eventLoader: _getEventsForDay,
+          startingDayOfWeek: StartingDayOfWeek.monday,
+          calendarStyle: CalendarStyle(
+            // Use `CalendarStyle` to customize the UI
+            outsideDaysVisible: false,
+          ),
+
+          eventLoader: (DateTime selectedDay) {
+            return _eventLoader(selectedDay);
+          },
           onDaySelected: (DateTime selectDay, DateTime focusDay) {
             print(focusDay);
             setState(() {
@@ -73,19 +84,48 @@ class _CalendarState extends State<Calendar> {
               controller.focusedDate = focusDay;
             });
           },
-
-          selectedDayPredicate: (DateTime date) {
-            return isSameDay(controller.selectedDay, date);
-          },
-          eventLoader: _eventLoader,
-          calendarStyle: kCalendarStyle,
-          headerStyle: kHeaderStyle,
         ),
+
+        // TableCalendar(
+        //   calendarBuilders: CalendarBuilders(
+        //     singleMarkerBuilder: (context, date, event) {
+        //       // event.memo
+        //       return Container(
+        //         decoration: BoxDecoration(
+        //             shape: BoxShape.circle, color: Colors.redAccent),
+        //         width: 7.0,
+        //         height: 7.0,
+        //         margin: const EdgeInsets.symmetric(horizontal: 1.5),
+        //       );
+        //     },
+        //   ),
+        //   focusedDay: controller.selectedDay,
+        //   firstDay: DateTime(2022),
+        //   lastDay: DateTime.now(),
+        //   calendarFormat: format,
+        //   startingDayOfWeek: StartingDayOfWeek.sunday,
+        //   daysOfWeekVisible: true,
+        //   //Day Changed
+        //   onDaySelected: (DateTime selectDay, DateTime focusDay) {
+        //     print(focusDay);
+        //     setState(() {
+        //       controller.selectedDay = selectDay;
+        //       controller.focusedDate = focusDay;
+        //     });
+        //   },
+
+        //   selectedDayPredicate: (DateTime date) {
+        //     return isSameDay(controller.selectedDay, date);
+        //   },
+        //   eventLoader: _eventLoader,
+        //   calendarStyle: kCalendarStyle,
+        //   headerStyle: kHeaderStyle,
+        // ),
         //event loading
         // ..._eventLoader(controller.selectedDay).map(
-        //   (Event event) => ListTile(
+        //   (CalendarEvent event) => ListTile(
         //     title: Text(
-        //       event.title,
+        //       event.memo.toString(),
         //     ),
         //   ),
         // ),
@@ -103,10 +143,10 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  List<dynamic> _eventLoader(DateTime date) {
+  List<CalendarEvent> _eventLoader(DateTime day) {
     EventController controller = Get.find();
-    List<dynamic> list;
-    list = controller.getEventsfromDay(date) ?? [];
+    List<CalendarEvent> list;
+    list = controller.getEventsfromDay(day) ?? [];
     return list;
   }
 }
