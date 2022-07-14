@@ -73,6 +73,7 @@ class _CalendarState extends State<Calendar> {
             });
           },
 
+
           selectedDayPredicate: (DateTime date) {
             return isSameDay(controller.selectedDay, date);
           },
