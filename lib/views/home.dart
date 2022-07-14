@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:hem_routine_app/views/calendar/calendar.dart';
 // import 'package:get/get.dart';
 import 'package:hem_routine_app/views/calendar/customCalendar.dart';
 
@@ -12,7 +13,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-        child: CustomCalendar(),
+        child: Calendar(),
         // TextButton(onPressed: () => Get.toNamed('/login'), child: Text('login'))
       )),
       // body: SafeArea(child: TableRangeExample()),

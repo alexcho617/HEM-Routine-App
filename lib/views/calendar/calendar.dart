@@ -20,7 +20,8 @@ import 'package:hem_routine_app/controller/eventController.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:hem_routine_app/tableCalendar/table_calendar.dart';
+
 import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
