@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 // import 'package:flutterfire_ui/auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hem_routine_app/controller/loginController.dart';
+import 'package:hem_routine_app/controller/loginService.dart';
 
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/widgetTestPage.dart';
@@ -15,7 +15,7 @@ class LoginPage extends StatelessWidget {
   
   
   GoogleSignInAccount? googleCredential = null;
-  LoginController controller = Get.put(LoginController());
+  LoginService service = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
           children: [
             SignInWithAppleButton(
               onPressed: () async {
-                await controller.signInWithApple();
+                await service.signInWithApple();
               },
             ),
             GoogleSignInButton(
@@ -39,7 +39,7 @@ class LoginPage extends StatelessWidget {
                   '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
               onTap: () async {
                 //get apple credential
-                await controller.signInwithGoogle();
+                await service.signInwithGoogle();
               },
             ),
             TextButton(
@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
               }),
               child: Text('Widgets'),
             ),
-            Text('${controller.auth.value.currentUser}')
+            Text('${service.auth.value.currentUser}')
           ],
         ),
       ),
