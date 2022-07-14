@@ -68,7 +68,7 @@ class _CalendarState extends State<Calendar> {
           //   ),
           // ),
           // PlusSquareButton(onAddEventButtonPressed),
-          PlusSquareButton(() {
+          plusSquareButton(() {
             Get.to(NewCalendarEvent());
           }),
         ],

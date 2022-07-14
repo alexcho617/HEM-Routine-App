@@ -214,7 +214,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
                 ),
               ),
               if (index == 0)
-                NextButtonBig(() {
+                nextButtonBig(() {
                   if (setIndex != null) {
                     index = 1;
                     setIndex(1);
@@ -233,7 +233,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
                   ),
                 )
               else
-                NextAndBackButton(() {
+                nextAndBackButton(() {
                   if (setIndex != null) {
                     setIndex(--index);
                   }

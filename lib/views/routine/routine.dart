@@ -74,22 +74,36 @@ class RoutinePage extends StatelessWidget {
           SizedBox(
             height: 43.h,
           ),
-          MakeMyRoutineButton(onPressed),
+          makeMyRoutineButton(onPressed),
           SizedBox(
-            height: 98.h,
+            height: 80.h,
           ),
-          Text('지난 나의 루틴'),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
+          Padding(
+            padding: EdgeInsets.all(31.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RoutineCard('루틴이름 1', 7, 80, 3, onPressed),
-                RoutineCard('루틴이름 2', 7, 80, 3, onPressed),
-                RoutineCard('루틴이름 3', 7, 80, 3, onPressed),
+                Padding(
+                  padding: EdgeInsets.all(10.h),
+                  child: Text(
+                    '지난 나의 루틴',
+                    style: AppleFont16_Black,
+                  ),
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      routineCard('루틴이름 1', 7, 80, 3, onPressed),
+                      routineCard('루틴이름 2', 7, 80, 3, onPressed),
+                      routineCard('루틴이름 3', 7, 80, 3, onPressed),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
-          PlusSquareButton(onPressed),
+          plusSquareButton(onPressed),
         ],
       ),
     );
