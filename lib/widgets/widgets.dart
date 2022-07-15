@@ -18,6 +18,7 @@ Widget nextButtonBig(VoidCallback? onPressed) {
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -55,6 +56,7 @@ Widget backButtonSmall(VoidCallback? onPressed) {
         style: AppleFont14_Grey700,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: Color.fromARGB(255, 212, 212, 212),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -75,6 +77,7 @@ Widget nextButtonSmall(VoidCallback? onPressed) {
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -95,6 +98,7 @@ Widget saveButtonGray(VoidCallback? onPressed) {
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: grey500,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -115,6 +119,7 @@ Widget saveButtonBlue(VoidCallback? onPressed) {
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -135,6 +140,7 @@ Widget makeMyRoutineButton(VoidCallback? onPressed) {
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24.r),
@@ -164,6 +170,7 @@ Widget addButton(VoidCallback? onPressed) {
         ],
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24.r),
@@ -618,6 +625,57 @@ Widget routineStartAlertDialog(
       ]),
     ),
   );
+}
+
+
+Widget SelectedRoutineButton(VoidCallback? onPressed, String type) {
+  return Container(
+    height: 40.h,
+    child: ElevatedButton(
+      onPressed: onPressed,
+      child: Text(
+        ' ${type} ',
+        style: AppleFont14_White,
+      ),
+      style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        // minimumSize: Size.zero, // Set this
+        // padding: EdgeInsets.zero,
+        primary: primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100.r),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget UnSelectedRoutineButton(VoidCallback? onPressed, String type) {
+  return Container(
+    height: 40.h,
+    child: ElevatedButton(
+      onPressed: onPressed,
+      child: Text(
+        ' ${type} ',
+        style: AppleFont14_Grey600,
+      ),
+      style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        // minimumSize: Size.zero, // Set this
+        // padding: EdgeInsets.zero,
+        primary: grey400,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100.r),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget CustomBottomSheet(BuildContext context, Widget contents) {
+  return Container(
+    height: 674.h,
+    child: Scaffold(body: contents),
 }
 
 Widget routineCard(
