@@ -675,7 +675,7 @@ Widget UnSelectedRoutineButton(VoidCallback? onPressed, String type) {
 Widget CustomBottomSheet(BuildContext context, Widget contents) {
   return Container(
     height: 674.h,
-    child: Scaffold(body: contents),
+    child: Scaffold(body: contents),);
 }
 
 Widget routineCard(
