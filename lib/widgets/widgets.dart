@@ -682,7 +682,7 @@ Widget routineCard(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(20.r),
             ),
-            color: grey500,
+            color: primary,
           ),
           width: 144.w,
           height: 40.h,
