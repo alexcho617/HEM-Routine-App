@@ -7,7 +7,7 @@ import '../utils/colors.dart';
 import '../controller/routineItemController.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-Widget NextButtonBig(VoidCallback? onPressed) {
+Widget nextButtonBig(VoidCallback? onPressed) {
   return Container(
     width: 335.w,
     height: 48.h,
@@ -28,24 +28,24 @@ Widget NextButtonBig(VoidCallback? onPressed) {
   );
 }
 
-Widget NextAndBackButton(
+Widget nextAndBackButton(
     VoidCallback? onPressedBack, VoidCallback onPressedNext) {
   return Container(
     width: 335.w,
     height: 48.h,
     child: Row(
       children: [
-        BackButtonSmall(onPressedBack),
+        backButtonSmall(onPressedBack),
         SizedBox(
           width: 24.w,
         ),
-        NextButtonSmall(onPressedNext),
+        nextButtonSmall(onPressedNext),
       ],
     ),
   );
 }
 
-Widget BackButtonSmall(VoidCallback? onPressed) {
+Widget backButtonSmall(VoidCallback? onPressed) {
   return Container(
     width: 107.w,
     height: 48.h,
@@ -66,7 +66,7 @@ Widget BackButtonSmall(VoidCallback? onPressed) {
   );
 }
 
-Widget NextButtonSmall(VoidCallback? onPressed) {
+Widget nextButtonSmall(VoidCallback? onPressed) {
   return Container(
     width: 204.w,
     height: 48.h,
@@ -87,7 +87,7 @@ Widget NextButtonSmall(VoidCallback? onPressed) {
   );
 }
 
-Widget SaveButtonGray(VoidCallback? onPressed) {
+Widget saveButtonGray(VoidCallback? onPressed) {
   return Container(
     width: 200.w,
     height: 48.h,
@@ -108,7 +108,7 @@ Widget SaveButtonGray(VoidCallback? onPressed) {
   );
 }
 
-Widget SaveButtonBlue(VoidCallback? onPressed) {
+Widget saveButtonBlue(VoidCallback? onPressed) {
   return Container(
     width: 200.w,
     height: 48.h,
@@ -129,7 +129,7 @@ Widget SaveButtonBlue(VoidCallback? onPressed) {
   );
 }
 
-Widget MakeMyRoutineButton(VoidCallback? onPressed) {
+Widget makeMyRoutineButton(VoidCallback? onPressed) {
   return Container(
     width: 200.w,
     height: 48.h,
@@ -150,7 +150,7 @@ Widget MakeMyRoutineButton(VoidCallback? onPressed) {
   );
 }
 
-Widget AddButton(VoidCallback? onPressed) {
+Widget addButton(VoidCallback? onPressed) {
   return Container(
     width: 200.w,
     height: 48.h,
@@ -180,7 +180,7 @@ Widget AddButton(VoidCallback? onPressed) {
   );
 }
 
-Widget AddRoutineButton(VoidCallback? onPressed) {
+Widget addRoutineButton(VoidCallback? onPressed) {
   return Container(
     width: 348.w,
     height: 56.h,
@@ -212,7 +212,7 @@ Widget AddRoutineButton(VoidCallback? onPressed) {
   );
 }
 
-Widget PlusSquareButton(VoidCallback? onPressed) {
+Widget plusSquareButton(VoidCallback? onPressed) {
   return Container(
     width: 56.w,
     height: 56.h,
@@ -229,7 +229,7 @@ Widget PlusSquareButton(VoidCallback? onPressed) {
   );
 }
 
-Widget DeleteAlertDialog(
+Widget deleteAlertDialog(
     VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
@@ -298,7 +298,7 @@ Widget DeleteAlertDialog(
   );
 }
 
-Widget SaveAlertDialog(VoidCallback? onPressed) {
+Widget saveAlertDialog(VoidCallback? onPressed) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -344,7 +344,7 @@ Widget SaveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
-Widget RoutineItemList(RoutineItemController controller) {
+Widget routineItemList(RoutineItemController controller) {
   int itemLength = controller.list.length;
   return Container(
     // TODO : increment function count
@@ -394,7 +394,7 @@ Widget RoutineItemList(RoutineItemController controller) {
               Container(
                 width: 46.w,
                 height: 46.h,
-                child: CircluarGuage(percent),
+                child: circluarGuage(percent),
               ),
               Container(
                 width: 34.w,
@@ -424,7 +424,7 @@ Widget RoutineItemList(RoutineItemController controller) {
   );
 }
 
-Widget CircluarGuage(double percent) {
+Widget circluarGuage(double percent) {
   return Container(
     child: SfRadialGauge(
       axes: <RadialAxis>[
@@ -453,7 +453,7 @@ Widget CircluarGuage(double percent) {
   );
 }
 
-Widget HalfCircluarGuage(double percent) {
+Widget halfCircluarGuage(double percent) {
   return Container(
     child: SfRadialGauge(
       axes: <RadialAxis>[
@@ -480,7 +480,7 @@ Widget HalfCircluarGuage(double percent) {
   );
 }
 
-Widget AchieveAlertDialog(String name, VoidCallback? onPressed) {
+Widget achieveAlertDialog(String name, VoidCallback? onPressed) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -542,7 +542,7 @@ Widget AchieveAlertDialog(String name, VoidCallback? onPressed) {
   );
 }
 
-Widget RoutineStartAlertDialog(
+Widget routineStartAlertDialog(
     VoidCallback? onPressedCancel, VoidCallback? onPressedStart) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
@@ -627,6 +627,7 @@ Widget RoutineStartAlertDialog(
   );
 }
 
+
 Widget SelectedRoutineButton(VoidCallback? onPressed, String type) {
   return Container(
     height: 40.h,
@@ -675,5 +676,115 @@ Widget CustomBottomSheet(BuildContext context, Widget contents) {
   return Container(
     height: 674.h,
     child: Scaffold(body: contents),
+}
+
+Widget routineCard(
+    String name, int day, double percent, int rank, VoidCallback? onPressed) {
+  return Card(
+    elevation: 5,
+    shadowColor: Colors.grey,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20.r),
+    ),
+    color: Colors.transparent,
+    child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20.r),
+          ),
+          color: white,
+        ),
+        width: 144.w,
+        height: 151.h,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(16.r, 16.r, 0, 0),
+              child: SizedBox(
+                  height: 24.h,
+                  child: Text(
+                    name,
+                    style: AppleFont16_Black,
+                  )),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(16.r, 0, 0, 16.r),
+              child: SizedBox(
+                height: 16.h,
+                child: Text(
+                  '$day 일간',
+                  style: AppleFont12_Grey500,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                circleGauzeIndicator(percent),
+                starRankIndicator(rank),
+              ],
+            )
+          ],
+        ),
+      ),
+      InkWell(
+        onTap: onPressed,
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(20.r),
+            ),
+            color: primary,
+          ),
+          width: 144.w,
+          height: 40.h,
+          child: Center(
+            child: Text(
+              '자세히 보기 >',
+              style: AppleFont11_White,
+            ),
+          ),
+        ),
+      )
+    ]),
+  );
+}
+
+Widget circleGauzeIndicator(double percent) {
+  return Column(
+    children: [
+      Container(
+        width: 43.w,
+        height: 43.h,
+        child: Center(
+          child: Text(
+            percent.toInt().toString() + "%",
+            style: AppleFont12_Blue600,
+          ),
+        ),
+        decoration: ShapeDecoration(
+            color: Colors.transparent,
+            shape: CircleBorder(side: BorderSide(width: 0.5, color: blue600))),
+      ),
+      Padding(
+        padding: EdgeInsets.all(3.r),
+        child: Text(
+          '달성도',
+          style: AppleFont12_Black,
+        ),
+      ),
+    ],
+  );
+}
+
+Widget starRankIndicator(int rank) {
+  return Container(
+    child: Text("여긴 \n이미지로\n 해야할듯",style: AppleFont12_Black,),
   );
 }

@@ -73,6 +73,7 @@ class _CalendarState extends State<Calendar> {
             });
           },
 
+
           selectedDayPredicate: (DateTime date) {
             return isSameDay(controller.selectedDay, date);
           },
@@ -92,7 +93,7 @@ class _CalendarState extends State<Calendar> {
         SizedBox(
           height: 100.0.h,
         ),
-        PlusSquareButton(
+        plusSquareButton(
           () {
             Get.to(NewCalendarEvent());
           },
