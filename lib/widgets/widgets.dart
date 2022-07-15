@@ -212,6 +212,14 @@ Widget plusSquareButton(VoidCallback? onPressed) {
     decoration: BoxDecoration(
       color: blue100,
       borderRadius: BorderRadius.circular(16.r),
+      boxShadow: [
+        BoxShadow(
+          color: grey500,
+          blurRadius: 1,
+          spreadRadius: 1,
+          offset: Offset(1,1),
+        )
+      ],
     ),
     child: IconButton(
       iconSize: 24.r,
@@ -448,26 +456,42 @@ Widget circluarGuage(double percent) {
 
 Widget halfCircluarGuage(double percent) {
   return Container(
-    child: SfRadialGauge(
-      axes: <RadialAxis>[
-        RadialAxis(
-          showLabels: false,
-          showTicks: false,
-          startAngle: 180,
-          endAngle: 0,
-          minimum: 0,
-          maximum: 1,
-          axisLineStyle: AxisLineStyle(color: grey400, thickness: 21.r),
-          ranges: <GaugeRange>[
-            GaugeRange(
-              startValue: 0,
-              endValue: percent,
-              color: primary,
-              startWidth: 21.r,
-              endWidth: 21.r,
-            ),
+    width: 225.w,
+    height: 225.h,
+    child: Stack(
+      children: [
+        SfRadialGauge(
+          axes: <RadialAxis>[
+            RadialAxis(
+              showLabels: false,
+              showTicks: false,
+              startAngle: 180,
+              endAngle: 0,
+              minimum: 0,
+              maximum: 1,
+              axisLineStyle: AxisLineStyle(color: grey400, thickness: 21.r),
+              ranges: <GaugeRange>[
+                GaugeRange(
+                  startValue: 0,
+                  endValue: percent,
+                  color: primary,
+                  startWidth: 21.r,
+                  endWidth: 21.r,
+                ),
+              ],
+            )
           ],
-        )
+        ),
+        Positioned(
+          bottom: 112.h,
+          left: 74.5.w,
+          child: Column(
+            children: [
+              Text("달성도",style: AppleFont14_Grey600,),
+              Text((percent * 100).toInt().toString() +"%", style: AppleFont36_Blue600,)
+            ],
+          ),
+        ),
       ],
     ),
   );

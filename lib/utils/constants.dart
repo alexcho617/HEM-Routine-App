@@ -111,3 +111,10 @@ TextStyle AppleFont24_Black = TextStyle(
   letterSpacing: 0.5.sp,
   color: grey900,
 );
+
+TextStyle AppleFont36_Blue600 = TextStyle(
+  fontFamily: 'AppleSDGothicNeoM',
+  fontWeight: FontWeight.w400,
+  fontSize: 36.sp,
+  color: blue600,
+);

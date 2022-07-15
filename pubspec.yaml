@@ -27,6 +27,7 @@ dependencies:
   flutterfire_ui: ^0.4.2
   onboarding: ^3.1.0
   syncfusion_flutter_gauges: ^20.2.36
+  flutter_switch: ^0.3.2
 
 
 dev_dependencies:
