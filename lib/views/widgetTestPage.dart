@@ -75,7 +75,9 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
               Text('RoutineItemList'),
               Padding(
                 padding: REdgeInsets.all(8),
-                child: routineItemList(routineItemController),
+                child: Container(
+                  height: 350,
+                  child: routineItemList(routineItemController),),
               ),
               Text('CircularGuage'),
               Padding(

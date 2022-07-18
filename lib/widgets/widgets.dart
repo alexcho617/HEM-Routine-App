@@ -217,7 +217,7 @@ Widget plusSquareButton(VoidCallback? onPressed) {
           color: grey500,
           blurRadius: 1,
           spreadRadius: 1,
-          offset: Offset(1,1),
+          offset: Offset(1, 1),
         )
       ],
     ),
@@ -347,81 +347,91 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
 
 Widget routineItemList(RoutineItemController controller) {
   int itemLength = controller.list.length;
-  return Container(
-    // TODO : increment function count
-    // TODO : draw gauze widget
-    width: 349.w,
-    height: 79.h * controller.list.length,
-    child: ReorderableListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        double percent = controller.getPercent(
-            controller.countList[index], controller.list[index].goalCount);
-        return ListTile(
-          key: Key('$index'),
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.black, width: 1.r),
-            borderRadius: BorderRadius.circular(12.r),
-          ),
-          leading: Icon(Icons.menu),
-          contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-          horizontalTitleGap: 0,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                controller.list[index].name,
-                style: AppleFont18_Black,
-              ),
-              Column(
-                children: [
-                  Text(
-                    '수행/목표',
-                    style: AppleFont14_Grey600,
-                  ),
-                  Text(
-                    '${controller.countList[index]}/${controller.list[index].goalCount}',
-                    style: AppleFont14_Grey600,
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-            ],
-          ),
-          trailing: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                width: 46.w,
-                height: 46.h,
-                child: circluarGuage(percent),
-              ),
-              Container(
-                width: 34.w,
-                height: 34.h,
-                child: InkWell(
-                  onTap: () => controller.onPressed(),
-                  child: Ink(
-                    child: CircleAvatar(
-                      backgroundColor: blue600,
-                      child: Icon(
-                        Icons.add,
-                        color: grey50,
+  return ReorderableListView.builder(
+    padding: EdgeInsets.all(10.r),
+    itemBuilder: (BuildContext context, int index) {
+      double percent = controller.getPercent(
+          controller.countList[index], controller.list[index].goalCount);
+      return Padding(
+        key: Key('$index'),
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        child: PhysicalModel(
+          color: white,
+          elevation: 5.r,
+          borderRadius: BorderRadius.circular(12.r),
+          child: ListTile(
+            shape: RoundedRectangleBorder(
+              // side: BorderSide(
+              //   color: Colors.black,
+              //   width: 1.r,
+              // ),
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            leading: Padding(
+              padding: EdgeInsets.symmetric(vertical: 11.h),
+              child: Icon(Icons.menu),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+            horizontalTitleGap: 0,
+            minVerticalPadding: 22.w,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.list[index].name,
+                  style: AppleFont18_Black,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      '수행/목표',
+                      style: AppleFont14_Grey600,
+                    ),
+                    Text(
+                      '${controller.countList[index]}/${controller.list[index].goalCount}',
+                      style: AppleFont14_Grey600,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+              ],
+            ),
+            trailing: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: 46.w,
+                  height: 46.h,
+                  child: circluarGuage(percent),
+                ),
+                Container(
+                  width: 34.w,
+                  height: 34.h,
+                  child: InkWell(
+                    onTap: () => controller.onPressed(),
+                    child: Ink(
+                      child: CircleAvatar(
+                        backgroundColor: blue600,
+                        child: Icon(
+                          Icons.add,
+                          color: grey50,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        );
-      },
-      itemCount: itemLength,
-      onReorder: (int oldIndex, int newIndex) {
-        controller.itemReorder(oldIndex, newIndex);
-      },
-    ),
+        ),
+      );
+    },
+    itemCount: itemLength,
+    onReorder: (int oldIndex, int newIndex) {
+      controller.itemReorder(oldIndex, newIndex);
+    },
   );
 }
 
@@ -487,8 +497,14 @@ Widget halfCircluarGuage(double percent) {
           left: 74.5.w,
           child: Column(
             children: [
-              Text("달성도",style: AppleFont14_Grey600,),
-              Text((percent * 100).toInt().toString() +"%", style: AppleFont36_Blue600,)
+              Text(
+                "달성도",
+                style: AppleFont14_Grey600,
+              ),
+              Text(
+                (percent * 100).toInt().toString() + "%",
+                style: AppleFont36_Blue600,
+              )
             ],
           ),
         ),
@@ -751,6 +767,10 @@ Widget circleGauzeIndicator(double percent) {
 
 Widget starRankIndicator(int rank) {
   return Container(
-    child: Text("여긴 \n이미지로\n 해야할듯",style: AppleFont12_Black,),
+    child: Text(
+      "여긴 \n이미지로\n 해야할듯",
+      style: AppleFont12_Black,
+    ),
   );
 }
+

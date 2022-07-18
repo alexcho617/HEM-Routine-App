@@ -3,6 +3,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:hem_routine_app/controller/routineItemController.dart';
+import 'package:get/get.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../widgets/widgets.dart';
@@ -15,6 +18,7 @@ class RoutinePage extends StatefulWidget {
 }
 
 class _RoutinePageState extends State<RoutinePage> {
+  RoutineItemController routineItemController = Get.find();
   bool status = false;
 
   @override
@@ -90,11 +94,23 @@ class _RoutinePageState extends State<RoutinePage> {
                       height: 44.h,
                     ),
                     Text(
-                      '에레렐ㄹㄹ레레레레레레',
+                      'Day 1',
                       style: AppleFont12_Black,
                       textAlign: TextAlign.center,
                     ),
                     halfCircluarGuage(0.75),
+                    SizedBox(
+                      height: 340.h,
+                      child: OverflowBox(
+                        minHeight: 490.h,
+                        maxHeight: 490.h,
+                        child: SingleChildScrollView(
+                          child: Container(
+                              height: 340.h,
+                              child: routineItemList(routineItemController)),
+                        ),
+                      ),
+                    ),
                   ],
                 )
               : Column(
@@ -158,4 +174,11 @@ class _RoutinePageState extends State<RoutinePage> {
   void onPressed() {
     //void onPressed
   }
+}
+
+Widget DayPicker(int day) {
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: ,
+  );
 }
