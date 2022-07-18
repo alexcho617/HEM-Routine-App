@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 import 'shared/utils.dart';
@@ -251,7 +252,8 @@ class _TableCalendarBaseState extends State<TableCalendarBase> {
 
   double _getPageHeight(int rowCount) {
     final dowHeight = widget.dowVisible ? widget.dowHeight! : 0.0;
-    return dowHeight + rowCount * widget.rowHeight;
+    //alex calendar control page height 1.5 seems alright
+    return dowHeight + rowCount * widget.rowHeight*1.5.h;
   }
 
   int _calculateFocusedPage(

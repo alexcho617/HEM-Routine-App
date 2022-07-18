@@ -6,6 +6,30 @@ import 'package:hem_routine_app/utils/calendarUtil.dart';
 
 import '../tableCalendar/src/shared/utils.dart';
 
+
+class EventController extends GetxController {
+  Map<DateTime, List<CalendarEvent>> selectedEvents = {};
+  DateTime selectedDay = DateTime.now();
+  DateTime focusedDate = DateTime.now();
+
+  List<CalendarEvent>? getEventsfromDay(DateTime? date) {
+    return selectedEvents[date];
+  }
+
+  void addEvent(DateTime date, CalendarEvent event) {
+    List<CalendarEvent> eventList = [event];
+    selectedEvents[date] = eventList;
+  }
+  //make a stream with events?
+}
+
+
+
+
+
+
+
+
 class Routine {
   final String title;
   Routine({required this.title});
@@ -51,19 +75,3 @@ final kRoutineSource = {
     kToday: [Routine(title: 'Routine1')],
   });
 //alex
-
-class EventController extends GetxController {
-  Map<DateTime, List<CalendarEvent>> selectedEvents = {};
-  DateTime selectedDay = DateTime.now();
-  DateTime focusedDate = DateTime.now();
-
-  List<CalendarEvent>? getEventsfromDay(DateTime? date) {
-    return selectedEvents[date];
-  }
-
-  void addEvent(DateTime date, CalendarEvent event) {
-    List<CalendarEvent> eventList = [event];
-    selectedEvents[date] = eventList;
-  }
-  //make a stream with events?
-}

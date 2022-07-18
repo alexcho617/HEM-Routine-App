@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../shared/utils.dart';
 import 'calendar_page.dart';
@@ -94,7 +95,8 @@ class CalendarCore extends StatelessWidget {
             }
 
             return SizedBox(
-              height: constrainedRowHeight ?? rowHeight,
+              //alex : changed each days height
+              height: constrainedRowHeight ?? rowHeight! * 1.5.h,
               child: dayBuilder(context, day, baseDay),
             );
           },

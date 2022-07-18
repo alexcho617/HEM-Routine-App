@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 /*
 1.달력 자체는 이번 달 그리고 다음달까지 보여주는걸로 한다. 그 이유는 루틴을 설정을 최대 14일까지 할 수 있기때문이다.
 하지만 배변 기록을 추가 할 때는 현재 시간을 가져와서 미래시간엔 못하게 막는다.
@@ -32,7 +34,6 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
-  CalendarFormat format = CalendarFormat.month;
   @override
   Widget build(BuildContext context) {
     EventController controller = Get.find();
@@ -50,30 +51,22 @@ class _CalendarState extends State<Calendar> {
             //this is acting like a singleMarkerbuilder. Need to change it as regular marker builder.
             routineMarkerBuilder: (context, date, routines) {
               // event.memo
-              return Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.rectangle, color: Colors.redAccent),
-                width: 14.0.w,
-                height: 7.0.h,
-                margin: const EdgeInsets.symmetric(horizontal: 1.5),
-              );
+              return routineContainer;
             },
           ),
-
           firstDay: kFirstDay,
           lastDay: kLastDay,
+          startingDayOfWeek: StartingDayOfWeek.sunday,
           focusedDay: controller.focusedDate,
           selectedDayPredicate: (DateTime date) {
             return isSameDay(controller.selectedDay, date);
           },
-          calendarFormat: format,
-          // eventLoader: _getEventsForDay,
-          startingDayOfWeek: StartingDayOfWeek.monday,
+          calendarFormat: CalendarFormat.month,
+          headerStyle: kHeaderStyle,
           calendarStyle: CalendarStyle(
             // Use `CalendarStyle` to customize the UI
             outsideDaysVisible: false,
           ),
-
           eventLoader: (DateTime selectedDay) {
             return _eventLoader(selectedDay);
           },
@@ -121,17 +114,16 @@ class _CalendarState extends State<Calendar> {
         //   calendarStyle: kCalendarStyle,
         //   headerStyle: kHeaderStyle,
         // ),
-        //event loading
-        // ..._eventLoader(controller.selectedDay).map(
-        //   (CalendarEvent event) => ListTile(
-        //     title: Text(
-        //       event.memo.toString(),
-        //     ),
-        //   ),
-        // ),
-        // PlusSquareButton(onAddEventButtonPressed),
+
+        ..._eventLoader(controller.selectedDay).map(
+          (CalendarEvent event) => ListTile(
+            title: Text(
+              event.memo.toString(),
+            ),
+          ),
+        ),
         SizedBox(
-          height: 100.0.h,
+          height: 20.0.h,
         ),
         PlusSquareButton(
           () {
@@ -142,6 +134,16 @@ class _CalendarState extends State<Calendar> {
       // ),
     );
   }
+
+  Widget routineContainer = OverflowBox(
+    alignment: Alignment.bottomCenter,
+    child: Container(
+      decoration: BoxDecoration(shape: BoxShape.rectangle, color: blue200),
+      width: 57.0.w,
+      height: 7.0.h,
+      // margin: const EdgeInsets.symmetric(horizontal: 10.5),
+    ),
+  );
 
   List<CalendarEvent> _eventLoader(DateTime day) {
     EventController controller = Get.find();
