@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
-import '../widgets/widgets.dart';
+import '../../widgets/widgets.dart';
 
 class RoutineLogPage extends StatelessWidget {
   const RoutineLogPage({Key? key}) : super(key: key);

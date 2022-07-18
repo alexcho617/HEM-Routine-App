@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/controller/eventController.dart';
 import 'package:hem_routine_app/controller/loginService.dart';
 import 'package:hem_routine_app/firebase_options.dart';
-import 'package:hem_routine_app/views/routineLog.dart';
+import 'package:hem_routine_app/views/routine/routineBuild.dart';
+import 'package:hem_routine_app/views/routine/routineLog.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/login.dart';
 import 'package:hem_routine_app/views/onBoarding.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
               '/test' : (context) => App(),
               '/routine' : (context) => RoutinePage(),
               '/bottomSheet' : (context) => RoutineLogPage(),
+              '/routineBuild' : (context) => RoutineBuildPage(),
               // '/test1' : (context) => MyStatefulWidget(),
             },
           );
