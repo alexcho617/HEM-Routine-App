@@ -60,8 +60,8 @@ class MyApp extends StatelessWidget {
               '/login': (context) => LoginPage(),
               '/widgetTest': (context) => WidgetTestPage(),
               '/onBoarding': (context) => onBoardingPage(),
-              '/test' : (context) => App(),
-              '/routine' : (context) => RoutinePage(),
+              '/test': (context) => App(),
+              '/routine': (context) => RoutinePage(),
               // '/test1' : (context) => MyStatefulWidget(),
             },
           );

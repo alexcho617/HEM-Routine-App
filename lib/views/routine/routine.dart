@@ -20,6 +20,7 @@ class RoutinePage extends StatefulWidget {
 class _RoutinePageState extends State<RoutinePage> {
   RoutineItemController routineItemController = Get.find();
   bool status = false;
+  int dayStatus = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -91,12 +92,11 @@ class _RoutinePageState extends State<RoutinePage> {
                       style: AppleFont24_Black,
                     ),
                     SizedBox(
-                      height: 44.h,
+                      height: 20.h,
                     ),
-                    Text(
-                      'Day 1',
-                      style: AppleFont12_Black,
-                      textAlign: TextAlign.center,
+                    Padding(
+                      padding: EdgeInsets.all(5.r),
+                      child: DayPicker(dayStatus - 1, 14),
                     ),
                     halfCircluarGuage(0.75),
                     SizedBox(
@@ -174,11 +174,45 @@ class _RoutinePageState extends State<RoutinePage> {
   void onPressed() {
     //void onPressed
   }
-}
 
-Widget DayPicker(int day) {
-  return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Row(),
-  );
+  Widget DayPicker(int focusedDay, int itemCount) {
+    return Container(
+      height: 50.h,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: itemCount,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: InkWell(
+              key: Key('$index'),
+              onTap: () {
+                setState(() {
+                  dayStatus = index + 1;
+                });
+              },
+              child: Ink(
+                child: Column(
+                  children: [
+                    Text(
+                      'Day ${index + 1}',
+                      style: index == focusedDay
+                          ? AppleFont22_Blue600
+                          : AppleFont16_Black,
+                    ),
+                    Text(
+                      '${index * 10}%',
+                      style: index == focusedDay
+                          ? AppleFont11_Blue600
+                          : AppleFont11_Grey700,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }

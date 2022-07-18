@@ -14,6 +14,24 @@ TextStyle AppleFont11_White = TextStyle(
   color: grey50,
 );
 
+TextStyle AppleFont11_Grey700 = TextStyle(
+  fontFamily: 'AppleSDGothicNeoM',
+  fontWeight: FontWeight.w500,
+  fontSize: 11.sp,
+  letterSpacing: 0.5.sp,
+  height: 1.25,
+  color: grey700,
+);
+
+TextStyle AppleFont11_Blue600 = TextStyle(
+  fontFamily: 'AppleSDGothicNeoM',
+  fontWeight: FontWeight.w500,
+  fontSize: 11.sp,
+  letterSpacing: 0.5.sp,
+  height: 1.25,
+  color: blue600,
+);
+
 TextStyle AppleFont12_Black = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
@@ -102,6 +120,14 @@ TextStyle AppleFont22_Black = TextStyle(
   fontSize: 22.sp,
   letterSpacing: 0.5.sp,
   color: grey900,
+);
+
+TextStyle AppleFont22_Blue600 = TextStyle(
+  fontFamily: 'AppleSDGothicNeoM',
+  fontWeight: FontWeight.w400,
+  fontSize: 22.sp,
+  letterSpacing: 0.5.sp,
+  color: blue600,
 );
 
 TextStyle AppleFont24_Black = TextStyle(
