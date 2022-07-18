@@ -179,6 +179,6 @@ class _RoutinePageState extends State<RoutinePage> {
 Widget DayPicker(int day) {
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,
-    child: ,
+    child: Row(),
   );
 }
