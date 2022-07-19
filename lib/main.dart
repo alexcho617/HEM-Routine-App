@@ -11,6 +11,8 @@ import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/login.dart';
 import 'package:hem_routine_app/views/onBoarding.dart';
 import 'package:hem_routine_app/views/routine/routine.dart';
+import 'package:hem_routine_app/views/setting/account_settings.dart';
+import 'package:hem_routine_app/views/setting/settings.dart';
 import 'package:hem_routine_app/views/splash.dart';
 import 'package:hem_routine_app/views/test.dart';
 
@@ -66,6 +68,8 @@ class MyApp extends StatelessWidget {
               '/routine' : (context) => RoutinePage(),
               '/bottomSheet' : (context) => RoutineLogPage(),
               '/routineBuild' : (context) => RoutineBuildPage(),
+              '/settings' : (context) => SettingsPage(),
+              '/accountSettings' : (context) => AccountSettingsPage(),
               // '/test1' : (context) => MyStatefulWidget(),
             },
           );

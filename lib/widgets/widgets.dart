@@ -832,3 +832,143 @@ Widget starRankIndicator(int rank) {
   );
 }
 
+
+Widget dataAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 176.h),
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 120.h,
+          child: Center(
+              child: Text(
+            '데이터를 초기화하면\n데이터를 복구할 수 없습니다.',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '데이터 초기화',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
+Widget withDrawalAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 176.h),
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 120.h,
+          child: Center(
+              child: Text(
+            '회원 탈퇴를 하시면\n이전 데이터가 초기화 됩니다.\n정말로 회원탈퇴를 하시겠습니까?',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '회원탈퇴',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
