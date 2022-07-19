@@ -4,9 +4,9 @@ import '../models/routineItem.dart';
 class RoutineItemController extends GetxController {
   // This code is for Testing
   // Link to FireStore and get RoutineItems and eventCount
-  final countList = List<int>.generate(6, (index) => (index + 1) * 2);
-  final list = List<RoutineItem>.generate(6, (int index) {
-    return RoutineItem(name: '루틴 항목 이름 $index', goalCount: (index + 2) * 3);
+  final countList = List<int>.generate(12, (index) => index * 5);
+  final list = List<RoutineItem>.generate(12, (int index) {
+    return RoutineItem(name: '루틴 항목 이름 $index', goalCount: (index + 1) * 7 );
   });
 
   /*
