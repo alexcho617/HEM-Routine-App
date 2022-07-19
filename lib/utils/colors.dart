@@ -11,6 +11,7 @@ Color blue200 = const Color.fromRGBO(0x9B, 0xA9, 0xDF, 1);
 Color blue300 = const Color.fromRGBO(0x71, 0x87, 0xD3, 1);
 
 Color blue400 = const Color.fromRGBO(0x4F, 0x6D, 0xC9, 1);
+
 Color primary = blue400;
 
 Color blue500 = const Color.fromRGBO(0x27, 0x53, 0xC0, 1);
