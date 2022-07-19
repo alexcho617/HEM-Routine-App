@@ -20,6 +20,8 @@ import 'package:hem_routine_app/controller/eventController.dart';
 import 'package:hem_routine_app/models/event.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
+import 'package:hem_routine_app/views/routine/routineLog.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
@@ -73,7 +75,6 @@ class _CalendarState extends State<Calendar> {
             });
           },
 
-
           selectedDayPredicate: (DateTime date) {
             return isSameDay(controller.selectedDay, date);
           },
@@ -95,7 +96,12 @@ class _CalendarState extends State<Calendar> {
         ),
         plusSquareButton(
           () {
-            Get.to(NewCalendarEvent());
+            // Get.to(NewCalendarEvent());
+            showCupertinoModalBottomSheet(
+              context: context,
+              expand: false,
+              builder: (context) => RoutineLogPage(),
+            );
           },
         ),
       ],

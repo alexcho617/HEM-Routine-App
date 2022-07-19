@@ -221,6 +221,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_picker:
+    dependency: "direct main"
+    description:
+      name: flutter_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -350,6 +357,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  modal_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: modal_bottom_sheet
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   onboarding:
     dependency: "direct main"
     description:
@@ -538,5 +552,5 @@ packages:
     source: hosted
     version: "5.3.1"
 sdks:
-  dart: ">=2.17.0-0 <3.0.0"
-  flutter: ">=2.8.0"
+  dart: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"

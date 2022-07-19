@@ -12,7 +12,7 @@ class RoutineLogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomBottomSheet(context, ListView(
+    return CustomBottomSheet(context, Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
@@ -74,42 +74,44 @@ class RoutineLogPage extends StatelessWidget {
             SizedBox(
               height: 45.h,
             ),
-            ListView.separated(
-              itemCount: 10,
-              physics: NeverScrollableScrollPhysics(),
-              // physics: const AlwaysScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) => ListTile(
-                // dense: true,
-                // visualDensity: VisualDensity(vertical: 0),
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-                leading: CircleAvatar(
-                  radius: 40.r,
-                  backgroundColor: grey400,
+            Expanded(
+              child: ListView.separated(
+                itemCount: 10,
+                // physics: NeverScrollableScrollPhysics(),
+                // physics: const AlwaysScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) => ListTile(
+                  // dense: true,
+                  // visualDensity: VisualDensity(vertical: 0),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+                  leading: CircleAvatar(
+                    radius: 40.r,
+                    backgroundColor: grey400,
+                  ),
+            
+                  title: Text('루틴 항목 이름 $index'),
+                  subtitle: Text('오후 HH : MM'),
+                  trailing: Icon(Icons.delete),
                 ),
-
-                title: Text('루틴 항목 이름1'),
-                subtitle: Text('오후 HH : MM'),
-                trailing: Icon(Icons.delete),
+            
+                shrinkWrap: true,
+                separatorBuilder: (context, index) => Container(
+                    height: 24,
+                    child: OverflowBox(
+                      maxHeight: 40,
+                      minHeight: 40, 
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(width: 48,),
+                          VerticalDivider(
+                            thickness: 1,
+                            color: Colors.grey,
+                          ),
+                        ],
+                      ),
+                    )),
               ),
-
-              shrinkWrap: true,
-              separatorBuilder: (context, index) => Container(
-                  height: 24,
-                  child: OverflowBox(
-                    maxHeight: 40,
-                    minHeight: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 48,),
-                        VerticalDivider(
-                          thickness: 1,
-                          color: Colors.grey,
-                        ),
-                      ],
-                    ),
-                  )),
             )
           ],
         ));

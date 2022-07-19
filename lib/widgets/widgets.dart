@@ -28,6 +28,24 @@ Widget nextButtonBig(VoidCallback? onPressed) {
   );
 }
 
+Widget disabledNextButtonBig(VoidCallback? onPressed) {
+  return Container(
+    width: 335.w,
+    height: 48.h,
+    
+    decoration: BoxDecoration(
+      color: Color.fromARGB(255, 212, 212, 212),
+      borderRadius: BorderRadius.circular(8.r),
+    ),
+    child: Center(
+      child: Text(
+        '다음',
+        style: AppleFont14_Grey700,
+      ),
+    ),
+  );
+}
+
 Widget nextAndBackButton(
     VoidCallback? onPressedBack, VoidCallback onPressedNext) {
   return Container(
@@ -627,7 +645,6 @@ Widget routineStartAlertDialog(
   );
 }
 
-
 Widget SelectedRoutineButton(VoidCallback? onPressed, String type) {
   return Container(
     height: 40.h,
@@ -675,7 +692,8 @@ Widget UnSelectedRoutineButton(VoidCallback? onPressed, String type) {
 Widget CustomBottomSheet(BuildContext context, Widget contents) {
   return Container(
     height: 674.h,
-    child: Scaffold(body: contents),);
+    child: Scaffold(body: contents),
+  );
 }
 
 Widget routineCard(
@@ -785,6 +803,9 @@ Widget circleGauzeIndicator(double percent) {
 
 Widget starRankIndicator(int rank) {
   return Container(
-    child: Text("여긴 \n이미지로\n 해야할듯",style: AppleFont12_Black,),
+    child: Text(
+      "여긴 \n이미지로\n 해야할듯",
+      style: AppleFont12_Black,
+    ),
   );
 }
