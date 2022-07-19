@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/controller/eventController.dart';
 import 'package:hem_routine_app/controller/loginService.dart';
 import 'package:hem_routine_app/firebase_options.dart';
+import 'package:hem_routine_app/views/routine/routineBuild.dart';
+import 'package:hem_routine_app/views/routine/routineLog.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/login.dart';
 import 'package:hem_routine_app/views/onBoarding.dart';
@@ -60,8 +62,10 @@ class MyApp extends StatelessWidget {
               '/login': (context) => LoginPage(),
               '/widgetTest': (context) => WidgetTestPage(),
               '/onBoarding': (context) => onBoardingPage(),
-              '/test': (context) => App(),
-              '/routine': (context) => RoutinePage(),
+              '/test' : (context) => App(),
+              '/routine' : (context) => RoutinePage(),
+              '/bottomSheet' : (context) => RoutineLogPage(),
+              '/routineBuild' : (context) => RoutineBuildPage(),
               // '/test1' : (context) => MyStatefulWidget(),
             },
           );
