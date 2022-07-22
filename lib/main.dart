@@ -20,6 +20,7 @@ import 'package:hem_routine_app/views/test.dart';
 
 import 'package:hem_routine_app/views/widgetTestPage.dart';
 import 'controller/routineItemController.dart';
+import 'views/setting/profile_settings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
               '/settings' : (context) => SettingsPage(),
               '/accountSettings' : (context) => AccountSettingsPage(),
               '/routineEntrySetting' : (context) => RoutineEntrySettingPage(),
+              '/profileSettings' : (context) => ProfileSettingsPage(),
               // '/test1' : (context) => MyStatefulWidget(),
             },
           );

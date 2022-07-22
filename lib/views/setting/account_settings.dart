@@ -37,7 +37,7 @@ class AccountSettingsPage extends StatelessWidget {
               style: AppleFont22_Black,
             ),
             onTap: () {
-              Get.toNamed('/');
+              Get.toNamed('/profileSettings');
             },
             shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
           ),
