@@ -6,11 +6,13 @@ import 'package:hem_routine_app/utils/calendarUtil.dart';
 
 import '../tableCalendar/src/shared/utils.dart';
 
-
 class EventController extends GetxController {
   Map<DateTime, List<CalendarEvent>> selectedEvents = {};
   DateTime selectedDay = DateTime.now();
   DateTime focusedDate = DateTime.now();
+  Map<DateTime, List<Routine>> routines = {
+    DateTime.now(): [Routine(title: 'ARoutine')]
+  };
 
   List<CalendarEvent>? getEventsfromDay(DateTime? date) {
     return selectedEvents[date];
@@ -20,15 +22,12 @@ class EventController extends GetxController {
     List<CalendarEvent> eventList = [event];
     selectedEvents[date] = eventList;
   }
+
   //make a stream with events?
+  int getRoutineCount() {
+    return routines.length;
+  }
 }
-
-
-
-
-
-
-
 
 class Routine {
   final String title;
@@ -40,6 +39,7 @@ class Routine {
 /// Example events.
 ///
 /// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
+
 final kEvents = LinkedHashMap<DateTime, List<CalendarEvent>>(
   equals: isSameDay,
   hashCode: getHashCode,

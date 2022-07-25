@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controller/eventController.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
+import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
 import 'package:hem_routine_app/tableCalendar/table_calendar.dart';
@@ -27,6 +28,8 @@ import 'package:hem_routine_app/tableCalendar/table_calendar.dart';
 import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+EventController controller = Get.find();
 
 class Calendar extends StatefulWidget {
   @override
@@ -36,7 +39,6 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
-    EventController controller = Get.find();
     DateTime date = DateTime(2022, 7, 5);
     CalendarEvent event = CalendarEvent(time: date, color: primary);
     controller.addEvent(date, event);
@@ -63,10 +65,8 @@ class _CalendarState extends State<Calendar> {
           },
           calendarFormat: CalendarFormat.month,
           headerStyle: kHeaderStyle,
-          calendarStyle: CalendarStyle(
-            // Use `CalendarStyle` to customize the UI
-            outsideDaysVisible: false,
-          ),
+          // TODO 1 : calendarStyle: returnCalendarStyleWithCustomIcon
+          calendarStyle: CalendarStyle(),
           eventLoader: (DateTime selectedDay) {
             return _eventLoader(selectedDay);
           },
@@ -138,9 +138,11 @@ class _CalendarState extends State<Calendar> {
   Widget routineContainer = OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
+      alignment: Alignment.center,
+      child: Text('${controller.getRoutineCount()}'),
       decoration: BoxDecoration(shape: BoxShape.rectangle, color: blue200),
       width: 57.0.w,
-      height: 7.0.h,
+      height: 14.0.h,
       // margin: const EdgeInsets.symmetric(horizontal: 10.5),
     ),
   );

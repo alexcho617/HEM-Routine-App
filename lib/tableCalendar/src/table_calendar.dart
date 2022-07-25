@@ -4,6 +4,7 @@
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
+import 'package:hem_routine_app/controller/eventController.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
@@ -210,6 +211,7 @@ class TableCalendar<T> extends StatefulWidget {
     required DateTime focusedDay,
     required DateTime firstDay,
     required DateTime lastDay,
+    required this.calendarStyle,
     DateTime? currentDay,
     this.locale,
     this.rangeStartDay,
@@ -242,7 +244,7 @@ class TableCalendar<T> extends StatefulWidget {
     ),
     this.headerStyle = const HeaderStyle(),
     this.daysOfWeekStyle = const DaysOfWeekStyle(),
-    this.calendarStyle = const CalendarStyle(),
+    // this.calendarStyle,
     this.calendarBuilders = const CalendarBuilders(),
     this.rangeSelectionMode = RangeSelectionMode.toggledOff,
     this.eventLoader,
@@ -572,7 +574,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
 
         Widget? rangeHighlight = widget.calendarBuilders.rangeHighlightBuilder
             ?.call(context, day, isWithinRange);
-
+        //range section
         if (rangeHighlight == null) {
           if (isWithinRange) {
             rangeHighlight = Center(
@@ -676,7 +678,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
                 (shorterSide - widget.calendarStyle.cellMargin.vertical) / 2 -
                 (routineSize * widget.calendarStyle.markersAnchor);
 
-            markerWidget = PositionedDirectional(
+            routineWidget = PositionedDirectional(
               top: widget.calendarStyle.markersAutoAligned
                   ? markerAutoAlignmentTop
                   : widget.calendarStyle.markersOffset.top,
@@ -693,7 +695,8 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
                 mainAxisSize: MainAxisSize.min,
                 children: events
                     .take(widget.calendarStyle.markersMaxCount)
-                    .map((event) => _buildSingleMarker(day, event, routineSize))
+                    .map((event) =>
+                        _buildSingleRoutineMarker(day, routines, routineSize))
                     .toList(),
               ),
             );
@@ -722,6 +725,19 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
   Widget _buildSingleMarker(DateTime day, T event, double markerSize) {
     return widget.calendarBuilders.singleMarkerBuilder
             ?.call(context, day, event) ??
+        Container(
+          width: markerSize,
+          height: markerSize,
+          margin: widget.calendarStyle.markerMargin,
+          decoration: widget.calendarStyle.markerDecoration,
+        );
+  }
+
+  //alex T changed to  List<T>
+  Widget _buildSingleRoutineMarker(
+      DateTime day, List<T> routine, double markerSize) {
+    return widget.calendarBuilders.routineMarkerBuilder
+            ?.call(context, day, routine) ??
         Container(
           width: markerSize,
           height: markerSize,

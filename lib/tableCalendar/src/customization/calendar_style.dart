@@ -190,26 +190,35 @@ class CalendarStyle {
   //alex
 
   /// Creates a `CalendarStyle` used by `TableCalendar` widget.
-  const CalendarStyle({
+  CalendarStyle({
     this.isTodayHighlighted = true,
     this.canMarkersOverflow = true,
     this.outsideDaysVisible = true,
     this.markersAutoAligned = true,
     this.markerSize,
-    this.markerSizeScale = 0.2,
-    this.markersAnchor = 0.7,
+    // this.markerSizeScale = 0.2,
+    this.markersAnchor = 1,
     this.rangeHighlightScale = 1.0,
-    this.markerMargin = const EdgeInsets.symmetric(horizontal: 0.3),
-    this.markersAlignment = Alignment.bottomCenter,
+    this.markerMargin = const EdgeInsets.only(left: 6),
+    // this.markersAlignment = Alignment.bottomCenter,
     this.markersMaxCount = 4,
     this.cellMargin = const EdgeInsets.all(6.0),
     this.cellPadding = const EdgeInsets.all(0),
     this.cellAlignment = Alignment.center,
     this.markersOffset = const PositionedOffset(),
     this.rangeHighlightColor = const Color(0xFFBBDDFF),
+    // this.markerDecoration = const BoxDecoration(
+    //   color: const Color(0xFF263238),
+    //   shape: BoxShape.circle,
+    // ),
+    this.markerSizeScale = 1.0,
+    this.markersAlignment = Alignment.center,
     this.markerDecoration = const BoxDecoration(
-      color: const Color(0xFF263238),
-      shape: BoxShape.circle,
+      image: DecorationImage(
+        image: AssetImage('assets/characterIconYellow.png'),
+      ),
+      shape: BoxShape.rectangle,
+      // color: Colors.blue,
     ),
     //alex
     this.canRoutineMarkersOverflow = true,
@@ -222,15 +231,15 @@ class CalendarStyle {
     this.routineMarkersAlignment = Alignment.bottomCenter,
     this.routineMarkersMaxCount = 1,
     this.routineMarkerDecoration = const BoxDecoration(
-      color: Color.fromARGB(255, 10, 165, 242),
+      color: Color.fromRGBO(0x4F, 0x6D, 0xC9, 1),
       shape: BoxShape.rectangle,
     ),
     this.todayTextStyle = const TextStyle(
-      color: const Color(0xFFFAFAFA),
+      color: Color(0xFFFAFAFA),
       fontSize: 16.0,
     ), //
     this.todayDecoration = const BoxDecoration(
-      color: const Color(0xFF9FA8DA),
+      color: Color(0xFF9FA8DA),
       shape: BoxShape.circle,
     ),
     this.selectedTextStyle = const TextStyle(
@@ -259,18 +268,18 @@ class CalendarStyle {
     ),
     this.withinRangeTextStyle = const TextStyle(),
     this.withinRangeDecoration = const BoxDecoration(shape: BoxShape.circle),
-    this.outsideTextStyle = const TextStyle(color: const Color(0xFFAEAEAE)),
+    this.outsideTextStyle = const TextStyle(color: Color(0xFFAEAEAE)),
     this.outsideDecoration = const BoxDecoration(shape: BoxShape.circle),
-    this.disabledTextStyle = const TextStyle(color: const Color(0xFFBFBFBF)),
+    this.disabledTextStyle = const TextStyle(color: Color(0xFFBFBFBF)),
     this.disabledDecoration = const BoxDecoration(shape: BoxShape.circle),
-    this.holidayTextStyle = const TextStyle(color: const Color(0xFF5C6BC0)),
+    this.holidayTextStyle = const TextStyle(color: Color(0xFF5C6BC0)),
     this.holidayDecoration = const BoxDecoration(
-      border: const Border.fromBorderSide(
-        const BorderSide(color: const Color(0xFF9FA8DA), width: 1.4),
+      border: Border.fromBorderSide(
+        BorderSide(color: Color(0xFF9FA8DA), width: 1.4),
       ),
       shape: BoxShape.circle,
     ),
-    this.weekendTextStyle = const TextStyle(color: const Color(0xFF5A5A5A)),
+    this.weekendTextStyle = const TextStyle(color: Color(0xFF5A5A5A)),
     this.weekendDecoration = const BoxDecoration(shape: BoxShape.circle),
     this.defaultTextStyle = const TextStyle(),
     this.defaultDecoration = const BoxDecoration(shape: BoxShape.circle),
