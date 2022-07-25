@@ -40,7 +40,7 @@ class HomePageState extends State<HomePage> {
       },
       child: DefaultTabController(
         length: 4,
-        child: Scaffold(
+        child: Scaffold(     
           body: SafeArea(
             child: TabBarView(
               children: _pages.map(

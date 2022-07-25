@@ -6,7 +6,9 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hem_routine_app/controller/routineItemController.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
+import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
 import 'package:hem_routine_app/views/routine/routineLog.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../utils/colors.dart';
@@ -104,7 +106,9 @@ class _RoutinePageState extends State<RoutinePage> {
                     child: halfCircluarGuage(0.75),
                     onTap: () {
                       showCupertinoModalBottomSheet(
-                        context: context.findAncestorStateOfType<HomePageState>()!.context,
+                        context: context
+                            .findAncestorStateOfType<HomePageState>()!
+                            .context,
                         expand: false,
                         builder: (context) => RoutineLogPage(),
                       );
@@ -144,7 +148,9 @@ class _RoutinePageState extends State<RoutinePage> {
                   SizedBox(
                     height: 43.h,
                   ),
-                  makeMyRoutineButton(onPressed),
+                  makeMyRoutineButton(() {
+                    Kangmin(context, RoutineEntrySettingPage());
+                  }),
                   SizedBox(
                     height: 80.h,
                   ),

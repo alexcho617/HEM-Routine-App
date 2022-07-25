@@ -1019,3 +1019,4 @@ class _CustomNavigatorState extends State<CustomNavigator> with AutomaticKeepAli
     );
   }
 }
+
