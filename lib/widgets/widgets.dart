@@ -2,10 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/models/routine.dart';
+import 'package:hem_routine_app/views/calendar/calendar.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
 import '../controller/routineItemController.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+
+import '../views/routine/routine.dart';
 
 Widget nextButtonBig(VoidCallback? onPressed) {
   return Container(
@@ -32,7 +36,6 @@ Widget disabledNextButtonBig(VoidCallback? onPressed) {
   return Container(
     width: 335.w,
     height: 48.h,
-    
     decoration: BoxDecoration(
       color: Color.fromARGB(255, 212, 212, 212),
       borderRadius: BorderRadius.circular(8.r),
@@ -991,3 +994,28 @@ Widget withDrawalAlertDialog(
   );
 }
 
+class CustomNavigator extends StatefulWidget {
+  final Widget page;
+  final Key navigatorKey;
+  const CustomNavigator({Key? key, required this.page, required this.navigatorKey}) : super(key: key);
+
+
+  @override
+  _CustomNavigatorState createState() => _CustomNavigatorState();
+}
+
+
+class _CustomNavigatorState extends State<CustomNavigator> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Navigator(
+      key: widget.navigatorKey,
+      onGenerateRoute: (_) => MaterialPageRoute(builder: (context) => widget.page),
+    );
+  }
+}
