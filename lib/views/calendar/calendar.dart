@@ -23,8 +23,10 @@ import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
-import 'package:hem_routine_app/tableCalendar/table_calendar.dart';
 
+import 'package:hem_routine_app/views/routine/routineLog.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -125,9 +127,14 @@ class _CalendarState extends State<Calendar> {
         SizedBox(
           height: 20.0.h,
         ),
-        PlusSquareButton(
+        plusSquareButton(
           () {
-            Get.to(NewCalendarEvent());
+            // Get.to(NewCalendarEvent());
+            showCupertinoModalBottomSheet(
+              context: context,
+              expand: false,
+              builder: (context) => RoutineLogPage(),
+            );
           },
         ),
       ],

@@ -7,7 +7,7 @@ import '../utils/colors.dart';
 import '../controller/routineItemController.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-Widget NextButtonBig(VoidCallback? onPressed) {
+Widget nextButtonBig(VoidCallback? onPressed) {
   return Container(
     width: 335.w,
     height: 48.h,
@@ -18,6 +18,7 @@ Widget NextButtonBig(VoidCallback? onPressed) {
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -27,24 +28,42 @@ Widget NextButtonBig(VoidCallback? onPressed) {
   );
 }
 
-Widget NextAndBackButton(
+Widget disabledNextButtonBig(VoidCallback? onPressed) {
+  return Container(
+    width: 335.w,
+    height: 48.h,
+    
+    decoration: BoxDecoration(
+      color: Color.fromARGB(255, 212, 212, 212),
+      borderRadius: BorderRadius.circular(8.r),
+    ),
+    child: Center(
+      child: Text(
+        '다음',
+        style: AppleFont14_Grey700,
+      ),
+    ),
+  );
+}
+
+Widget nextAndBackButton(
     VoidCallback? onPressedBack, VoidCallback onPressedNext) {
   return Container(
     width: 335.w,
     height: 48.h,
     child: Row(
       children: [
-        BackButtonSmall(onPressedBack),
+        backButtonSmall(onPressedBack),
         SizedBox(
           width: 24.w,
         ),
-        NextButtonSmall(onPressedNext),
+        nextButtonSmall(onPressedNext),
       ],
     ),
   );
 }
 
-Widget BackButtonSmall(VoidCallback? onPressed) {
+Widget backButtonSmall(VoidCallback? onPressed) {
   return Container(
     width: 107.w,
     height: 48.h,
@@ -55,6 +74,7 @@ Widget BackButtonSmall(VoidCallback? onPressed) {
         style: AppleFont14_Grey700,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: Color.fromARGB(255, 212, 212, 212),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -64,7 +84,7 @@ Widget BackButtonSmall(VoidCallback? onPressed) {
   );
 }
 
-Widget NextButtonSmall(VoidCallback? onPressed) {
+Widget nextButtonSmall(VoidCallback? onPressed) {
   return Container(
     width: 204.w,
     height: 48.h,
@@ -75,6 +95,7 @@ Widget NextButtonSmall(VoidCallback? onPressed) {
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -84,7 +105,7 @@ Widget NextButtonSmall(VoidCallback? onPressed) {
   );
 }
 
-Widget SaveButtonGray(VoidCallback? onPressed) {
+Widget saveButtonGray(VoidCallback? onPressed) {
   return Container(
     width: 200.w,
     height: 48.h,
@@ -95,6 +116,7 @@ Widget SaveButtonGray(VoidCallback? onPressed) {
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: grey500,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -104,7 +126,7 @@ Widget SaveButtonGray(VoidCallback? onPressed) {
   );
 }
 
-Widget SaveButtonBlue(VoidCallback? onPressed) {
+Widget saveButtonBlue(VoidCallback? onPressed) {
   return Container(
     width: 200.w,
     height: 48.h,
@@ -115,6 +137,7 @@ Widget SaveButtonBlue(VoidCallback? onPressed) {
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
@@ -124,7 +147,7 @@ Widget SaveButtonBlue(VoidCallback? onPressed) {
   );
 }
 
-Widget MakeMyRoutineButton(VoidCallback? onPressed) {
+Widget makeMyRoutineButton(VoidCallback? onPressed) {
   return Container(
     width: 200.w,
     height: 48.h,
@@ -135,6 +158,7 @@ Widget MakeMyRoutineButton(VoidCallback? onPressed) {
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24.r),
@@ -144,7 +168,7 @@ Widget MakeMyRoutineButton(VoidCallback? onPressed) {
   );
 }
 
-Widget AddButton(VoidCallback? onPressed) {
+Widget addButton(VoidCallback? onPressed) {
   return Container(
     width: 200.w,
     height: 48.h,
@@ -164,6 +188,7 @@ Widget AddButton(VoidCallback? onPressed) {
         ],
       ),
       style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         primary: primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24.r),
@@ -173,7 +198,7 @@ Widget AddButton(VoidCallback? onPressed) {
   );
 }
 
-Widget AddRoutineButton(VoidCallback? onPressed) {
+Widget addRoutineButton(VoidCallback? onPressed) {
   return Container(
     width: 348.w,
     height: 56.h,
@@ -205,13 +230,21 @@ Widget AddRoutineButton(VoidCallback? onPressed) {
   );
 }
 
-Widget PlusSquareButton(VoidCallback? onPressed) {
+Widget plusSquareButton(VoidCallback? onPressed) {
   return Container(
     width: 56.w,
     height: 56.h,
     decoration: BoxDecoration(
       color: blue100,
       borderRadius: BorderRadius.circular(16.r),
+      boxShadow: [
+        BoxShadow(
+          color: grey500,
+          blurRadius: 1,
+          spreadRadius: 1,
+          offset: Offset(1, 1),
+        )
+      ],
     ),
     child: IconButton(
       iconSize: 24.r,
@@ -222,7 +255,7 @@ Widget PlusSquareButton(VoidCallback? onPressed) {
   );
 }
 
-Widget DeleteAlertDialog(
+Widget deleteAlertDialog(
     VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
@@ -291,7 +324,7 @@ Widget DeleteAlertDialog(
   );
 }
 
-Widget SaveAlertDialog(VoidCallback? onPressed) {
+Widget saveAlertDialog(VoidCallback? onPressed) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -337,87 +370,97 @@ Widget SaveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
-Widget RoutineItemList(RoutineItemController controller) {
+Widget routineItemList(RoutineItemController controller) {
   int itemLength = controller.list.length;
-  return Container(
-    // TODO : increment function count
-    // TODO : draw gauze widget
-    width: 349.w,
-    height: 79.h * controller.list.length,
-    child: ReorderableListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        double percent = controller.getPercent(
-            controller.countList[index], controller.list[index].goalCount);
-        return ListTile(
-          key: Key('$index'),
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.black, width: 1.r),
-            borderRadius: BorderRadius.circular(12.r),
-          ),
-          leading: Icon(Icons.menu),
-          contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-          horizontalTitleGap: 0,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                controller.list[index].name,
-                style: AppleFont18_Black,
-              ),
-              Column(
-                children: [
-                  Text(
-                    '수행/목표',
-                    style: AppleFont14_Grey600,
-                  ),
-                  Text(
-                    '${controller.countList[index]}/${controller.list[index].goalCount}',
-                    style: AppleFont14_Grey600,
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-            ],
-          ),
-          trailing: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                width: 46.w,
-                height: 46.h,
-                child: CircluarGuage(percent),
-              ),
-              Container(
-                width: 34.w,
-                height: 34.h,
-                child: InkWell(
-                  onTap: () => controller.onPressed(),
-                  child: Ink(
-                    child: CircleAvatar(
-                      backgroundColor: blue600,
-                      child: Icon(
-                        Icons.add,
-                        color: grey50,
+  return ReorderableListView.builder(
+    padding: EdgeInsets.all(10.r),
+    itemBuilder: (BuildContext context, int index) {
+      double percent = controller.getPercent(
+          controller.countList[index], controller.list[index].goalCount);
+      return Padding(
+        key: Key('$index'),
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        child: PhysicalModel(
+          color: white,
+          elevation: 5.r,
+          borderRadius: BorderRadius.circular(12.r),
+          child: ListTile(
+            shape: RoundedRectangleBorder(
+              // side: BorderSide(
+              //   color: Colors.black,
+              //   width: 1.r,
+              // ),
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            leading: Padding(
+              padding: EdgeInsets.symmetric(vertical: 11.h),
+              child: Icon(Icons.menu),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+            horizontalTitleGap: 0,
+            minVerticalPadding: 22.w,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.list[index].name,
+                  style: AppleFont18_Black,
+                ),
+                Column(
+                  children: [
+                    Text(
+                      '수행/목표',
+                      style: AppleFont14_Grey600,
+                    ),
+                    Text(
+                      '${controller.countList[index]}/${controller.list[index].goalCount}',
+                      style: AppleFont14_Grey600,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+              ],
+            ),
+            trailing: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: 46.w,
+                  height: 46.h,
+                  child: circluarGuage(percent),
+                ),
+                Container(
+                  width: 34.w,
+                  height: 34.h,
+                  child: InkWell(
+                    onTap: () => controller.onPressed(),
+                    child: Ink(
+                      child: CircleAvatar(
+                        backgroundColor: blue600,
+                        child: Icon(
+                          Icons.add,
+                          color: grey50,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        );
-      },
-      itemCount: itemLength,
-      onReorder: (int oldIndex, int newIndex) {
-        controller.itemReorder(oldIndex, newIndex);
-      },
-    ),
+        ),
+      );
+    },
+    itemCount: itemLength,
+    onReorder: (int oldIndex, int newIndex) {
+      controller.itemReorder(oldIndex, newIndex);
+    },
   );
 }
 
-Widget CircluarGuage(double percent) {
+Widget circluarGuage(double percent) {
   return Container(
     child: SfRadialGauge(
       axes: <RadialAxis>[
@@ -446,34 +489,56 @@ Widget CircluarGuage(double percent) {
   );
 }
 
-Widget HalfCircluarGuage(double percent) {
+Widget halfCircluarGuage(double percent) {
   return Container(
-    child: SfRadialGauge(
-      axes: <RadialAxis>[
-        RadialAxis(
-          showLabels: false,
-          showTicks: false,
-          startAngle: 180,
-          endAngle: 0,
-          minimum: 0,
-          maximum: 1,
-          axisLineStyle: AxisLineStyle(color: grey400, thickness: 21.r),
-          ranges: <GaugeRange>[
-            GaugeRange(
-              startValue: 0,
-              endValue: percent,
-              color: primary,
-              startWidth: 21.r,
-              endWidth: 21.r,
-            ),
+    width: 225.w,
+    height: 225.h,
+    child: Stack(
+      children: [
+        SfRadialGauge(
+          axes: <RadialAxis>[
+            RadialAxis(
+              showLabels: false,
+              showTicks: false,
+              startAngle: 180,
+              endAngle: 0,
+              minimum: 0,
+              maximum: 1,
+              axisLineStyle: AxisLineStyle(color: grey400, thickness: 21.r),
+              ranges: <GaugeRange>[
+                GaugeRange(
+                  startValue: 0,
+                  endValue: percent,
+                  color: primary,
+                  startWidth: 21.r,
+                  endWidth: 21.r,
+                ),
+              ],
+            )
           ],
-        )
+        ),
+        Positioned(
+          bottom: 112.h,
+          left: 74.5.w,
+          child: Column(
+            children: [
+              Text(
+                "달성도",
+                style: AppleFont14_Grey600,
+              ),
+              Text(
+                (percent * 100).toInt().toString() + "%",
+                style: AppleFont36_Blue600,
+              )
+            ],
+          ),
+        ),
       ],
     ),
   );
 }
 
-Widget AchieveAlertDialog(String name, VoidCallback? onPressed) {
+Widget achieveAlertDialog(String name, VoidCallback? onPressed) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -535,7 +600,7 @@ Widget AchieveAlertDialog(String name, VoidCallback? onPressed) {
   );
 }
 
-Widget RoutineStartAlertDialog(
+Widget routineStartAlertDialog(
     VoidCallback? onPressedCancel, VoidCallback? onPressedStart) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
@@ -620,7 +685,174 @@ Widget RoutineStartAlertDialog(
   );
 }
 
-Widget RoutineFinishAlertDialog(VoidCallback? onPressed) {
+Widget SelectedRoutineButton(VoidCallback? onPressed, String type) {
+  return Container(
+    height: 40.h,
+    child: ElevatedButton(
+      onPressed: onPressed,
+      child: Text(
+        ' ${type} ',
+        style: AppleFont14_White,
+      ),
+      style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        // minimumSize: Size.zero, // Set this
+        // padding: EdgeInsets.zero,
+        primary: primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100.r),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget UnSelectedRoutineButton(VoidCallback? onPressed, String type) {
+  return Container(
+    height: 40.h,
+    child: ElevatedButton(
+      onPressed: onPressed,
+      child: Text(
+        ' ${type} ',
+        style: AppleFont14_Grey600,
+      ),
+      style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        // minimumSize: Size.zero, // Set this
+        // padding: EdgeInsets.zero,
+        primary: grey400,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100.r),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget CustomBottomSheet(BuildContext context, Widget contents) {
+  return Container(
+    height: 674.h,
+    child: Scaffold(body: contents),
+  );
+}
+
+Widget routineCard(
+    String name, int day, double percent, int rank, VoidCallback? onPressed) {
+  return Card(
+    elevation: 5,
+    shadowColor: Colors.grey,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20.r),
+    ),
+    color: Colors.transparent,
+    child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20.r),
+          ),
+          color: white,
+        ),
+        width: 144.w,
+        height: 151.h,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(16.r, 16.r, 0, 0),
+              child: SizedBox(
+                  height: 24.h,
+                  child: Text(
+                    name,
+                    style: AppleFont16_Black,
+                  )),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(16.r, 0, 0, 16.r),
+              child: SizedBox(
+                height: 16.h,
+                child: Text(
+                  '$day 일간',
+                  style: AppleFont12_Grey500,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                circleGauzeIndicator(percent),
+                starRankIndicator(rank),
+              ],
+            )
+          ],
+        ),
+      ),
+      InkWell(
+        onTap: onPressed,
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(20.r),
+            ),
+            color: primary,
+          ),
+          width: 144.w,
+          height: 40.h,
+          child: Center(
+            child: Text(
+              '자세히 보기 >',
+              style: AppleFont11_White,
+            ),
+          ),
+        ),
+      )
+    ]),
+  );
+}
+
+Widget circleGauzeIndicator(double percent) {
+  return Column(
+    children: [
+      Container(
+        width: 43.w,
+        height: 43.h,
+        child: Center(
+          child: Text(
+            percent.toInt().toString() + "%",
+            style: AppleFont12_Blue600,
+          ),
+        ),
+        decoration: ShapeDecoration(
+            color: Colors.transparent,
+            shape: CircleBorder(side: BorderSide(width: 0.5, color: blue600))),
+      ),
+      Padding(
+        padding: EdgeInsets.all(3.r),
+        child: Text(
+          '달성도',
+          style: AppleFont12_Black,
+        ),
+      ),
+    ],
+  );
+}
+
+Widget starRankIndicator(int rank) {
+  return Container(
+    child: Text(
+      "여긴 \n이미지로\n 해야할듯",
+      style: AppleFont12_Black,
+    ),
+  );
+}
+
+
+Widget dataAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -630,67 +862,131 @@ Widget RoutineFinishAlertDialog(VoidCallback? onPressed) {
     titlePadding: EdgeInsets.all(0),
     actionsPadding: EdgeInsets.all(0),
     contentPadding: EdgeInsets.all(0),
-    content: Container(
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 176.h),
       child: Column(children: [
         Container(
           width: 312.w,
-          height: 302.h,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 48,
+          height: 120.h,
+          child: Center(
+              child: Text(
+            '데이터를 초기화하면\n데이터를 복구할 수 없습니다.',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
               ),
-              Container(
-                height: 40.h,
-                child: Text(
-                  '이번 루틴 어떠셨어요?',
-                  style: AppleFont22_Black,
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '데이터 초기화',
+                    style: AppleFont16_White,
+                  ),
                 ),
               ),
-              StarRank(2),
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: onPressed,
-          child: Ink(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(20.r),
-              ),
-              color: primary,
-            ),
-            width: 312.w,
-            height: 56.h,
-            child: Center(
-              child: Text(
-                '평가 제출',
-                style: AppleFont16_White,
-              ),
-            ),
-          ),
+            )
+          ],
         )
       ]),
     ),
   );
 }
 
-Widget StarRank(int value) {
-  return Row(
-    mainAxisSize: MainAxisSize.min,
-    children: List.generate(
-      5,
-      (index) {
-        return IconButton(
-          onPressed: () {},
-          color: index < value ? Colors.yellow : null,
-          iconSize: 42.r,
-          icon: Icon(
-            index < value ? Icons.star : Icons.star_outline,
-          ),
-          padding: EdgeInsets.zero,
-        );
-      },
+Widget withDrawalAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 176.h),
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 120.h,
+          child: Center(
+              child: Text(
+            '회원 탈퇴를 하시면\n이전 데이터가 초기화 됩니다.\n정말로 회원탈퇴를 하시겠습니까?',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '회원탈퇴',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
     ),
   );
 }

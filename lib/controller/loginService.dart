@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
 
-class LoginController extends GetxController {
+class LoginService extends GetxController {
   AuthCredential? appleCredential;
   GoogleSignInAccount? googleCredential;
   Rx<FirebaseAuth> auth = FirebaseAuth.instance.obs;
