@@ -84,42 +84,6 @@ class _CalendarState extends State<Calendar> {
           },
         ),
 
-        // TableCalendar(
-        //   calendarBuilders: CalendarBuilders(
-        //     singleMarkerBuilder: (context, date, event) {
-        //       // event.memo
-        //       return Container(
-        //         decoration: BoxDecoration(
-        //             shape: BoxShape.circle, color: Colors.redAccent),
-        //         width: 7.0,
-        //         height: 7.0,
-        //         margin: const EdgeInsets.symmetric(horizontal: 1.5),
-        //       );
-        //     },
-        //   ),
-        //   focusedDay: controller.selectedDay,
-        //   firstDay: DateTime(2022),
-        //   lastDay: DateTime.now(),
-        //   calendarFormat: format,
-        //   startingDayOfWeek: StartingDayOfWeek.sunday,
-        //   daysOfWeekVisible: true,
-        //   //Day Changed
-        //   onDaySelected: (DateTime selectDay, DateTime focusDay) {
-        //     print(focusDay);
-        //     setState(() {
-        //       controller.selectedDay = selectDay;
-        //       controller.focusedDate = focusDay;
-        //     });
-        //   },
-
-        //   selectedDayPredicate: (DateTime date) {
-        //     return isSameDay(controller.selectedDay, date);
-        //   },
-        //   eventLoader: _eventLoader,
-        //   calendarStyle: kCalendarStyle,
-        //   headerStyle: kHeaderStyle,
-        // ),
-
         ..._eventLoader(controller.selectedDay).map(
           (CalendarEvent event) => ListTile(
             title: Text(

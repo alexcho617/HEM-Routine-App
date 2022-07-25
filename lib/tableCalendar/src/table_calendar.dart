@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:hem_routine_app/controller/eventController.dart';
+import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
@@ -163,7 +164,7 @@ class TableCalendar<T> extends StatefulWidget {
   final List<T> Function(DateTime day)? eventLoader;
 
   /// Function that assigns a list of routine to a specified day.
-  final List<T> Function(DateTime day)? routineLoader;
+  final List<RoutineItem> Function(DateTime day)? routineLoader;
 
   /// Function deciding whether given day should be enabled or not.
   /// If `false` is returned, this day will be disabled.
@@ -627,7 +628,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
               widget.calendarBuilders.markerBuilder?.call(context, day, events);
 
           //alex
-          final routines = widget.eventLoader?.call(day) ?? [];
+          final routines = widget.routineLoader?.call(day) ?? [];
           Widget? routineWidget = widget.calendarBuilders.routineMarkerBuilder
               ?.call(context, day, routines);
           //alex
@@ -735,7 +736,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
 
   //alex T changed to  List<T>
   Widget _buildSingleRoutineMarker(
-      DateTime day, List<T> routine, double markerSize) {
+      DateTime day, List<RoutineItem> routine, double markerSize) {
     return widget.calendarBuilders.routineMarkerBuilder
             ?.call(context, day, routine) ??
         Container(
