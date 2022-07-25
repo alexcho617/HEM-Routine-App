@@ -24,11 +24,10 @@ class _RoutinePageState extends State<RoutinePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return Column(
         children: [
           SizedBox(
-            height: 79.h,
+            height: 32.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -100,10 +99,10 @@ class _RoutinePageState extends State<RoutinePage> {
                     ),
                     halfCircluarGuage(0.75),
                     SizedBox(
-                      height: 340.h,
+                      height: 307.h,
                       child: OverflowBox(
-                        minHeight: 490.h,
-                        maxHeight: 490.h,
+                        minHeight: 410.h,
+                        maxHeight: 410.h,
                         child: SingleChildScrollView(
                           child: Container(
                               height: 340.h,
@@ -165,10 +164,7 @@ class _RoutinePageState extends State<RoutinePage> {
                   ],
                 ),
         ],
-      ),
-      floatingActionButton: plusSquareButton(onPressed),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
+      );
   }
 
   void onPressed() {

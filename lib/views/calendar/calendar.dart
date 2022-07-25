@@ -132,12 +132,12 @@ class _CalendarState extends State<Calendar> {
         ),
         plusSquareButton(
           () {
-            // Get.to(NewCalendarEvent());
-            showCupertinoModalBottomSheet(
-              context: context,
-              expand: false,
-              builder: (context) => RoutineLogPage(),
-            );
+            Get.to(NewCalendarEvent());
+            // showCupertinoModalBottomSheet(
+            //   context: context,
+            //   expand: false,
+            //   builder: (context) => RoutineLogPage(),
+            // );
           },
         ),
       ],
