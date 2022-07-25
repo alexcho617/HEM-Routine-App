@@ -26,7 +26,10 @@ import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
 
 import 'package:hem_routine_app/views/routine/routineLog.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:table_calendar/table_calendar.dart';
+import '../../tableCalendar/src/customization/calendar_builders.dart';
+import '../../tableCalendar/src/customization/calendar_style.dart';
+import '../../tableCalendar/src/shared/utils.dart';
+import '../../tableCalendar/src/table_calendar.dart';
 import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

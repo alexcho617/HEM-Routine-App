@@ -30,6 +30,7 @@ dependencies:
   flutter_switch: ^0.3.2
   modal_bottom_sheet: ^2.1.0
   flutter_picker: ^2.0.4
+  simple_gesture_detector: ^0.2.0
 
 
 dev_dependencies:
