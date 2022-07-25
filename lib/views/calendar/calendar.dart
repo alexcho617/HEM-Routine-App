@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 /*
 1.달력 자체는 이번 달 그리고 다음달까지 보여주는걸로 한다. 그 이유는 루틴을 설정을 최대 14일까지 할 수 있기때문이다.
 하지만 배변 기록을 추가 할 때는 현재 시간을 가져와서 미래시간엔 못하게 막는다.
@@ -17,15 +19,22 @@ Perhaps, find a option to display some kind of background color for the routined
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controller/eventController.dart';
-import 'package:hem_routine_app/models/event.dart';
+import 'package:hem_routine_app/models/calendarEvent.dart';
+import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
+
 import 'package:hem_routine_app/views/routine/routineLog.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:table_calendar/table_calendar.dart';
+import '../../tableCalendar/src/customization/calendar_builders.dart';
+import '../../tableCalendar/src/customization/calendar_style.dart';
+import '../../tableCalendar/src/shared/utils.dart';
+import '../../tableCalendar/src/table_calendar.dart';
 import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+EventController controller = Get.find();
 
 class Calendar extends StatefulWidget {
   @override
@@ -33,40 +42,39 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
-  CalendarFormat format = CalendarFormat.month;
-
   @override
   Widget build(BuildContext context) {
-    EventController controller = Get.find();
-    // DateTime date = DateTime(2022, 7, 5);
-    // UserEvent event = UserEvent(time: date, color: primary);
-    // controller.addEvent(date, event);
+    DateTime date = DateTime(2022, 7, 5);
+    CalendarEvent event = CalendarEvent(time: date, color: primary);
+    controller.addEvent(date, event);
 
     // return Scaffold(
     //   body:
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        TableCalendar(
+        TableCalendar<CalendarEvent>(
           calendarBuilders: CalendarBuilders(
-            singleMarkerBuilder: (context, date, event) {
+            //this is acting like a singleMarkerbuilder. Need to change it as regular marker builder.
+            routineMarkerBuilder: (context, date, routines) {
               // event.memo
-              return Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.redAccent),
-                width: 7.0,
-                height: 7.0,
-                margin: const EdgeInsets.symmetric(horizontal: 1.5),
-              );
+              return routineContainer;
             },
           ),
-          focusedDay: controller.selectedDay,
-          firstDay: DateTime(2022),
-          lastDay: DateTime.now(),
-          calendarFormat: format,
+          firstDay: kFirstDay,
+          lastDay: kLastDay,
           startingDayOfWeek: StartingDayOfWeek.sunday,
-          daysOfWeekVisible: true,
-          //Day Changed
+          focusedDay: controller.focusedDate,
+          selectedDayPredicate: (DateTime date) {
+            return isSameDay(controller.selectedDay, date);
+          },
+          calendarFormat: CalendarFormat.month,
+          headerStyle: kHeaderStyle,
+          // TODO 1 : calendarStyle: returnCalendarStyleWithCustomIcon
+          calendarStyle: CalendarStyle(),
+          eventLoader: (DateTime selectedDay) {
+            return _eventLoader(selectedDay);
+          },
           onDaySelected: (DateTime selectDay, DateTime focusDay) {
             print(focusDay);
             setState(() {
@@ -74,25 +82,53 @@ class _CalendarState extends State<Calendar> {
               controller.focusedDate = focusDay;
             });
           },
-
-          selectedDayPredicate: (DateTime date) {
-            return isSameDay(controller.selectedDay, date);
-          },
-          eventLoader: _eventLoader,
-          calendarStyle: kCalendarStyle,
-          headerStyle: kHeaderStyle,
         ),
-        //event loading
-        // ..._eventLoader(controller.selectedDay).map(
-        //   (Event event) => ListTile(
-        //     title: Text(
-        //       event.title,
-        //     ),
+
+        // TableCalendar(
+        //   calendarBuilders: CalendarBuilders(
+        //     singleMarkerBuilder: (context, date, event) {
+        //       // event.memo
+        //       return Container(
+        //         decoration: BoxDecoration(
+        //             shape: BoxShape.circle, color: Colors.redAccent),
+        //         width: 7.0,
+        //         height: 7.0,
+        //         margin: const EdgeInsets.symmetric(horizontal: 1.5),
+        //       );
+        //     },
         //   ),
+        //   focusedDay: controller.selectedDay,
+        //   firstDay: DateTime(2022),
+        //   lastDay: DateTime.now(),
+        //   calendarFormat: format,
+        //   startingDayOfWeek: StartingDayOfWeek.sunday,
+        //   daysOfWeekVisible: true,
+        //   //Day Changed
+        //   onDaySelected: (DateTime selectDay, DateTime focusDay) {
+        //     print(focusDay);
+        //     setState(() {
+        //       controller.selectedDay = selectDay;
+        //       controller.focusedDate = focusDay;
+        //     });
+        //   },
+
+        //   selectedDayPredicate: (DateTime date) {
+        //     return isSameDay(controller.selectedDay, date);
+        //   },
+        //   eventLoader: _eventLoader,
+        //   calendarStyle: kCalendarStyle,
+        //   headerStyle: kHeaderStyle,
         // ),
-        // PlusSquareButton(onAddEventButtonPressed),
+
+        ..._eventLoader(controller.selectedDay).map(
+          (CalendarEvent event) => ListTile(
+            title: Text(
+              event.memo.toString(),
+            ),
+          ),
+        ),
         SizedBox(
-          height: 100.0.h,
+          height: 20.0.h,
         ),
         plusSquareButton(
           () {
@@ -109,10 +145,22 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  List<dynamic> _eventLoader(DateTime date) {
+  Widget routineContainer = OverflowBox(
+    alignment: Alignment.bottomCenter,
+    child: Container(
+      alignment: Alignment.center,
+      child: Text('${controller.getRoutineCount()}'),
+      decoration: BoxDecoration(shape: BoxShape.rectangle, color: blue200),
+      width: 57.0.w,
+      height: 14.0.h,
+      // margin: const EdgeInsets.symmetric(horizontal: 10.5),
+    ),
+  );
+
+  List<CalendarEvent> _eventLoader(DateTime day) {
     EventController controller = Get.find();
-    List<dynamic> list;
-    list = controller.getEventsfromDay(date) ?? [];
+    List<CalendarEvent> list;
+    list = controller.getEventsfromDay(day) ?? [];
     return list;
   }
 }

@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: createMaterialColor(primary),
             ),
+
             initialRoute: '/splash',
             routes: {
               '/home': (context) => HomePage(),
