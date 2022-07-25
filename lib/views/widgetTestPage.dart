@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/views/calendar/calendar.dart';
 import '../models/routineItem.dart';
 import '../widgets/widgets.dart';
 import '../controller/routineItemController.dart';
@@ -104,6 +105,13 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
               Padding(
                 padding: REdgeInsets.all(8),
                 child: routineStartAlertDialog(voidFunction, voidFunction),
+              ),
+              Text('AddRoutineItemList'),
+              Padding(
+                padding: REdgeInsets.all(8),
+                child: Container(
+                  height: 350,
+                  child: addRoutineItemList(routineItemController),),
               ),
             ],
           ),

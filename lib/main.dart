@@ -20,6 +20,7 @@ import 'package:hem_routine_app/views/test.dart';
 
 import 'package:hem_routine_app/views/widgetTestPage.dart';
 import 'controller/routineItemController.dart';
+import 'views/setting/completedRoutines.dart';
 import 'views/setting/profile_settings.dart';
 
 void main() async {
@@ -76,6 +77,7 @@ class MyApp extends StatelessWidget {
               '/accountSettings' : (context) => AccountSettingsPage(),
               '/routineEntrySetting' : (context) => RoutineEntrySettingPage(),
               '/profileSettings' : (context) => ProfileSettingsPage(),
+              '/completedRoutines' : (context) => CompletedRoutinesPage(),
               // '/test1' : (context) => MyStatefulWidget(),
             },
           );

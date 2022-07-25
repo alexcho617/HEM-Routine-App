@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/models/routine.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
+import 'package:hem_routine_app/views/setting/account_settings.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
 import '../controller/routineItemController.dart';
@@ -1018,4 +1019,60 @@ class _CustomNavigatorState extends State<CustomNavigator> with AutomaticKeepAli
       onGenerateRoute: (_) => MaterialPageRoute(builder: (context) => widget.page),
     );
   }
+}
+
+
+
+Widget addRoutineItemList(RoutineItemController controller) {
+  int itemLength = controller.list.length;
+  return ReorderableListView.builder(
+    padding: EdgeInsets.all(10.r),
+    itemBuilder: (BuildContext context, int index) {
+      return Padding(
+        key: Key('$index'),
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        child: PhysicalModel(
+          color: white,
+          elevation: 5.r,
+          borderRadius: BorderRadius.circular(12.r),
+          child: ListTile(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            leading: Padding(
+              padding: EdgeInsets.symmetric(vertical: 11.h),
+              child: Icon(Icons.menu),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+            horizontalTitleGap: 0,
+            minVerticalPadding: 22.w,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.h),
+                  child: Text(
+                    controller.list[index].name,
+                    style: AppleFont18_Black,
+                  ),
+                ),
+                Text('일일 목표 ${controller.list[index].goalCount}회'),
+                SizedBox(
+                  width: 5.w,
+                ),
+              ],
+            ),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: onPressed,
+            )
+          ),
+        ),
+      );
+    },
+    itemCount: itemLength,
+    onReorder: (int oldIndex, int newIndex) {
+      controller.itemReorder(oldIndex, newIndex);
+    },
+  );
 }
