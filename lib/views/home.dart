@@ -12,10 +12,10 @@ class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   final _pages = [
     Calendar(),
     RoutinePage(),
