@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 
@@ -19,21 +20,10 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: white,
-          foregroundColor: black,
-          centerTitle: false,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Get.back();
-            },
-          ),
-          title: Text('프로필 설정'),
-        ),
-        body: Form(
+    return Column(
+      children: [
+        customAppBar(context, '프로필 설정'),
+        Form(
           key: _formKey,
           child: Center(
             child: SizedBox(
@@ -72,7 +62,9 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
               ),
             ),
           ),
-        ));
+        ),
+      ],
+    );
   }
 
   Widget buildDatePicker() => CupertinoDatePicker(

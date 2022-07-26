@@ -23,7 +23,7 @@ class _RoutineEntrySettingPageState extends State<RoutineEntrySettingPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        customAppBar(context),
+        customAppBar(context, '루틴 항목 설정'),
 
         SizedBox(
           width: MediaQuery.of(context).size.width,

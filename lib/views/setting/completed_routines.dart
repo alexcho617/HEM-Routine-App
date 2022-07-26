@@ -20,23 +20,11 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
   List<dynamic> routineList = ["FOR LINT"];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: routineList.length == 0
+    return Container(
+      child: routineList.length == 0
           ? Column(
               children: [
-                AppBar(
-                  elevation: 0,
-                  backgroundColor: white,
-                  foregroundColor: black,
-                  centerTitle: false,
-                  leading: IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Get.back();
-                    },
-                  ),
-                  title: Text('내가 수행한 루틴'),
-                ),
+                customAppBar(context, '계정 설정'),
                 Text(
                   '수행한 루틴이 없습니다.',
                   style: AppleFont16_Black,
@@ -50,19 +38,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
           : Column(
             mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AppBar(
-                  elevation: 0,
-                  backgroundColor: white,
-                  foregroundColor: black,
-                  centerTitle: false,
-                  leading: IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Get.back();
-                    },
-                  ),
-                  title: Text('내가 수행한 루틴'),
-                ),
+                customAppBar(context, '계정 설정'),
                 Padding(
                   padding: EdgeInsets.all(20.r),
                   child: Column(

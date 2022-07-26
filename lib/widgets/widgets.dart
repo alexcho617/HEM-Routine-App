@@ -1076,7 +1076,7 @@ Widget addRoutineItemList(RoutineItemController controller) {
   );
 }
 
-Widget customAppBar(context){
+Widget customAppBar(context, String name){
   return AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
@@ -1088,6 +1088,6 @@ Widget customAppBar(context){
               Navigator.pop(context);
             },
           ),
-          title: Text('루틴 항목 설정'),
+          title: Text(name),
         );
 }

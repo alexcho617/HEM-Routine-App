@@ -29,7 +29,7 @@ class _RoutineBuildPageState extends State<RoutineBuildPage> {
       key: pageController.globalKey,
       child: Column(
         children: [
-          customAppBar(context),
+          customAppBar(context, '루틴 항목 설정'),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 21),
             child: Column(
