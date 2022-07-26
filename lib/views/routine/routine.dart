@@ -115,13 +115,13 @@ class _RoutinePageState extends State<RoutinePage> {
                     },
                   ),
                   SizedBox(
-                    height: 307.h,
+                    height: 308.h,
                     child: OverflowBox(
-                      minHeight: 410.h,
-                      maxHeight: 410.h,
+                      minHeight: 500.h,
+                      maxHeight: 500.h,
                       child: SingleChildScrollView(
                         child: Container(
-                            height: 340.h,
+                            height: 400.h,
                             child: routineItemList(routineItemController)),
                       ),
                     ),
