@@ -56,7 +56,9 @@ class _SettingsPageState extends State<SettingsPage> {
               '내가 수행한 루틴',
               style: AppleFont22_Black,
             ),
-            onTap: onPressed,
+            onTap: () {
+              Get.toNamed('/completedRoutines');
+            },
             shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
           ),
           ListTile(

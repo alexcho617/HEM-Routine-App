@@ -20,7 +20,7 @@ import 'package:hem_routine_app/views/test.dart';
 
 import 'package:hem_routine_app/views/widgetTestPage.dart';
 import 'controller/routineItemController.dart';
-import 'views/setting/completedRoutines.dart';
+import 'views/setting/completed_routines.dart';
 import 'views/setting/profile_settings.dart';
 
 void main() async {

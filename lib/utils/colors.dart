@@ -48,3 +48,5 @@ Color grey900 = const Color.fromRGBO(0x3C, 0x3C, 0x3C, 1);
 Color black = grey900;
 
 Color yellow = const Color.fromRGBO(0xE7, 0xCD, 0x70, 1);
+
+Color starYellow = const Color.fromRGBO(0xFD, 0xDC, 0x5F, 1);

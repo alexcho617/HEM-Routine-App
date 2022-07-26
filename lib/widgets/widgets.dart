@@ -158,7 +158,7 @@ Widget makeMyRoutineButton(VoidCallback? onPressed) {
     child: ElevatedButton(
       onPressed: onPressed,
       child: Text(
-        '나만의 쾌변 루틴 만들기',
+        '나만의 쾌변 루틴 만들기!',
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
