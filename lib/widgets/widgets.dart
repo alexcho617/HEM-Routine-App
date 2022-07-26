@@ -1022,7 +1022,6 @@ class _CustomNavigatorState extends State<CustomNavigator> with AutomaticKeepAli
 }
 
 
-
 Widget addRoutineItemList(RoutineItemController controller) {
   int itemLength = controller.list.length;
   return ReorderableListView.builder(
