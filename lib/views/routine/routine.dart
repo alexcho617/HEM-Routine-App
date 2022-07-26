@@ -8,6 +8,7 @@ import 'package:hem_routine_app/controller/routineItemController.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
+import 'package:hem_routine_app/views/routine/routineBuild.dart';
 import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
 import 'package:hem_routine_app/views/routine/routineLog.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -149,7 +150,7 @@ class _RoutinePageState extends State<RoutinePage> {
                     height: 43.h,
                   ),
                   makeMyRoutineButton(() {
-                    Kangmin(context, RoutineEntrySettingPage());
+                    Kangmin(context, RoutineBuildPage());
                   }),
                   SizedBox(
                     height: 80.h,

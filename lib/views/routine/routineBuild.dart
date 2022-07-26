@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controller/loginService.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
@@ -15,32 +17,22 @@ class RoutineBuildPage extends StatefulWidget {
 }
 
 class _RoutineBuildPageState extends State<RoutineBuildPage> {
+  LoginService loginService = Get.find();
   final inputController = TextEditingController();
   final _globalKey = GlobalKey<FormState>();
   bool isValid = true;
   bool activateButton = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        centerTitle: false,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Get.back();
-          },
-        ),
-        title: Text('루틴 설계'),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 21),
-          child: Form(
-            key: _globalKey,
+    return Form(
+      key: _globalKey,
+      child: Column(
+        children: [
+          customAppBar(context),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 21),
             child: Column(
+              // mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
@@ -95,9 +87,7 @@ class _RoutineBuildPageState extends State<RoutineBuildPage> {
                     return null;
                   },
                 ),
-                Expanded(
-                  child: Container(),
-                ),
+                SizedBox(height: 48.h,),
                 Text(
                   '루틴 수행 기간',
                   style:
@@ -128,21 +118,27 @@ class _RoutineBuildPageState extends State<RoutineBuildPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 250.h,
+                  height: 210.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     activateButton
-                        ? nextButtonBig(() {})
+                        ? nextButtonBig(() {
+                          FirebaseFirestore.instance.collection('user/${loginService.auth.value.currentUser}/routine').add({
+                            'averageComplete': 0,
+                            'averageRating': 0,
+                            'name': inputController.text
+                          });
+                        })
                         : disabledNextButtonBig(() {}),
                   ],
                 ),
-                SizedBox(height: 82.h,)
+                
               ],
             ),
           ),
-        ),
+        ],
       ),
     );
   }

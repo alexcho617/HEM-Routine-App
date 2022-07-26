@@ -1075,3 +1075,19 @@ Widget addRoutineItemList(RoutineItemController controller) {
     },
   );
 }
+
+Widget customAppBar(context){
+  return AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          centerTitle: false,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: Text('루틴 항목 설정'),
+        );
+}

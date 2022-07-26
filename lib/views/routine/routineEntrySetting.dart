@@ -23,28 +23,7 @@ class _RoutineEntrySettingPageState extends State<RoutineEntrySettingPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          centerTitle: false,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: Text('루틴 항목 설정'),
-        ),
-        // ListTile(
-        //   leading: IconButton(
-        //     icon: Icon(Icons.arrow_back),
-        //     onPressed: () {
-        //       Get.back();
-        //     },
-        //   ),
-        //   title: Text('루틴 항목 설정'),
-        // ),
+        customAppBar(context),
 
         SizedBox(
           width: MediaQuery.of(context).size.width,
