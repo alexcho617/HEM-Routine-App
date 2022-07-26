@@ -150,7 +150,7 @@ class _RoutinePageState extends State<RoutinePage> {
                     height: 43.h,
                   ),
                   makeMyRoutineButton(() {
-                    Kangmin(context, RoutineBuildPage());
+                    kangmin(context, RoutineBuildPage());
                   }),
                   SizedBox(
                     height: 80.h,

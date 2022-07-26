@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void Kangmin(context, Widget page) {
+void kangmin(context, Widget page) {
   Navigator.push(
     context,
     PageRouteBuilder(
@@ -21,3 +22,12 @@ void Kangmin(context, Widget page) {
     ),
   );
 }
+
+// bool routineInit(String text, String uid) {
+//   FirebaseFirestore.instance.collection('user/$uid/routine').add({
+//                             'averageComplete': 0,
+//                             'averageRating': 0,
+//                             'name': text
+//                           });
+  
+// }
