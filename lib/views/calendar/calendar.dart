@@ -44,7 +44,7 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime(2022, 7, 5);
+    DateTime date = DateTime.now();
     CalendarEvent event = CalendarEvent(time: date, color: primary);
     controller.addEvent(date, event);
 
@@ -71,7 +71,24 @@ class _CalendarState extends State<Calendar> {
           calendarFormat: CalendarFormat.month,
           headerStyle: kHeaderStyle,
           // TODO 1 : calendarStyle: returnCalendarStyleWithCustomIcon
-          calendarStyle: CalendarStyle(),
+          calendarStyle: CalendarStyle(
+            // //event marker, selecting from two types for now
+            // markerDecoration: controller.markerColor.value == 'yellow'
+            //     ? BoxDecoration(
+            //         image: DecorationImage(
+            //           image: AssetImage('assets/characterIconYellow.png'),
+            //         ),
+            //         shape: BoxShape.rectangle,
+            //         // color: Colors.blue,
+            //       )
+            //     : BoxDecoration(
+            //         image: DecorationImage(
+            //           image: AssetImage('assets/characterIconRed.png'),
+            //         ),
+            //         shape: BoxShape.rectangle,
+            //         // color: Colors.blue,
+            //       ),
+          ),
           eventLoader: (DateTime selectedDay) {
             return _eventLoader(selectedDay);
           },
@@ -83,7 +100,6 @@ class _CalendarState extends State<Calendar> {
             });
           },
         ),
-
         ..._eventLoader(controller.selectedDay).map(
           (CalendarEvent event) => ListTile(
             title: Text(

@@ -41,7 +41,24 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
               children: [Text('Shape Select')],
             ),
             Row(
-              children: [Text('Color Select')],
+              children: [
+                IconButton(
+                    onPressed: () {
+                      controller.markerColor.value = 'yellow';
+                    },
+                    icon: Icon(
+                      Icons.circle,
+                      color: Colors.yellow,
+                    )),
+                IconButton(
+                    onPressed: () {
+                      controller.markerColor.value = 'red';
+                    },
+                    icon: Icon(
+                      Icons.circle,
+                      color: Colors.red,
+                    ))
+              ],
             ),
             Row(
               children: [Text('Hardness Select')],
@@ -61,7 +78,8 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                         controller.selectedEvents[controller.selectedDay]!.add(
                           CalendarEvent(
                               time: controller.selectedDay,
-                              color: Colors.amber,
+                              //markerColor is selecting the icon image type
+                              color: controller.markerColor,
                               memo: eventTextController.text),
                         );
 
@@ -72,7 +90,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                         controller.selectedEvents[controller.selectedDay] = [
                           CalendarEvent(
                               time: controller.selectedDay,
-                              color: Colors.amber,
+                              color: controller.markerColor,
                               memo: eventTextController.text),
                         ];
                       }

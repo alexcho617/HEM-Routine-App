@@ -1,10 +1,18 @@
 // Copyright 2019 Aleksander Woźniak
 // SPDX-License-Identifier: Apache-2.0
+/*
+Table Calendar
+  TableCalendarBase
+    CalendarCore
+      DayBuilder.
+*/
+
+
+
 
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
-import 'package:hem_routine_app/controller/eventController.dart';
 import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
@@ -629,10 +637,10 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
 
           //alex
           final routines = widget.routineLoader?.call(day) ?? [];
+          
           Widget? routineWidget = widget.calendarBuilders.routineMarkerBuilder
               ?.call(context, day, routines);
           //alex
-
           if (events.isNotEmpty && markerWidget == null) {
             final center = constraints.maxHeight / 2;
 

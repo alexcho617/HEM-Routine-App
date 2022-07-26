@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:flutter/widgets.dart';
+import 'package:hem_routine_app/utils/colors.dart';
 
 /// Class containing styling and configuration for `TableCalendar`'s content.
 class CalendarStyle {
@@ -196,11 +197,11 @@ class CalendarStyle {
     this.outsideDaysVisible = true,
     this.markersAutoAligned = true,
     this.markerSize,
-    // this.markerSizeScale = 0.2,
+    this.markerSizeScale = 0.2,
     this.markersAnchor = 1,
     this.rangeHighlightScale = 1.0,
     this.markerMargin = const EdgeInsets.only(left: 6),
-    // this.markersAlignment = Alignment.bottomCenter,
+    this.markersAlignment = Alignment.bottomCenter,
     this.markersMaxCount = 4,
     this.cellMargin = const EdgeInsets.all(6.0),
     this.cellPadding = const EdgeInsets.all(0),
@@ -211,15 +212,18 @@ class CalendarStyle {
     //   color: const Color(0xFF263238),
     //   shape: BoxShape.circle,
     // ),
-    this.markerSizeScale = 1.0,
-    this.markersAlignment = Alignment.center,
+    // this.markerSizeScale = 1.0,
+    // this.markersAlignment = Alignment.center,
     this.markerDecoration = const BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage('assets/characterIconYellow.png'),
-      ),
-      shape: BoxShape.rectangle,
-      // color: Colors.blue,
-    ),
+        shape: BoxShape.circle,
+        color: const Color.fromRGBO(0x4F, 0x6D, 0xC9, 1)),
+    // BoxDecoration(
+    //   image: DecorationImage(
+    //     image: AssetImage('assets/characterIconYellow.png'),
+    //   ),
+    //   shape: BoxShape.rectangle,
+    //   // color: Colors.blue,
+    // ),
     //alex
     this.canRoutineMarkersOverflow = true,
     this.routineMarkersAutoAligned = true,

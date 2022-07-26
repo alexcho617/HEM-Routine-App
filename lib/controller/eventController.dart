@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/utils/calendarUtil.dart';
 
@@ -8,6 +8,8 @@ import '../tableCalendar/src/shared/utils.dart';
 
 class EventController extends GetxController {
   Map<DateTime, List<CalendarEvent>> selectedEvents = {};
+  var markerColor = 'yellow'.obs;
+
   DateTime selectedDay = DateTime.now();
   DateTime focusedDate = DateTime.now();
   Map<DateTime, List<Routine>> routines = {
