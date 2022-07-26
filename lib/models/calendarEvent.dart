@@ -1,3 +1,4 @@
+
 class CalendarEvent {
   CalendarEvent({this.time, this.color, this.type, this.hardness, this.memo});
   dynamic memo;
@@ -5,4 +6,10 @@ class CalendarEvent {
   dynamic color;
   dynamic type;
   dynamic hardness;
+
+
+  @override
+  String toString() {
+    return "color :" + color.toString();
+  }
 }

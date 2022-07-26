@@ -4,6 +4,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controller/eventController.dart';
+import 'dart:math';
+
 //this is used in calendar_core builder
 class CalendarPage extends StatelessWidget {
   final Widget Function(BuildContext context, DateTime day)? dowBuilder;
@@ -49,23 +51,26 @@ class CalendarPage extends StatelessWidget {
 
   List<TableRow> _buildCalendarDays(BuildContext context) {
     final rowAmount = visibleDays.length ~/ 7;
-    EventController controller = Get.find();
 
     //이벤트 정보 가져오고 현재 그리는 정보와 비교
+    EventController controller = Get.find();
     controller.selectedEvents;
-
     return List.generate(rowAmount, (index) => index * 7)
         .map((index) => TableRow(
               decoration: rowDecoration,
               children: List.generate(
+                
                 7,
                 (id) => Stack(alignment: Alignment.center, children: [
                   //if event exist
                   dayBuilder(context, visibleDays[index + id]),
                   //각 날짜와 리스트안에 있는 이벤트와 비교해서 출력해야할듯
-                  controller.markerColor.value == 'yellow'
-                      ? Image.asset('assets/characterIconYellow.png')
-                      : Image.asset('assets/characterIconRed.png')
+                  // controller.markerColor.value == 'yellow'
+                  //stack works so just have to map each index with events
+
+                  // index % 2 == 0
+                  //     ? Image.asset('assets/characterIconYellow.png')
+                  //     : Image.asset('assets/characterIconRed.png')
 
                   //else
                   // dayBuilder(context, visibleDays[index + id]),

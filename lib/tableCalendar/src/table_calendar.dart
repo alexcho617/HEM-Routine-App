@@ -7,12 +7,10 @@ Table Calendar
       DayBuilder.
 */
 
-
-
-
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
+import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
@@ -169,7 +167,7 @@ class TableCalendar<T> extends StatefulWidget {
   final RangeSelectionMode rangeSelectionMode;
 
   /// Function that assigns a list of events to a specified day.
-  final List<T> Function(DateTime day)? eventLoader;
+  final List<CalendarEvent> Function(DateTime day)? eventLoader;
 
   /// Function that assigns a list of routine to a specified day.
   final List<RoutineItem> Function(DateTime day)? routineLoader;
@@ -637,7 +635,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
 
           //alex
           final routines = widget.routineLoader?.call(day) ?? [];
-          
+
           Widget? routineWidget = widget.calendarBuilders.routineMarkerBuilder
               ?.call(context, day, routines);
           //alex
@@ -665,7 +663,14 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
               end: widget.calendarStyle.markersAutoAligned
                   ? null
                   : widget.calendarStyle.markersOffset.end,
-              child: Row(
+              //Todo: alex this is where markers are made mapped to events
+              // child: Row(
+              //   mainAxisSize: MainAxisSize.min,
+              //   children: events
+              //       .take(widget.calendarStyle.markersMaxCount)
+              //       .map((event) => _buildSingleMarker(day, event, markerSize))
+              //       .toList(),
+               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: events
                     .take(widget.calendarStyle.markersMaxCount)
@@ -731,15 +736,19 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
     );
   }
 
-  Widget _buildSingleMarker(DateTime day, T event, double markerSize) {
+  //TODO : THIS IS THE SHIT SINGLE MARKER alex
+  Widget _buildSingleMarker(
+      DateTime day, CalendarEvent event, double markerSize) {
     return widget.calendarBuilders.singleMarkerBuilder
             ?.call(context, day, event) ??
         Container(
-          width: markerSize,
-          height: markerSize,
-          margin: widget.calendarStyle.markerMargin,
-          decoration: widget.calendarStyle.markerDecoration,
-        );
+            width: markerSize * 2,
+            height: markerSize,
+            // margin: widget.calendarStyle.markerMargin,
+            // decoration: widget.calendarStyle.markerDecoration,
+            child: event.color.toString() == 'yellow'
+                ? Image.asset('assets/characterIconYellow.png')
+                : Image.asset('assets/characterIconRed.png'));
   }
 
   //alex T changed to  List<T>

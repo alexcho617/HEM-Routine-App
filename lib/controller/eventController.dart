@@ -8,7 +8,7 @@ import '../tableCalendar/src/shared/utils.dart';
 
 class EventController extends GetxController {
   Map<DateTime, List<CalendarEvent>> selectedEvents = {};
-  var markerColor = 'yellow'.obs;
+  // var markerColor = 'yellow'.obs;
 
   DateTime selectedDay = DateTime.now();
   DateTime focusedDate = DateTime.now();
@@ -21,8 +21,17 @@ class EventController extends GetxController {
   }
 
   void addEvent(DateTime date, CalendarEvent event) {
-    List<CalendarEvent> eventList = [event];
-    selectedEvents[date] = eventList;
+//if event exists add to existing list
+    if (selectedEvents[date] != null) {
+      selectedEvents[date]!.add(event);
+    }
+//else create new list
+    else {
+      List<CalendarEvent> eventList = [event];
+      selectedEvents[date] = eventList;
+    }
+
+    print(selectedEvents);
   }
 
   //make a stream with events?
@@ -56,24 +65,24 @@ final _kEventSource = {
     )
 }..addAll({
     kToday: [
-      CalendarEvent(time: DateTime.now(), memo: 'calendarUtil event1'),
-      CalendarEvent(time: DateTime.now(), memo: 'calendarUtil event2'),
+      // CalendarEvent(time: DateTime.now(), memo: 'calendarUtil event1'),
+      // CalendarEvent(time: DateTime.now(), memo: 'calendarUtil event2'),
     ],
   });
 
 //alex
-final kRoutines = LinkedHashMap<DateTime, List<Routine>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(kRoutineSource);
+// final kRoutines = LinkedHashMap<DateTime, List<Routine>>(
+//   equals: isSameDay,
+//   hashCode: getHashCode,
+// )..addAll(kRoutineSource);
 
-final kRoutineSource = {
-  for (var item in List.generate(50, (index) => index))
-    DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
-      item % 4 + 1,
-      (index) => Routine(title: 'Routine $item | ${index + 1}'),
-    )
-}..addAll({
-    kToday: [Routine(title: 'Routine1')],
-  });
-//alex
+// final kRoutineSource = {
+//   for (var item in List.generate(50, (index) => index))
+//     DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
+//       item % 4 + 1,
+//       (index) => Routine(title: 'Routine $item | ${index + 1}'),
+//     )
+// }..addAll({
+//     kToday: [Routine(title: 'Routine1')],
+//   });
+// //alex

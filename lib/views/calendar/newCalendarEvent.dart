@@ -16,6 +16,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
   //Event related
   TextEditingController eventTextController = TextEditingController();
   var data = Get.arguments;
+  var markerColor = 'yellow';
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
               children: [
                 IconButton(
                     onPressed: () {
-                      controller.markerColor.value = 'yellow';
+                      markerColor = 'yellow';
                     },
                     icon: Icon(
                       Icons.circle,
@@ -52,7 +53,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                     )),
                 IconButton(
                     onPressed: () {
-                      controller.markerColor.value = 'red';
+                      markerColor = 'red';
                     },
                     icon: Icon(
                       Icons.circle,
@@ -79,7 +80,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                           CalendarEvent(
                               time: controller.selectedDay,
                               //markerColor is selecting the icon image type
-                              color: controller.markerColor,
+                              color: markerColor,
                               memo: eventTextController.text),
                         );
 
@@ -90,7 +91,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                         controller.selectedEvents[controller.selectedDay] = [
                           CalendarEvent(
                               time: controller.selectedDay,
-                              color: controller.markerColor,
+                              color: markerColor,
                               memo: eventTextController.text),
                         ];
                       }
