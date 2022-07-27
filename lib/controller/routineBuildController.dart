@@ -10,6 +10,8 @@ class RoutineBuildController extends GetxController {
   Rx<bool> onSubmitted = false.obs;
   Rx<bool> isValid = true.obs;
   Rx<bool> activateButton = false.obs;
+  Rx<int> currentIndex = 0.obs;
+  DateTime now = DateTime.now();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<Widget> routinePeriod = [
     Text("1 일간"),
@@ -50,20 +52,36 @@ class RoutineBuildController extends GetxController {
   }
 
   void addRoutine() async {
-    // await firestore
-    //     .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
-    //     .where("name", isEqualTo: inputController.text)
-    //     .get()
-    //     .then((QuerySnapshot querySnapshot) async {
-    //   if (querySnapshot.size == 0) {
+    DateTime later = now.add(Duration(days: currentIndex.value + 1));
     await firestore
         .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
         .add({
       'averageComplete': 0,
       'averageRating': 0,
       'name': inputController.text
-    }).then((DocumentReference documentReference) {
-      print(documentReference.id);
+    }).then((DocumentReference routineDoc) async {
+      print(routineDoc.id);
+      await firestore
+          .collection(
+              'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory')
+          .add({
+        'complete': 0,
+        'duration': currentIndex.value,
+        'startDate': DateTime(now.year, now.month, now.day),
+        'endDate': DateTime(later.year, later.month, later.day),
+        'isActive': true,
+        'name': inputController.text,
+        'rating': 0,
+      }).then((DocumentReference routineHistoryDoc) async {
+        for (int i = 1; i <= currentIndex.value; i++) {
+          await firestore
+              .collection(
+                  'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory/${routineHistoryDoc.id}/days')
+              .doc('$i').set({
+                'dayComplete': 0,
+              }); 
+        }
+      });
     });
   }
 
@@ -91,7 +109,7 @@ class RoutineBuildController extends GetxController {
         isValid.value = false;
         activateButton.value = false;
         inputController.clear();
-        
+
         return '이미 사용하신 루틴 이름이에요.';
       } else {
         addRoutine();

@@ -79,7 +79,7 @@ class _RoutineBuildPageState extends State<RoutineBuildPage> {
                   height: 139.h,
                   child: CupertinoPicker(
                     children: pageController.routinePeriod,
-                    onSelectedItemChanged: (value) {},
+                    onSelectedItemChanged: (value) {pageController.currentIndex.value = value + 1;},
                     itemExtent: 25.h,
                   ),
                 ),
