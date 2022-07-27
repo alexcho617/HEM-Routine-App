@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/setting/profile_settings.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +26,7 @@ class AccountSettingsPage extends StatelessWidget {
             style: AppleFont22_Black,
           ),
           onTap: () {
-            Get.toNamed('/profileSettings');
+            kangmin(context, ProfileSettingsPage());
           },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),

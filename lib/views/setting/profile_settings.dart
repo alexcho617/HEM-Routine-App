@@ -20,20 +20,29 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        customAppBar(context, '프로필 설정'),
-        Form(
-          key: _formKey,
-          child: Center(
-            child: SizedBox(
-              width: 348.w,
+    return Container(
+      color: white,
+      child: Column(
+        children: [
+          customAppBar(context, '프로필 설정'),
+          Padding(
+            padding: EdgeInsets.all(22.r),
+            child: Form(
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text('사용자 이름'),
                   TextFormField(
+                    decoration: InputDecoration(
+                        hintText: '사용자 이름 입력(최대 10자)',
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.replay_circle_filled_rounded),
+                          onPressed: () {
+                            //controller.stashname();
+                          },
+                        )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Data E';
@@ -54,16 +63,22 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   ),
                   Text('생년월일'),
                   SizedBox(
+                    height: 16.h,
+                  ),
+                  SizedBox(
                     height: 139.h,
                     child: buildDatePicker(),
+                  ),
+                  SizedBox(
+                    height: 66.h,
                   ),
                   saveButtonLong(saveButtonPressed, false ? primary : grey600),
                 ],
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -81,57 +96,54 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
     }
   }
 
-Widget genderchooseButton(VoidCallback? onPressed) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Container(
-        width: 163.w,
-        height: 48.h,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          child: Text(
-            '남자',
-            style: AppleFont14_White,
-          ),
-          style: ElevatedButton.styleFrom(
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            primary: isMale? primary : grey600,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.r),
+  Widget genderchooseButton(VoidCallback? onPressed) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: 163.w,
+          height: 48.h,
+          child: ElevatedButton(
+            onPressed: onPressed,
+            child: Text(
+              '남자',
+              style: AppleFont14_White,
+            ),
+            style: ElevatedButton.styleFrom(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              primary: isMale ? primary : grey600,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
             ),
           ),
         ),
-      ),
-      Container(
-        width: 163.w,
-        height: 48.h,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          child: Text(
-            '여자',
-            style: AppleFont14_White,
-          ),
-          style: ElevatedButton.styleFrom(
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            primary: isMale? grey600 : primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.r),
+        Container(
+          width: 163.w,
+          height: 48.h,
+          child: ElevatedButton(
+            onPressed: onPressed,
+            child: Text(
+              '여자',
+              style: AppleFont14_White,
+            ),
+            style: ElevatedButton.styleFrom(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              primary: isMale ? grey600 : primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
             ),
           ),
         ),
-      ),
-    ],
-  );
-}
-
+      ],
+    );
+  }
 }
 
 void onPressed() {
   //
 }
-
-
 
 Widget saveButtonLong(VoidCallback? onPressed, Color color) {
   return Container(
