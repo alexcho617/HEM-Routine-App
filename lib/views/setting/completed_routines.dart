@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hem_routine_app/main.dart';
+import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/setting/routine_detail.dart';
 import '../../utils/colors.dart';
 import 'package:get/get.dart';
 import '../../widgets/widgets.dart';
@@ -37,7 +39,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
               ],
             )
           : Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 customAppBar(context, '내가 수행한 루틴'),
                 Padding(
@@ -118,7 +120,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                     child: ListView.builder(
                       itemCount: 15,
                       itemBuilder: (BuildContext context, int index) {
-                        return routineCard();
+                        return routineCard(index);
                       },
                     ),
                   ),
@@ -128,53 +130,56 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
     );
   }
 
-  Widget routineCard() {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.r)
-      ),
-      child: Container(
-        width: 349.w,
-        height: 79.h,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16.w,12.h,16.w,8.h),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(4.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "\$루틴이름",
-                      style: AppleFont18_Black,
-                    ),
-                    Text(
-                      "목표 \$n일간",
-                      style: AppleFont12_Blue600,
-                    ),
-                  ],
+  Widget routineCard(int index) {
+    return InkWell(
+      onTap: () {
+        kangmin(context, RoutineDetailPage(index: index));
+      },
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+        child: Container(
+          width: 349.w,
+          height: 79.h,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 8.h),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(4.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "\$루틴이름 $index",
+                        style: AppleFont18_Black,
+                      ),
+                      Text(
+                        "목표 \$n일간",
+                        style: AppleFont12_Blue600,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding:EdgeInsets.all(4.r),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "달성도 \$n%",
-                      style: AppleFont14_Grey600,
-                    ),
-                    satisfaction(3),
-                    Text(
-                      "도전 횟수 \$n회",
-                      style: AppleFont14_Grey600,
-                    )
-                  ],
+                Padding(
+                  padding: EdgeInsets.all(4.r),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "달성도 \$n%",
+                        style: AppleFont14_Grey600,
+                      ),
+                      satisfaction(3),
+                      Text(
+                        "도전 횟수 \$n회",
+                        style: AppleFont14_Grey600,
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
