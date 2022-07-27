@@ -21,10 +21,11 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: routineList.length == 0
           ? Column(
               children: [
-                customAppBar(context, '계정 설정'),
+                customAppBar(context, '내가 수행한 루틴'),
                 Text(
                   '수행한 루틴이 없습니다.',
                   style: AppleFont16_Black,
@@ -38,7 +39,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
           : Column(
             mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                customAppBar(context, '계정 설정'),
+                customAppBar(context, '내가 수행한 루틴'),
                 Padding(
                   padding: EdgeInsets.all(20.r),
                   child: Column(
@@ -113,7 +114,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                 SingleChildScrollView(
                   child: SizedBox(
                     width: 350.w,
-                    height: 680.h,
+                    height: 609.h,
                     child: ListView.builder(
                       itemCount: 15,
                       itemBuilder: (BuildContext context, int index) {
