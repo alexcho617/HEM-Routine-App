@@ -23,6 +23,8 @@ class _SettingsPageState extends State<SettingsPage> {
     return ListView(
       children: [
         customAppBar(context, '설정'),
+        Container(height: 56.h,
+        child: ListTile()),
         ListTile(
           leading: Icon(
             Icons.person,

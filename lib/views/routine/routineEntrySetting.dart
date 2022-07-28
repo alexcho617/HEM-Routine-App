@@ -5,7 +5,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/utils/colors.dart';
+import 'package:hem_routine_app/views/bottom_pop_up/routine_item_add.dart';
+import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../utils/constants.dart';
 
@@ -69,7 +72,15 @@ class _RoutineEntrySettingPageState extends State<RoutineEntrySettingPage> {
         SizedBox(
           height: 50.h,
         ),
-        addButton(() {}),
+        addButton(() {
+          showCupertinoModalBottomSheet(
+                        context: context
+                            .findAncestorStateOfType<HomePageState>()!
+                            .context,
+                        expand: false,
+                        builder: (context) => RoutineItemAddPage(),
+                      );
+        }),
         SizedBox(
           height: 104.h,
         ),
@@ -77,7 +88,9 @@ class _RoutineEntrySettingPageState extends State<RoutineEntrySettingPage> {
           width: 335.w,
           height: 48.h,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             child: Text(
               '이전',
               style: AppleFont14_Grey700,

@@ -33,6 +33,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  customAppBar(context, '프로필 설정'),
                   Text('사용자 이름'),
                   TextFormField(
                     decoration: InputDecoration(
