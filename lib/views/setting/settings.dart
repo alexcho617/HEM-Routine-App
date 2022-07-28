@@ -7,6 +7,7 @@ import 'package:hem_routine_app/utils/constants.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/setting/account_settings.dart';
 import 'package:hem_routine_app/views/setting/completed_routines.dart';
+import 'package:hem_routine_app/views/setting/service_info.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -93,6 +94,21 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           onTap: onPressed,
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.info_outline_rounded,
+            size: 28.r,
+            color: black,
+          ),
+          title: Text(
+            '서비스 안내',
+            style: AppleFont22_Black,
+          ),
+          onTap: () {
+            kangmin(context, ServiceInfoPage());
+          },
+          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),
       ],
     );

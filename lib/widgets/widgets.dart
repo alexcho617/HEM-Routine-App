@@ -109,6 +109,65 @@ Widget nextButtonSmall(VoidCallback? onPressed) {
   );
 }
 
+Widget routineButton(
+    VoidCallback? onPressedBack, VoidCallback onPressedNext) {
+  return Container(
+    width: 335.w,
+    height: 48.h,
+    child: Row(
+      children: [
+        routineChagngeButton(onPressedBack),
+        SizedBox(
+          width: 24.w,
+        ),
+        restartRoutineButton(onPressedNext),
+      ],
+    ),
+  );
+}
+
+Widget routineChagngeButton(VoidCallback? onPressed) {
+  return Container(
+    width: 107.w,
+    height: 48.h,
+    child: ElevatedButton(
+      onPressed: onPressed,
+      child: Text(
+        '루틴변경',
+        style: AppleFont14_White,
+      ),
+      style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        primary: blue100,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget restartRoutineButton(VoidCallback? onPressed) {
+  return Container(
+    width: 204.w,
+    height: 48.h,
+    child: ElevatedButton(
+      onPressed: onPressed,
+      child: Text(
+        '루틴 다시 도전!',
+        style: AppleFont14_White,
+      ),
+      style: ElevatedButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        primary: primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.r),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget saveButtonGray(VoidCallback? onPressed) {
   return Container(
     width: 200.w,
@@ -382,8 +441,9 @@ Widget routineItemList(RoutineItemController controller) {
       return Material(
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.transparent,)
-          ),
+              border: Border.all(
+            color: Colors.transparent,
+          )),
           child: child,
         ),
       );
@@ -1100,5 +1160,284 @@ Widget customAppBar(context, String name) {
       },
     ),
     title: Text(name),
+  );
+}
+
+Widget routineItemCard(String name, int goal) {
+  return Padding(
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        child: PhysicalModel(
+          color: white,
+          elevation: 5.r,
+          borderRadius: BorderRadius.circular(12.r),
+          child: ListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              leading: Padding(
+                padding: EdgeInsets.symmetric(vertical: 11.h),
+                child: Icon(Icons.menu),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+              horizontalTitleGap: 0,
+              minVerticalPadding: 22.w,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.h),
+                    child: Text(
+                      name,
+                      style: AppleFont18_Black,
+                    ),
+                  ),
+                  Text('일일 목표'),
+                  Text('${goal * 2}회'),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                ],
+              ),
+              ),
+        ),
+      );
+}
+
+
+Widget routineCopyAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 203.h),
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 147.h,
+          child: Center(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(12.r),
+                    child: Text("루틴 복제",style: AppleFont16_BlackBold,),
+                  ),
+                  Text(
+            '이미 도전했던 루틴 입니다.\n루틴을 변경하시면\n새로운 루틴이 생성 됩니다.',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          ),
+                ],
+              )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '신규 루틴 생성',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
+Widget routineRestartAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 203.h),
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 147.h,
+          child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(12.r),
+                    child: Text("루틴 시작",style: AppleFont16_BlackBold,),
+                  ),
+                  Text(
+            '설정하신 루틴을\n오늘부터 도전해 보세요!\n',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          ),
+                ],
+              )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '루틴 시작',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
+
+
+Widget routineDeleteAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 184.h),
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 128.h,
+          child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(12.r),
+                    child: Text("루틴 삭제",style: AppleFont16_BlackBold,),
+                  ),
+                  Text(
+            '정말로 루틴을 삭제하시겠습니까?\n',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          ),
+                ],
+              )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '삭제',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
   );
 }
