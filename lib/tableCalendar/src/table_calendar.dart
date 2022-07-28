@@ -633,7 +633,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
           final events = widget.eventLoader?.call(day) ?? [];
 
           //alex trying to show only one marker
-          if (events.isNotEmpty){
+          if (events.isNotEmpty) {
             CalendarEvent? earliestEvent = events.first;
           }
           Widget? markerWidget =
@@ -743,20 +743,18 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
     );
   }
 
-  //TODO 1: Marker Logic here
+  //TODO 1: Marker Logic here, get iconCode from calendarEvent and map to asset image.
   Widget _buildSingleMarker(
       DateTime day, CalendarEvent event, double markerSize) {
     return widget.calendarBuilders.singleMarkerBuilder
             ?.call(context, day, event) ??
         Container(
-            // color: Colors.red,
-            width: markerSize,
-            height: markerSize,
-            margin: widget.calendarStyle.markerMargin,
-            // decoration: widget.calendarStyle.markerDecoration);
-            child: event.color.toString() == 'yellow'
-                ? Image.asset('assets/characterIconYellow.png')
-                : Image.asset('assets/characterIconRed.png'));
+          // color: Colors.red,
+          width: markerSize,
+          height: markerSize,
+          margin: widget.calendarStyle.markerMargin,
+          child: Image.asset('${event.iconCode.toString()}.png'),
+        );
   }
 
   //alex T changed to  List<T>
