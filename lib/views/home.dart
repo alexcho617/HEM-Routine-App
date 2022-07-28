@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
+import 'package:hem_routine_app/views/setting/settings.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
 import '../utils/colors.dart';
@@ -12,19 +13,17 @@ class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   final _pages = [
     Calendar(),
     RoutinePage(),
     Center(
       child: Text('Report'),
     ),
-    Center(
-      child: Text('Setting'),
-    ),
+    SettingsPage(),
   ];
   final _navigatorKeyList =
       List.generate(4, (index) => GlobalKey<NavigatorState>());
@@ -40,7 +39,7 @@ class _HomePageState extends State<HomePage> {
       },
       child: DefaultTabController(
         length: 4,
-        child: Scaffold(
+        child: Scaffold(     
           body: SafeArea(
             child: TabBarView(
               children: _pages.map(

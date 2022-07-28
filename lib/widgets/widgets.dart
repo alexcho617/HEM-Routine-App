@@ -157,7 +157,7 @@ Widget makeMyRoutineButton(VoidCallback? onPressed) {
     child: ElevatedButton(
       onPressed: onPressed,
       child: Text(
-        '나만의 쾌변 루틴 만들기',
+        '나만의 쾌변 루틴 만들기!',
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
@@ -374,13 +374,24 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
 }
 
 Widget routineItemList(RoutineItemController controller) {
-  int itemLength = controller.list.length;
+  int itemLength = controller.routineItems.length;
   return ReorderableListView.builder(
     padding: EdgeInsets.all(10.r),
+    proxyDecorator: ((child, index, animation) {
+      return Material(
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(
+            color: Colors.transparent,
+          )),
+          child: child,
+        ),
+      );
+    }),
     itemBuilder: (BuildContext context, int index) {
-      double percent = controller.getPercent(
-          controller.countList[index], controller.list[index].goalCount);
-      return Padding(
+      double percent = controller.getPercent(controller.countList[index],
+          controller.routineItems[index].goalCount);
+      return Container(
         key: Key('$index'),
         padding: EdgeInsets.symmetric(vertical: 8.h),
         child: PhysicalModel(
@@ -402,29 +413,32 @@ Widget routineItemList(RoutineItemController controller) {
             contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
             horizontalTitleGap: 0,
             minVerticalPadding: 22.w,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  controller.list[index].name,
-                  style: AppleFont18_Black,
-                ),
-                Column(
-                  children: [
-                    Text(
-                      '수행/목표',
-                      style: AppleFont14_Grey600,
-                    ),
-                    Text(
-                      '${controller.countList[index]}/${controller.list[index].goalCount}',
-                      style: AppleFont14_Grey600,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 5.w,
-                ),
-              ],
+            title: SizedBox(
+              height: 35.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    controller.routineItems[index].name,
+                    style: AppleFont18_Black,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        '수행/목표',
+                        style: AppleFont14_Grey600,
+                      ),
+                      Text(
+                        '${controller.countList[index]}/${controller.routineItems[index].goalCount}',
+                        style: AppleFont14_Grey600,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                ],
+              ),
             ),
             trailing: Stack(
               alignment: Alignment.center,
@@ -853,7 +867,6 @@ Widget starRankIndicator(int rank) {
   );
 }
 
-
 Widget dataAlertDialog(
     VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
   return AlertDialog(
@@ -997,25 +1010,96 @@ Widget withDrawalAlertDialog(
 class CustomNavigator extends StatefulWidget {
   final Widget page;
   final Key navigatorKey;
-  const CustomNavigator({Key? key, required this.page, required this.navigatorKey}) : super(key: key);
-
+  const CustomNavigator(
+      {Key? key, required this.page, required this.navigatorKey})
+      : super(key: key);
 
   @override
   _CustomNavigatorState createState() => _CustomNavigatorState();
 }
 
-
-class _CustomNavigatorState extends State<CustomNavigator> with AutomaticKeepAliveClientMixin {
+class _CustomNavigatorState extends State<CustomNavigator>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Navigator(
       key: widget.navigatorKey,
-      onGenerateRoute: (_) => MaterialPageRoute(builder: (context) => widget.page),
+      onGenerateRoute: (_) =>
+          MaterialPageRoute(builder: (context) => widget.page),
     );
   }
+}
+
+Widget addRoutineItemList(RoutineItemController controller) {
+  int itemLength = controller.routineItems.length;
+  return ReorderableListView.builder(
+    padding: EdgeInsets.all(10.r),
+    itemBuilder: (BuildContext context, int index) {
+      return Padding(
+        key: Key('$index'),
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        child: PhysicalModel(
+          color: white,
+          elevation: 5.r,
+          borderRadius: BorderRadius.circular(12.r),
+          child: ListTile(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            leading: Padding(
+              padding: EdgeInsets.symmetric(vertical: 11.h),
+              child: Icon(Icons.menu),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+            horizontalTitleGap: 0,
+            minVerticalPadding: 22.w,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.h),
+                  child: Text(
+                    controller.routineItems[index].name,
+                    style: AppleFont18_Black,
+                  ),
+                ),
+                Text('일일 목표 ${controller.routineItems[index].goalCount}회'),
+                SizedBox(
+                  width: 5.w,
+                ),
+              ],
+            ),
+            // trailing: IconButton(
+            //   icon: Icon(Icons.delete),
+            //   onPressed: onPressed,
+            // ),
+          ),
+        ),
+      );
+    },
+    itemCount: itemLength,
+    onReorder: (int oldIndex, int newIndex) {
+      controller.itemReorder(oldIndex, newIndex);
+    },
+  );
+}
+
+Widget customAppBar(context, String name) {
+  return AppBar(
+    elevation: 0,
+    backgroundColor: Colors.white,
+    foregroundColor: Colors.black,
+    centerTitle: false,
+    leading: IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    ),
+    title: Text(name),
+  );
 }

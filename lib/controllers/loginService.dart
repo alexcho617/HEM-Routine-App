@@ -11,6 +11,7 @@ class LoginService extends GetxController {
   AuthCredential? appleCredential;
   GoogleSignInAccount? googleCredential;
   Rx<FirebaseAuth> auth = FirebaseAuth.instance.obs;
+  
   var uid = ''.obs;
   var name = ''.obs;
 
@@ -35,6 +36,7 @@ class LoginService extends GetxController {
     // Once signed in, return the UserCredential
     await auth.value.signInWithCredential(credential).then((value) {
       if (auth.value.currentUser != null) {
+        
         Get.to(HomePage());
         uid.value = auth.value.currentUser!.uid;
       } else {

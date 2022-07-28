@@ -22,6 +22,7 @@ import 'package:hem_routine_app/views/test.dart';
 
 import 'package:hem_routine_app/views/widgetTestPage.dart';
 import 'controllers/routineItemController.dart';
+import 'views/setting/completed_routines.dart';
 import 'views/setting/profile_settings.dart';
 
 void main() async {
@@ -71,14 +72,15 @@ class MyApp extends StatelessWidget {
               '/login': (context) => LoginPage(),
               '/widgetTest': (context) => WidgetTestPage(),
               '/onBoarding': (context) => onBoardingPage(),
-              '/test': (context) => App(),
-              '/routine': (context) => RoutinePage(),
-              '/bottomSheet': (context) => RoutineLogPage(),
-              '/routineBuild': (context) => RoutineBuildPage(),
-              '/settings': (context) => SettingsPage(),
-              '/accountSettings': (context) => AccountSettingsPage(),
-              '/routineEntrySetting': (context) => RoutineEntrySettingPage(),
-              '/profileSettings': (context) => ProfileSettingsPage(),
+              '/test' : (context) => App(),
+              '/routine' : (context) => RoutinePage(),
+              '/bottomSheet' : (context) => RoutineLogPage(),
+              '/routineBuild' : (context) => RoutineBuildPage(),
+              '/settings' : (context) => SettingsPage(),
+              '/accountSettings' : (context) => AccountSettingsPage(),
+              '/routineEntrySetting' : (context) => RoutineEntrySettingPage(),
+              '/profileSettings' : (context) => ProfileSettingsPage(),
+              '/completedRoutines' : (context) => CompletedRoutinesPage(),
               // '/test1' : (context) => MyStatefulWidget(),
             },
           );
