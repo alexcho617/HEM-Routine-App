@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controller/routineBuildController.dart';
+import 'package:hem_routine_app/controllers/routineBuildController.dart';
+
 import 'package:hem_routine_app/models/routine.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
 import 'package:hem_routine_app/views/setting/account_settings.dart';
