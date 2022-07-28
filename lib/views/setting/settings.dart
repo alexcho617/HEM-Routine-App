@@ -22,9 +22,24 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        customAppBar(context, '설정'),
-        Container(height: 56.h,
-        child: ListTile()),
+        // Container(height: 61.h,
+        // child: Row(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: [SizedBox(width: 56.w,),Text("설정",style: AppleFont22_Black,)],)),
+        AppBar(
+          elevation: 0,
+          backgroundColor: Colors.grey[50],
+          foregroundColor: black,
+          centerTitle: false,
+          leading: IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              //
+            },
+          ),
+          title: Text('설정'),
+        ),
         ListTile(
           leading: Icon(
             Icons.person,
