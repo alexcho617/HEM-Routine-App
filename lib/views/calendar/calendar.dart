@@ -14,7 +14,7 @@ import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-EventController controller = Get.find();
+CalendarController controller = Get.find();
 
 class Calendar extends StatefulWidget {
   const Calendar({Key? key}) : super(key: key);
@@ -86,7 +86,7 @@ class _CalendarState extends State<Calendar> {
   );
 
   List<CalendarEvent> _eventLoader(DateTime day) {
-    EventController controller = Get.find();
+    CalendarController controller = Get.find();
     List<CalendarEvent> list;
     list = controller.getEventsfromDay(day) ?? [];
     return list;
