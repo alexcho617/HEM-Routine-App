@@ -753,10 +753,9 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
           width: markerSize,
           height: markerSize,
           margin: widget.calendarStyle.markerMargin,
-          child: Image.asset('${event.iconCode.toString()}.png'),
+          child: Image.asset('assets/${event.iconCode.toString()}.png'),
         );
   }
-
   //alex T changed to  List<T>
   Widget _buildSingleRoutineMarker(
       DateTime day, List<RoutineItem> routine, double markerSize) {

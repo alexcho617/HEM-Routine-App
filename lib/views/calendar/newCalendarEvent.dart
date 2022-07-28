@@ -25,7 +25,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
 
   TextEditingController eventTextController = TextEditingController();
 
-  var iconCode = '';
+  var iconCode = '000';
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
               Text(controller.selectedDay.toString()),
               ClipOval(
                 child: Image(
-                  image: AssetImage("assets/characterIconYellow.png"),
+                  image: AssetImage("assets/$iconCode.png"),
                 ),
               ),
               Text('배변 형태(묽기) 선택'),
