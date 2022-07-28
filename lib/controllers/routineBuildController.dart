@@ -61,6 +61,21 @@ class RoutineBuildController extends GetxController {
       'name': inputController.text
     }).then((DocumentReference routineDoc) async {
       print(routineDoc.id);
+      
+      //alex calenderRoutine
+      await firestore
+          .collection(
+              'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
+          .doc(routineDoc.id)
+          .set({
+        'duration': currentIndex.value,
+        'startDate': DateTime(now.year, now.month, now.day),
+        'endDate': DateTime(later.year, later.month, later.day),
+        'name': inputController.text,
+      }).onError((error, _) =>
+              print("Error adding document to calendarRoutine: $error"));
+
+      //kangmin
       await firestore
           .collection(
               'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory')
@@ -77,12 +92,23 @@ class RoutineBuildController extends GetxController {
           await firestore
               .collection(
                   'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory/${routineHistoryDoc.id}/days')
-              .doc('$i').set({
-                'dayComplete': 0,
-              }); 
+              .doc('$i')
+              .set({
+            'dayComplete': 0,
+          });
         }
       });
     });
+
+    // await firestore
+    //       .collection(
+    //           'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine/${routineDoc.id}')
+    //       .add({
+    //     'duration': currentIndex.value,
+    //     'startDate': DateTime(now.year, now.month, now.day),
+    //     'endDate': DateTime(later.year, later.month, later.day),
+    //     'name': inputController.text,
+    //   });
   }
 
   String? textValidator(String? value) {
