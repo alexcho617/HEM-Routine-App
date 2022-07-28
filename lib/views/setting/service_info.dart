@@ -42,19 +42,46 @@ class _ServiceInfoPageState extends State<ServiceInfoPage> {
         Container(
           width: 390.w,
           height: 526.h,
-          color: white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("회사 소개",
-            style: AppleFont22_Black,
+          color: Colors.grey[50],
+          child: Padding(
+            padding: EdgeInsets.all(28.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                bigText("상호"),
+                smallText("회사명"),
+                bigText("대표"),
+                smallText("홍길동"),
+                bigText("주소"),
+                smallText("경북 포항시 북구 흥해읍 한동로 558\n한동대학교 창업 보육센터 000호"),
+                bigText("홈페이지"),
+                smallText("www.example.com"),
+                bigText("사업자등록번호"),
+                smallText("000-00-00000"),
+              ],
             ),
-            Text("상호"),
-            Text("회사명"),
-            ],
           ),
         )
       ],
+    );
+  }
+
+  Widget bigText(String string) {
+    return Padding(
+      padding: EdgeInsets.all(4.r),
+      child: Text(
+        string,
+        style: AppleFont16_BlackBold,
+      ),
+    );
+  }
+  Widget smallText(String string) {
+    return Padding(
+      padding: EdgeInsets.all(4.r),
+      child: Text(
+        string,
+        style: AppleFont16_Black,
+      ),
     );
   }
 }
