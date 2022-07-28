@@ -1,6 +1,12 @@
 //define global widgets here such as appbar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/routineBuildController.dart';
+
+import 'package:hem_routine_app/models/routine.dart';
+import 'package:hem_routine_app/views/calendar/calendar.dart';
+import 'package:hem_routine_app/views/setting/account_settings.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
 import '../controllers/routineItemController.dart';
@@ -761,7 +767,7 @@ Widget routineStartAlertDialog(
   );
 }
 
-Widget SelectedRoutineButton(VoidCallback? onPressed, String type) {
+Widget selectedRoutineButton(VoidCallback? onPressed, String type) {
   return Container(
     height: 40.h,
     child: ElevatedButton(
@@ -783,7 +789,7 @@ Widget SelectedRoutineButton(VoidCallback? onPressed, String type) {
   );
 }
 
-Widget UnSelectedRoutineButton(VoidCallback? onPressed, String type) {
+Widget unSelectedRoutineButton(VoidCallback? onPressed, String type) {
   return Container(
     height: 40.h,
     child: ElevatedButton(
@@ -805,7 +811,7 @@ Widget UnSelectedRoutineButton(VoidCallback? onPressed, String type) {
   );
 }
 
-Widget CustomBottomSheet(BuildContext context, Widget contents) {
+Widget customBottomSheet(BuildContext context, Widget contents) {
   return Container(
     height: 674.h,
     child: Scaffold(body: contents),
@@ -1440,4 +1446,10 @@ Widget routineDeleteAlertDialog(
       ]),
     ),
   );
+    }  
+Widget routineCategoryButton(int index, String text){
+  RoutineBuildController controller = Get.find();
+  return index == controller.categoryIndex?
+  selectedRoutineButton((){}, text)
+  :unSelectedRoutineButton(()=>controller.updateCategoryIndex(index), text);
 }
