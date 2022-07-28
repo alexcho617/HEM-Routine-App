@@ -1073,10 +1073,10 @@ Widget addRoutineItemList(RoutineItemController controller) {
                 ),
               ],
             ),
-            // trailing: IconButton(
-            //   icon: Icon(Icons.delete),
-            //   onPressed: onPressed,
-            // ),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: controller.onPressed,
+            ),
           ),
         ),
       );
