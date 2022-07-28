@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 // import 'package:flutterfire_ui/auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hem_routine_app/controller/loginService.dart';
+import 'package:hem_routine_app/controllers/loginService.dart';
 
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/widgetTestPage.dart';

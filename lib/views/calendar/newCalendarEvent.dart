@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controller/eventController.dart';
+import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/views/home.dart';
 import '../../models/calendarEvent.dart';
 import '../../utils/calendarUtil.dart';
@@ -70,12 +70,11 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
             TextButton(
               child: Text("Ok"),
               onPressed: () {
-                setState(
-                  () {
-                    if (eventTextController.text.isEmpty) {
-                    } else {
-                      if (controller.selectedEvents[controller.selectedDay] !=
-                          null) {
+                if (eventTextController.text.isNotEmpty) {
+                  if (controller.selectedEvents[controller.selectedDay] !=
+                      null) {
+                    setState(
+                      () {
                         controller.selectedEvents[controller.selectedDay]!.add(
                           CalendarEvent(
                               time: controller.selectedDay,
@@ -83,23 +82,28 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                               color: markerColor,
                               memo: eventTextController.text),
                         );
+                      },
+                    );
 
-                        print(
-                            controller.selectedEvents[controller.selectedDay]);
-                      } else {
-                        //listize and add
-                        controller.selectedEvents[controller.selectedDay] = [
-                          CalendarEvent(
-                              time: controller.selectedDay,
-                              color: markerColor,
-                              memo: eventTextController.text),
-                        ];
-                      }
-                      eventTextController.clear();
-                    }
-                  },
-                );
-                // Navigator.pop(context);
+                    print(controller.selectedEvents[controller.selectedDay]
+                        .toString());
+                  } else {
+                    //listize and add
+                    setState(() {
+                      controller.selectedEvents[controller.selectedDay] = [
+                        CalendarEvent(
+                            time: controller.selectedDay,
+                            color: markerColor,
+                            memo: eventTextController.text),
+                      ];
+                    });
+                    print(controller.selectedEvents[controller.selectedDay]
+                        .toString());
+                  }
+                  eventTextController.clear();
+                }
+
+                Navigator.pop(context);
                 return;
               },
             ),

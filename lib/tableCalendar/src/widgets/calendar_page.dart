@@ -3,7 +3,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controller/eventController.dart';
+import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'dart:math';
 
 //this is used in calendar_core builder

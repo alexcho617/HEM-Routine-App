@@ -197,33 +197,21 @@ class CalendarStyle {
     this.outsideDaysVisible = true,
     this.markersAutoAligned = true,
     this.markerSize,
-    this.markerSizeScale = 0.2,
+    this.markerSizeScale = 1,
     this.markersAnchor = 1,
     this.rangeHighlightScale = 1.0,
     this.markerMargin = const EdgeInsets.only(left: 6),
     this.markersAlignment = Alignment.bottomCenter,
-    this.markersMaxCount = 4,
+    this.markersMaxCount = 1,
     this.cellMargin = const EdgeInsets.all(6.0),
     this.cellPadding = const EdgeInsets.all(0),
     this.cellAlignment = Alignment.center,
     this.markersOffset = const PositionedOffset(),
     this.rangeHighlightColor = const Color(0xFFBBDDFF),
-    // this.markerDecoration = const BoxDecoration(
-    //   color: const Color(0xFF263238),
-    //   shape: BoxShape.circle,
-    // ),
-    // this.markerSizeScale = 1.0,
-    // this.markersAlignment = Alignment.center,
+    //this is not used. Instead, child is used as marker in the _buildSingleMarker in table_calendar.dart
     this.markerDecoration = const BoxDecoration(
         shape: BoxShape.circle,
         color: const Color.fromRGBO(0x4F, 0x6D, 0xC9, 1)),
-    // BoxDecoration(
-    //   image: DecorationImage(
-    //     image: AssetImage('assets/characterIconYellow.png'),
-    //   ),
-    //   shape: BoxShape.rectangle,
-    //   // color: Colors.blue,
-    // ),
     //alex
     this.canRoutineMarkersOverflow = true,
     this.routineMarkersAutoAligned = true,

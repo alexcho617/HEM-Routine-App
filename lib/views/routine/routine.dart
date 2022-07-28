@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:hem_routine_app/controller/routineItemController.dart';
+import 'package:hem_routine_app/controllers/routineItemController.dart';
 import 'package:get/get.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';

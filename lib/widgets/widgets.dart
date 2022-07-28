@@ -1,15 +1,15 @@
 //define global widgets here such as appbar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:hem_routine_app/models/routine.dart';
-import 'package:hem_routine_app/views/calendar/calendar.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
-import '../controller/routineItemController.dart';
+import '../controllers/routineItemController.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-import '../views/routine/routine.dart';
+// import '../views/routine/routine.dart';
+// import 'package:get/get.dart';
+// import 'package:hem_routine_app/models/routine.dart';
+// import 'package:hem_routine_app/views/calendar/calendar.dart';
 
 Widget nextButtonBig(VoidCallback? onPressed) {
   return Container(

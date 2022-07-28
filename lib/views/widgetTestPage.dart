@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../models/routineItem.dart';
 import '../widgets/widgets.dart';
-import '../controller/routineItemController.dart';
+import '../controllers/routineItemController.dart';
 
 class WidgetTestPage extends StatefulWidget {
   const WidgetTestPage({Key? key}) : super(key: key);
