@@ -9,7 +9,7 @@ import 'calendar_page.dart';
 
 typedef _OnCalendarPageChanged = void Function(
     int pageIndex, DateTime focusedDay);
-
+//used in table_calendar_base
 class CalendarCore extends StatelessWidget {
   final DateTime? focusedDay;
   final DateTime firstDay;

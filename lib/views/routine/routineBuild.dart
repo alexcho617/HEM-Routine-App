@@ -5,8 +5,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controller/loginService.dart';
-import 'package:hem_routine_app/controller/routineBuildController.dart';
+import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/routineBuildController.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 

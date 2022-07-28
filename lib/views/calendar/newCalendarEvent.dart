@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controller/eventController.dart';
+import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/views/home.dart';
 import '../../models/calendarEvent.dart';
 import '../../utils/calendarUtil.dart';
@@ -16,6 +16,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
   //Event related
   TextEditingController eventTextController = TextEditingController();
   var data = Get.arguments;
+  var markerColor = 'yellow';
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,24 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
               children: [Text('Shape Select')],
             ),
             Row(
-              children: [Text('Color Select')],
+              children: [
+                IconButton(
+                    onPressed: () {
+                      markerColor = 'yellow';
+                    },
+                    icon: Icon(
+                      Icons.circle,
+                      color: Colors.yellow,
+                    )),
+                IconButton(
+                    onPressed: () {
+                      markerColor = 'red';
+                    },
+                    icon: Icon(
+                      Icons.circle,
+                      color: Colors.red,
+                    ))
+              ],
             ),
             Row(
               children: [Text('Hardness Select')],
@@ -52,35 +70,40 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
             TextButton(
               child: Text("Ok"),
               onPressed: () {
-                setState(
-                  () {
-                    if (eventTextController.text.isEmpty) {
-                    } else {
-                      if (controller.selectedEvents[controller.selectedDay] !=
-                          null) {
+                if (eventTextController.text.isNotEmpty) {
+                  if (controller.selectedEvents[controller.selectedDay] !=
+                      null) {
+                    setState(
+                      () {
                         controller.selectedEvents[controller.selectedDay]!.add(
                           CalendarEvent(
                               time: controller.selectedDay,
-                              color: Colors.amber,
+                              //markerColor is selecting the icon image type
+                              color: markerColor,
                               memo: eventTextController.text),
                         );
+                      },
+                    );
 
-                        print(
-                            controller.selectedEvents[controller.selectedDay]);
-                      } else {
-                        //listize and add
-                        controller.selectedEvents[controller.selectedDay] = [
-                          CalendarEvent(
-                              time: controller.selectedDay,
-                              color: Colors.amber,
-                              memo: eventTextController.text),
-                        ];
-                      }
-                      eventTextController.clear();
-                    }
-                  },
-                );
-                // Navigator.pop(context);
+                    print(controller.selectedEvents[controller.selectedDay]
+                        .toString());
+                  } else {
+                    //listize and add
+                    setState(() {
+                      controller.selectedEvents[controller.selectedDay] = [
+                        CalendarEvent(
+                            time: controller.selectedDay,
+                            color: markerColor,
+                            memo: eventTextController.text),
+                      ];
+                    });
+                    print(controller.selectedEvents[controller.selectedDay]
+                        .toString());
+                  }
+                  eventTextController.clear();
+                }
+
+                Navigator.pop(context);
                 return;
               },
             ),

@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:flutter/widgets.dart';
+import 'package:hem_routine_app/models/calendarEvent.dart';
 
+import '../../../models/routineItem.dart';
 import '../shared/utils.dart' show DayBuilder, FocusedDayBuilder;
 
 /// Signature for a function that creates a single event marker for a given `day`.
@@ -19,7 +21,7 @@ typedef MarkerBuilder<T> = Widget? Function(
 /// Contains a list of `events` associated with that `day`.
 /// alex
 typedef RoutineMarkerBuilder<T> = Widget? Function(
-    BuildContext context, DateTime day, List<T> routines);
+    BuildContext context, DateTime day, List<RoutineItem> routines);
 
 /// Signature for a function that creates a background highlight for a given `day`.
 ///
@@ -72,11 +74,11 @@ class CalendarBuilders<T> {
   /// You can adjust markers' position with `CalendarStyle` properties.
   ///
   /// If `singleMarkerBuilder` is not specified, a default event marker will be displayed (customizable with `CalendarStyle`).
-  final SingleMarkerBuilder<T>? singleMarkerBuilder;
+  final SingleMarkerBuilder<CalendarEvent>? singleMarkerBuilder;
 
   /// Custom builder for event markers. Use to provide your own marker UI for each day cell.
   /// Using `markerBuilder` will override `singleMarkerBuilder` and default event markers.
-  final MarkerBuilder<T>? markerBuilder;
+  final MarkerBuilder<CalendarEvent>? markerBuilder;
   //alex
   final RoutineMarkerBuilder<T>? routineMarkerBuilder;
 

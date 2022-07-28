@@ -1,16 +1,15 @@
 //define global widgets here such as appbar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:hem_routine_app/models/routine.dart';
-import 'package:hem_routine_app/views/calendar/calendar.dart';
-import 'package:hem_routine_app/views/setting/account_settings.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
-import '../controller/routineItemController.dart';
+import '../controllers/routineItemController.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-import '../views/routine/routine.dart';
+// import '../views/routine/routine.dart';
+// import 'package:get/get.dart';
+// import 'package:hem_routine_app/models/routine.dart';
+// import 'package:hem_routine_app/views/calendar/calendar.dart';
 
 Widget nextButtonBig(VoidCallback? onPressed) {
   return Container(
@@ -382,8 +381,9 @@ Widget routineItemList(RoutineItemController controller) {
       return Material(
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.transparent,)
-          ),
+              border: Border.all(
+            color: Colors.transparent,
+          )),
           child: child,
         ),
       );
@@ -1047,36 +1047,37 @@ Widget addRoutineItemList(RoutineItemController controller) {
           elevation: 5.r,
           borderRadius: BorderRadius.circular(12.r),
           child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              leading: Padding(
-                padding: EdgeInsets.symmetric(vertical: 11.h),
-                child: Icon(Icons.menu),
-              ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-              horizontalTitleGap: 0,
-              minVerticalPadding: 22.w,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.h),
-                    child: Text(
-                      controller.routineItems[index].name,
-                      style: AppleFont18_Black,
-                    ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            leading: Padding(
+              padding: EdgeInsets.symmetric(vertical: 11.h),
+              child: Icon(Icons.menu),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+            horizontalTitleGap: 0,
+            minVerticalPadding: 22.w,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.h),
+                  child: Text(
+                    controller.routineItems[index].name,
+                    style: AppleFont18_Black,
                   ),
-                  Text('일일 목표 ${controller.routineItems[index].goalCount}회'),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                ],
-              ),
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: onPressed,
-              )),
+                ),
+                Text('일일 목표 ${controller.routineItems[index].goalCount}회'),
+                SizedBox(
+                  width: 5.w,
+                ),
+              ],
+            ),
+            // trailing: IconButton(
+            //   icon: Icon(Icons.delete),
+            //   onPressed: onPressed,
+            // ),
+          ),
         ),
       );
     },
