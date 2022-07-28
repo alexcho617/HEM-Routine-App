@@ -7,6 +7,7 @@ import 'package:hem_routine_app/utils/constants.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/setting/account_settings.dart';
 import 'package:hem_routine_app/views/setting/completed_routines.dart';
+import 'package:hem_routine_app/views/setting/routineitem_settings.dart';
 import 'package:hem_routine_app/views/setting/service_info.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
@@ -80,7 +81,9 @@ class _SettingsPageState extends State<SettingsPage> {
             '루틴 항목 관리',
             style: AppleFont22_Black,
           ),
-          onTap: onPressed,
+          onTap: () {
+            kangmin(context, RoutineItemSettingsPage());
+          },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),
         ListTile(

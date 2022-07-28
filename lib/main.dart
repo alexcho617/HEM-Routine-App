@@ -77,10 +77,6 @@ class MyApp extends StatelessWidget {
               '/bottomSheet' : (context) => RoutineLogPage(),
               '/routineBuild' : (context) => RoutineBuildPage(),
               '/settings' : (context) => SettingsPage(),
-              '/accountSettings' : (context) => AccountSettingsPage(),
-              '/routineEntrySetting' : (context) => RoutineEntrySettingPage(),
-              '/profileSettings' : (context) => ProfileSettingsPage(),
-              '/completedRoutines' : (context) => CompletedRoutinesPage(),
               // '/test1' : (context) => MyStatefulWidget(),
             },
           );
