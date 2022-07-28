@@ -12,7 +12,7 @@ class RoutineLogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomBottomSheet(context, Column(
+    return customBottomSheet(context, Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
@@ -52,19 +52,19 @@ class RoutineLogPage extends StatelessWidget {
                   SizedBox(
                     width: 21.w,
                   ),
-                  SelectedRoutineButton(() {}, '전체'),
+                  selectedRoutineButton(() {}, '전체'),
                   SizedBox(
                     width: 16.w,
                   ),
-                  UnSelectedRoutineButton(() {}, '루틴 항목 이름 1'),
+                  unSelectedRoutineButton(() {}, '루틴 항목 이름 1'),
                   SizedBox(
                     width: 16.w,
                   ),
-                  UnSelectedRoutineButton(() {}, '루틴 항목 이름 2'),
+                  unSelectedRoutineButton(() {}, '루틴 항목 이름 2'),
                   SizedBox(
                     width: 16.w,
                   ),
-                  UnSelectedRoutineButton(() {}, '루틴 항목 이름 3'),
+                  unSelectedRoutineButton(() {}, '루틴 항목 이름 3'),
                   SizedBox(
                     width: 21.w,
                   ),

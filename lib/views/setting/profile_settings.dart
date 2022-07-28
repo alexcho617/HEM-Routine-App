@@ -22,7 +22,6 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        customAppBar(context, '프로필 설정'),
         Form(
           key: _formKey,
           child: Center(
@@ -32,6 +31,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  customAppBar(context, '프로필 설정'),
                   Text('사용자 이름'),
                   TextFormField(
                     validator: (value) {
@@ -81,57 +81,54 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
     }
   }
 
-Widget genderchooseButton(VoidCallback? onPressed) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Container(
-        width: 163.w,
-        height: 48.h,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          child: Text(
-            '남자',
-            style: AppleFont14_White,
-          ),
-          style: ElevatedButton.styleFrom(
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            primary: isMale? primary : grey600,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.r),
+  Widget genderchooseButton(VoidCallback? onPressed) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          width: 163.w,
+          height: 48.h,
+          child: ElevatedButton(
+            onPressed: onPressed,
+            child: Text(
+              '남자',
+              style: AppleFont14_White,
+            ),
+            style: ElevatedButton.styleFrom(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              primary: isMale ? primary : grey600,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
             ),
           ),
         ),
-      ),
-      Container(
-        width: 163.w,
-        height: 48.h,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          child: Text(
-            '여자',
-            style: AppleFont14_White,
-          ),
-          style: ElevatedButton.styleFrom(
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            primary: isMale? grey600 : primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.r),
+        Container(
+          width: 163.w,
+          height: 48.h,
+          child: ElevatedButton(
+            onPressed: onPressed,
+            child: Text(
+              '여자',
+              style: AppleFont14_White,
+            ),
+            style: ElevatedButton.styleFrom(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              primary: isMale ? grey600 : primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
             ),
           ),
         ),
-      ),
-    ],
-  );
-}
-
+      ],
+    );
+  }
 }
 
 void onPressed() {
   //
 }
-
-
 
 Widget saveButtonLong(VoidCallback? onPressed, Color color) {
   return Container(

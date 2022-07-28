@@ -24,7 +24,7 @@ import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
 
-import 'package:hem_routine_app/views/routine/routineLog.dart';
+import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../tableCalendar/src/customization/calendar_builders.dart';
 import '../../tableCalendar/src/customization/calendar_style.dart';

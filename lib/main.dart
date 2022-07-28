@@ -8,7 +8,7 @@ import 'package:hem_routine_app/firebase_options.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/routine/routineBuild.dart';
 import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
-import 'package:hem_routine_app/views/routine/routineLog.dart';
+import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/login.dart';
 import 'package:hem_routine_app/views/onBoarding.dart';
