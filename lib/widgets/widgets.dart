@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/routineEntityController.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/controllers/routineOnController.dart';
 
@@ -115,8 +116,7 @@ Widget nextButtonSmall(VoidCallback? onPressed) {
   );
 }
 
-Widget routineButton(
-    VoidCallback? onPressedBack, VoidCallback onPressedNext) {
+Widget routineButton(VoidCallback? onPressedBack, VoidCallback onPressedNext) {
   return Container(
     width: 335.w,
     height: 48.h,
@@ -1100,59 +1100,79 @@ class _CustomNavigatorState extends State<CustomNavigator>
   }
 }
 
-// Widget addRoutineItemList(RoutineItemController controller) {
-//   int itemLength = controller.routineItems.length;
-//   return ReorderableListView.builder(
-//     padding: EdgeInsets.all(10.r),
-//     itemBuilder: (BuildContext context, int index) {
-//       return Padding(
-//         key: Key('$index'),
-//         padding: EdgeInsets.symmetric(vertical: 8.h),
-//         child: PhysicalModel(
-//           color: white,
-//           elevation: 5.r,
-//           borderRadius: BorderRadius.circular(12.r),
-//           child: ListTile(
-//             shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(12.r),
-//             ),
-//             leading: Padding(
-//               padding: EdgeInsets.symmetric(vertical: 11.h),
-//               child: Icon(Icons.menu),
-//             ),
-//             contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-//             horizontalTitleGap: 0,
-//             minVerticalPadding: 22.w,
-//             title: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Padding(
-//                   padding: EdgeInsets.symmetric(vertical: 8.h),
-//                   child: Text(
-//                     controller.routineEntry[index].name,
-//                     style: AppleFont18_Black,
-//                   ),
-//                 ),
-//                 Text('일일 목표 ${controller.routineItems[index].goalCount}회'),
-//                 SizedBox(
-//                   width: 5.w,
-//                 ),
-//               ],
-//             ),
-//             trailing: IconButton(
-//               icon: Icon(Icons.delete),
-//               onPressed: controller.onPressed,
-//             ),
-//           ),
-//         ),
-//       );
-//     },
-//     itemCount: itemLength,
-//     onReorder: (int oldIndex, int newIndex) {
-//       controller.itemReorder(oldIndex, newIndex);
-//     },
-//   );
-// }
+Widget addRoutineItemList(RoutineEntityController controller) {
+  int itemLength = controller.routineEntities.length;
+  return ReorderableListView.builder(
+    shrinkWrap: true,
+    padding: EdgeInsets.all(10.r),
+    itemBuilder: (BuildContext context, int index) {
+      return Padding(
+        key: Key('$index'),
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        child: PhysicalModel(
+          color: white,
+          elevation: 5.r,
+          borderRadius: BorderRadius.circular(12.r),
+          child: ListTile(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            leading: Padding(
+              padding: EdgeInsets.symmetric(vertical: 11.h),
+              child: Icon(Icons.menu),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+            horizontalTitleGap: 0,
+            minVerticalPadding: 22.w,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 145.w,
+                  padding: EdgeInsets.symmetric(vertical: 8.h),
+                  child: Text(
+                    controller.routineEntities[index].name,
+                    style: AppleFont18_Black,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Text(
+                  '일일 목표',
+                  style: TextStyle(fontSize: 14.sp),
+                ),
+                ConstrainedBox(
+                    constraints: BoxConstraints.tight(Size(30.w, 18.h)),
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14.sp),
+                    )),
+                // {controller.routineEntities[index].goalCount}'
+                Text(
+                  '회',
+                  style: TextStyle(fontSize: 14.sp),
+                ),
+
+                // SizedBox(
+                //   width: 5.w,
+                // ),
+              ],
+            ),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                controller.deleteRoutineEntities(index);
+              },
+            ),
+          ),
+        ),
+      );
+    },
+    itemCount: itemLength,
+    onReorder: (int oldIndex, int newIndex) {
+      controller.itemReorder(oldIndex, newIndex);
+    },
+  );
+}
 
 Widget customAppBar(context, String name) {
   return AppBar(
@@ -1172,44 +1192,43 @@ Widget customAppBar(context, String name) {
 
 Widget routineItemCard(String name, int goal) {
   return Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.h),
-        child: PhysicalModel(
-          color: white,
-          elevation: 5.r,
+    padding: EdgeInsets.symmetric(vertical: 8.h),
+    child: PhysicalModel(
+      color: white,
+      elevation: 5.r,
+      borderRadius: BorderRadius.circular(12.r),
+      child: ListTile(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.r),
-          child: ListTile(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              leading: Padding(
-                padding: EdgeInsets.symmetric(vertical: 11.h),
-                child: Icon(Icons.menu),
-              ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-              horizontalTitleGap: 0,
-              minVerticalPadding: 22.w,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.h),
-                    child: Text(
-                      name,
-                      style: AppleFont18_Black,
-                    ),
-                  ),
-                  Text('일일 목표'),
-                  Text('${goal * 2}회'),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                ],
-              ),
-              ),
         ),
-      );
+        leading: Padding(
+          padding: EdgeInsets.symmetric(vertical: 11.h),
+          child: Icon(Icons.menu),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+        horizontalTitleGap: 0,
+        minVerticalPadding: 22.w,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.h),
+              child: Text(
+                name,
+                style: AppleFont18_Black,
+              ),
+            ),
+            Text('일일 목표'),
+            Text('${goal * 2}회'),
+            SizedBox(
+              width: 5.w,
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
-
 
 Widget routineCopyAlertDialog(
     VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
@@ -1230,18 +1249,21 @@ Widget routineCopyAlertDialog(
           height: 147.h,
           child: Center(
               child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(12.r),
-                    child: Text("루틴 복제",style: AppleFont16_BlackBold,),
-                  ),
-                  Text(
-            '이미 도전했던 루틴 입니다.\n루틴을 변경하시면\n새로운 루틴이 생성 됩니다.',
-            style: AppleFont16_Black,
-            textAlign: TextAlign.center,
-          ),
-                ],
-              )),
+            children: [
+              Padding(
+                padding: EdgeInsets.all(12.r),
+                child: Text(
+                  "루틴 복제",
+                  style: AppleFont16_BlackBold,
+                ),
+              ),
+              Text(
+                '이미 도전했던 루틴 입니다.\n루틴을 변경하시면\n새로운 루틴이 생성 됩니다.',
+                style: AppleFont16_Black,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
         ),
         Row(
           children: [
@@ -1308,19 +1330,22 @@ Widget routineRestartAlertDialog(
           height: 147.h,
           child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(12.r),
-                    child: Text("루틴 시작",style: AppleFont16_BlackBold,),
-                  ),
-                  Text(
-            '설정하신 루틴을\n오늘부터 도전해 보세요!\n',
-            style: AppleFont16_Black,
-            textAlign: TextAlign.center,
-          ),
-                ],
-              )),
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(12.r),
+                child: Text(
+                  "루틴 시작",
+                  style: AppleFont16_BlackBold,
+                ),
+              ),
+              Text(
+                '설정하신 루틴을\n오늘부터 도전해 보세요!\n',
+                style: AppleFont16_Black,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
         ),
         Row(
           children: [
@@ -1368,8 +1393,6 @@ Widget routineRestartAlertDialog(
   );
 }
 
-
-
 Widget routineDeleteAlertDialog(
     VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
   return AlertDialog(
@@ -1389,19 +1412,22 @@ Widget routineDeleteAlertDialog(
           height: 128.h,
           child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(12.r),
-                    child: Text("루틴 삭제",style: AppleFont16_BlackBold,),
-                  ),
-                  Text(
-            '정말로 루틴을 삭제하시겠습니까?\n',
-            style: AppleFont16_Black,
-            textAlign: TextAlign.center,
-          ),
-                ],
-              )),
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(12.r),
+                child: Text(
+                  "루틴 삭제",
+                  style: AppleFont16_BlackBold,
+                ),
+              ),
+              Text(
+                '정말로 루틴을 삭제하시겠습니까?\n',
+                style: AppleFont16_Black,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
         ),
         Row(
           children: [
@@ -1447,10 +1473,12 @@ Widget routineDeleteAlertDialog(
       ]),
     ),
   );
-    }  
-Widget routineCategoryButton(int index, String text){
+}
+
+Widget routineCategoryButton(int index, String text) {
   RoutineOffController controller = Get.find();
-  return index == controller.categoryIndex?
-  selectedRoutineButton((){}, text)
-  :unSelectedRoutineButton(()=>controller.updateCategoryIndex(index), text);
+  return index == controller.categoryIndex
+      ? selectedRoutineButton(() {}, text)
+      : unSelectedRoutineButton(
+          () => controller.updateCategoryIndex(index), text);
 }

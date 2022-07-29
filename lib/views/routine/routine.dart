@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/routine/routineBuild.dart';
-import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
+import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
 import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../utils/colors.dart';

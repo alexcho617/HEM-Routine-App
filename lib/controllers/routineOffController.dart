@@ -10,12 +10,12 @@ import 'package:hem_routine_app/models/routineEtity.dart';
 
 import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
+import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 //TODO: 아마 프로그램 흐름상 routine item읽어오는 건 다른 Controller로 구분해야 한다.
 class RoutineOffController extends GetxController {
   LoginService loginService = Get.find();
-  final inputController = TextEditingController();
+  final inputController = TextEditingController(); 
   final globalKey = GlobalKey<FormState>();
   Rx<bool> onSubmitted = false.obs;
   Rx<bool> isValid = true.obs;
@@ -162,6 +162,7 @@ class RoutineOffController extends GetxController {
     selectedRoutineItemCount--;
     update();
   }
+
   //TODO : calendarRoutine에도 생겨야 함.
   // void addRoutine() async {
   //   DateTime later = now.add(Duration(days: currentIndex.value + 1));

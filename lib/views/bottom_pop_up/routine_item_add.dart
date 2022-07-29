@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/routineEntityController.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/constants.dart';
@@ -11,6 +12,7 @@ class RoutineItemAddPage extends StatelessWidget {
   RoutineItemAddPage({Key? key}) : super(key: key);
 
   RoutineOffController pageController = Get.find();
+  RoutineEntityController routineEntityController = Get.find();
   
 
   @override
@@ -42,17 +44,20 @@ class RoutineItemAddPage extends StatelessWidget {
                   height: 27.h,
                 ),
                 Expanded(
-                  child: GetBuilder<RoutineOffController>(builder: (_) {
+                  child: GetBuilder<RoutineOffController>(
+                    // id: 1,
+                    builder: (_) {
                     return ListView.builder(
                       itemCount: pageController.routineItems.length,
                       // physics: NeverScrollableScrollPhysics(),
                       // physics: const AlwaysScrollableScrollPhysics(),
                       // itemExtent: 95.h,
                       itemBuilder: (BuildContext context, int index) =>
-                          (pageController.routineItems[index].category ==
+                          ( pageController.routineItems[index].isAdded != true &&
+                            (pageController.routineItems[index].category ==
                                       pageController.categories[
                                           pageController.categoryIndex] ||
-                                  pageController.categoryIndex == 0)
+                                  pageController.categoryIndex == 0))
                               ? GestureDetector(
                                   onTap: () {
                                     if (pageController
@@ -172,9 +177,8 @@ class RoutineItemAddPage extends StatelessWidget {
           ],
         ));
   }
-}
 
-Widget routineAdd(int number, context) {
+  Widget routineAdd(int number, context) {
   return Container(
     width: 200.w,
     height: 48.h,
@@ -190,7 +194,7 @@ Widget routineAdd(int number, context) {
               }));
         } else {
           //data transforming
-          
+          routineEntityController.buildRoutineEntities();
           Navigator.pop(context);
         }
       },
@@ -256,3 +260,6 @@ Widget overNumAlertDialog(VoidCallback? onPressed, int over) {
     ),
   );
 }
+
+}
+

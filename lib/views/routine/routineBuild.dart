@@ -9,7 +9,7 @@ import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
+import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
 class RoutineBuildPage extends StatelessWidget {
@@ -111,7 +111,7 @@ class RoutineBuildPage extends StatelessWidget {
                                 pageController.onSubmitted.value = true;
                                 if (pageController.globalKey.currentState!
                                     .validate()) {
-                                  kangmin(context, RoutineEntrySettingPage());
+                                  kangmin(context, RoutineEntitySettingPage());
                                 }
                               })
                             : disabledNextButtonBig(() {});
