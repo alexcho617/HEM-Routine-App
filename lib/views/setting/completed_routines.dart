@@ -18,8 +18,8 @@ class CompletedRoutinesPage extends StatefulWidget {
 }
 
 class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
-  //List<dynamic> routineList = [];
-  List<dynamic> routineList = ["FOR LINT"];
+  List<dynamic> routineList = [];
+  // List<dynamic> routineList = ["FOR LINT"];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,6 +28,12 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
           ? Column(
               children: [
                 customAppBar(context, '내가 수행한 루틴'),
+                SizedBox(height: 170.h,),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 115.w),
+                  child: Image.asset('assets/appIcon.png'),
+                ),
+                SizedBox(height: 45.h,),
                 Text(
                   '수행한 루틴이 없습니다.',
                   style: AppleFont16_Black,

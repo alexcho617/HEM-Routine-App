@@ -28,7 +28,7 @@ class AccountSettingsPage extends StatelessWidget {
           onTap: () {
             kangmin(context, ProfileSettingsPage());
           },
-          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
+          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500),),
         ),
         ListTile(
           leading: Icon(
@@ -41,7 +41,7 @@ class AccountSettingsPage extends StatelessWidget {
             style: AppleFont22_Black,
           ),
           onTap: onPressed,
-          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
+          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500),),
         ),
         ListTile(
           leading: Icon(
@@ -62,7 +62,7 @@ class AccountSettingsPage extends StatelessWidget {
                   }, onPressed);
                 }));
           },
-          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
+          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500),),
         ),
         ListTile(
           leading: Icon(
@@ -74,7 +74,7 @@ class AccountSettingsPage extends StatelessWidget {
             '회원 탈퇴',
             style: AppleFont22_Black,
           ),
-          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
+          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500),),
           onTap: () {
             showDialog(
                 context: context,
@@ -85,6 +85,10 @@ class AccountSettingsPage extends StatelessWidget {
                 }));
           },
         ),
+        Container(
+          height: 75.h,
+          color: Colors.grey[50],
+        )
       ],
     );
   }

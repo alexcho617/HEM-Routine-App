@@ -1,7 +1,15 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
+
+import 'package:hem_routine_app/models/routineItem.dart';
+import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
+import 'package:hem_routine_app/widgets/widgets.dart';
 
 class RoutineBuildController extends GetxController {
   LoginService loginService = Get.find();
@@ -10,7 +18,8 @@ class RoutineBuildController extends GetxController {
   Rx<bool> onSubmitted = false.obs;
   Rx<bool> isValid = true.obs;
   Rx<bool> activateButton = false.obs;
-  Rx<int> currentIndex = 0.obs;
+
+  Rx<int> routinePeriodIndex = 0.obs;
   DateTime now = DateTime.now();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<Widget> routinePeriod = [
@@ -28,14 +37,47 @@ class RoutineBuildController extends GetxController {
     Text("12 일간"),
     Text("13 일간"),
     Text("14 일간"),
-    Text("15 일간")
   ];
 
-  List<String> routineName = [];
+  List<String> existingRoutineName = [];
+  List<RoutineItem> routineItems = [];
+  List<String> categories = ['전체'];
+  List<Widget> categoryButtons = <Widget>[];
+  int categoryIndex = 0;
+
   @override
   void onInit() {
     getRoutineList();
+    getRoutineItemList();
     super.onInit();
+  }
+
+  void buildRoutineButtons() {
+    categoryButtons.clear();
+    for (int i = 0; i < categories.length; i++) {
+      // print(i);
+      if (i == 0) {
+        categoryButtons.add(
+          SizedBox(
+            width: 21.w,
+          ),
+        );
+      }
+      categoryButtons.add(routineCategoryButton(i, categories[i]));
+      if (i != categories.length - 1) {
+        categoryButtons.add(
+          SizedBox(
+            width: 16.w,
+          ),
+        );
+      } else {
+        categoryButtons.add(
+          SizedBox(
+            width: 21.w,
+          ),
+        );
+      }
+    }
   }
 
   void getRoutineList() async {
@@ -45,71 +87,97 @@ class RoutineBuildController extends GetxController {
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        routineName.add(data['name']);
+        existingRoutineName.add(data['name']);
       });
     });
-    // print(routineName);
   }
 
-  void addRoutine() async {
-    DateTime later = now.add(Duration(days: currentIndex.value + 1));
+  void getRoutineItemList() async {
     await firestore
-        .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
-        .add({
-      'averageComplete': 0,
-      'averageRating': 0,
-      'name': inputController.text
-    }).then((DocumentReference routineDoc) async {
-      print(routineDoc.id);
-      
-      //alex calenderRoutine
-      await firestore
-          .collection(
-              'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
-          .doc(routineDoc.id)
-          .set({
-        'duration': currentIndex.value,
-        'startDate': DateTime(now.year, now.month, now.day),
-        'endDate': DateTime(later.year, later.month, later.day),
-        'name': inputController.text,
-      }).onError((error, _) =>
-              print("Error adding document to calendarRoutine: $error"));
-
-      //kangmin
-      await firestore
-          .collection(
-              'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory')
-          .add({
-        'complete': 0,
-        'duration': currentIndex.value,
-        'startDate': DateTime(now.year, now.month, now.day),
-        'endDate': DateTime(later.year, later.month, later.day),
-        'isActive': true,
-        'name': inputController.text,
-        'rating': 0,
-      }).then((DocumentReference routineHistoryDoc) async {
-        for (int i = 1; i <= currentIndex.value; i++) {
-          await firestore
-              .collection(
-                  'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory/${routineHistoryDoc.id}/days')
-              .doc('$i')
-              .set({
-            'dayComplete': 0,
-          });
+        .collection('routineItems')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        routineItems.add(RoutineItem(
+          name: data['name'],
+          category: data['category'],
+          description: data['description'],
+        ));
+         if (categories.contains(data['category']) != true) {
+          categories.add(data['category']);
         }
       });
     });
-
-    // await firestore
-    //       .collection(
-    //           'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine/${routineDoc.id}')
-    //       .add({
-    //     'duration': currentIndex.value,
-    //     'startDate': DateTime(now.year, now.month, now.day),
-    //     'endDate': DateTime(later.year, later.month, later.day),
-    //     'name': inputController.text,
-    //   });
+    // print(routineItems);
+    buildRoutineButtons();
   }
+
+  void checkState(bool value, int index) {
+    routineItems[index].isChecked = value;
+    update();
+  }
+
+  void tapState(bool value, int index) {
+    routineItems[index].isTapped = value;
+    update();
+  }
+
+  void updateCategoryIndex(int index){
+    // print('실행됨');
+    categoryIndex = index;
+    buildRoutineButtons();
+    //index가 바뀌어도 어차피...routineList는 동일한 가봐.
+    update();
+  }
+  //TODO : calendarRoutine에도 생겨야 함.
+  // void addRoutine() async {
+  //   DateTime later = now.add(Duration(days: currentIndex.value + 1));
+  //   await firestore
+  //       .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
+  //       .add({
+  //     'averageComplete': 0,
+  //     'averageRating': 0,
+  //     'name': inputController.text
+  //   }).then((DocumentReference routineDoc) async {
+  //     // print(routineDoc.id);
+  // //alex calenderRoutine
+  //     await firestore
+  //         .collection(
+  //             'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
+  //         .doc(routineDoc.id)
+  //         .set({
+  //       'duration': currentIndex.value,
+  //       'startDate': DateTime(now.year, now.month, now.day),
+  //       'endDate': DateTime(later.year, later.month, later.day),
+  //       'name': inputController.text,
+  //     }).onError((error, _) =>
+  //             print("Error adding document to calendarRoutine: $error"));
+
+  //     await firestore
+  //         .collection(
+  //             'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory')
+  //         .add({
+  //       'complete': 0,
+  //       'duration': currentIndex.value,
+  //       'startDate': DateTime(now.year, now.month, now.day),
+  //       'endDate': DateTime(later.year, later.month, later.day),
+  //       'isActive': true,
+  //       'name': inputController.text,
+  //       'rating': 0,
+  //     }).then((DocumentReference routineHistoryDoc) async {
+  //       for (int i = 1; i <= currentIndex.value; i++) {
+  //         await firestore
+  //             .collection(
+  //                 'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory/${routineHistoryDoc.id}/days')
+  //             .doc('$i')
+  //             .set({
+  //           'dayComplete': 0,
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
 
   String? textValidator(String? value) {
     if (!onSubmitted.value) {
@@ -131,14 +199,14 @@ class RoutineBuildController extends GetxController {
       return null;
     } else {
       onSubmitted.value = false;
-      if (routineName.contains(inputController.text)) {
+      if (existingRoutineName.contains(inputController.text)) {
         isValid.value = false;
         activateButton.value = false;
         inputController.clear();
 
         return '이미 사용하신 루틴 이름이에요.';
       } else {
-        addRoutine();
+        // addRoutine();
       }
     }
   }
