@@ -3,6 +3,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
+import 'package:hem_routine_app/models/calendarRoutine.dart';
 
 import '../../../models/routineItem.dart';
 import '../shared/utils.dart' show DayBuilder, FocusedDayBuilder;
@@ -21,7 +22,7 @@ typedef MarkerBuilder<T> = Widget? Function(
 /// Contains a list of `events` associated with that `day`.
 /// alex
 typedef RoutineMarkerBuilder<T> = Widget? Function(
-    BuildContext context, DateTime day, List<RoutineItem> routines);
+    BuildContext context, DateTime day, List<CalendarRoutine> routines);
 
 /// Signature for a function that creates a background highlight for a given `day`.
 ///

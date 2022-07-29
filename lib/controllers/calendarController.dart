@@ -22,6 +22,15 @@ class CalendarController extends GetxController {
     return selectedEvents[date];
   }
 
+  int? getNumberOfEventsFromDay(DateTime? date) {
+    int? num = selectedEvents[date]?.length;
+    if (num != null && num > 1) {
+      return num;
+    } else {
+      return null;
+    }
+  }
+
   //add a new event to selected events
   void addEvent(DateTime date, CalendarEvent event) {
     //if event exists add to existing list
