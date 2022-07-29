@@ -11,10 +11,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
+import 'package:hem_routine_app/models/calendarRoutine.dart';
 import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
+import 'package:get/get.dart';
 
 import 'customization/calendar_builders.dart';
 import 'customization/calendar_style.dart';
@@ -559,6 +562,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
   }
 
   Widget _buildCell(DateTime day, DateTime focusedDay) {
+    CalendarController controller = Get.find();
     final isOutside = day.month != focusedDay.month;
 
     if (isOutside && _shouldBlockOutsideDays) {
@@ -632,15 +636,12 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
         if (!isDisabled) {
           final events = widget.eventLoader?.call(day) ?? [];
 
-          //alex trying to show only one marker
-          if (events.isNotEmpty) {
-            CalendarEvent? earliestEvent = events.first;
-          }
           Widget? markerWidget =
               widget.calendarBuilders.markerBuilder?.call(context, day, events);
 
           //alex
-          final routines = widget.routineLoader?.call(day) ?? [];
+          // final routines = widget.routineLoader?.call(day) ?? [];
+          var routines = controller.routines;
 
           Widget? routineWidget = widget.calendarBuilders.routineMarkerBuilder
               ?.call(context, day, routines);
@@ -713,9 +714,9 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
                   : widget.calendarStyle.markersOffset.end,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: events
+                children: routines
                     .take(widget.calendarStyle.markersMaxCount)
-                    .map((event) =>
+                    .map((routine) =>
                         _buildSingleRoutineMarker(day, routines, routineSize))
                     .toList(),
               ),
@@ -727,9 +728,9 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
           }
           //alex
           //TODO 2: Where routine Markers are appearing
-          // if (routineWidget != null) {
-          //   children.add(routineWidget);
-          // }
+          if (routineWidget != null) {
+            children.add(routineWidget);
+          }
         }
 
         return Stack(
@@ -756,11 +757,12 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
           child: Image.asset('assets/${event.iconCode.toString()}.png'),
         );
   }
+
   //alex T changed to  List<T>
   Widget _buildSingleRoutineMarker(
-      DateTime day, List<RoutineItem> routine, double markerSize) {
+      DateTime day, List<CalendarRoutine> routines, double markerSize) {
     return widget.calendarBuilders.routineMarkerBuilder
-            ?.call(context, day, routine) ??
+            ?.call(context, day, routines) ??
         Container(
           width: markerSize,
           height: markerSize,

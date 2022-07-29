@@ -17,7 +17,7 @@ import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-EventController controller = Get.find();
+CalendarController controller = Get.find();
 
 class Calendar extends StatefulWidget {
   const Calendar({Key? key}) : super(key: key);
@@ -29,20 +29,13 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime.now();
-    CalendarEvent event = CalendarEvent(time: date, color: primary);
-    controller.addEvent(date, event);
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TableCalendar<CalendarEvent>(
           calendarBuilders: CalendarBuilders(
-            //this is acting like a singleMarkerbuilder. Need to change it as regular marker builder.
-            routineMarkerBuilder: (context, date, routines) {
-              return routineContainer;
-            },
-          ),
+              //this is acting like a singleMarkerbuilder. Need to change it as regular marker builder.
+              routineMarkerBuilder: routineContainer),
           firstDay: kFirstDay,
           lastDay: kLastDay,
           startingDayOfWeek: StartingDayOfWeek.sunday,
@@ -76,22 +69,103 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  Widget routineContainer = OverflowBox(
+  //need refactoring
+  Widget routineContainer(context, date, routines) {
+    if (controller.routines.isNotEmpty) {
+      //within range, need to improve logic with some kind of function something like bool isWithinRange()
+      //left border
+      if (controller.routines[0].startDate == date) {
+        return leftRoutineMarker(date);
+      }
+      //right border
+      if (controller.routines[0].endDate == date) {
+        return rightRoutineMarker(date);
+      }
+      //inside rectangle border
+      if (controller.routines[0].startDate.isBefore(date) &&
+          controller.routines[0].endDate.isAfter(date)) {
+        return middleRoutineMarker(date);
+      } else {
+        return emptyRoutineMarker();
+      }
+    } else {
+      return emptyRoutineMarker();
+    }
+  }
+
+  List<CalendarEvent> _eventLoader(DateTime day) {
+    CalendarController controller = Get.find();
+    List<CalendarEvent> list;
+    list = controller.getEventsfromDay(day) ?? [];
+    return list;
+  }
+}
+
+Widget emptyRoutineMarker() {
+  return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
       alignment: Alignment.center,
-      child: Text('${controller.getRoutineCount()}'),
-      decoration: BoxDecoration(shape: BoxShape.rectangle, color: blue200),
+      decoration: BoxDecoration(shape: BoxShape.rectangle, color: white),
       width: 57.0.w,
       height: 14.0.h,
       // margin: const EdgeInsets.symmetric(horizontal: 10.5),
     ),
   );
+}
 
-  List<CalendarEvent> _eventLoader(DateTime day) {
-    EventController controller = Get.find();
-    List<CalendarEvent> list;
-    list = controller.getEventsfromDay(day) ?? [];
-    return list;
-  }
+Widget rightRoutineMarker(DateTime date) {
+  return OverflowBox(
+    alignment: Alignment.bottomCenter,
+    child: Container(
+      alignment: Alignment.center,
+      child: Text(
+          style: TextStyle(color: primary),
+          '${controller.getNumberOfEventsFromDay(date) ?? ''}'),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
+          shape: BoxShape.rectangle,
+          color: blue100),
+      width: 57.0.w,
+      height: 14.0.h,
+      // margin: const EdgeInsets.symmetric(horizontal: 10.5),
+    ),
+  );
+}
+
+Widget middleRoutineMarker(DateTime date) {
+  return OverflowBox(
+    alignment: Alignment.bottomCenter,
+    child: Container(
+      alignment: Alignment.center,
+      child: Text(
+          style: TextStyle(color: primary),
+          '${controller.getNumberOfEventsFromDay(date) ?? ''}'),
+      decoration: BoxDecoration(shape: BoxShape.rectangle, color: blue100),
+      width: 57.0.w,
+      height: 14.0.h,
+      // margin: const EdgeInsets.symmetric(horizontal: 10.5),
+    ),
+  );
+}
+
+Widget leftRoutineMarker(DateTime date) {
+  return OverflowBox(
+    alignment: Alignment.bottomCenter,
+    child: Container(
+      alignment: Alignment.center,
+      child: Text(
+          style: TextStyle(color: primary),
+          '${controller.getNumberOfEventsFromDay(date) ?? ''}'),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+          shape: BoxShape.rectangle,
+          color: blue100),
+      width: 57.0.w,
+      height: 14.0.h,
+      // margin: const EdgeInsets.symmetric(horizontal: 10.5),
+    ),
+  );
 }
