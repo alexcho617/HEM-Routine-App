@@ -2,14 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/routineBuildController.dart';
+import 'package:hem_routine_app/controllers/routineOffController.dart';
+import 'package:hem_routine_app/controllers/routineOnController.dart';
 
 import 'package:hem_routine_app/models/routine.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
 import 'package:hem_routine_app/views/setting/account_settings.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
-import '../controllers/routineItemController.dart';
+
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 // import '../views/routine/routine.dart';
@@ -438,7 +439,7 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
-Widget routineItemList(RoutineItemController controller) {
+Widget routineItemList(RoutineOnController controller) {
   int itemLength = controller.routineItems.length;
   return ReorderableListView.builder(
     padding: EdgeInsets.all(10.r),
@@ -1099,59 +1100,59 @@ class _CustomNavigatorState extends State<CustomNavigator>
   }
 }
 
-Widget addRoutineItemList(RoutineItemController controller) {
-  int itemLength = controller.routineItems.length;
-  return ReorderableListView.builder(
-    padding: EdgeInsets.all(10.r),
-    itemBuilder: (BuildContext context, int index) {
-      return Padding(
-        key: Key('$index'),
-        padding: EdgeInsets.symmetric(vertical: 8.h),
-        child: PhysicalModel(
-          color: white,
-          elevation: 5.r,
-          borderRadius: BorderRadius.circular(12.r),
-          child: ListTile(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            leading: Padding(
-              padding: EdgeInsets.symmetric(vertical: 11.h),
-              child: Icon(Icons.menu),
-            ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-            horizontalTitleGap: 0,
-            minVerticalPadding: 22.w,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.h),
-                  child: Text(
-                    controller.routineItems[index].name,
-                    style: AppleFont18_Black,
-                  ),
-                ),
-                Text('일일 목표 ${controller.routineItems[index].goalCount}회'),
-                SizedBox(
-                  width: 5.w,
-                ),
-              ],
-            ),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: controller.onPressed,
-            ),
-          ),
-        ),
-      );
-    },
-    itemCount: itemLength,
-    onReorder: (int oldIndex, int newIndex) {
-      controller.itemReorder(oldIndex, newIndex);
-    },
-  );
-}
+// Widget addRoutineItemList(RoutineItemController controller) {
+//   int itemLength = controller.routineItems.length;
+//   return ReorderableListView.builder(
+//     padding: EdgeInsets.all(10.r),
+//     itemBuilder: (BuildContext context, int index) {
+//       return Padding(
+//         key: Key('$index'),
+//         padding: EdgeInsets.symmetric(vertical: 8.h),
+//         child: PhysicalModel(
+//           color: white,
+//           elevation: 5.r,
+//           borderRadius: BorderRadius.circular(12.r),
+//           child: ListTile(
+//             shape: RoundedRectangleBorder(
+//               borderRadius: BorderRadius.circular(12.r),
+//             ),
+//             leading: Padding(
+//               padding: EdgeInsets.symmetric(vertical: 11.h),
+//               child: Icon(Icons.menu),
+//             ),
+//             contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+//             horizontalTitleGap: 0,
+//             minVerticalPadding: 22.w,
+//             title: Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 Padding(
+//                   padding: EdgeInsets.symmetric(vertical: 8.h),
+//                   child: Text(
+//                     controller.routineEntry[index].name,
+//                     style: AppleFont18_Black,
+//                   ),
+//                 ),
+//                 Text('일일 목표 ${controller.routineItems[index].goalCount}회'),
+//                 SizedBox(
+//                   width: 5.w,
+//                 ),
+//               ],
+//             ),
+//             trailing: IconButton(
+//               icon: Icon(Icons.delete),
+//               onPressed: controller.onPressed,
+//             ),
+//           ),
+//         ),
+//       );
+//     },
+//     itemCount: itemLength,
+//     onReorder: (int oldIndex, int newIndex) {
+//       controller.itemReorder(oldIndex, newIndex);
+//     },
+//   );
+// }
 
 Widget customAppBar(context, String name) {
   return AppBar(
@@ -1448,7 +1449,7 @@ Widget routineDeleteAlertDialog(
   );
     }  
 Widget routineCategoryButton(int index, String text){
-  RoutineBuildController controller = Get.find();
+  RoutineOffController controller = Get.find();
   return index == controller.categoryIndex?
   selectedRoutineButton((){}, text)
   :unSelectedRoutineButton(()=>controller.updateCategoryIndex(index), text);

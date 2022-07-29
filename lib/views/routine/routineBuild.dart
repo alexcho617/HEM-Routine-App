@@ -6,17 +6,16 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
-import 'package:hem_routine_app/controllers/routineBuildController.dart';
+import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
 class RoutineBuildPage extends StatelessWidget {
-  
   RoutineBuildPage({Key? key}) : super(key: key);
 
-  RoutineBuildController pageController = Get.put(RoutineBuildController());
+  RoutineOffController pageController = Get.put(RoutineOffController());
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
@@ -26,7 +25,22 @@ class RoutineBuildPage extends StatelessWidget {
       child: Column(
         // mainAxisSize: MainAxisSize.min,
         children: [
-          customAppBar(context, '루틴 항목 설정'),
+          AppBar(
+            elevation: 0,
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            centerTitle: false,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+                pageController.inputController.clear();
+                pageController.isValid.value = true;
+                pageController.activateButton.value = false;
+              },
+            ),
+            title: Text('루틴 항목 설정'),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 21),
             child: SizedBox(
@@ -91,22 +105,17 @@ class RoutineBuildPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      
-                       GetX<RoutineBuildController>(
-                         builder: (_) {
-                           return pageController.activateButton.value
-                                ? nextButtonBig(() {
-                                    pageController.onSubmitted.value = true;
-                                    if (pageController.globalKey.currentState!
-                                        .validate()) {
-                                      kangmin(context, RoutineEntrySettingPage());
-                                    }
-                                    ;
-                                  })
-                                : disabledNextButtonBig(() {});
-                         }
-                       ),
-                      
+                      GetX<RoutineOffController>(builder: (_) {
+                        return pageController.activateButton.value
+                            ? nextButtonBig(() {
+                                pageController.onSubmitted.value = true;
+                                if (pageController.globalKey.currentState!
+                                    .validate()) {
+                                  kangmin(context, RoutineEntrySettingPage());
+                                }
+                              })
+                            : disabledNextButtonBig(() {});
+                      }),
                     ],
                   ),
                 ],

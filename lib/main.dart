@@ -21,7 +21,7 @@ import 'package:hem_routine_app/views/splash.dart';
 import 'package:hem_routine_app/views/test.dart';
 
 import 'package:hem_routine_app/views/widgetTestPage.dart';
-import 'controllers/routineItemController.dart';
+import 'controllers/routineOnController.dart';
 import 'views/setting/completed_routines.dart';
 import 'views/setting/profile_settings.dart';
 
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(RoutineItemController());
+    Get.put(RoutineOnController());
     Get.put(EventController());
 
     return ScreenUtilInit(

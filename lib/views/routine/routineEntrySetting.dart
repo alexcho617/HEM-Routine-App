@@ -4,6 +4,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/routineEntityController.dart';
+import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/bottom_pop_up/routine_item_add.dart';
 import 'package:hem_routine_app/views/home.dart';
@@ -21,6 +23,9 @@ class RoutineEntrySettingPage extends StatefulWidget {
 }
 
 class _RoutineEntrySettingPageState extends State<RoutineEntrySettingPage> {
+  RoutineEntityController routineEntityController =
+      Get.put(RoutineEntityController());
+  RoutineOffController pageController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,7 +38,7 @@ class _RoutineEntrySettingPageState extends State<RoutineEntrySettingPage> {
           height: 43.h,
         ),
         Text(
-          '루틴 이름',
+          '${pageController.inputController.text}',
           style: TextStyle(
               fontSize: 24.sp,
               fontWeight: FontWeight.w700,
@@ -43,7 +48,7 @@ class _RoutineEntrySettingPageState extends State<RoutineEntrySettingPage> {
           height: 5.h,
         ),
         Text(
-          '(기간: 5일간)',
+          '(기간: ${pageController.routinePeriodIndex.value+1}일간)',
           style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w500,
@@ -53,11 +58,13 @@ class _RoutineEntrySettingPageState extends State<RoutineEntrySettingPage> {
         SizedBox(
           height: 69.h,
         ),
+        // routineEntityController.addedRoutineItemCount == 0?
         Container(
           height: 105.33.h,
           width: 160.w,
           child: Image.asset('icons/g139087@4x.png'),
         ),
+        // :addRoutineItemList(routineEntityController),
         SizedBox(
           height: 45.67.h,
         ),
@@ -80,6 +87,7 @@ class _RoutineEntrySettingPageState extends State<RoutineEntrySettingPage> {
                         expand: false,
                         builder: (context) => RoutineItemAddPage(),
                       );
+          pageController.initRoutineItemsValue();
         }),
         SizedBox(
           height: 104.h,

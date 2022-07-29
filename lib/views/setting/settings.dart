@@ -22,7 +22,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        customAppBar(context, '설정'),
+        // customAppBar(context, '설정'),
         Container(height: 56.h,
         child: ListTile()),
         ListTile(

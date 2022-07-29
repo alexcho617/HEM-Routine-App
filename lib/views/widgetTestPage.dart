@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
 import '../models/routineItem.dart';
 import '../widgets/widgets.dart';
-import '../controllers/routineItemController.dart';
+import '../controllers/routineOnController.dart';
 
 class WidgetTestPage extends StatefulWidget {
   const WidgetTestPage({Key? key}) : super(key: key);
@@ -16,7 +16,8 @@ class WidgetTestPage extends StatefulWidget {
 class _WidgetTestPageState extends State<WidgetTestPage> {
   @override
   Widget build(BuildContext context) {
-    RoutineItemController routineItemController = Get.find();
+    RoutineOnController routineItemController = Get.find();
+    // RoutineOnController routineIController = Get.find();
     return Scaffold(
       appBar: AppBar(title: Text('Widget Test')),
       body: Center(
@@ -106,13 +107,13 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
                 padding: REdgeInsets.all(8),
                 child: routineStartAlertDialog(voidFunction, voidFunction),
               ),
-              Text('AddRoutineItemList'),
-              Padding(
-                padding: REdgeInsets.all(8),
-                child: Container(
-                  height: 350,
-                  child: addRoutineItemList(routineItemController),),
-              ),
+              // Text('AddRoutineItemList'),
+              // Padding(
+              //   padding: REdgeInsets.all(8),
+              //   child: Container(
+              //     height: 350,
+              //     child: addRoutineItemList(routineEntityController),),
+              // ),
             ],
           ),
         ),

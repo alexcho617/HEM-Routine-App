@@ -5,13 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/routineEntityController.dart';
+import 'package:hem_routine_app/models/routineEtity.dart';
 
 import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
-
-class RoutineBuildController extends GetxController {
+//TODO: 아마 프로그램 흐름상 routine item읽어오는 건 다른 Controller로 구분해야 한다.
+class RoutineOffController extends GetxController {
   LoginService loginService = Get.find();
   final inputController = TextEditingController();
   final globalKey = GlobalKey<FormState>();
@@ -41,15 +43,32 @@ class RoutineBuildController extends GetxController {
 
   List<String> existingRoutineName = [];
   List<RoutineItem> routineItems = [];
+  List<RoutineItem> addedRoutineItems = [];
   List<String> categories = ['전체'];
   List<Widget> categoryButtons = <Widget>[];
   int categoryIndex = 0;
+  int selectedRoutineItemCount = 0;
+  
+
 
   @override
   void onInit() {
     getRoutineList();
     getRoutineItemList();
     super.onInit();
+  }
+
+  void initRoutineItemsValue() {
+    //TODO: 이전에 체크만 한 것들은 초기화시키되 내가 이미 추가한 것들은 체크된 상태로 두게끔
+    for (int i = 0; i < routineItems.length; i++) {
+      routineItems[i].isChecked = false;
+      routineItems[i].isTapped = false;
+    }
+
+    categoryIndex = 0;
+    selectedRoutineItemCount = 0;
+    buildRoutineButtons();
+    update();
   }
 
   void buildRoutineButtons() {
@@ -95,6 +114,7 @@ class RoutineBuildController extends GetxController {
   void getRoutineItemList() async {
     await firestore
         .collection('routineItems')
+        .orderBy("name", descending: false)
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
@@ -104,7 +124,7 @@ class RoutineBuildController extends GetxController {
           category: data['category'],
           description: data['description'],
         ));
-         if (categories.contains(data['category']) != true) {
+        if (categories.contains(data['category']) != true) {
           categories.add(data['category']);
         }
       });
@@ -112,6 +132,8 @@ class RoutineBuildController extends GetxController {
     // print(routineItems);
     buildRoutineButtons();
   }
+
+  
 
   void checkState(bool value, int index) {
     routineItems[index].isChecked = value;
@@ -123,11 +145,21 @@ class RoutineBuildController extends GetxController {
     update();
   }
 
-  void updateCategoryIndex(int index){
+  void updateCategoryIndex(int index) {
     // print('실행됨');
     categoryIndex = index;
     buildRoutineButtons();
     //index가 바뀌어도 어차피...routineList는 동일한 가봐.
+    update();
+  }
+
+  void increaseSelectedRoutineCount() {
+    selectedRoutineItemCount++;
+    update();
+  }
+
+  void decreaseSelectedRoutineCount() {
+    selectedRoutineItemCount--;
     update();
   }
   //TODO : calendarRoutine에도 생겨야 함.
