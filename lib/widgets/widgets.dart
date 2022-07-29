@@ -1157,8 +1157,8 @@ class _CustomNavigatorState extends State<CustomNavigator>
 Widget customAppBar(context, String name) {
   return AppBar(
     elevation: 0,
-    backgroundColor: Colors.white,
-    foregroundColor: Colors.black,
+    backgroundColor: Colors.grey[50],
+    foregroundColor: black,
     centerTitle: false,
     leading: IconButton(
       icon: Icon(Icons.arrow_back),

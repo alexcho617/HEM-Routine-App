@@ -7,6 +7,7 @@ import 'package:hem_routine_app/utils/constants.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/setting/account_settings.dart';
 import 'package:hem_routine_app/views/setting/completed_routines.dart';
+import 'package:hem_routine_app/views/setting/routineitem_settings.dart';
 import 'package:hem_routine_app/views/setting/service_info.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
@@ -22,9 +23,24 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        // customAppBar(context, '설정'),
-        Container(height: 56.h,
-        child: ListTile()),
+        // Container(height: 61.h,
+        // child: Row(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: [SizedBox(width: 56.w,),Text("설정",style: AppleFont22_Black,)],)),
+        AppBar(
+          elevation: 0,
+          backgroundColor: Colors.grey[50],
+          foregroundColor: black,
+          centerTitle: false,
+          leading: IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              //
+            },
+          ),
+          title: Text('설정'),
+        ),
         ListTile(
           leading: Icon(
             Icons.person,
@@ -65,7 +81,9 @@ class _SettingsPageState extends State<SettingsPage> {
             '루틴 항목 관리',
             style: AppleFont22_Black,
           ),
-          onTap: onPressed,
+          onTap: () {
+            kangmin(context, RoutineItemSettingsPage());
+          },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),
         ListTile(

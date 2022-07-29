@@ -29,7 +29,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
 
   @override
   Widget build(BuildContext context) {
-    EventController controller = Get.find();
+    CalendarController controller = Get.find();
 
     return Scaffold(
       appBar: AppBar(

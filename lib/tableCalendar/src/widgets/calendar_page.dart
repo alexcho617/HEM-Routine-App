@@ -53,13 +53,12 @@ class CalendarPage extends StatelessWidget {
     final rowAmount = visibleDays.length ~/ 7;
 
     //이벤트 정보 가져오고 현재 그리는 정보와 비교
-    EventController controller = Get.find();
+    CalendarController controller = Get.find();
     controller.selectedEvents;
     return List.generate(rowAmount, (index) => index * 7)
         .map((index) => TableRow(
               decoration: rowDecoration,
               children: List.generate(
-                
                 7,
                 (id) => Stack(alignment: Alignment.center, children: [
                   //if event exist
