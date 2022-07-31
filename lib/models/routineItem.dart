@@ -1,10 +1,9 @@
 class RoutineItem {
-  RoutineItem({this.name, 
-  
-  // this.eventCount, 
-  this.goalCount
-  });
+  RoutineItem({this.name, this.category, this.description, this.goalCount = 0, this.isChecked = false, this.isTapped = false});
   dynamic name;
-  // dynamic eventCount;
+  dynamic category;
+  dynamic description;
+  dynamic isChecked;
   dynamic goalCount;
+  dynamic isTapped;
 }
