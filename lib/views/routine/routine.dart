@@ -4,12 +4,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:hem_routine_app/controllers/routineItemController.dart';
+import 'package:hem_routine_app/controllers/routineOnController.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/routine/routineBuild.dart';
-import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
+import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
 import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../utils/colors.dart';
@@ -24,7 +24,7 @@ class RoutinePage extends StatefulWidget {
 }
 
 class _RoutinePageState extends State<RoutinePage> {
-  RoutineItemController routineItemController = Get.find();
+  RoutineOnController routineItemController = Get.find();
   bool status = false;
   int dayStatus = 3;
 

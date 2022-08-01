@@ -9,7 +9,7 @@ import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/firebase_options.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/routine/routineBuild.dart';
-import 'package:hem_routine_app/views/routine/routineEntrySetting.dart';
+import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
 import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/login.dart';
@@ -21,7 +21,7 @@ import 'package:hem_routine_app/views/splash.dart';
 import 'package:hem_routine_app/views/test.dart';
 
 import 'package:hem_routine_app/views/widgetTestPage.dart';
-import 'controllers/routineItemController.dart';
+import 'controllers/routineOnController.dart';
 import 'views/setting/completed_routines.dart';
 import 'views/setting/profile_settings.dart';
 
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(RoutineItemController());
+    Get.put(RoutineOnController());
     Get.put(CalendarController());
 
     return ScreenUtilInit(
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
               '/routineBuild': (context) => RoutineBuildPage(),
               '/settings': (context) => SettingsPage(),
               '/accountSettings': (context) => AccountSettingsPage(),
-              '/routineEntrySetting': (context) => RoutineEntrySettingPage(),
+              '/routineEntrySetting': (context) => RoutineEntitySettingPage(),
               '/profileSettings': (context) => ProfileSettingsPage(),
               '/completedRoutines': (context) => CompletedRoutinesPage(),
 
