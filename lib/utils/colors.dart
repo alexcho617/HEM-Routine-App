@@ -25,6 +25,7 @@ Color blue800 = const Color.fromRGBO(0x00, 0x37, 0x9E, 1);
 
 Color blue900 = const Color.fromRGBO(0x00, 0x25, 0xBA, 1);
 
+Color? background = Colors.grey[50];
 Color grey50 = const Color.fromRGBO(0xFF, 0xFF, 0xFF, 1);
 Color white = grey50;
 
