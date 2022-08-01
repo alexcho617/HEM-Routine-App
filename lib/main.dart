@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
             ),
 
             initialRoute:
-                '/home', //use home for development, spalsh for deployment
+                '/splash', //use home for development, spalsh for deployment
             routes: {
               '/home': (context) => HomePage(),
               '/splash': (context) => SplashScreen(),

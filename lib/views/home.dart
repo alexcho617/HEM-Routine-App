@@ -28,7 +28,7 @@ class HomePageState extends State<HomePage> {
   final _navigatorKeyList =
       List.generate(4, (index) => GlobalKey<NavigatorState>());
   int _currentIndex = 0;
-
+  
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -39,7 +39,7 @@ class HomePageState extends State<HomePage> {
       },
       child: DefaultTabController(
         length: 4,
-        child: Scaffold(     
+        child: Scaffold(
           body: SafeArea(
             child: TabBarView(
               children: _pages.map(

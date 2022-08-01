@@ -1,13 +1,18 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
+import '../../controllers/loginService.dart';
 
 class ProfileSettingsPage extends StatefulWidget {
-  const ProfileSettingsPage({Key? key}) : super(key: key);
+  ProfileSettingsPage({Key? key}) : super(key: key);
 
   @override
   State<ProfileSettingsPage> createState() => _ProfileSettingsPageState();
@@ -15,8 +20,11 @@ class ProfileSettingsPage extends StatefulWidget {
 
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   final _formKey = GlobalKey<FormState>();
-  DateTime currDateTime = DateTime.now();
+  LoginService loginService = Get.find();
+  final nameController = TextEditingController();
+  DateTime selectedDateTime = DateTime.now();
   bool isMale = true;
+  bool enableBtn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +37,15 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             padding: EdgeInsets.all(22.r),
             child: Form(
               key: _formKey,
+              onChanged: (() {
+                setState(() {
+                  enableBtn = _formKey.currentState!.validate();
+                });
+              }),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  customAppBar(context, '프로필 설정'),
                   Text('사용자 이름'),
                   TextFormField(
                     decoration: InputDecoration(
@@ -44,9 +56,10 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                             //controller.stashname();
                           },
                         )),
+                    controller: nameController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Data E';
+                        return '사용자 이름을 입력하세요';
                       }
                       return null;
                     },
@@ -58,7 +71,17 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                     padding: EdgeInsets.symmetric(vertical: 16.h),
                     child: Text('성별'),
                   ),
-                  genderchooseButton(onPressed),
+                  genderchooseButton(() {
+                    //when pressed Male
+                    setState(() {
+                      isMale = true;
+                    });
+                  }, () {
+                    //when pressed Female
+                    setState(() {
+                      isMale = false;
+                    });
+                  }),
                   SizedBox(
                     height: 40.h,
                   ),
@@ -73,7 +96,8 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   SizedBox(
                     height: 66.h,
                   ),
-                  saveButtonLong(saveButtonPressed, false ? primary : grey600),
+                  saveButtonLong(
+                      saveButtonPressed, enableBtn ? primary : grey600),
                 ],
               ),
             ),
@@ -84,20 +108,29 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   }
 
   Widget buildDatePicker() => CupertinoDatePicker(
-        initialDateTime: currDateTime,
+        initialDateTime: selectedDateTime,
         mode: CupertinoDatePickerMode.date,
         onDateTimeChanged: (DateTime value) {
-          //
+          setState(() {
+            selectedDateTime = value;
+          });
         },
       );
 
   void saveButtonPressed() {
-    if (_formKey.currentState!.validate()) {
-      //do save
+    if (enableBtn) {
+      loginService.profileSetting(
+          nameController.text, selectedDateTime, isMale ? "Male" : "Female");
+      ScaffoldMessenger.of(context.findAncestorStateOfType<HomePageState>()!.context)
+          .showSnackBar(SnackBar(content: Text("저장되었습니다")));
+      Navigator.pop(context);
     }
   }
 
-  Widget genderchooseButton(VoidCallback? onPressed) {
+  Widget genderchooseButton(
+    VoidCallback? onPressedMale,
+    VoidCallback? onPressedFemale,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -105,7 +138,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
           width: 163.w,
           height: 48.h,
           child: ElevatedButton(
-            onPressed: onPressed,
+            onPressed: onPressedMale,
             child: Text(
               '남자',
               style: AppleFont14_White,
@@ -123,7 +156,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
           width: 163.w,
           height: 48.h,
           child: ElevatedButton(
-            onPressed: onPressed,
+            onPressed: onPressedFemale,
             child: Text(
               '여자',
               style: AppleFont14_White,

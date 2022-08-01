@@ -6,12 +6,16 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'dart:convert';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginService extends GetxController {
   AuthCredential? appleCredential;
   GoogleSignInAccount? googleCredential;
   Rx<FirebaseAuth> auth = FirebaseAuth.instance.obs;
-  
+
+  CollectionReference users = FirebaseFirestore.instance.collection('user');
+
   var uid = ''.obs;
   var name = ''.obs;
 
@@ -36,14 +40,56 @@ class LoginService extends GetxController {
     // Once signed in, return the UserCredential
     await auth.value.signInWithCredential(credential).then((value) {
       if (auth.value.currentUser != null) {
-        
         Get.to(HomePage());
         uid.value = auth.value.currentUser!.uid;
+        name.value = auth.value.currentUser!.displayName!;
       } else {
         Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
       }
     });
+
+    // DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+    //     .collection('user')
+    //     .doc(auth.value.currentUser!.uid)
+    //     .get();
+    // if (userSnapshot == null || !userSnapshot.exists) {
+    //   addUserDocument();
+    // }
   }
+
+  Future<void> signOut() async{
+    auth.value.signOut();
+  }
+
+  // Future<void> addUserDocument() {
+  //   return users
+  //       .doc(auth.value.currentUser!.uid)
+  //       .set({
+  //         'name': auth.value.currentUser!.displayName,
+  //       })
+  //       .then((value) => print("User Document Created"))
+  //       .catchError((error) => print("Faied to Add User document: ${error}"));
+  // }
+
+  Future<void> profileSetting(String name, DateTime birthDate, String gender) {
+    return users
+        .doc(auth.value.currentUser!.uid)
+        .set({
+          'name': name,
+          'birthDate': birthDate,
+          'gender': gender,
+        })
+        .then((value) => print("User Document Created"))
+        .catchError((error) => print("Faied to Add User document: ${error}"));
+  }
+
+  Future<void> deleteUser() {
+  return users
+    .doc(auth.value.currentUser!.uid)
+    .delete()
+    .then((value) => print("User Deleted"))
+    .catchError((error) => print("Failed to delete user: $error"));
+}
 
   Future<void> signInWithApple() async {
     final rawNonce = generateNonce();

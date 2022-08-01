@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/setting/profile_settings.dart';
+import 'package:hem_routine_app/views/splash.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../widgets/widgets.dart';
+import '../../controllers/loginService.dart';
 
 class AccountSettingsPage extends StatelessWidget {
-  const AccountSettingsPage({Key? key}) : super(key: key);
+  AccountSettingsPage({Key? key}) : super(key: key);
+  LoginService loginService = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,9 @@ class AccountSettingsPage extends StatelessWidget {
           onTap: () {
             kangmin(context, ProfileSettingsPage());
           },
-          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500),),
+          shape: Border(
+            bottom: BorderSide(width: 0.8.w, color: grey500),
+          ),
         ),
         ListTile(
           leading: Icon(
@@ -40,8 +46,13 @@ class AccountSettingsPage extends StatelessWidget {
             '로그아웃',
             style: AppleFont22_Black,
           ),
-          onTap: onPressed,
-          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500),),
+          onTap: (() {
+            loginService.signOut();
+            Get.offAll(() => SplashScreen());
+          }),
+          shape: Border(
+            bottom: BorderSide(width: 0.8.w, color: grey500),
+          ),
         ),
         ListTile(
           leading: Icon(
@@ -59,10 +70,15 @@ class AccountSettingsPage extends StatelessWidget {
                 builder: ((context) {
                   return dataAlertDialog(() {
                     Get.back();
-                  }, onPressed);
+                  }, () {
+                    loginService.deleteUser();
+                    Get.offAll(HomePage());
+                  });
                 }));
           },
-          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500),),
+          shape: Border(
+            bottom: BorderSide(width: 0.8.w, color: grey500),
+          ),
         ),
         ListTile(
           leading: Icon(
@@ -74,14 +90,20 @@ class AccountSettingsPage extends StatelessWidget {
             '회원 탈퇴',
             style: AppleFont22_Black,
           ),
-          shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500),),
+          shape: Border(
+            bottom: BorderSide(width: 0.8.w, color: grey500),
+          ),
           onTap: () {
             showDialog(
                 context: context,
                 builder: ((context) {
                   return withDrawalAlertDialog(() {
                     Get.back();
-                  }, onPressed);
+                  }, (() {
+                    loginService.deleteUser();
+                    loginService.signOut();
+                    Get.offAll(SplashScreen());
+                  }));
                 }));
           },
         ),

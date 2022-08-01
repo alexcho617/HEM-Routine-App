@@ -5,5 +5,4 @@ class User {
   dynamic name;
   dynamic gender;
   dynamic birthDate;
-  dynamic routineRecord;
 }

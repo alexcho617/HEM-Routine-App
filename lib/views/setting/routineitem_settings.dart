@@ -9,7 +9,7 @@ class RoutineItemSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List routineItems = [];
+    List routineItems = ["FOR LINT"];
     return Container(
       color: Colors.grey[50],
       child: routineItems.isEmpty?
