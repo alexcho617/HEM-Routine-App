@@ -21,7 +21,6 @@ class RoutineEntitySettingPage extends StatelessWidget {
       Get.put(RoutineEntityController());
   RoutineOffController pageController = Get.find();
 
-  
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -45,7 +44,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
               height: 5.h,
             ),
             Text(
-              '(기간: ${pageController.routinePeriodIndex.value + 1}일간)',
+              '(기간: ${pageController.routinePeriodIndex.value}일간)',
               style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
@@ -55,89 +54,88 @@ class RoutineEntitySettingPage extends StatelessWidget {
             SizedBox(
               height: 33.h,
             ),
-             GetBuilder<RoutineEntityController>(
-               builder: (_) {
-                 return routineEntityController.addedRoutineItemCount == 0
-                      ? Column(
-                          children: [
-                            SizedBox(
-                              height: 36.h,
+            GetBuilder<RoutineEntityController>(builder: (_) {
+              return routineEntityController.addedRoutineItemCount == 0
+                  ? Column(
+                      children: [
+                        SizedBox(
+                          height: 36.h,
+                        ),
+                        Container(
+                          height: 105.33.h,
+                          width: 160.w,
+                          child: Image.asset('icons/g139087@4x.png'),
+                        ),
+                        SizedBox(
+                          height: 45.67.h,
+                        ),
+                        Text(
+                          '루틴 항목을 추가해주세요.',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'AppleSDGothicNeo',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 202.h,
+                        ),
+                        Container(
+                          width: 335.w,
+                          height: 48.h,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              '이전',
+                              style: AppleFont14_Grey700,
                             ),
-                            Container(
-                              height: 105.33.h,
-                              width: 160.w,
-                              child: Image.asset('icons/g139087@4x.png'),
-                            ),
-                            SizedBox(
-                              height: 45.67.h,
-                            ),
-                            Text(
-                              '루틴 항목을 추가해주세요.',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'AppleSDGothicNeo',
+                            style: ElevatedButton.styleFrom(
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              primary: Color.fromARGB(255, 212, 212, 212),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.r),
                               ),
                             ),
-                            SizedBox(
-                              height: 202.h,
-                            ),
-                            Container(
-                              width: 335.w,
-                              height: 48.h,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
-                                  '이전',
-                                  style: AppleFont14_Grey700,
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  primary: Color.fromARGB(255, 212, 212, 212),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+                          ),
                         )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      ],
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 5.h,
+                          color: Colors.grey[50],
+                        ),
+                        Row(
                           children: [
-                            Container(
-                              height: 5.h,
-                              color: Colors.grey[50],
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 22.w,
-                                ),
-                                Text('루틴 항목 추가'),
-                              ],
-                            ),
-                            SingleChildScrollView(
-                                child: Container(
-                                    height: 347.h,
-                                    child: 
-                                        addRoutineItemList(
-                                            routineEntityController),
-                                    )),
                             SizedBox(
-                              height: 30.h,
+                              width: 22.w,
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 28.w),
-                              child: storeRoutineButton(() {Navigator.pop(context);}, () {}),
-                            ),
+                            Text('루틴 항목 추가'),
                           ],
-                        );
-               }
-             ),
-            
+                        ),
+                        SingleChildScrollView(
+                            child: Container(
+                          height: 347.h,
+                          child: addRoutineItemList(routineEntityController),
+                        )),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 28.w),
+                          child: storeRoutineButton(() {
+                            Navigator.pop(context);
+                          }, () {
+                            routineEntityController.addRoutine();
+                          }),
+                        ),
+                      ],
+                    );
+            }),
           ],
         ),
         Positioned(

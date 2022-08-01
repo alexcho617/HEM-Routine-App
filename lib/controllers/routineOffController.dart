@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routineEntityController.dart';
-import 'package:hem_routine_app/models/routineEtity.dart';
+import 'package:hem_routine_app/models/routineEntity.dart';
 
 import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/functions.dart';
@@ -21,8 +21,8 @@ class RoutineOffController extends GetxController {
   Rx<bool> isValid = true.obs;
   Rx<bool> activateButton = false.obs;
 
-  Rx<int> routinePeriodIndex = 0.obs;
-  DateTime now = DateTime.now();
+  Rx<int> routinePeriodIndex = 1.obs;
+  
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<Widget> routinePeriod = [
     Text("1 일간"),
@@ -163,55 +163,7 @@ class RoutineOffController extends GetxController {
     update();
   }
 
-  //TODO : calendarRoutine에도 생겨야 함.
-  // void addRoutine() async {
-  //   DateTime later = now.add(Duration(days: currentIndex.value + 1));
-  //   await firestore
-  //       .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
-  //       .add({
-  //     'averageComplete': 0,
-  //     'averageRating': 0,
-  //     'name': inputController.text
-  //   }).then((DocumentReference routineDoc) async {
-  //     // print(routineDoc.id);
-  // //alex calenderRoutine
-  //     await firestore
-  //         .collection(
-  //             'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
-  //         .doc(routineDoc.id)
-  //         .set({
-  //       'duration': currentIndex.value,
-  //       'startDate': DateTime(now.year, now.month, now.day),
-  //       'endDate': DateTime(later.year, later.month, later.day),
-  //       'name': inputController.text,
-  //     }).onError((error, _) =>
-  //             print("Error adding document to calendarRoutine: $error"));
-
-  //     await firestore
-  //         .collection(
-  //             'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory')
-  //         .add({
-  //       'complete': 0,
-  //       'duration': currentIndex.value,
-  //       'startDate': DateTime(now.year, now.month, now.day),
-  //       'endDate': DateTime(later.year, later.month, later.day),
-  //       'isActive': true,
-  //       'name': inputController.text,
-  //       'rating': 0,
-  //     }).then((DocumentReference routineHistoryDoc) async {
-  //       for (int i = 1; i <= currentIndex.value; i++) {
-  //         await firestore
-  //             .collection(
-  //                 'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory/${routineHistoryDoc.id}/days')
-  //             .doc('$i')
-  //             .set({
-  //           'dayComplete': 0,
-  //         });
-  //       }
-  //     });
-  //   });
-  // }
-
+ 
   String? textValidator(String? value) {
     if (!onSubmitted.value) {
       if (value == null || value.isEmpty) {
