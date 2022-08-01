@@ -442,6 +442,7 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
 Widget routineItemList(RoutineOnController controller) {
   int itemLength = controller.routineItems.length;
   return ReorderableListView.builder(
+    
     padding: EdgeInsets.all(10.r),
     proxyDecorator: ((child, index, animation) {
       return Material(
@@ -1103,6 +1104,17 @@ class _CustomNavigatorState extends State<CustomNavigator>
 Widget addRoutineItemList(RoutineEntityController controller) {
   int itemLength = controller.routineEntities.length;
   return ReorderableListView.builder(
+    proxyDecorator: ((child, index, animation) {
+      return Material(
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(
+            color: Colors.transparent,
+          )),
+          child: child,
+        ),
+      );
+    }),
     shrinkWrap: true,
     padding: EdgeInsets.all(10.r),
     itemBuilder: (BuildContext context, int index) {

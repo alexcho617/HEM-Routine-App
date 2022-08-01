@@ -25,7 +25,7 @@ class RoutineOnController extends GetxController {
     }
     final RoutineEntity itemToSwap = routineItems.removeAt(oldIndex);
     routineItems.insert(newIndex, itemToSwap);
-    print(routineItems);
+    // print(routineItems);
   }
 
   double getPercent(int eventCount, int goalCount) {
