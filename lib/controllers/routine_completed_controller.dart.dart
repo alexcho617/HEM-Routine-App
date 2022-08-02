@@ -19,6 +19,7 @@ class RoutineCompletedController extends GetxController {
         .get();
 
     await getData();
+    print("OnInit Called!");
   }
 
   Future<void> getData() async {
@@ -34,10 +35,9 @@ class RoutineCompletedController extends GetxController {
       routine.tryCount = doc.get("tryCount");
       routine.uid = doc.id;
 
-
       routines.add(routine);
     }
-      sortByName();
+    sortByName();
   }
 
   void sortByName() {

@@ -62,9 +62,11 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                     //TODO : Navigate tp 5-3-1
                     kangminBack(context);
                     HomePageState.tabController.index = 1;
-                    kangmin(context
-                              .findAncestorStateOfType<HomePageState>()!
-                              .context, Scaffold(body : RoutineBuildPage()));
+                    kangmin(
+                        context
+                            .findAncestorStateOfType<HomePageState>()!
+                            .context,
+                        Scaffold(body: RoutineBuildPage()));
                   })
                 ],
               )

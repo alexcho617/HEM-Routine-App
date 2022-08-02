@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routineOnController.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
@@ -21,6 +22,7 @@ class RoutinePage extends StatelessWidget {
   RoutinePage({Key? key}) : super(key: key);
   // RoutineOnController routineItemController = Get.find();
   AppStateController controller = Get.find();
+  LoginService loginService = Get.find();
   int dayStatus = 3;
 
   @override
@@ -58,7 +60,7 @@ class RoutinePage extends StatelessWidget {
                       height: 19.h,
                     ),
                     Text(
-                      '\$사용자의루틴명칭',
+                      controller.name.value,
                       style: AppleFont24_Black,
                     ),
                     SizedBox(
@@ -106,7 +108,7 @@ class RoutinePage extends StatelessWidget {
                       height: 15.h,
                     ),
                     Text(
-                      '배가 많이 불편하신가요?\n \$사용자님에게 맞는 루틴을 만들어라',
+                      '배가 많이 불편하신가요?\n ${loginService.name.value}님에게 맞는 루틴을 만들어 보세요!',
                       style: AppleFont12_Black,
                       textAlign: TextAlign.center,
                     ),

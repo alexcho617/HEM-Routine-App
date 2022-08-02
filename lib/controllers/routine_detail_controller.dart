@@ -17,7 +17,7 @@ class RoutineDetailController extends GetxController {
   var days = 0.obs;
   var tryCount = 0.obs;
   var averageComplete = 0.obs;
-  var averageRating = 0.obs;
+  var averageRating = 0.0.obs;
   var routineItem = [].obs;
   var goals = [].obs;
 
@@ -53,7 +53,7 @@ class RoutineDetailController extends GetxController {
     days.value = routineSnapshot.get('days');
     tryCount.value = routineSnapshot.get('tryCount');
     averageComplete.value = routineSnapshot.get('averageComplete');
-    averageRating.value = routineSnapshot.get('averageRating');
+    averageRating.value = routineSnapshot.get('averageRating') as double;
     routineItem.value = routineSnapshot.get('routineItem');
     goals.value = routineSnapshot.get('goals');
     for (var i in routineItem) {
