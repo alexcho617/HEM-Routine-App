@@ -50,6 +50,6 @@ flutter:
   assets:
     - assets/
     - assets/marker/
-    - assets/button/color
-    - assets/button/type
-    - assets/button/hardness
+    - assets/button/color/
+    - assets/button/type/
+    - assets/button/hardness/
