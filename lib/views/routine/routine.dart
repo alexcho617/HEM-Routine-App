@@ -27,6 +27,12 @@ class _RoutinePageState extends State<RoutinePage> {
   RoutineOnController routineItemController = Get.find();
   bool status = false;
   int dayStatus = 3;
+  
+  void statusToggle(){
+    setState(() {
+      status = !status;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +58,7 @@ class _RoutinePageState extends State<RoutinePage> {
                 activeColor: primary,
                 inactiveColor: grey600,
                 value: status,
-                onToggle: (value) {
-                  setState(() {
-                    status = value;
-                  });
-                })
+                onToggle: (value) {})
             // Container(
             //   width: 68.w,
             //   height: 29.h,

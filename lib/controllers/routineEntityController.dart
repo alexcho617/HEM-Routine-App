@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
@@ -13,6 +12,19 @@ class RoutineEntityController extends GetxController {
   RoutineOffController controller = Get.find();
   List<TextEditingController> inputControllers = <TextEditingController>[];
   DateTime now = DateTime.now();
+
+  void initValues() {
+    //화면을 나갈 때에 값들을 전부 초기화하기 위함
+    RoutineOffController controller = Get.find();
+    for (int i = 0; i < controller.routineItems.length; i++) {
+      controller.routineItems[i].isAdded = false;
+      controller.routineItems[i].isChecked = false;
+    }
+    routineEntities.clear();
+    inputControllers.clear();
+    addedRoutineItemCount = 0;
+    update();
+  }
 
   void buildRoutineEntities() {
     RoutineOffController controller = Get.find();
@@ -117,6 +129,7 @@ class RoutineEntityController extends GetxController {
       }
     }
     routineEntities.removeAt(index);
+    inputControllers.removeAt(index);
     addedRoutineItemCount--;
     update();
   }
@@ -127,6 +140,10 @@ class RoutineEntityController extends GetxController {
     }
     final RoutineEntity itemToSwap = routineEntities.removeAt(oldIndex);
     routineEntities.insert(newIndex, itemToSwap);
+
+    final TextEditingController controllerToSwap =
+        inputControllers.removeAt(oldIndex);
+    inputControllers.insert(newIndex, controllerToSwap);
     //여기서 바로 write를 해야 한다.
   }
 }

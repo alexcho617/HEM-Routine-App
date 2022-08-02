@@ -55,7 +55,7 @@ class RoutineOffController extends GetxController {
     getRoutineItemList();
     super.onInit();
   }
-
+  
   void initRoutineItemsValue() {
     //TODO: 이전에 체크만 한 것들은 초기화시키되 내가 이미 추가한 것들은 체크된 상태로 두게끔
     for (int i = 0; i < routineItems.length; i++) {
