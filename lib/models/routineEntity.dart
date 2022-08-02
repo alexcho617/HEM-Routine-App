@@ -3,4 +3,8 @@ class RoutineEntity {
   dynamic name;
   dynamic goalCount;
   dynamic index;
+
+  void printElements(){
+    print('이름 : $name, goalCount : $goalCount, index : $index\n');
+  }
 }

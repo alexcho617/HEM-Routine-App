@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:hem_routine_app/models/routineEtity.dart';
+import 'package:hem_routine_app/models/routineEntity.dart';
 import '../models/routineItem.dart';
 
 class RoutineOnController extends GetxController {

@@ -404,6 +404,7 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
     actionsPadding: EdgeInsets.all(0),
     contentPadding: EdgeInsets.all(0),
     content: Container(
+      height: 176.h,
       child: Column(children: [
         Container(
           width: 312.w,
@@ -696,6 +697,7 @@ Widget routineStartAlertDialog(
     actionsPadding: EdgeInsets.all(0),
     contentPadding: EdgeInsets.all(0),
     content: Container(
+      height: 358.h,
       child: Column(children: [
         Container(
           width: 312.w,
@@ -1118,7 +1120,78 @@ Widget addRoutineItemList(RoutineEntityController controller) {
     shrinkWrap: true,
     padding: EdgeInsets.all(10.r),
     itemBuilder: (BuildContext context, int index) {
-      return Padding(
+      
+      return index == itemLength -1?
+      Column(
+        key: Key('$index'),
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 8.h),
+            child: PhysicalModel(
+              color: white,
+              elevation: 5.r,
+              borderRadius: BorderRadius.circular(12.r),
+              child: ListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                leading: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 11.h),
+                  child: Icon(Icons.menu),
+                ),
+                contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+                horizontalTitleGap: 0,
+                minVerticalPadding: 22.w,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 145.w,
+                      padding: EdgeInsets.symmetric(vertical: 8.h),
+                      child: Text(
+                        controller.routineEntities[index].name,
+                        style: AppleFont18_Black,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text(
+                      '일일 목표',
+                      style: TextStyle(fontSize: 14.sp),
+                    ),
+                    ConstrainedBox(
+                        constraints: BoxConstraints.tight(Size(30.w, 18.h)),
+                        child: TextFormField(
+                          controller: controller.inputControllers[index],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 14.sp),
+                          // onChanged: (value){
+                            
+                          // },
+                        )),
+                    // {controller.routineEntities[index].goalCount}'
+                    Text(
+                      '회',
+                      style: TextStyle(fontSize: 14.sp),
+                    ),
+
+                    // SizedBox(
+                    //   width: 5.w,
+                    // ),
+                  ],
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    controller.deleteRoutineEntities(index);
+                  },
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 80.h,)
+        ],
+      )
+      :Padding(
         key: Key('$index'),
         padding: EdgeInsets.symmetric(vertical: 8.h),
         child: PhysicalModel(
@@ -1155,8 +1228,12 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                 ConstrainedBox(
                     constraints: BoxConstraints.tight(Size(30.w, 18.h)),
                     child: TextFormField(
+                      controller: controller.inputControllers[index],
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 14.sp),
+                      // onChanged: (value){
+                        
+                      // },
                     )),
                 // {controller.routineEntities[index].goalCount}'
                 Text(

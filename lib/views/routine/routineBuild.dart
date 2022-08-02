@@ -39,7 +39,7 @@ class RoutineBuildPage extends StatelessWidget {
                 pageController.activateButton.value = false;
               },
             ),
-            title: Text('루틴 항목 설정'),
+            title: Text('루틴 설계'),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 21),
@@ -94,6 +94,7 @@ class RoutineBuildPage extends StatelessWidget {
                     child: CupertinoPicker(
                       children: pageController.routinePeriod,
                       onSelectedItemChanged: (value) {
+                        print(value);
                         pageController.routinePeriodIndex.value = value + 1;
                       },
                       itemExtent: 25.h,
