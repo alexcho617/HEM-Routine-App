@@ -7,7 +7,6 @@ import '../../widgets/widgets.dart';
 import '../../utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../controllers/routine_completed_controller.dart.dart';
-import '../../models/routine.dart';
 
 class CompletedRoutinesPage extends StatefulWidget {
   const CompletedRoutinesPage({Key? key}) : super(key: key);
@@ -17,11 +16,9 @@ class CompletedRoutinesPage extends StatefulWidget {
 }
 
 class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
-  // List<dynamic> routineList = [];
-  List<dynamic> routineList = ["FOR LINT"];
+  // var sorting = "이름 순";
   @override
   Widget build(BuildContext context) {
-    //TODO
     var controller = Get.put(RoutineCompletedController());
     return Obx(() {
       return Container(
@@ -62,15 +59,24 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                     child: Column(
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            SizedBox(
-                              width: 270.w,
-                            ),
                             PopupMenuButton(
                               elevation: 10,
                               onSelected: (value) {
-                                // TODO : change value ?
+                                controller.sorting.value = value.toString();
+                                if (controller.sorting.value == "이름 순") {
+                                  controller.sortByName();
+                                } else if (controller.sorting.value ==
+                                    "만족도 순") {
+                                  controller.sortByRank();
+                                } else if (controller.sorting.value ==
+                                    "달성도 순") {
+                                  controller.sortByCompleted();
+                                } else if (controller.sorting.value ==
+                                    "도전 횟수 순") {
+                                  controller.sortByTry();
+                                }
                               },
                               shape: OutlineInputBorder(
                                 borderSide:
@@ -85,20 +91,23 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                                       '이름 순',
                                       style: AppleFont14_Grey600,
                                     ),
+                                    value: "이름 순",
                                   ),
                                   PopupMenuItem(
                                     height: 32.h,
                                     child: Text(
-                                      '나이 순',
+                                      '만족도 순',
                                       style: AppleFont14_Grey600,
                                     ),
+                                    value: "만족도 순",
                                   ),
                                   PopupMenuItem(
                                     height: 32.h,
                                     child: Text(
-                                      '싫은 순',
+                                      '달성도 순',
                                       style: AppleFont14_Grey600,
                                     ),
+                                    value: "달성도 순",
                                   ),
                                   PopupMenuItem(
                                     height: 32.h,
@@ -106,6 +115,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                                       '도전 횟수 순',
                                       style: AppleFont14_Grey600,
                                     ),
+                                    value: "도전 횟수 순",
                                   ),
                                 ];
                               },
@@ -118,7 +128,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                                     color: grey600,
                                   ),
                                   Text(
-                                    " 이름 순",
+                                    " ${controller.sorting.value}",
                                     style: AppleFont14_Grey600,
                                   )
                                 ],
@@ -179,7 +189,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                         style: AppleFont18_Black,
                       ),
                       Text(
-                        "목표 ${days}일간",
+                        "목표 $days일간",
                         style: AppleFont12_Blue600,
                       ),
                     ],
@@ -191,12 +201,12 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "달성도 ${complete}%",
+                        "달성도 $complete%",
                         style: AppleFont14_Grey600,
                       ),
-                      satisfaction(3),
+                      satisfaction(rating),
                       Text(
-                        "도전 횟수 ${tryCount}회",
+                        "도전 횟수 $tryCount회",
                         style: AppleFont14_Grey600,
                       )
                     ],

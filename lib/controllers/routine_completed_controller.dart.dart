@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/models/routine.dart';
 
 class RoutineCompletedController extends GetxController {
   LoginService loginService = Get.find();
   late QuerySnapshot routineCompleted;
-  var routines = [].obs;
+  RxList routines = [].obs;
+  var sorting = "이름 순".obs;
 
   @override
   void onInit() async {
@@ -20,11 +19,10 @@ class RoutineCompletedController extends GetxController {
         .get();
 
     await getData();
-    print(routines);
   }
 
   Future<void> getData() async {
-    routineCompleted.docs.forEach((doc) {
+    for (var doc in routineCompleted.docs) {
       Routine routine = Routine();
       routine.averageComplete = doc.get("averageComplete");
       routine.averageRating = doc.get("averageRating");
@@ -34,10 +32,28 @@ class RoutineCompletedController extends GetxController {
       routine.goals = doc.get("goals");
       routine.isActive = doc.get("isActive");
       routine.tryCount = doc.get("tryCount");
+      routine.uid = doc.id;
       //
 
       routines.add(routine);
-      
-    });
+
+      sortByName();
+    }
+  }
+
+  void sortByName() {
+    routines.sort(((a, b) => a.name.compareTo(b.name)));
+  }
+
+  void sortByRank() {
+    routines.sort(((b, a) => a.averageRating.compareTo(b.averageRating)));
+  }
+
+  void sortByCompleted() {
+    routines.sort(((b, a) => a.averageComplete.compareTo(b.averageComplete)));
+  }
+
+  void sortByTry() {
+    routines.sort(((b, a) => a.tryCount.compareTo(b.tryCount)));
   }
 }
