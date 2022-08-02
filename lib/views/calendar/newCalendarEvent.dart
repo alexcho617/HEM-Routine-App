@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
+import 'package:hem_routine_app/tableCalendar/src/widgets/custom_icon_button.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/setting/completed_routines.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../models/calendarEvent.dart';
 import '../../utils/calendarUtil.dart';
+import 'package:flutter/cupertino.dart';
 
 class NewCalendarEvent extends StatefulWidget {
   const NewCalendarEvent({Key? key}) : super(key: key);
@@ -17,35 +19,80 @@ class NewCalendarEvent extends StatefulWidget {
 }
 
 class _NewCalendarEventState extends State<NewCalendarEvent> {
-  //바뀌지 않는 데이터를 굳이 동적으로 런타임에 만들어야 할까?
-  var typeList = ['물변', '진흙변', '무른변', '매끈변', '금간변', '딱딱변', '토끼변'];
-  var typeIconList = [
-    '000.png',
-    '000.png',
-    '000.png',
-    '000.png',
-    '000.png',
-    '000.png',
-    '000.png'
-  ];
+  Widget TypeButton(
+      Image selectedImage, Image unSelectedImage, String label, String index) {
+    return Column(
+      children: [
+        IconButton(
+          icon: typeCode == index ? selectedImage : unSelectedImage,
+          onPressed: () {
+            setState(() {
+              typeCode = index;
+              iconCode = typeCode + colorCode + hardnessCode;
+            });
+          },
+        ),
+        Text(label)
+      ],
+    );
+  }
+
+  Widget ColorButton(
+      Image selectedImage, Image unSelectedImage, String label, String index) {
+    return Column(
+      children: [
+        IconButton(
+          icon: colorCode == index ? selectedImage : unSelectedImage,
+          onPressed: () {
+            setState(() {
+              colorCode = index;
+              iconCode = typeCode + colorCode + hardnessCode;
+            });
+          },
+        ),
+        Text(label)
+      ],
+    );
+  }
+
+  Widget HardnessButton(
+      Image selectedImage, Image unSelectedImage, String label, String index) {
+    return Container(
+      child: Column(
+        children: [
+          IconButton(
+            iconSize: 64.sp,
+            icon: hardnessCode == index ? selectedImage : unSelectedImage,
+            onPressed: () {
+              setState(() {
+                hardnessCode = index;
+                iconCode = typeCode + colorCode + hardnessCode;
+              });
+            },
+          ),
+          Text(label)
+        ],
+      ),
+    );
+  }
+
   //Event related
+  var iconCode = '399';
+
   var markerType = 'smooth';
-  var typeCode = '0';
+  var typeCode = '3';
 
-  var markerColor = 'yellow';
-  var colorCode = '0';
+  var markerColor = '';
+  var colorCode = '9';
 
-  var markerHardness = 'good';
-  var hardnessCode = '0';
+  var markerHardness = '';
+  var hardnessCode = '9';
 
   TextEditingController eventTextController = TextEditingController();
-
-  var iconCode = '000';
 
   @override
   Widget build(BuildContext context) {
     CalendarController controller = Get.find();
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -74,156 +121,191 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
         title: Text('배변 기록'),
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(controller.selectedDay.toString()),
-            ClipOval(
-              child: Image(
-                width: 140.w,
-                height: 92.h,
-                image: AssetImage("assets/marker/$iconCode.png"),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Container(
+                width: 250.w,
+                height: 20.h,
+                decoration: BoxDecoration(
+                    color: blue50, borderRadius: BorderRadius.circular(15.sp)),
+                child: InkWell(
+                  onTap: () => _showDatePicker(context),
+                  child: Obx(() {
+                    return Text(
+                        textAlign: TextAlign.center,
+                        '${controller.newEventTime.value.year.toString()}년 ${controller.newEventTime.value.month.toString()}월 ${controller.newEventTime.value.day.toString()}일 ${controller.newEventTime.value.hour.toString()}시 ${controller.newEventTime.value.minute.toString()}분');
+                  }),
+                ),
               ),
-            ),
-            Text('배변 형태(묽기) 선택'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      IconButton(
-                        icon: Image.asset('assets/button/type/0.png'),
-                        onPressed: () {
-                          setState(() {
-                            markerType = 'smooth';
-                            typeCode = '0';
-                            iconCode = typeCode + colorCode + hardnessCode;
-                          });
-                        },
-                      ),
-                      Text('매끈변')
-                    ],
+              Container(
+                padding: EdgeInsets.all(8.0.sp),
+                alignment: Alignment.center,
+                child: ClipOval(
+                  child: Image(
+                    width: 140.w,
+                    height: 92.h,
+                    image: AssetImage("assets/marker/$iconCode.png"),
                   ),
                 ),
-                TextButton(
-                    onPressed: () {
-                      setState(() {
-                        markerType = 'hard';
-                        typeCode = '1';
-                        iconCode = typeCode + colorCode + hardnessCode;
-                      });
-                    },
-                    child: Text('딱딱변'))
-              ],
-            ),
-            Text('배변 색 선택'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        markerColor = 'yellow';
-                        colorCode = '0';
-                        iconCode = typeCode + colorCode + hardnessCode;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.circle,
-                      color: Colors.yellow,
-                    )),
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        markerColor = 'red';
-                        colorCode = '1';
-                        iconCode = typeCode + colorCode + hardnessCode;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.circle,
-                      color: Colors.red,
-                    ))
-              ],
-            ),
-            Text('배변감'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                    onPressed: () {
-                      setState(() {
-                        markerHardness = 'good';
-                        hardnessCode = '0';
-                        iconCode = typeCode + colorCode + hardnessCode;
-                      });
-                    },
-                    child: Text('불편')),
-                TextButton(
-                    onPressed: () {
-                      setState(() {
-                        markerHardness = 'bad';
-                        hardnessCode = '1';
-                        iconCode = typeCode + colorCode + hardnessCode;
-                      });
-                    },
-                    child: Text('편함'))
-              ],
-            ),
-            Text('메모'),
-            TextFormField(
-              decoration: InputDecoration(hintText: '메모 입력'),
-              controller: eventTextController,
-            ),
-            SizedBox(
-              height: 26.h,
-            ),
-            saveButtonBlue(() {
-//An event already exists in the day
-              if (controller.selectedEvents[controller.selectedDay] != null) {
-                setState(
-                  () {
-                    iconCode = typeCode + colorCode + hardnessCode;
-                    controller.selectedEvents[controller.selectedDay]!.add(
-                      CalendarEvent(
-                          time: controller.selectedDay,
+              ),
+              Container(
+                  alignment: Alignment.centerLeft, child: Text('배변 형태(묽기) 선택')),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TypeButton(Image.asset('assets/button/type/00.png'),
+                      Image.asset('assets/button/type/0.png'), '물변', '0'),
+                  TypeButton(Image.asset('assets/button/type/11.png'),
+                      Image.asset('assets/button/type/1.png'), '진흙변', '1'),
+                  TypeButton(Image.asset('assets/button/type/22.png'),
+                      Image.asset('assets/button/type/2.png'), '무른변', '2'),
+                  TypeButton(Image.asset('assets/button/type/33.png'),
+                      Image.asset('assets/button/type/3.png'), '매끈변', '3'),
+                  TypeButton(Image.asset('assets/button/type/44.png'),
+                      Image.asset('assets/button/type/4.png'), '금간변', '4'),
+                  TypeButton(Image.asset('assets/button/type/55.png'),
+                      Image.asset('assets/button/type/5.png'), '딱딱변', '5'),
+                  TypeButton(Image.asset('assets/button/type/66.png'),
+                      Image.asset('assets/button/type/6.png'), '토끼변', '6'),
+                ],
+              ),
+              SizedBox(
+                height: 26.h,
+              ),
+              Container(
+                  alignment: Alignment.centerLeft, child: Text('배변 색 선택')),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ColorButton(Image.asset('assets/button/color/00.png'),
+                      Image.asset('assets/button/color/0.png'), '회색', '0'),
+                  ColorButton(Image.asset('assets/button/color/11.png'),
+                      Image.asset('assets/button/color/1.png'), '붉은색', '1'),
+                  ColorButton(Image.asset('assets/button/color/22.png'),
+                      Image.asset('assets/button/color/2.png'), '초록색', '2'),
+                  ColorButton(Image.asset('assets/button/color/33.png'),
+                      Image.asset('assets/button/color/3.png'), '노란색', '3'),
+                  ColorButton(Image.asset('assets/button/color/44.png'),
+                      Image.asset('assets/button/color/4.png'), '갈색', '4'),
+                  ColorButton(Image.asset('assets/button/color/55.png'),
+                      Image.asset('assets/button/color/5.png'), '고동색', '5'),
+                  ColorButton(Image.asset('assets/button/color/66.png'),
+                      Image.asset('assets/button/color/6.png'), '흑색', '6'),
+                ],
+              ),
+              SizedBox(
+                height: 26.h,
+              ),
+              Container(alignment: Alignment.centerLeft, child: Text('배변감 선택')),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  HardnessButton(
+                      Image.asset('assets/button/hardness/00.png'),
+                      Image.asset('assets/button/hardness/0.png'),
+                      '많이 불편',
+                      '0'),
+                  HardnessButton(Image.asset('assets/button/hardness/11.png'),
+                      Image.asset('assets/button/hardness/1.png'), '불편', '1'),
+                  HardnessButton(Image.asset('assets/button/hardness/22.png'),
+                      Image.asset('assets/button/hardness/2.png'), '편함', '2'),
+                  HardnessButton(
+                      Image.asset('assets/button/hardness/33.png'),
+                      Image.asset('assets/button/hardness/3.png'),
+                      '매우 편함',
+                      '3'),
+                ],
+              ),
+              SizedBox(
+                height: 26.h,
+              ),
+              Container(alignment: Alignment.centerLeft, child: Text('메모')),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: '메모 입력',
+                  hintStyle: TextStyle(fontSize: 12.sp),
+                ),
+                controller: eventTextController,
+              ),
+              SizedBox(
+                height: 26.h,
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: saveButtonBlue(() {
+                  if (controller.addEvent(CalendarEvent(
+                          time: controller.newEventTime,
                           color: markerColor,
                           type: markerType,
                           hardness: markerHardness,
                           iconCode: iconCode,
-                          memo: eventTextController.text),
+                          memo: eventTextController.text)) ==
+                      1) {
+                    setState(
+                      () {
+                        iconCode = typeCode + colorCode + hardnessCode;
+                      },
                     );
-                  },
-                );
-                print(controller.selectedEvents[controller.selectedDay]
-                    .toString());
-              }
-              //No event exists in the day
-              else {
-                setState(() {
-                  iconCode = typeCode + colorCode + hardnessCode;
-                  controller.selectedEvents[controller.selectedDay] = [
-                    CalendarEvent(
-                        time: controller.selectedDay,
-                        color: markerColor,
-                        type: markerType,
-                        hardness: markerHardness,
-                        iconCode: iconCode,
-                        memo: eventTextController.text),
-                  ];
-                });
-                print(controller.selectedEvents[controller.selectedDay]
-                    .toString());
-              }
-              eventTextController.clear();
+                  } else {
+                    print('event add failed');
+                  }
 
-              Navigator.pop(context);
-              return;
-            }),
-          ],
+                  eventTextController.clear();
+
+                  Navigator.pop(context);
+                  return;
+                }),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
+  // Show the modal that contains the CupertinoDatePicker
+  void _showDatePicker(ctx) {
+    CalendarController controller = Get.find();
+    // showCupertinoModalPopup is a built-in function of the cupertino library
+    showCupertinoModalPopup(
+        context: ctx,
+        builder: (_) => Container(
+              height: 500,
+              color: const Color.fromARGB(255, 255, 255, 255),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 400,
+                    child: CupertinoDatePicker(
+                        initialDateTime: controller.newEventTime.value,
+                        onDateTimeChanged: (val) {
+                          controller.newEventTime.value = val;
+                        }),
+                  ),
+
+                  // Close the modal
+                  CupertinoButton(
+                    child: const Text('OK'),
+                    onPressed: () {
+                      //TODO: Calendar 이벤트 추가 할 때 시간 변경
+                      // controller.selectedDay = controller.newEventTime.value;
+
+                      Navigator.of(ctx).pop();
+                    },
+                  )
+                ],
+              ),
+            ));
+  }
 }
+
+
+// CupertinoDatePicker(
+//               mode: CupertinoDatePickerMode.dateAndTime,
+//               onDateTimeChanged: (value) {
+                
+//               },
+//               initialDateTime: DateTime.now(),
+//             ),

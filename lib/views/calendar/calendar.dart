@@ -28,37 +28,46 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        TableCalendar<CalendarEvent>(
-          calendarBuilders: CalendarBuilders(
-              //this is acting like a singleMarkerbuilder. Need to change it as regular marker builder.
-              routineMarkerBuilder: routineContainer),
-          firstDay: kFirstDay,
-          lastDay: kLastDay,
-          startingDayOfWeek: StartingDayOfWeek.sunday,
-          focusedDay: controller.focusedDate,
-          selectedDayPredicate: (DateTime date) {
-            return isSameDay(controller.selectedDay, date);
-          },
-          calendarFormat: CalendarFormat.month,
-          headerStyle: kHeaderStyle,
-          // TODO 1 : calendarStyle: returnCalendarStyleWithCustomIcon
-          calendarStyle: CalendarStyle(), //using default calendar style
-          //need event loader for marking
-          eventLoader: (DateTime selectedDay) {
-            return _eventLoader(selectedDay);
-          },
-          onDaySelected: (DateTime selectDay, DateTime focusDay) {
-            print(focusDay);
-            setState(() {
-              controller.selectedDay = selectDay;
-              controller.focusedDate = focusDay;
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TableCalendar<CalendarEvent>(
+            calendarBuilders:
+                CalendarBuilders(routineMarkerBuilder: routineContainer),
+            firstDay: kFirstDay,
+            lastDay: kLastDay,
+            startingDayOfWeek: StartingDayOfWeek.sunday,
+            focusedDay: controller.focusedDate,
+            selectedDayPredicate: (DateTime date) {
+              return isSameDay(controller.selectedDay, date);
+            },
+            calendarFormat: CalendarFormat.month,
+            headerStyle: kHeaderStyle,
+            calendarStyle: CalendarStyle(), //using default calendar style
+            //event loader is for marking
+            eventLoader: (DateTime selectedDay) {
+              return _eventLoader(selectedDay);
+            },
+            onDaySelected: (DateTime selectDay, DateTime focusDay) {
+              print(focusDay);
+              print(controller.selectedEvents[focusDay].toString());
+              setState(() {
+                controller.selectedDay = selectDay;
+                controller.focusedDate = focusDay;
+              });
+            },
+          ),
         ),
+        SizedBox(height: 50.h),
         plusSquareButton(
           () {
+            if (controller.selectedDay.day == DateTime.now().day) {
+              controller.newEventTime.value = DateTime.now();
+            }
+            else {
+              controller.newEventTime.value = controller.selectedDay;
+            }
             Get.to(NewCalendarEvent());
           },
         ),

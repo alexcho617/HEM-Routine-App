@@ -13,7 +13,7 @@ class CalendarController extends GetxController {
   //initialize selected and focused Date
   DateTime selectedDay = DateTime.now();
   DateTime focusedDate = DateTime.now();
-
+  var newEventTime = DateTime.now().obs;
   //where events are stored
   Map<DateTime, List<CalendarEvent>> selectedEvents = {};
 
@@ -32,15 +32,25 @@ class CalendarController extends GetxController {
   }
 
   //add a new event to selected events
-  void addEvent(DateTime date, CalendarEvent event) {
+  int addEvent(CalendarEvent event) {
+    int flag = 0;
+    //TODO mapping is not working properly. Its mapping to old event.
     //if event exists add to existing list
-    if (selectedEvents[date] != null) {
-      selectedEvents[date]!.add(event);
+    if (selectedEvents[newEventTime.value] != null) {
+      selectedEvents[newEventTime.value]!.add(event);
+      flag = 1;
     }
     //else create new list
     else {
       List<CalendarEvent> eventList = [event];
-      selectedEvents[date] = eventList;
+      selectedEvents[newEventTime.value] = eventList;
+      flag = 1;
+    }
+    if (flag == 1) {
+      print(selectedEvents[newEventTime.value].toString());
+      return 1;
+    } else {
+      return 0;
     }
   }
 
@@ -79,3 +89,48 @@ class CalendarController extends GetxController {
     return routines.length;
   }
 }
+
+
+// //An event already exists in the day
+//                   if (controller
+//                           .selectedEvents[controller.newEventTime.value] !=
+//                       null) {
+//                     print('existing event list');
+//                     setState(
+//                       () {
+//                         iconCode = typeCode + colorCode + hardnessCode;
+//                         controller
+//                             .selectedEvents[controller.newEventTime.value]!
+//                             .add(
+//                           CalendarEvent(
+//                               time: controller.newEventTime,
+//                               color: markerColor,
+//                               type: markerType,
+//                               hardness: markerHardness,
+//                               iconCode: iconCode,
+//                               memo: eventTextController.text),
+//                         );
+//                       },
+//                     );
+//                     print(controller.selectedEvents[controller.selectedDay]
+//                         .toString());
+//                   }
+//                   //No event exists in the day
+//                   else {
+//                     print('new event list');
+//                     setState(() {
+//                       iconCode = typeCode + colorCode + hardnessCode;
+//                       controller.selectedEvents[controller.newEventTime.value] =
+//                           [
+//                         CalendarEvent(
+//                             time: controller.newEventTime,
+//                             color: markerColor,
+//                             type: markerType,
+//                             hardness: markerHardness,
+//                             iconCode: iconCode,
+//                             memo: eventTextController.text),
+//                       ];
+//                     });
+//                     print(controller.selectedEvents[controller.selectedDay]
+//                         .toString());
+//                   }
