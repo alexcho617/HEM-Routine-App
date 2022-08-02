@@ -7,8 +7,6 @@ import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
 
-import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../tableCalendar/src/customization/calendar_builders.dart';
 import '../../tableCalendar/src/customization/calendar_style.dart';
 import '../../tableCalendar/src/shared/utils.dart';
@@ -86,10 +84,10 @@ class _CalendarState extends State<Calendar> {
           controller.routines[0].endDate.isAfter(date)) {
         return middleRoutineMarker(date);
       } else {
-        return emptyRoutineMarker();
+        return emptyRoutineMarker(date);
       }
     } else {
-      return emptyRoutineMarker();
+      return emptyRoutineMarker(date);
     }
   }
 
@@ -101,14 +99,17 @@ class _CalendarState extends State<Calendar> {
   }
 }
 
-Widget emptyRoutineMarker() {
+Widget emptyRoutineMarker(DateTime date) {
   return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
       alignment: Alignment.center,
-      decoration: BoxDecoration(shape: BoxShape.rectangle, color: white),
+      decoration: BoxDecoration(shape: BoxShape.rectangle, color: background),
       width: 57.0.w,
       height: 14.0.h,
+      child: Text(
+          style: TextStyle(color: primary),
+          '${controller.getNumberOfEventsFromDay(date) ?? ''}'),
       // margin: const EdgeInsets.symmetric(horizontal: 10.5),
     ),
   );
