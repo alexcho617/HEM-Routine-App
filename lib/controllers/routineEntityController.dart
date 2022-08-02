@@ -1,4 +1,4 @@
-//TODO: routineOffController의 항목이 추가되는 대로 반영하기 또 순서도 마찬가지.
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
@@ -31,7 +31,7 @@ class RoutineEntityController extends GetxController {
   }
 
 //TODO : calendarRoutine에도 생겨야 함.
-  void addRoutine() async {
+  Future<bool> addRoutine() async {
     DateTime later =
         now.add(Duration(days: controller.routinePeriodIndex.value + 1));
     List<String> routineItems = [];
@@ -43,11 +43,14 @@ class RoutineEntityController extends GetxController {
     await controller.firestore
         .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
         .add({
+      'isActive': true,
+      'days': controller.routinePeriodIndex.value,
       'averageComplete': 0,
       'averageRating': 0,
       'name': controller.inputController.text,
       'routineItem': routineItems,
-      'goals': routineGoalCount
+      'goals': routineGoalCount,
+      'tryCount': 1,
     }).then((DocumentReference routineDoc) async {
       // print(routineDoc.id);
       //alex calenderRoutine
@@ -97,10 +100,12 @@ class RoutineEntityController extends GetxController {
               'name': routineItems[j],
               'eventTime': []
             });
+            return true;
           }
         }
       });
     });
+    return false;
   }
 
   void deleteRoutineEntities(int index) {

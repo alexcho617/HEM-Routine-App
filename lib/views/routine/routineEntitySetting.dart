@@ -129,8 +129,26 @@ class RoutineEntitySettingPage extends StatelessWidget {
                           padding: EdgeInsets.only(left: 28.w),
                           child: storeRoutineButton(() {
                             Navigator.pop(context);
-                          }, () {
-                            routineEntityController.addRoutine();
+                          }, () async {
+                            await routineEntityController.addRoutine();
+
+                            showDialog(
+                                context: context,
+                                builder: ((context) {
+                                  return saveAlertDialog(() {
+                                    Navigator.pop(context);
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return routineStartAlertDialog(() {
+                                            Navigator.pop(context);
+                                          }, () {
+                                            Navigator.pop(context);
+                                            //TODO: 여기서 main으로 돌아가는 code가 필요하다.
+                                          });
+                                        });
+                                  });
+                                }));
                           }),
                         ),
                       ],
