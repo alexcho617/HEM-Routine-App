@@ -16,14 +16,13 @@ class CompletedRoutinesPage extends StatefulWidget {
 }
 
 class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
-  // var sorting = "이름 순";
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(RoutineCompletedController());
     return Obx(() {
       return Container(
-        color: Colors.white,
-        child: controller.routines.isEmpty //routineList.isEmpty
+        color: background,
+        child: controller.routines.isEmpty
             ? Column(
                 children: [
                   customAppBar(context, '내가 수행한 루틴'),
@@ -152,7 +151,8 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                               controller.routines[index].averageRating,
                               controller.routines[index].tryCount,
                               controller.routines[index].days,
-                              index);
+                              controller.routines[index].uid,
+                              );
                         },
                       ),
                     ),
@@ -163,11 +163,11 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
     });
   }
 
-  Widget routineCard(String name, int complete, int rating, int tryCount,
-      int days, int index) {
+  Widget routineCard(String name, int complete, double rating, int tryCount,
+      int days, String uid) {
     return InkWell(
       onTap: () {
-        kangmin(context, RoutineDetailPage(index: index));
+        kangmin(context, RoutineDetailPage(uid: uid));
       },
       child: Card(
         elevation: 4,
@@ -220,7 +220,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
     );
   }
 
-  Widget satisfaction(int stars) {
+  Widget satisfaction(double stars) {
     return Row(
       children: [
         Text(
