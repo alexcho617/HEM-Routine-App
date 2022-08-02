@@ -27,7 +27,19 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
         child: controller.routines.isEmpty
             ? Column(
                 children: [
-                  customAppBar(context, '내가 수행한 루틴'),
+                  AppBar(
+                    elevation: 0,
+                    backgroundColor: background,
+                    foregroundColor: black,
+                    centerTitle: false,
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    title: Text("내가 수행한 루틴"),
+                  ),
                   SizedBox(
                     height: 170.h,
                   ),
@@ -149,13 +161,13 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                         itemCount: controller.routines.length,
                         itemBuilder: (BuildContext context, int index) {
                           return routineCard(
-                              controller.routines[index].name,
-                              controller.routines[index].averageComplete,
-                              controller.routines[index].averageRating,
-                              controller.routines[index].tryCount,
-                              controller.routines[index].days,
-                              controller.routines[index].uid,
-                              );
+                            controller.routines[index].name,
+                            controller.routines[index].averageComplete,
+                            controller.routines[index].averageRating,
+                            controller.routines[index].tryCount,
+                            controller.routines[index].days,
+                            controller.routines[index].uid,
+                          );
                         },
                       ),
                     ),

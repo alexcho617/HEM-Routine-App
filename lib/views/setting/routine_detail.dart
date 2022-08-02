@@ -53,8 +53,9 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                                 Get.back();
                               },
                               (() {
-                                //TODO : 삭제
-                                Get.back();
+                                // TODO : navigating after delete
+                                controller.deleteDoc();
+                                
                               }),
                             );
                           }),
@@ -197,7 +198,6 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                     Get.back();
                   }, () {
                     // 신규 루틴 생성
-                    
                   });
                 }),
               );

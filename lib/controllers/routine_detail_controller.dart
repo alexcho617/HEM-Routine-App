@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/routine_completed_controller.dart.dart';
 
 import '../models/routine.dart';
 
 class RoutineDetailController extends GetxController {
   RoutineDetailController({required this.uid});
   LoginService loginService = Get.find();
+  RoutineCompletedController routineCompletedController = Get.find();
 
   dynamic uid;
   late DocumentSnapshot routineSnapshot;
@@ -26,6 +28,12 @@ class RoutineDetailController extends GetxController {
     update();
   }
 
+  void deleteDoc() {
+    routineCompletedController.routines
+        .removeWhere((element) => element.uid == routineSnapshot.id);
+    routineSnapshot.reference.delete();
+    routineCompletedController.update();
+  }
 
   @override
   void onInit() async {

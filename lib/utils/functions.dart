@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 void kangmin(context, Widget page) {
   Navigator.push(
@@ -20,7 +20,9 @@ void kangmin(context, Widget page) {
         );
       },
     ),
-  );
+  ).then((_) {
+    //
+  });
 }
 
 // bool routineInit(String text, String uid) {
