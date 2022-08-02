@@ -440,7 +440,8 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
-Widget routineItemList(RoutineOnController controller) {
+Widget routineItemList() {
+  RoutineOnController controller = Get.put(RoutineOnController());
   int itemLength = controller.routineItems.length;
   return ReorderableListView.builder(
     

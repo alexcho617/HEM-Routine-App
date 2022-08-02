@@ -110,9 +110,9 @@ class RoutineOffController extends GetxController {
   }
 
   void getRoutineItemList() async {
+    //기존에 존재하던 items 받아오는 코드
     await firestore
         .collection('routineItems')
-        .orderBy("name", descending: false)
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
@@ -127,6 +127,27 @@ class RoutineOffController extends GetxController {
         }
       });
     });
+
+    await firestore
+        .collection('user/${loginService.auth.value.currentUser!.uid}/userRoutineItems')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        routineItems.add(RoutineItem(
+          name: data['name'],
+          category: data['category'],
+          description: data['description'],
+          isCustom: true,
+        ));
+      });
+    });
+
+    //내가 직접 만든 항목도 카테코리 항목에 추가
+    categories.add('직접 만든 항목');
+    //이름에 따라 sorting
+    routineItems.sort(((a, b) => a.name.compareTo(b.name)));
+  
     // print(routineItems);
     buildRoutineButtons();
   }
