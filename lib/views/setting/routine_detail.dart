@@ -53,9 +53,9 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                                 Get.back();
                               },
                               (() {
-                                // TODO : navigating after delete
                                 controller.deleteDoc();
-                                
+                                Get.back();
+                                kangminBack(context);
                               }),
                             );
                           }),
