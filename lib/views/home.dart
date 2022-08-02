@@ -25,7 +25,7 @@ class HomePageState extends State<HomePage> {
     ),
     SettingsPage(),
   ];
-  final _navigatorKeyList =
+  static List<GlobalKey<NavigatorState>> navigatorKeyList =
       List.generate(4, (index) => GlobalKey<NavigatorState>());
   int _currentIndex = 0;
   
@@ -33,7 +33,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return !(await _navigatorKeyList[_currentIndex]
+        return !(await navigatorKeyList[_currentIndex]
             .currentState!
             .maybePop());
       },
@@ -47,7 +47,7 @@ class HomePageState extends State<HomePage> {
                   int index = _pages.indexOf(page);
                   return CustomNavigator(
                     page: page,
-                    navigatorKey: _navigatorKeyList[index],
+                    navigatorKey: navigatorKeyList[index],
                   );
                 },
               ).toList(),

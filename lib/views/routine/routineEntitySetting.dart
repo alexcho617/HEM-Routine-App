@@ -130,7 +130,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
                           child: storeRoutineButton(() {
                             Navigator.pop(context);
                           }, () async {
-                            await routineEntityController.addRoutine();
+                            // await routineEntityController.addRoutine();
 
                             showDialog(
                                 context: context,
@@ -144,6 +144,12 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                             Navigator.pop(context);
                                           }, () {
                                             Navigator.pop(context);
+                                            HomePageState.navigatorKeyList[1]
+                                                .currentState!
+                                                .pop(context);
+                                            HomePageState.navigatorKeyList[1]
+                                                .currentState!
+                                                .pop(context);
                                             //TODO: 여기서 main으로 돌아가는 code가 필요하다.
                                           });
                                         });
@@ -172,42 +178,59 @@ class RoutineEntitySettingPage extends StatelessWidget {
       ],
     );
   }
-}
 
-Widget storeRoutineButton(
-    VoidCallback? onPressedBack, VoidCallback onPressedNext) {
-  return Container(
-    width: 335.w,
-    height: 48.h,
-    child: Row(
-      children: [
-        backButtonSmall(onPressedBack),
-        SizedBox(
-          width: 24.w,
-        ),
-        storeSmall(onPressedNext),
-      ],
-    ),
-  );
-}
+  Widget customAppBar(context, String name) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.grey[50],
+      foregroundColor: black,
+      centerTitle: false,
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pop(context);
+          routineEntityController.initValues();
+        },
+      ),
+      title: Text(name),
+    );
+  }
 
-Widget storeSmall(VoidCallback? onPressed) {
-  return Container(
-    width: 204.w,
-    height: 48.h,
-    child: ElevatedButton(
-      onPressed: onPressed,
-      child: Text(
-        '루틴 저장',
-        style: AppleFont14_White,
+  Widget storeRoutineButton(
+      VoidCallback? onPressedBack, VoidCallback onPressedNext) {
+    return Container(
+      width: 335.w,
+      height: 48.h,
+      child: Row(
+        children: [
+          backButtonSmall(onPressedBack),
+          SizedBox(
+            width: 24.w,
+          ),
+          storeSmall(onPressedNext),
+        ],
       ),
-      style: ElevatedButton.styleFrom(
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        primary: primary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.r),
+    );
+  }
+
+  Widget storeSmall(VoidCallback? onPressed) {
+    return Container(
+      width: 204.w,
+      height: 48.h,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(
+          '루틴 저장',
+          style: AppleFont14_White,
+        ),
+        style: ElevatedButton.styleFrom(
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          primary: primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r),
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
