@@ -6,6 +6,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hem_routine_app/controllers/routineOnController.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/routine/routineBuild.dart';
@@ -16,173 +17,137 @@ import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../widgets/widgets.dart';
 
-class RoutinePage extends StatefulWidget {
-  const RoutinePage({Key? key}) : super(key: key);
-
-  @override
-  State<RoutinePage> createState() => _RoutinePageState();
-}
-
-class _RoutinePageState extends State<RoutinePage> {
-  RoutineOnController routineItemController = Get.find();
-  bool status = false;
+class RoutinePage extends StatelessWidget {
+  RoutinePage({Key? key}) : super(key: key);
+  // RoutineOnController routineItemController = Get.find();
+  AppStateController controller = Get.find();
   int dayStatus = 3;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 32.h,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Routine',
-              style: AppleFont16_Grey600,
-            ),
-            SizedBox(
-              width: 11.w,
-            ),
-            FlutterSwitch(
-                width: 68.w,
-                height: 29.h,
-                showOnOff: true,
-                activeColor: primary,
-                inactiveColor: grey600,
-                value: status,
-                onToggle: (value) {
-                  setState(() {
-                    status = value;
-                  });
-                })
-            // Container(
-            //   width: 68.w,
-            //   height: 29.h,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(24.r),
-            //     border: Border.all(
-            //       color: grey500,
-            //     ),
-            //   ),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: <Widget>[
-            //       Icon(
-            //         Icons.circle,
-            //         color: grey600,
-            //         size: 18.r,
-            //       ),
-            //       SizedBox(
-            //         width: 6.w,
-            //       ),
-            //       Text(
-            //         'OFF',
-            //         style: AppleFont16_Grey600,
-            //       )
-            //     ],
-            //   ),
-            // ),
-          ],
-        ),
-        status
-            ? Column(
-                children: [
-                  SizedBox(
-                    height: 19.h,
-                  ),
-                  Text(
-                    '\$사용자의루틴명칭',
-                    style: AppleFont24_Black,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(5.r),
-                    child: DayPicker(dayStatus - 1, 14),
-                  ),
-                  InkWell(
-                    child: halfCircluarGuage(0.75),
-                    onTap: () {
-                      showCupertinoModalBottomSheet(
-                        context: context
-                            .findAncestorStateOfType<HomePageState>()!
-                            .context,
-                        expand: false,
-                        builder: (context) => RoutineLogPage(),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 308.h,
-                    child: OverflowBox(
-                      minHeight: 500.h,
-                      maxHeight: 500.h,
-                      child: SingleChildScrollView(
-                        child: Container(
-                            height: 400.h,
-                            child: routineItemList(routineItemController)),
+    return Obx(
+      () => Column(
+        children: [
+          SizedBox(
+            height: 32.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Routine',
+                style: AppleFont16_Grey600,
+              ),
+              SizedBox(
+                width: 11.w,
+              ),
+              FlutterSwitch(
+                  width: 68.w,
+                  height: 29.h,
+                  showOnOff: true,
+                  activeColor: primary,
+                  inactiveColor: grey600,
+                  value: controller.status.value,
+                  onToggle: (value) {}),
+            ],
+          ),
+          controller.status.value
+              ? Column(
+                  children: [
+                    SizedBox(
+                      height: 19.h,
+                    ),
+                    Text(
+                      '\$사용자의루틴명칭',
+                      style: AppleFont24_Black,
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5.r),
+                      child: DayPicker(dayStatus - 1, 14),
+                    ),
+                    InkWell(
+                      child: halfCircluarGuage(0.75),
+                      onTap: () {
+                        showCupertinoModalBottomSheet(
+                          context: context
+                              .findAncestorStateOfType<HomePageState>()!
+                              .context,
+                          expand: false,
+                          builder: (context) => RoutineLogPage(),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: 308.h,
+                      child: OverflowBox(
+                        minHeight: 500.h,
+                        maxHeight: 500.h,
+                        child: SingleChildScrollView(
+                          child: Container(
+                              height: 400.h, child: routineItemList()),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )
-            : Column(
-                children: [
-                  SizedBox(
-                    height: 19.h,
-                  ),
-                  Text(
-                    '루틴 도전',
-                    style: AppleFont24_Black,
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Text(
-                    '배가 많이 불편하신가요?\n \$사용자님에게 맞는 루틴을 만들어라',
-                    style: AppleFont12_Black,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: 43.h,
-                  ),
-                  makeMyRoutineButton(() {
-                    kangmin(context, RoutineBuildPage());
-                  }),
-                  SizedBox(
-                    height: 80.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(31.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(10.h),
-                          child: Text(
-                            '지난 나의 루틴',
-                            style: AppleFont16_Black,
-                          ),
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              routineCard('루틴이름 1', 7, 80, 3, onPressed),
-                              routineCard('루틴이름 2', 7, 80, 3, onPressed),
-                              routineCard('루틴이름 3', 7, 80, 3, onPressed),
-                            ],
-                          ),
-                        ),
-                      ],
+                  ],
+                )
+              : Column(
+                  children: [
+                    SizedBox(
+                      height: 19.h,
                     ),
-                  ),
-                ],
-              ),
-      ],
+                    Text(
+                      '루틴 도전',
+                      style: AppleFont24_Black,
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Text(
+                      '배가 많이 불편하신가요?\n \$사용자님에게 맞는 루틴을 만들어라',
+                      style: AppleFont12_Black,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: 43.h,
+                    ),
+                    makeMyRoutineButton(() {
+                      kangmin(context, RoutineBuildPage());
+                    }),
+                    SizedBox(
+                      height: 80.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(31.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(10.h),
+                            child: Text(
+                              '지난 나의 루틴',
+                              style: AppleFont16_Black,
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                routineCard('루틴이름 1', 7, 80, 3, onPressed),
+                                routineCard('루틴이름 2', 7, 80, 3, onPressed),
+                                routineCard('루틴이름 3', 7, 80, 3, onPressed),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+        ],
+      ),
     );
   }
 
@@ -202,9 +167,9 @@ class _RoutinePageState extends State<RoutinePage> {
             child: InkWell(
               key: Key('$index'),
               onTap: () {
-                setState(() {
-                  dayStatus = index + 1;
-                });
+                // setState(() {
+                //   dayStatus = index + 1;
+                // });
               },
               child: Ink(
                 child: Column(

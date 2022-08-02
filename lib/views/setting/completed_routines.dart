@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/home.dart';
+import 'package:hem_routine_app/views/routine/routineBuild.dart';
 import 'package:hem_routine_app/views/setting/routine_detail.dart';
 import '../../utils/colors.dart';
 import 'package:get/get.dart';
@@ -46,6 +48,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                   makeMyRoutineButton(() {
                     //나만의 쾌변 루틴 만들기
                     //TODO : Navigate tp 5-3-1
+                    kangmin(context, RoutineBuildPage());
                   })
                 ],
               )
