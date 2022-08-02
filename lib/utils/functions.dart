@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hem_routine_app/views/home.dart';
 
 void kangmin(context, Widget page) {
   Navigator.push(
@@ -21,6 +22,11 @@ void kangmin(context, Widget page) {
       },
     ),
   );
+}
+
+void kangminBack(context) {
+  int _currentIndex = HomePageState.tabController.index;
+  HomePageState.navigatorKeyList[_currentIndex].currentState!.pop(context);
 }
 
 // bool routineInit(String text, String uid) {
