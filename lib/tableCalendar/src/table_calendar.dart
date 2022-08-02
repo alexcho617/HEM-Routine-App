@@ -747,7 +747,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
           width: markerSize,
           height: markerSize,
           margin: widget.calendarStyle.markerMargin,
-          child: Image.asset('assets/marker${event.iconCode.toString()}.png'),
+          child: Image.asset('assets/marker/${event.iconCode.toString()}.png'),
         );
   }
 
