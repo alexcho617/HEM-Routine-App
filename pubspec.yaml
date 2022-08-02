@@ -49,4 +49,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - icons/
+    - assets/marker/
+    - assets/button/color
+    - assets/button/type
+    - assets/button/hardness

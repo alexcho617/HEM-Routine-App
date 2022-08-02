@@ -80,6 +80,8 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
             Text(controller.selectedDay.toString()),
             ClipOval(
               child: Image(
+                width: 140.w,
+                height: 92.h,
                 image: AssetImage("assets/marker/$iconCode.png"),
               ),
             ),
@@ -87,15 +89,23 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TextButton(
-                    onPressed: () {
-                      setState(() {
-                        markerType = 'smooth';
-                        typeCode = '0';
-                        iconCode = typeCode + colorCode + hardnessCode;
-                      });
-                    },
-                    child: Text('매끈변')),
+                Container(
+                  child: Column(
+                    children: [
+                      IconButton(
+                        icon: Image.asset('assets/button/type/0.png'),
+                        onPressed: () {
+                          setState(() {
+                            markerType = 'smooth';
+                            typeCode = '0';
+                            iconCode = typeCode + colorCode + hardnessCode;
+                          });
+                        },
+                      ),
+                      Text('매끈변')
+                    ],
+                  ),
+                ),
                 TextButton(
                     onPressed: () {
                       setState(() {
