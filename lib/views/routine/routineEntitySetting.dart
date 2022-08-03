@@ -8,6 +8,7 @@ import 'package:hem_routine_app/controllers/routineEntityController.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/utils/colors.dart';
+import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/bottom_pop_up/routine_item_add.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
@@ -148,13 +149,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                             }, () {
                                               Get.find<AppStateController>().status.value = true;
                                               Navigator.pop(context);
-                                              HomePageState.navigatorKeyList[1]
-                                                  .currentState!
-                                                  .pop(context);
-                                              HomePageState.navigatorKeyList[1]
-                                                  .currentState!
-                                                  .pop(context);
-                                              //TODO: 여기서 main으로 돌아가는 code가 필요하다.
+                                              kangminBackUntil(context);
                                             });
                                           });
                                     });
