@@ -35,21 +35,25 @@ void kangminBack(context) {
 
 void yechan(BuildContext context, int index, Widget page) async {
   int _currentIndex = HomePageState.tabController.index;
-  while (HomePageState.navigatorKeyList[_currentIndex].currentState!.canPop()) {
-    kangminBack(context);
-  }
+  kangminBackUntil(context);
   HomePageState.tabController.index = index;
   // WidgetsBinding.instance.scheduleForcedFrame();
-  while(true){
-    if(HomePageState.navigatorKeyList[index].currentContext == null){
-    await Future.delayed(const Duration(milliseconds: 50));
-    }
-    else{
+  while (true) {
+    if (HomePageState.navigatorKeyList[index].currentContext == null) {
+      await Future.delayed(const Duration(milliseconds: 50));
+    } else {
       break;
     }
   }
-  
+
   kangmin(HomePageState.navigatorKeyList[index].currentContext, page);
-  
+
   //callBack함수를 쓰면 되지 않을까?
+}
+
+void kangminBackUntil(BuildContext context) async {
+  int _currentIndex = HomePageState.tabController.index;
+  while (HomePageState.navigatorKeyList[_currentIndex].currentState!.canPop()) {
+    kangminBack(context);
+  }
 }

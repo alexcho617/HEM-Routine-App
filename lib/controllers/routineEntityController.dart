@@ -57,7 +57,7 @@ class RoutineEntityController extends GetxController {
         .add({
       'isActive': true,
       'days': controller.routinePeriodIndex.value,
-      'averageComplete': 0,
+      'averageComplete': 0.0,
       'averageRating': 0,
       'name': controller.inputController.text,
       'routineItem': routineItems,
