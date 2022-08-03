@@ -23,7 +23,6 @@ class RoutinePage extends StatelessWidget {
   AppStateController appStateController = Get.find();
   LoginService loginService = Get.find();
   RoutineOnController controller = Get.put(RoutineOnController());
-  int dayStatus = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +81,7 @@ class RoutinePage extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.all(5.r),
-                      child: DayPicker(dayStatus - 1, 14),
+                      child: DayPicker(controller.currentDay.value, controller.days.value),
                     ),
                     InkWell(
                       child: halfCircluarGuage(0.75),

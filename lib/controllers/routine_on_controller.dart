@@ -14,7 +14,10 @@ class RoutineOnController extends GetxController {
   late dynamic goals = [].obs;
   late dynamic currentCount = [].obs;
   late dynamic routineItems = [].obs;
-  late 
+  late dynamic currentDay = 0.obs;
+  Rx<DateTime> today = DateTime.now().obs;
+  late dynamic startday;
+  late dynamic days = 0.obs;
   LoginService loginService = Get.find();
 
   late DocumentSnapshot routineDocumentSnapshot;
@@ -45,8 +48,12 @@ class RoutineOnController extends GetxController {
       });
     });
 
+    startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
+    currentDay.value = today.value.difference(startday).inDays;
+
     routineItems = routineHistoryDocumentSnapshot.get('routineItem');
     goals = routineDocumentSnapshot.get('goals');
+    days.value = routineDocumentSnapshot.get('days');
 
     // await getData();
   }
