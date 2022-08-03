@@ -172,7 +172,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                             controller.routines[index].averageRating,
                             controller.routines[index].tryCount,
                             controller.routines[index].days,
-                            controller.routines[index].uid,
+                            controller.routines[index].id,
                           );
                         },
                       ),

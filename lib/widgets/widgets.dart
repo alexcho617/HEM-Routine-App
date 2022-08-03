@@ -1584,3 +1584,74 @@ Widget routineCategoryButton(int index, String text) {
       : unSelectedRoutineButton(
           () => controller.updateCategoryIndex(index), text);
 }
+
+
+Widget routineStopAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: Container(
+      height: 196.h,
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 140.h,
+          child: Center(
+              child: Text(
+            '루틴을 중단하시길 원하시나요?\n\n루틴을 중간에 종료하실 경우\n오늘 기록은 저장되지 않습니다.',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '중단',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}

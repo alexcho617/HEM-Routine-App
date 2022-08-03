@@ -30,7 +30,7 @@ class RoutineDetailController extends GetxController {
 
   void deleteDoc() {
     routineCompletedController.routines
-        .removeWhere((element) => element.uid == routineSnapshot.id);
+        .removeWhere((element) => element.id == routineSnapshot.id);
     routineSnapshot.reference.delete();
     routineCompletedController.update();
   }

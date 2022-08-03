@@ -33,7 +33,7 @@ class RoutineCompletedController extends GetxController {
       routine.goals = doc.get("goals");
       routine.isActive = doc.get("isActive");
       routine.tryCount = doc.get("tryCount");
-      routine.uid = doc.id;
+      routine.id = doc.id;
 
       routines.add(routine);
     }

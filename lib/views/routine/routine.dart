@@ -44,13 +44,27 @@ class RoutinePage extends StatelessWidget {
                 width: 11.w,
               ),
               FlutterSwitch(
-                  width: 68.w,
-                  height: 29.h,
-                  showOnOff: true,
-                  activeColor: primary,
-                  inactiveColor: grey600,
-                  value: controller.status.value,
-                  onToggle: (value) {}),
+                width: 68.w,
+                height: 29.h,
+                showOnOff: true,
+                activeColor: primary,
+                inactiveColor: grey600,
+                value: controller.status.value,
+                onToggle: (value) {
+                  if (controller.status.value) {
+                    showDialog(
+                        context: context,
+                        builder: ((context) {
+                          return routineStopAlertDialog(() {
+                            //취소
+                            Get.back();
+                          }, () {
+                            // 중단
+                          });
+                        }));
+                  }
+                },
+              ),
             ],
           ),
           controller.status.value
