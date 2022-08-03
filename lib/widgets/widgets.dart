@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/routineEntityController.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
-import 'package:hem_routine_app/controllers/routineOnController.dart';
+import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 
 import 'package:hem_routine_app/models/routine.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
@@ -457,8 +457,9 @@ Widget routineItemList() {
       );
     }),
     itemBuilder: (BuildContext context, int index) {
-      double percent = controller.getPercent(controller.countList[index],
-          controller.routineItems[index].goalCount);
+      // double percent = controller.getPercent(controller.countList[index],
+      //     controller.routineItems[index].goalCount);
+      double percent = 0.7;
       return Container(
         key: Key('$index'),
         padding: EdgeInsets.symmetric(vertical: 8.h),
@@ -487,7 +488,7 @@ Widget routineItemList() {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    controller.routineItems[index].name,
+                    controller.routineItems[index],
                     style: AppleFont18_Black,
                   ),
                   Column(
@@ -497,7 +498,7 @@ Widget routineItemList() {
                         style: AppleFont14_Grey600,
                       ),
                       Text(
-                        '${controller.countList[index]}/${controller.routineItems[index].goalCount}',
+                        '0/${controller.goals[index]}', // TODO : current Count
                         style: AppleFont14_Grey600,
                       ),
                     ],
@@ -520,7 +521,7 @@ Widget routineItemList() {
                   width: 34.w,
                   height: 34.h,
                   child: InkWell(
-                    onTap: () => controller.onPressed(),
+                    onTap: () => controller.onPlusPressed(),
                     child: Ink(
                       child: CircleAvatar(
                         backgroundColor: blue600,
@@ -1281,7 +1282,7 @@ Widget customAppBar(context, String name) {
   );
 }
 
-Widget routineItemCard(String name, int goal,bool isTapped) {
+Widget routineItemCard(String name, int goal, bool isTapped) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 8.h),
     child: PhysicalModel(
@@ -1584,7 +1585,6 @@ Widget routineCategoryButton(int index, String text) {
       : unSelectedRoutineButton(
           () => controller.updateCategoryIndex(index), text);
 }
-
 
 Widget routineStopAlertDialog(
     VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {

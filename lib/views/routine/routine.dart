@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
-import 'package:hem_routine_app/controllers/routineOnController.dart';
+import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/utils/functions.dart';
@@ -20,14 +20,13 @@ import '../../widgets/widgets.dart';
 
 class RoutinePage extends StatelessWidget {
   RoutinePage({Key? key}) : super(key: key);
-  // RoutineOnController routineItemController = Get.find();
-  AppStateController controller = Get.find();
+  AppStateController appStateController = Get.find();
   LoginService loginService = Get.find();
+  RoutineOnController controller = Get.put(RoutineOnController());
   int dayStatus = 3;
 
   @override
   Widget build(BuildContext context) {
-    
     return Obx(
       () => Column(
         children: [
@@ -50,9 +49,9 @@ class RoutinePage extends StatelessWidget {
                 showOnOff: true,
                 activeColor: primary,
                 inactiveColor: grey600,
-                value: controller.status.value,
+                value: appStateController.status.value,
                 onToggle: (value) {
-                  if (controller.status.value) {
+                  if (appStateController.status.value) {
                     showDialog(
                         context: context,
                         builder: ((context) {
@@ -68,14 +67,14 @@ class RoutinePage extends StatelessWidget {
               ),
             ],
           ),
-          controller.status.value
+          appStateController.status.value
               ? Column(
                   children: [
                     SizedBox(
                       height: 19.h,
                     ),
                     Text(
-                      controller.name.value,
+                      appStateController.name.value,
                       style: AppleFont24_Black,
                     ),
                     SizedBox(
