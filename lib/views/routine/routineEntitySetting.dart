@@ -144,9 +144,11 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                       showDialog(
                                           context: context,
                                           builder: (context) {
-                                            return routineStartAlertDialog(() {
+                                            return routineStartAlertDialog(() async{
                                               Navigator.pop(context);
+                                              kangminBackUntil(context);
                                             }, () {
+                                              routineEntityController.startRoutine();
                                               Get.find<AppStateController>().status.value = true;
                                               Navigator.pop(context);
                                               kangminBackUntil(context);

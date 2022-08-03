@@ -482,7 +482,7 @@ Widget routineItemList() {
             horizontalTitleGap: 0,
             minVerticalPadding: 22.w,
             title: SizedBox(
-              height: 35.h,
+              height: 36.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
