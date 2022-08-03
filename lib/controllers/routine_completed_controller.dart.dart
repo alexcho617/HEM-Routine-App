@@ -19,14 +19,13 @@ class RoutineCompletedController extends GetxController {
         .get();
 
     await getData();
-    print("OnInit Called!");
   }
 
   Future<void> getData() async {
     for (var doc in routineCompleted.docs) {
       Routine routine = Routine();
       routine.averageComplete = doc.get("averageComplete");
-      routine.averageRating = doc.get("averageRating").toDouble();
+      routine.averageRating = doc.get("averageRating") + .0;
       routine.name = doc.get("name");
       routine.routineItem = doc.get("routineItem");
       routine.days = doc.get("days");

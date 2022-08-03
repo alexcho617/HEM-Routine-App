@@ -59,7 +59,6 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                   ),
                   makeMyRoutineButton(() {
                     //나만의 쾌변 루틴 만들기
-                    //TODO : Navigate tp 5-3-1
                     yechan(context, 1, RoutineBuildPage());
                   })
                 ],
@@ -178,8 +177,8 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
     });
   }
 
-  Widget routineCard(String name, int complete, double rating, int tryCount,
-      int days, String uid) {
+  Widget routineCard(String name, dynamic complete, dynamic rating,
+      int tryCount, int days, String uid) {
     return InkWell(
       onTap: () {
         kangmin(context, RoutineDetailPage(uid: uid));
@@ -216,7 +215,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "달성도 $complete%",
+                        "달성도 ${complete.toStringAsFixed(0)}%",
                         style: AppleFont14_Grey600,
                       ),
                       satisfaction(rating),
@@ -235,7 +234,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
     );
   }
 
-  Widget satisfaction(double stars) {
+  Widget satisfaction(dynamic stars) {
     return Row(
       children: [
         Text(

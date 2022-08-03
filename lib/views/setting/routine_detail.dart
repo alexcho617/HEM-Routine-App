@@ -20,7 +20,7 @@ class RoutineDetailPage extends StatefulWidget {
 class _RoutineDetailPageState extends State<RoutineDetailPage> {
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(RoutineDetailController(uid: widget.uid));
+    var controller = Get.put(RoutineDetailController(id: widget.uid));
     return Stack(
       children: [
         Obx(() {
@@ -198,6 +198,7 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                     Get.back();
                   }, () {
                     // 신규 루틴 생성
+                    // TODO : Navigate to 5-3-1 and make new routine and load previous routine info and routine
                   });
                 }),
               );
@@ -213,6 +214,8 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                   }, () {
                     // 루틴 시작
                     Get.back();
+                    controller.addRoutineHistory();
+                    yechan(context, 1, RoutinePage());
                   });
                 }),
               );

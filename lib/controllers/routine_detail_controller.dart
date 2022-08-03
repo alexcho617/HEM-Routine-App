@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routine_completed_controller.dart.dart';
 
-import '../models/routine.dart';
-
 class RoutineDetailController extends GetxController {
-  RoutineDetailController({required this.uid});
+  RoutineDetailController({required this.id});
   LoginService loginService = Get.find();
   RoutineCompletedController routineCompletedController = Get.find();
+  DateTime now = DateTime.now();
 
-  dynamic uid;
+  dynamic id;
   late DocumentSnapshot routineSnapshot;
 
   var name = "".obs;
@@ -42,7 +42,7 @@ class RoutineDetailController extends GetxController {
         .collection('user')
         .doc(loginService.auth.value.currentUser!.uid)
         .collection('routine')
-        .doc(uid)
+        .doc(id)
         .get();
 
     await getData();
@@ -53,11 +53,54 @@ class RoutineDetailController extends GetxController {
     days.value = routineSnapshot.get('days');
     tryCount.value = routineSnapshot.get('tryCount');
     averageComplete.value = routineSnapshot.get('averageComplete');
-    averageRating.value = routineSnapshot.get('averageRating') as double;
+    averageRating.value = routineSnapshot.get('averageRating');
     routineItem.value = routineSnapshot.get('routineItem');
     goals.value = routineSnapshot.get('goals');
     for (var i in routineItem) {
       isTapped.add(false);
     }
+  }
+
+  Future<void> addRoutineHistory() async {
+    DateTime later = now.add(Duration(days: days.value + 1));
+    await FirebaseFirestore.instance
+        .collection(
+            'user/${loginService.auth.value.currentUser!.uid}/routine/$id/routineHistory')
+        .add({
+      'routineItem': routineItem,
+      'complete': 0,
+      'duration': days.value,
+      'startDate': DateTime(now.year, now.month, now.day),
+      'endDate': DateTime(later.year, later.month, later.day),
+      'isActive': true,
+      'name': name.value,
+      'rating': 0,
+    }).then((DocumentReference routineHistoryDoc) async {
+      for (int i = 1; i <= days.value; i++) {
+        await FirebaseFirestore.instance
+            .collection(
+                'user/${loginService.auth.value.currentUser!.uid}/routine/$id/routineHistory/${routineHistoryDoc.id}/days')
+            .doc('$i')
+            .set({
+          'dayComplete': 0,
+        });
+
+        for (int j = 0; j < routineItem.length; j++) {
+          await FirebaseFirestore.instance
+              .collection(
+                  'user/${loginService.auth.value.currentUser!.uid}/routine/$id/routineHistory/${routineHistoryDoc.id}/days/$i/routineItemHistory')
+              .add({
+            'currentCount': 0,
+            'goal': goals[j],
+            'name': routineItem[j],
+            'eventTime': []
+          });
+
+          await routineSnapshot.reference.update({'isActive': true});
+          Get.find<AppStateController>().status.value = true;
+          return true;
+        }
+      }
+    });
   }
 }
