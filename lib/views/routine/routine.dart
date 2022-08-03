@@ -61,6 +61,8 @@ class RoutinePage extends StatelessWidget {
                             Get.back();
                           }, () {
                             // 중단
+                            Get.back();
+                            Get.find<AppStateController>().offRoutine();
                           });
                         }));
                   }

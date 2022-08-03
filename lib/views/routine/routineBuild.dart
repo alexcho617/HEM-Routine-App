@@ -36,9 +36,7 @@ class RoutineBuildPage extends StatelessWidget {
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
                   Navigator.pop(context);
-                  pageController.inputController.clear();
-                  pageController.isValid.value = true;
-                  pageController.activateButton.value = false;
+                  pageController.initValues();
                 },
               ),
               title: Text('루틴 설계'),
