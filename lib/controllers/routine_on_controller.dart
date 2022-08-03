@@ -26,6 +26,14 @@ class RoutineOnController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+
+    await getRoutineData();
+
+    await getRoutineHistoryData();
+    
+  }
+
+  Future<void> getRoutineData() async {
     await FirebaseFirestore.instance
         .collection('user')
         .doc(loginService.auth.value.currentUser!.uid)
@@ -37,7 +45,11 @@ class RoutineOnController extends GetxController {
         routineDocumentSnapshot = doc;
       });
     });
+    goals = routineDocumentSnapshot.get('goals');
+    days.value = routineDocumentSnapshot.get('days');
+  }
 
+  Future<void> getRoutineHistoryData() async {
     await routineDocumentSnapshot.reference
         .collection('routineHistory')
         .where('isActive', isEqualTo: true)
@@ -47,15 +59,13 @@ class RoutineOnController extends GetxController {
         routineHistoryDocumentSnapshot = doc;
       });
     });
-
+    routineItems = routineHistoryDocumentSnapshot.get('routineItem');
     startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
     currentDay.value = today.value.difference(startday).inDays;
+  }
 
-    routineItems = routineHistoryDocumentSnapshot.get('routineItem');
-    goals = routineDocumentSnapshot.get('goals');
-    days.value = routineDocumentSnapshot.get('days');
+  Future<void> getDayData() async {
 
-    // await getData();
   }
 
   itemReorder(int oldIndex, int newIndex) {
