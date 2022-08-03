@@ -5,6 +5,8 @@ import 'package:hem_routine_app/controllers/routineOffController.dart';
 import '../models/routineEntity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'app_state_controller.dart';
+
 class RoutineEntityController extends GetxController {
   List<RoutineEntity> routineEntities = [];
   int addedRoutineItemCount = 0;
@@ -12,6 +14,7 @@ class RoutineEntityController extends GetxController {
   RoutineOffController controller = Get.find();
   List<TextEditingController> inputControllers = <TextEditingController>[];
   DateTime now = DateTime.now();
+  String uid = '';
 
   void initValues() {
     //화면을 나갈 때에 값들을 전부 초기화하기 위함
@@ -23,6 +26,7 @@ class RoutineEntityController extends GetxController {
     routineEntities.clear();
     inputControllers.clear();
     addedRoutineItemCount = 0;
+    uid = '';
     update();
   }
 
@@ -55,7 +59,7 @@ class RoutineEntityController extends GetxController {
     await controller.firestore
         .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
         .add({
-      'isActive': true,
+      'isActive': false,
       'days': controller.routinePeriodIndex.value,
       'averageComplete': 0,
       'averageRating': 0.0,
@@ -77,47 +81,59 @@ class RoutineEntityController extends GetxController {
         'name': controller.inputController.text,
       }).onError((error, _) =>
               print("Error adding document to calendarRoutine: $error"));
-
-      await controller.firestore
-          .collection(
-              'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory')
-          .add({
-        'routineItem': routineItems,
-        'complete': 0,
-        'duration': controller.routinePeriodIndex.value,
-        'startDate': DateTime(now.year, now.month, now.day),
-        'endDate': DateTime(later.year, later.month, later.day),
-        'isActive': true,
-        'name': controller.inputController.text,
-        'rating': 0,
-      }).then((DocumentReference routineHistoryDoc) async {
-        // print('Executed??');
-        for (int i = 1; i <= controller.routinePeriodIndex.value; i++) {
-          // print('Executed!');
-          await controller.firestore
-              .collection(
-                  'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory/${routineHistoryDoc.id}/days')
-              .doc('$i')
-              .set({
-            'dayComplete': 0,
-          });
-
-          for (int j = 0; j < routineItems.length; j++) {
-            await controller.firestore
-                .collection(
-                    'user/${loginService.auth.value.currentUser!.uid}/routine/${routineDoc.id}/routineHistory/${routineHistoryDoc.id}/days/$i/routineItemHistory')
-                .add({
-              'currentCount': 0,
-              'goal': routineGoalCount[j],
-              'name': routineItems[j],
-              'eventTime': []
-            });
-            return true;
-          }
-        }
-      });
+      uid = routineDoc.id;
     });
     return false;
+  }
+
+  Future<void> startRoutine() async {
+    DateTime now = DateTime.now();
+    DateTime later =
+        now.add(Duration(days: controller.routinePeriodIndex.value + 1));
+    List<String> routineItems = [];
+    List<int> routineGoalCount = [];
+    for (int i = 0; i < routineEntities.length; i++) {
+      routineItems.add(routineEntities[i].name);
+      routineGoalCount.add(int.parse(inputControllers[i].text));
+    }
+    await controller.firestore
+        .collection(
+            'user/${loginService.auth.value.currentUser!.uid}/routine/$uid/routineHistory')
+        .add({
+      'routineItem': routineItems,
+      'complete': 0,
+      'duration': controller.routinePeriodIndex.value,
+      'startDate': DateTime(now.year, now.month, now.day),
+      'endDate': DateTime(later.year, later.month, later.day),
+      'isActive': true,
+      'name': controller.inputController.text,
+      'rating': 0,
+    }).then((DocumentReference routineHistoryDoc) async {
+      //며칠 만큼 반복할 것인가
+      for (int i = 1; i <= controller.routinePeriodIndex.value; i++) {
+        // print('Executed!');
+        await controller.firestore
+            .collection(
+                'user/${loginService.auth.value.currentUser!.uid}/routine/$uid/routineHistory/${routineHistoryDoc.id}/days')
+            .doc('$i')
+            .set({
+          'dayComplete': 0,
+        });
+
+        for (int j = 0; j < routineItems.length; j++) {
+          await controller.firestore
+              .collection(
+                  'user/${loginService.auth.value.currentUser!.uid}/routine/$uid/routineHistory/${routineHistoryDoc.id}/days/$i/routineItemHistory')
+              .add({
+            'currentCount': 0,
+            'goal': routineGoalCount[j],
+            'name': routineItems[j],
+            'eventTime': []
+          });
+          return true;
+        }
+      }
+    });
   }
 
   void deleteRoutineEntities(int index) {
