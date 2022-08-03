@@ -60,13 +60,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                   makeMyRoutineButton(() {
                     //나만의 쾌변 루틴 만들기
                     //TODO : Navigate tp 5-3-1
-                    kangminBack(context);
-                    HomePageState.tabController.index = 1;
-                    kangmin(
-                        context
-                            .findAncestorStateOfType<HomePageState>()!
-                            .context,
-                        Scaffold(body: RoutineBuildPage()));
+                    yechan(context, 1, RoutineBuildPage());
                   })
                 ],
               )
