@@ -20,7 +20,7 @@ class RoutineOnController extends GetxController {
   late dynamic days = 0.obs;
   LoginService loginService = Get.find();
 
-  late DocumentSnapshot routineDocumentSnapshot;
+  dynamic routineDocumentSnapshot;
   late DocumentSnapshot routineHistoryDocumentSnapshot;
 
   @override
@@ -28,9 +28,9 @@ class RoutineOnController extends GetxController {
     super.onInit();
 
     await getRoutineData();
-
-    await getRoutineHistoryData();
-    
+    if (routineDocumentSnapshot != null) {
+      await getRoutineHistoryData();
+    }
   }
 
   Future<void> getRoutineData() async {
@@ -45,8 +45,11 @@ class RoutineOnController extends GetxController {
         routineDocumentSnapshot = doc;
       });
     });
-    goals = routineDocumentSnapshot.get('goals');
-    days.value = routineDocumentSnapshot.get('days');
+
+    if (routineDocumentSnapshot != null) {
+      goals = routineDocumentSnapshot.get('goals');
+      days.value = routineDocumentSnapshot.get('days');
+    }
   }
 
   Future<void> getRoutineHistoryData() async {
@@ -59,14 +62,14 @@ class RoutineOnController extends GetxController {
         routineHistoryDocumentSnapshot = doc;
       });
     });
-    routineItems = routineHistoryDocumentSnapshot.get('routineItem');
-    startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
-    currentDay.value = today.value.difference(startday).inDays;
+    if (routineHistoryDocumentSnapshot.exists) {
+      routineItems = routineHistoryDocumentSnapshot.get('routineItem');
+      startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
+      currentDay.value = today.value.difference(startday).inDays;
+    }
   }
 
-  Future<void> getDayData() async {
-
-  }
+  Future<void> getDayData() async {}
 
   itemReorder(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {

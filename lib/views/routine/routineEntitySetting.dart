@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/routineEntityController.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
+import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/bottom_pop_up/routine_item_add.dart';
@@ -144,16 +145,26 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                       showDialog(
                                           context: context,
                                           builder: (context) {
-                                            return routineStartAlertDialog(() async{
-                                              Get.delete<RoutineEntityController>();
+                                            return routineStartAlertDialog(
+                                                () async {
+                                              Get.delete<
+                                                  RoutineEntityController>();
                                               pageController.initValues();
                                               Navigator.pop(context);
                                               kangminBackUntil(context);
-                                            }, () {
-                                              routineEntityController.startRoutine();
-                                              Get.find<AppStateController>().status.value = true;
-                                              Get.delete<RoutineEntityController>();
+                                            }, () async {
+                                              await routineEntityController
+                                                  .startRoutine();
+                                              Get.find<AppStateController>()
+                                                  .status
+                                                  .value = true;
+                                              Get.delete<
+                                                  RoutineEntityController>();
                                               pageController.initValues();
+                                              await Get.find<RoutineOnController>()
+                                                  .getRoutineData();
+                                              await Get.find<RoutineOnController>()
+                                                  .getRoutineHistoryData();
                                               Navigator.pop(context);
                                               kangminBackUntil(context);
                                             });
