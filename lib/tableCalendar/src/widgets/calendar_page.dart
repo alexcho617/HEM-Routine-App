@@ -54,7 +54,7 @@ class CalendarPage extends StatelessWidget {
 
     //이벤트 정보 가져오고 현재 그리는 정보와 비교
     CalendarController controller = Get.find();
-    controller.selectedEvents;
+    controller.eventsLibrary;
     return List.generate(rowAmount, (index) => index * 7)
         .map((index) => TableRow(
               decoration: rowDecoration,

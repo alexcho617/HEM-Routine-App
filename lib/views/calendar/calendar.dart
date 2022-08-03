@@ -32,48 +32,61 @@ class _CalendarState extends State<Calendar> {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TableCalendar<CalendarEvent>(
-            calendarBuilders:
-                CalendarBuilders(routineMarkerBuilder: routineContainer),
-            firstDay: kFirstDay,
-            lastDay: kLastDay,
-            startingDayOfWeek: StartingDayOfWeek.sunday,
-            focusedDay: controller.focusedDate,
-            selectedDayPredicate: (DateTime date) {
-              return isSameDay(controller.selectedDay, date);
-            },
-            calendarFormat: CalendarFormat.month,
-            headerStyle: kHeaderStyle,
-            calendarStyle: CalendarStyle(), //using default calendar style
-            //event loader is for marking
-            eventLoader: (DateTime selectedDay) {
-              return _eventLoader(selectedDay);
-            },
-            onDaySelected: (DateTime selectDay, DateTime focusDay) {
-              print(focusDay);
-              print(controller.selectedEvents[focusDay].toString());
-              setState(() {
-                controller.selectedDay = selectDay;
-                controller.focusedDate = focusDay;
-              });
-            },
-          ),
+          child: Obx(() {
+            return TableCalendar<CalendarEvent>(
+              calendarBuilders:
+                  CalendarBuilders(routineMarkerBuilder: routineContainer),
+              firstDay: kFirstDay,
+              lastDay: kLastDay,
+              startingDayOfWeek: StartingDayOfWeek.sunday,
+              focusedDay: controller.focusedDate.value,
+              selectedDayPredicate: (DateTime date) {
+                return isSameDay(controller.selectedDay.value, date);
+              },
+              calendarFormat: CalendarFormat.month,
+              headerStyle: kHeaderStyle,
+              calendarStyle: CalendarStyle(), //using default calendar style
+              //event loader is for marking
+              eventLoader: (DateTime selectedDay) {
+                return _eventLoader(selectedDay);
+              },
+              onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                print(focusDay);
+                print(controller.eventsLibrary[focusDay].toString());
+                controller.selectedDay.value = selectDay;
+                controller.focusedDate.value = focusDay;
+              },
+            );
+          }),
         ),
         SizedBox(height: 50.h),
         plusSquareButton(
           () {
-            if (controller.selectedDay.day == DateTime.now().day) {
-              controller.newEventTime.value = DateTime.now();
-            }
-            else {
-              controller.newEventTime.value = controller.selectedDay;
-            }
             Get.to(NewCalendarEvent());
+
+            //   if (controller.selectedDay.value.day == DateTime.now().day) {
+            //     controller.newEventTime.value = DateTime.now();
+            //   } else {
+            //     controller.newEventTime.value = controller.selectedDay.value;
+            //   }
+            //   Get.to(NewCalendarEvent());
           },
         ),
+        TextButton(
+            onPressed: () {
+              controller.printAllEvents();
+            },
+            child: Text('PrintEvents'))
       ],
       // ),
     );
+  }
+
+  List<CalendarEvent> _eventLoader(DateTime day) {
+    CalendarController controller = Get.find();
+    List<CalendarEvent> listOfEvents;
+    listOfEvents = controller.getEventsfromDay(day) ?? [];
+    return listOfEvents;
   }
 
   //need refactoring
@@ -98,13 +111,6 @@ class _CalendarState extends State<Calendar> {
     } else {
       return emptyRoutineMarker(date);
     }
-  }
-
-  List<CalendarEvent> _eventLoader(DateTime day) {
-    CalendarController controller = Get.find();
-    List<CalendarEvent> list;
-    list = controller.getEventsfromDay(day) ?? [];
-    return list;
   }
 }
 

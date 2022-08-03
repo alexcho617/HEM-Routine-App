@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
+import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/services/firestore.dart';
 import 'package:hem_routine_app/tableCalendar/src/widgets/custom_icon_button.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/home.dart';
@@ -10,6 +12,7 @@ import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../models/calendarEvent.dart';
 import '../../utils/calendarUtil.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 class NewCalendarEvent extends StatefulWidget {
   const NewCalendarEvent({Key? key}) : super(key: key);
@@ -127,33 +130,28 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
             children: [
               Container(
                 width: 250.w,
-                height: 20.h,
+                height: 24.h,
                 decoration: BoxDecoration(
                     color: blue50, borderRadius: BorderRadius.circular(15.sp)),
                 child: InkWell(
-                  onTap: () => _showDatePicker(context),
-                  child: Obx(() {
-                    return Text(
+                    onTap: () => _showDatePicker(context),
+                    child: Text(
                         textAlign: TextAlign.center,
-                        '${controller.newEventTime.value.year.toString()}년 ${controller.newEventTime.value.month.toString()}월 ${controller.newEventTime.value.day.toString()}일 ${controller.newEventTime.value.hour.toString()}시 ${controller.newEventTime.value.minute.toString()}분');
-                  }),
-                ),
+                        '${controller.newEventTime.year.toString()}년 ${controller.newEventTime.month.toString()}월 ${controller.newEventTime.day.toString()}일 ${controller.newEventTime.hour.toString()}시 ${controller.newEventTime.minute.toString()}분')),
               ),
               Container(
                 padding: EdgeInsets.all(8.0.sp),
                 alignment: Alignment.center,
-                child: ClipOval(
-                  child: Image(
-                    width: 140.w,
-                    height: 92.h,
-                    image: AssetImage("assets/marker/$iconCode.png"),
-                  ),
+                child: Image(
+                  width: 140.w,
+                  height: 92.h,
+                  image: AssetImage("assets/marker/$iconCode.png"),
                 ),
               ),
               Container(
                   alignment: Alignment.centerLeft, child: Text('배변 형태(묽기) 선택')),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   TypeButton(Image.asset('assets/button/type/00.png'),
                       Image.asset('assets/button/type/0.png'), '물변', '0'),
@@ -177,7 +175,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
               Container(
                   alignment: Alignment.centerLeft, child: Text('배변 색 선택')),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ColorButton(Image.asset('assets/button/color/00.png'),
                       Image.asset('assets/button/color/0.png'), '회색', '0'),
@@ -235,26 +233,33 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
               Container(
                 alignment: Alignment.center,
                 child: saveButtonBlue(() {
-                  if (controller.addEvent(CalendarEvent(
-                          time: controller.newEventTime,
-                          color: markerColor,
-                          type: markerType,
-                          hardness: markerHardness,
-                          iconCode: iconCode,
-                          memo: eventTextController.text)) ==
-                      1) {
-                    setState(
-                      () {
-                        iconCode = typeCode + colorCode + hardnessCode;
-                      },
-                    );
-                  } else {
-                    print('event add failed');
+                  LoginService loginService = Get.find();
+
+                  try {
+                    addEventToCalendar(
+                        CalendarEvent(
+                            time: controller.newEventTime,
+                            color: colorCode,
+                            type: typeCode,
+                            hardness: hardnessCode,
+                            iconCode: iconCode,
+                            memo: eventTextController.text),
+                        loginService.auth.value.currentUser!.uid);
+                    print('event add success');
+
+                    // setState(
+                    //   () {
+                    //     iconCode = typeCode + colorCode + hardnessCode;
+                    //   },
+                    // );
+                  } on Exception catch (e) {
+                    print(e);
                   }
 
                   eventTextController.clear();
 
                   Navigator.pop(context);
+                  Get.reload();
                   return;
                 }),
               ),
@@ -272,22 +277,28 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
     showCupertinoModalPopup(
         context: ctx,
         builder: (_) => Container(
-              height: 500,
+              height: 370,
               color: const Color.fromARGB(255, 255, 255, 255),
               child: Column(
                 children: [
                   SizedBox(
-                    height: 400,
+                    height: 300,
                     child: CupertinoDatePicker(
-                        initialDateTime: controller.newEventTime.value,
+                        
+                        initialDateTime: controller.newEventTime,
+                        maximumDate: DateTime.now(),
                         onDateTimeChanged: (val) {
-                          controller.newEventTime.value = val;
+                          setState(() {
+                            controller.newEventTime = val;
+                          });
+                          // controller.focusedDate.value = val;
+                          // controller.selectedDay.value = val;
                         }),
                   ),
 
                   // Close the modal
                   CupertinoButton(
-                    child: const Text('OK'),
+                    child: const Text('저장'),
                     onPressed: () {
                       //TODO: Calendar 이벤트 추가 할 때 시간 변경
                       // controller.selectedDay = controller.newEventTime.value;

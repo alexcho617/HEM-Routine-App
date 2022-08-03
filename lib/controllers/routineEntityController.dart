@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
@@ -32,6 +31,7 @@ class RoutineEntityController extends GetxController {
 
 //TODO : calendarRoutine에도 생겨야 함.
   Future<bool> addRoutine() async {
+    print(loginService.auth.value.currentUser!.uid);
     DateTime later =
         now.add(Duration(days: controller.routinePeriodIndex.value + 1));
     List<String> routineItems = [];

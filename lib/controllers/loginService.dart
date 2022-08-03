@@ -61,15 +61,15 @@ class LoginService extends GetxController {
     auth.value.signOut();
   }
 
-  // Future<void> addUserDocument() {
-  //   return users
-  //       .doc(auth.value.currentUser!.uid)
-  //       .set({
-  //         'name': auth.value.currentUser!.displayName,
-  //       })
-  //       .then((value) => print("User Document Created"))
-  //       .catchError((error) => print("Faied to Add User document: ${error}"));
-  // }
+  Future<void> addUserDocument() {
+    return users
+        .doc(auth.value.currentUser!.uid)
+        .set({
+          'name': auth.value.currentUser!.displayName,
+        })
+        .then((value) => print("User Document Created"))
+        .catchError((error) => print("Faied to Add User document: ${error}"));
+  }
 
   Future<void> profileSetting(String name, DateTime birthDate, String gender) {
     return users

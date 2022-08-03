@@ -24,6 +24,7 @@ import 'package:hem_routine_app/views/widgetTestPage.dart';
 import 'controllers/routineOnController.dart';
 import 'views/setting/completed_routines.dart';
 import 'views/setting/profile_settings.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,6 +59,12 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, _) {
           return GetMaterialApp(
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate
+            ],
+            supportedLocales: const [Locale('ko', 'KR'),Locale('en', 'US')],
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(
