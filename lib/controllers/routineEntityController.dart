@@ -16,19 +16,7 @@ class RoutineEntityController extends GetxController {
   DateTime now = DateTime.now();
   String uid = '';
 
-  void initValues() {
-    //화면을 나갈 때에 값들을 전부 초기화하기 위함
-    RoutineOffController controller = Get.find();
-    for (int i = 0; i < controller.routineItems.length; i++) {
-      controller.routineItems[i].isAdded = false;
-      controller.routineItems[i].isChecked = false;
-    }
-    routineEntities.clear();
-    inputControllers.clear();
-    addedRoutineItemCount = 0;
-    uid = '';
-    update();
-  }
+  
 
   void buildRoutineEntities() {
     RoutineOffController controller = Get.find();
@@ -96,6 +84,12 @@ class RoutineEntityController extends GetxController {
       routineItems.add(routineEntities[i].name);
       routineGoalCount.add(int.parse(inputControllers[i].text));
     }
+
+    await controller.firestore
+        .collection('user/${loginService.auth.value.currentUser!.uid}/routine').
+        doc(uid).update({
+          'isActive': true
+        });
     await controller.firestore
         .collection(
             'user/${loginService.auth.value.currentUser!.uid}/routine/$uid/routineHistory')

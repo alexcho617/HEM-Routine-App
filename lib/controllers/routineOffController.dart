@@ -10,17 +10,18 @@ import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
+
 //TODO: 아마 프로그램 흐름상 routine item읽어오는 건 다른 Controller로 구분해야 한다.
 class RoutineOffController extends GetxController {
   LoginService loginService = Get.find();
-  final inputController = TextEditingController(); 
+  final inputController = TextEditingController();
   final globalKey = GlobalKey<FormState>();
   Rx<bool> onSubmitted = false.obs;
   Rx<bool> isValid = true.obs;
   Rx<bool> activateButton = false.obs;
 
   Rx<int> routinePeriodIndex = 1.obs;
-  
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<Widget> routinePeriod = [
     Text("1 일간"),
@@ -46,8 +47,6 @@ class RoutineOffController extends GetxController {
   List<Widget> categoryButtons = <Widget>[];
   int categoryIndex = 0;
   int selectedRoutineItemCount = 0;
-  
-
 
   @override
   void onInit() {
@@ -55,7 +54,21 @@ class RoutineOffController extends GetxController {
     getRoutineItemList();
     super.onInit();
   }
+
+  void initValues() {
+    inputController.clear();
+    isValid.value = true;
+    activateButton.value = false;
   
+    //화면을 나갈 때에 값들을 전부 초기화하기 위함
+    
+    for (int i = 0; i < routineItems.length; i++) {
+      routineItems[i].isAdded = false;
+      routineItems[i].isChecked = false;
+    }
+    update();
+  }
+
   void initRoutineItemsValue() {
     //TODO: 이전에 체크만 한 것들은 초기화시키되 내가 이미 추가한 것들은 체크된 상태로 두게끔
     for (int i = 0; i < routineItems.length; i++) {
@@ -129,7 +142,8 @@ class RoutineOffController extends GetxController {
     });
 
     await firestore
-        .collection('user/${loginService.auth.value.currentUser!.uid}/userRoutineItems')
+        .collection(
+            'user/${loginService.auth.value.currentUser!.uid}/userRoutineItems')
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
@@ -147,12 +161,10 @@ class RoutineOffController extends GetxController {
     categories.add('직접 만든 항목');
     //이름에 따라 sorting
     routineItems.sort(((a, b) => a.name.compareTo(b.name)));
-  
+
     // print(routineItems);
     buildRoutineButtons();
   }
-
-  
 
   void checkState(bool value, int index) {
     routineItems[index].isChecked = value;
@@ -182,7 +194,6 @@ class RoutineOffController extends GetxController {
     update();
   }
 
- 
   String? textValidator(String? value) {
     if (!onSubmitted.value) {
       if (value == null || value.isEmpty) {

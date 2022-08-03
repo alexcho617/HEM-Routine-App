@@ -47,7 +47,7 @@ class AppStateController extends GetxController {
 
         await firestore.collection(
             'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
-          ..where('isActive', isEqualTo: true)
+          .where('isActive', isEqualTo: true)
               .get()
               .then((QuerySnapshot smallQuerySnapshot) {
             smallQuerySnapshot.docs.forEach((smallDoc) async {
@@ -62,8 +62,7 @@ class AppStateController extends GetxController {
           });
       });
     });
-
-    Get.find<AppStateController>().status.value = true;
+    status.value = false;
   }
 
   

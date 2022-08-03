@@ -145,11 +145,15 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                           context: context,
                                           builder: (context) {
                                             return routineStartAlertDialog(() async{
+                                              Get.delete<RoutineEntityController>();
+                                              pageController.initValues();
                                               Navigator.pop(context);
                                               kangminBackUntil(context);
                                             }, () {
                                               routineEntityController.startRoutine();
                                               Get.find<AppStateController>().status.value = true;
+                                              Get.delete<RoutineEntityController>();
+                                              pageController.initValues();
                                               Navigator.pop(context);
                                               kangminBackUntil(context);
                                             });
@@ -191,7 +195,8 @@ class RoutineEntitySettingPage extends StatelessWidget {
         icon: Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.pop(context);
-          routineEntityController.initValues();
+          Get.delete<RoutineEntityController>();
+          pageController.initValues();
         },
       ),
       title: Text(name),
