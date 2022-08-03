@@ -40,7 +40,16 @@ void yechan(BuildContext context, int index, Widget page) async {
   }
   HomePageState.tabController.index = index;
   // WidgetsBinding.instance.scheduleForcedFrame();
-  await Future.delayed(const Duration(milliseconds: 500));
+  while(true){
+    if(HomePageState.navigatorKeyList[index].currentContext == null){
+    await Future.delayed(const Duration(milliseconds: 50));
+    }
+    else{
+      break;
+    }
+  }
+  
   kangmin(HomePageState.navigatorKeyList[index].currentContext, page);
+  
   //callBack함수를 쓰면 되지 않을까?
 }
