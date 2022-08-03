@@ -48,28 +48,28 @@ class LoginService extends GetxController {
       }
     });
 
-    // DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
-    //     .collection('user')
-    //     .doc(auth.value.currentUser!.uid)
-    //     .get();
-    // if (userSnapshot == null || !userSnapshot.exists) {
-    //   addUserDocument();
-    // }
+    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+        .collection('user')
+        .doc(auth.value.currentUser!.uid)
+        .get();
+    if (userSnapshot == null || !userSnapshot.exists) {
+      addUserDocument();
+    }
   }
 
   Future<void> signOut() async {
     auth.value.signOut();
   }
 
-  // Future<void> addUserDocument() {
-  //   return users
-  //       .doc(auth.value.currentUser!.uid)
-  //       .set({
-  //         'name': auth.value.currentUser!.displayName,
-  //       })
-  //       .then((value) => print("User Document Created"))
-  //       .catchError((error) => print("Faied to Add User document: ${error}"));
-  // }
+  Future<void> addUserDocument() {
+    return users
+        .doc(auth.value.currentUser!.uid)
+        .set({
+          'name': auth.value.currentUser!.displayName,
+        })
+        .then((value) => print("User Document Created"))
+        .catchError((error) => print("Faied to Add User document: ${error}"));
+  }
 
   Future<void> profileSetting(
       String newName, DateTime birthDate, String gender) {
