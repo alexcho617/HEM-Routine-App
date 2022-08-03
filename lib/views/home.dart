@@ -28,10 +28,13 @@ class HomePageState extends State<HomePage>
   ];
   static List<GlobalKey<NavigatorState>> navigatorKeyList =
       List.generate(4, (index) => GlobalKey<NavigatorState>());
-  int _currentIndex = 0;
+  static int currentIndex = 0;
   static late TabController tabController;
   @override
   void initState() {
+    for(var page in _pages){
+      page.createElement();
+    }
     super.initState();
     tabController = TabController(vsync: this, length: 4);
   }
@@ -46,7 +49,7 @@ class HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return !(await navigatorKeyList[_currentIndex]
+        return !(await navigatorKeyList[currentIndex]
             .currentState!
             .maybePop());
       },
@@ -76,7 +79,7 @@ class HomePageState extends State<HomePage>
             labelColor: grey900,
             unselectedLabelColor: grey600,
             onTap: (index) => setState(() {
-              _currentIndex = index;
+              currentIndex = index;
             }),
             tabs: const [
               Tab(

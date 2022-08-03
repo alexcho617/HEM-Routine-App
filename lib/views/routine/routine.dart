@@ -25,6 +25,7 @@ class RoutinePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Obx(
       () => Column(
         children: [

@@ -13,6 +13,7 @@ class AppStateController extends GetxController {
   }
 
   void isRoutineActive() async {
+    // status.value = true;
     await firestore
         .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
         .where("isActive", isEqualTo: true)
