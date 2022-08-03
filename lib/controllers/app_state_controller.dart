@@ -7,6 +7,7 @@ class AppStateController extends GetxController {
   Rx<String> name = "".obs;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   LoginService loginService = Get.find();
+  
   @override
   void onInit() {
     isRoutineActive();
@@ -27,4 +28,43 @@ class AppStateController extends GetxController {
       });
     });
   }
+
+  Future<void> offRoutine() async {
+    //TODO: is active인 것을 찾아서 그것을 끄는게 필요
+    await firestore
+        .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
+        .where('isActive', isEqualTo: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) async {
+        await firestore
+            .collection(
+                'user/${loginService.auth.value.currentUser!.uid}/routine')
+            .doc(doc.id)
+            .update({
+          'isActive': false,
+        });
+
+        await firestore.collection(
+            'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
+          ..where('isActive', isEqualTo: true)
+              .get()
+              .then((QuerySnapshot smallQuerySnapshot) {
+            smallQuerySnapshot.docs.forEach((smallDoc) async {
+              await firestore
+                  .collection(
+                      'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
+                  .doc(smallDoc.id)
+                  .update({
+                'isActive': false,
+              });
+            });
+          });
+      });
+    });
+
+    Get.find<AppStateController>().status.value = true;
+  }
+
+  
 }
