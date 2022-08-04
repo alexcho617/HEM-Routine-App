@@ -641,7 +641,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
 
           //alex
           // final routines = widget.routineLoader?.call(day) ?? [];
-          var routines = controller.routines;
+          var routines = controller.routineLibrary;
 
           Widget? routineWidget = widget.calendarBuilders.routineMarkerBuilder
               ?.call(context, day, routines);
