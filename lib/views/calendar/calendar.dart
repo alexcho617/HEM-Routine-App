@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
+import 'package:hem_routine_app/models/calendarRoutine.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
 
@@ -45,15 +46,15 @@ class _CalendarState extends State<Calendar> {
                 },
                 calendarFormat: CalendarFormat.month,
                 headerStyle: kHeaderStyle,
-                calendarStyle: CalendarStyle(), //using default calendar style
+                calendarStyle: CalendarStyle(outsideDaysVisible: false),
                 //event loader is for marking
                 eventLoader: (DateTime selectedDay) {
                   return _eventLoader(selectedDay);
                 },
                 onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                  print(focusDay);
-                  print(
-                      controller.eventsLibrary[parseDay(focusDay)].toString());
+                  // print(focusDay);
+                  // print(
+                  //     controller.eventsLibrary[parseDay(focusDay)].toString());
 
                   controller.selectedDay.value = selectDay;
                   controller.focusedDate.value = focusDay;
@@ -73,11 +74,22 @@ class _CalendarState extends State<Calendar> {
               //   Get.to(NewCalendarEvent());
             },
           ),
-          // TextButton(
-          //   onPressed: () {
-          //     controller.printAllEvents();
-          //   },
-          //   child: Text('PrintEvents'),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     TextButton(
+          //       onPressed: () {
+          //         controller.printAllEvents();
+          //       },
+          //       child: Text('PrintEvents'),
+          //     ),
+          //     TextButton(
+          //       onPressed: () {
+          //         controller.printAllRoutines();
+          //       },
+          //       child: Text('PrintRoutines'),
+          //     ),
+          //   ],
           // ),
         ],
         // ),
@@ -95,26 +107,39 @@ class _CalendarState extends State<Calendar> {
 
   //need refactoring
   Widget routineContainer(context, date, routines) {
-    if (controller.routines.isNotEmpty) {
+    date = parseDay(date);
+    if (controller.routineLibrary.isNotEmpty) {
       //within range, need to improve logic with some kind of function something like bool isWithinRange()
       //left border
-      if (controller.routines[0].startDate == date) {
-        return leftRoutineMarker(date);
+      // print(date.toString());
+      for (var i = 0; i < controller.routineLibrary.length; i++) {
+        CalendarRoutine routine = controller.routineLibrary[i];
+        // print('length' + controller.routines.length.toString());
+        // print('Printing Routine -----'+routine.toString());
+        if (routine.startDate == date) {
+          // print('start');
+          return leftRoutineMarker(date);
+        }
+        //right border
+        if (routine.endDate == date) {
+          // print('end');
+          return rightRoutineMarker(date);
+        }
+        //inside rectangle border
+        if (routine.startDate.isBefore(date) && routine.endDate.isAfter(date)) {
+          // print(routine.startDate);
+          // print(routine.endDate);
+
+          // print('middle');
+          return middleRoutineMarker(date);
+        }
+
+        // else {
+        //   return emptyRoutineMarker(date);
+        // }
       }
-      //right border
-      if (controller.routines[0].endDate == date) {
-        return rightRoutineMarker(date);
-      }
-      //inside rectangle border
-      if (controller.routines[0].startDate.isBefore(date) &&
-          controller.routines[0].endDate.isAfter(date)) {
-        return middleRoutineMarker(date);
-      } else {
-        return emptyRoutineMarker(date);
-      }
-    } else {
-      return emptyRoutineMarker(date);
     }
+    return emptyRoutineMarker(date);
   }
 }
 

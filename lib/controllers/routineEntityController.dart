@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
+import 'package:hem_routine_app/services/firestore.dart';
+import 'package:hem_routine_app/utils/calendarUtil.dart';
 import '../models/routineEntity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -13,6 +16,8 @@ class RoutineEntityController extends GetxController {
   int addedRoutineItemCount = 0;
   LoginService loginService = Get.find();
   RoutineOffController controller = Get.find();
+  CalendarController calendarController = Get.find();
+
   List<TextEditingController> inputControllers = <TextEditingController>[];
   DateTime now = DateTime.now();
   String uid = '';
@@ -57,18 +62,7 @@ class RoutineEntityController extends GetxController {
       'tryCount': 1,
     }).then((DocumentReference routineDoc) async {
       // print(routineDoc.id);
-      //alex calenderRoutine
-      await controller.firestore
-          .collection(
-              'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
-          .doc(routineDoc.id)
-          .set({
-        'duration': controller.routinePeriodIndex.value,
-        'startDate': DateTime(now.year, now.month, now.day),
-        'endDate': DateTime(later.year, later.month, later.day),
-        'name': controller.inputController.text,
-      }).onError((error, _) =>
-              print("Error adding document to calendarRoutine: $error"));
+
       uid = routineDoc.id;
     });
     return false;
@@ -102,6 +96,25 @@ class RoutineEntityController extends GetxController {
       'name': controller.inputController.text,
       'rating': 0,
     }).then((DocumentReference routineHistoryDoc) async {
+      //start alex calenderRoutine
+
+      await controller.firestore //add calendar routine doc
+          .collection(
+              'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
+          .doc(routineHistoryDoc.id)
+          .set({
+        'duration': controller.routinePeriodIndex.value,
+        'startDate': parseDay(now),
+        'endDate': parseDay(later),
+        'name': controller.inputController.text,
+      }).onError((error, _) =>
+              print("Error adding document to calendarRoutine: $error"));
+
+      //fetch routine collection and add to routineLibrary
+      calendarController.routineLibrary = await fetchAllRoutines();
+      calendarController.update();
+      //end alex calenderRoutine
+
       //며칠 만큼 반복할 것인가
       for (int i = 1; i <= controller.routinePeriodIndex.value; i++) {
         // print('Executed!');
