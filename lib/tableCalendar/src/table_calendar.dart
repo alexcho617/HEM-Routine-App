@@ -670,13 +670,6 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
               end: widget.calendarStyle.markersAutoAligned
                   ? null
                   : widget.calendarStyle.markersOffset.end,
-              //Todo: alex this is where markers are made mapped to events
-              // child: Row(
-              //   mainAxisSize: MainAxisSize.min,
-              //   children: events
-              //       .take(widget.calendarStyle.markersMaxCount)
-              //       .map((event) => _buildSingleMarker(day, event, markerSize))
-              //       .toList(),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: events
@@ -754,7 +747,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
           width: markerSize,
           height: markerSize,
           margin: widget.calendarStyle.markerMargin,
-          child: Image.asset('assets/${event.iconCode.toString()}.png'),
+          child: Image.asset('assets/marker/${event.iconCode.toString()}.png'),
         );
   }
 

@@ -71,6 +71,7 @@ class LoginService extends GetxController {
         .catchError((error) => print("Faied to Add User document: ${error}"));
   }
 
+
   Future<void> profileSetting(
       String newName, DateTime birthDate, String gender) {
     name.value = newName;

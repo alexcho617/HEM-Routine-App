@@ -7,8 +7,6 @@ import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
 
-import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../tableCalendar/src/customization/calendar_builders.dart';
 import '../../tableCalendar/src/customization/calendar_style.dart';
 import '../../tableCalendar/src/shared/utils.dart';
@@ -29,44 +27,70 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        TableCalendar<CalendarEvent>(
-          calendarBuilders: CalendarBuilders(
-              //this is acting like a singleMarkerbuilder. Need to change it as regular marker builder.
-              routineMarkerBuilder: routineContainer),
-          firstDay: kFirstDay,
-          lastDay: kLastDay,
-          startingDayOfWeek: StartingDayOfWeek.sunday,
-          focusedDay: controller.focusedDate,
-          selectedDayPredicate: (DateTime date) {
-            return isSameDay(controller.selectedDay, date);
-          },
-          calendarFormat: CalendarFormat.month,
-          headerStyle: kHeaderStyle,
-          // TODO 1 : calendarStyle: returnCalendarStyleWithCustomIcon
-          calendarStyle: CalendarStyle(), //using default calendar style
-          //need event loader for marking
-          eventLoader: (DateTime selectedDay) {
-            return _eventLoader(selectedDay);
-          },
-          onDaySelected: (DateTime selectDay, DateTime focusDay) {
-            print(focusDay);
-            setState(() {
-              controller.selectedDay = selectDay;
-              controller.focusedDate = focusDay;
-            });
-          },
-        ),
-        plusSquareButton(
-          () {
-            Get.to(NewCalendarEvent());
-          },
-        ),
-      ],
-      // ),
-    );
+    return GetBuilder<CalendarController>(builder: (_) {
+      return Column(
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TableCalendar<CalendarEvent>(
+                calendarBuilders:
+                    CalendarBuilders(routineMarkerBuilder: routineContainer),
+                firstDay: kFirstDay,
+                lastDay: kLastDay,
+                startingDayOfWeek: StartingDayOfWeek.sunday,
+                focusedDay: controller.focusedDate.value,
+                selectedDayPredicate: (DateTime date) {
+                  return isSameDay(controller.selectedDay.value, date);
+                },
+                calendarFormat: CalendarFormat.month,
+                headerStyle: kHeaderStyle,
+                calendarStyle: CalendarStyle(), //using default calendar style
+                //event loader is for marking
+                eventLoader: (DateTime selectedDay) {
+                  return _eventLoader(selectedDay);
+                },
+                onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                  print(focusDay);
+                  print(
+                      controller.eventsLibrary[parseDay(focusDay)].toString());
+
+                  controller.selectedDay.value = selectDay;
+                  controller.focusedDate.value = focusDay;
+                  controller.update();
+                },
+              )),
+          SizedBox(height: 50.h),
+          plusSquareButton(
+            () {
+              Get.to(NewCalendarEvent());
+
+              //   if (controller.selectedDay.value.day == DateTime.now().day) {
+              //     controller.newEventTime.value = DateTime.now();
+              //   } else {
+              //     controller.newEventTime.value = controller.selectedDay.value;
+              //   }
+              //   Get.to(NewCalendarEvent());
+            },
+          ),
+          // TextButton(
+          //   onPressed: () {
+          //     controller.printAllEvents();
+          //   },
+          //   child: Text('PrintEvents'),
+          // ),
+        ],
+        // ),
+      );
+    });
+  }
+
+  List<CalendarEvent> _eventLoader(DateTime day) {
+    DateTime parsedDay = parseDay(day);
+    CalendarController controller = Get.find();
+    List<CalendarEvent> listOfEvents;
+    listOfEvents = controller.getEventsfromDay(parsedDay) ?? [];
+    return listOfEvents;
   }
 
   //need refactoring
@@ -86,29 +110,25 @@ class _CalendarState extends State<Calendar> {
           controller.routines[0].endDate.isAfter(date)) {
         return middleRoutineMarker(date);
       } else {
-        return emptyRoutineMarker();
+        return emptyRoutineMarker(date);
       }
     } else {
-      return emptyRoutineMarker();
+      return emptyRoutineMarker(date);
     }
-  }
-
-  List<CalendarEvent> _eventLoader(DateTime day) {
-    CalendarController controller = Get.find();
-    List<CalendarEvent> list;
-    list = controller.getEventsfromDay(day) ?? [];
-    return list;
   }
 }
 
-Widget emptyRoutineMarker() {
+Widget emptyRoutineMarker(DateTime date) {
   return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
       alignment: Alignment.center,
-      decoration: BoxDecoration(shape: BoxShape.rectangle, color: white),
+      decoration: BoxDecoration(shape: BoxShape.rectangle, color: background),
       width: 57.0.w,
       height: 14.0.h,
+      child: Text(
+          style: TextStyle(color: primary),
+          '${controller.getNumberOfEventsFromDay(date) ?? ''}'),
       // margin: const EdgeInsets.symmetric(horizontal: 10.5),
     ),
   );
