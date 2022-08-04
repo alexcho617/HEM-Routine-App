@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
+import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import '../models/routineEntity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -15,8 +16,6 @@ class RoutineEntityController extends GetxController {
   List<TextEditingController> inputControllers = <TextEditingController>[];
   DateTime now = DateTime.now();
   String uid = '';
-
-  
 
   void buildRoutineEntities() {
     RoutineOffController controller = Get.find();
@@ -87,10 +86,9 @@ class RoutineEntityController extends GetxController {
     }
 
     await controller.firestore
-        .collection('user/${loginService.auth.value.currentUser!.uid}/routine').
-        doc(uid).update({
-          'isActive': true
-        });
+        .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
+        .doc(uid)
+        .update({'isActive': true});
     await controller.firestore
         .collection(
             'user/${loginService.auth.value.currentUser!.uid}/routine/$uid/routineHistory')
@@ -129,6 +127,8 @@ class RoutineEntityController extends GetxController {
         }
       }
     });
+
+    Get.find<RoutineOnController>().getData();
   }
 
   void deleteRoutineEntities(int index) {

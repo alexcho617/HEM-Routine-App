@@ -11,13 +11,15 @@ class RoutineOnController extends GetxController {
   //   return RoutineEntity(name: '루틴 항목 이름 $index', goalCount: (index + 1) * 7, index: index);
   // });
   RoutineOnController();
+  late RxString name = "".obs;
   late dynamic goals = [].obs;
   late dynamic currentCount = [].obs;
   late dynamic routineItems = [].obs;
-  late dynamic currentDay = 0.obs;
+  late dynamic todayIndex = 0.obs;
   Rx<DateTime> today = DateTime.now().obs;
   late dynamic startday;
   late dynamic days = 0.obs;
+  dynamic selectedDayIndex = 0.obs;
   LoginService loginService = Get.find();
 
   dynamic routineDocumentSnapshot;
@@ -31,6 +33,12 @@ class RoutineOnController extends GetxController {
     if (routineDocumentSnapshot != null) {
       await getRoutineHistoryData();
     }
+  }
+
+  Future<void> getData() async {
+    await getRoutineData().then((_) async {
+      await getRoutineHistoryData();
+    });
   }
 
   Future<void> getRoutineData() async {
@@ -47,7 +55,8 @@ class RoutineOnController extends GetxController {
     });
 
     if (routineDocumentSnapshot != null) {
-      goals = routineDocumentSnapshot.get('goals');
+      name.value = routineDocumentSnapshot.get('name');
+      goals.value = routineDocumentSnapshot.get('goals');
       days.value = routineDocumentSnapshot.get('days');
     }
   }
@@ -62,14 +71,15 @@ class RoutineOnController extends GetxController {
         routineHistoryDocumentSnapshot = doc;
       });
     });
-    if (routineHistoryDocumentSnapshot.exists) {
-      routineItems = routineHistoryDocumentSnapshot.get('routineItem');
-      startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
-      currentDay.value = today.value.difference(startday).inDays;
-    }
+    await getCurrday();
   }
 
-  Future<void> getDayData() async {}
+  Future<void> getCurrday() async {
+    routineItems = routineHistoryDocumentSnapshot.get('routineItem');
+    startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
+    todayIndex.value = today.value.difference(startday).inDays;
+    selectedDayIndex = todayIndex;
+  }
 
   itemReorder(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {

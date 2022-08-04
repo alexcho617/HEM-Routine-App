@@ -4,7 +4,6 @@ import 'package:hem_routine_app/controllers/loginService.dart';
 
 class AppStateController extends GetxController {
   Rx<bool> status = false.obs;
-  Rx<String> name = "".obs;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   LoginService loginService = Get.find();
   
@@ -22,7 +21,6 @@ class AppStateController extends GetxController {
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((document) {
-        name.value = document.get('name');
         print('Routine is active');
         status.value = true;
       });

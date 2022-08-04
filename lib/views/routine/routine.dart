@@ -22,8 +22,7 @@ class RoutinePage extends StatelessWidget {
   RoutinePage({Key? key}) : super(key: key);
   AppStateController appStateController = Get.find();
   LoginService loginService = Get.find();
-  RoutineOnController controller = Get.put(RoutineOnController());
-
+  RoutineOnController controller = Get.find<RoutineOnController>();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -75,7 +74,7 @@ class RoutinePage extends StatelessWidget {
                       height: 19.h,
                     ),
                     Text(
-                      appStateController.name.value,
+                      controller.name.value,
                       style: AppleFont24_Black,
                     ),
                     SizedBox(
@@ -83,7 +82,8 @@ class RoutinePage extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.all(5.r),
-                      child: DayPicker(controller.currentDay.value, controller.days.value),
+                      child: dayPicker(controller.selectedDayIndex.value,
+                          controller.days.value),
                     ),
                     InkWell(
                       child: halfCircluarGuage(0.75),
@@ -172,8 +172,9 @@ class RoutinePage extends StatelessWidget {
     //void onPressed
   }
 
-  Widget DayPicker(int focusedDay, int itemCount) {
-    return Container(
+  Widget dayPicker(int focusedDay, int itemCount) {
+    return SizedBox(
+      width: itemCount * 76.w + 18.w,
       height: 50.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -184,9 +185,8 @@ class RoutinePage extends StatelessWidget {
             child: InkWell(
               key: Key('$index'),
               onTap: () {
-                // setState(() {
-                //   dayStatus = index + 1;
-                // });
+                // TODO : change day status note! index is day - 1
+                controller.selectedDayIndex.value = index;
               },
               child: Ink(
                 child: Column(
@@ -198,7 +198,7 @@ class RoutinePage extends StatelessWidget {
                           : AppleFont16_Black,
                     ),
                     Text(
-                      '${index * 10}%',
+                      'xxx',
                       style: index == focusedDay
                           ? AppleFont11_Blue600
                           : AppleFont11_Grey700,

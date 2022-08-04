@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(AppStateController());
     Get.put(CalendarController());
+    Get.put(RoutineOnController());
 
     return ScreenUtilInit(
         designSize: const Size(390, 844),
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate
             ],
-            supportedLocales: const [Locale('ko', 'KR'),Locale('en', 'US')],
+            supportedLocales: const [Locale('ko', 'KR'), Locale('en', 'US')],
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(
