@@ -70,20 +70,24 @@ Future<RxMap> fetchAllEvents() async {
 }
 
 //this will fetch routine data from firestore
-Future<void> getAllCalendarRoutineData(
-    List<CalendarRoutine> routineList) async {
-  CalendarRoutine currentRoutine = CalendarRoutine();
+//fetch is not working corretl,y it is replacing all routines
+Future<List<CalendarRoutine>> fetchAllRoutines() async {
+  List<CalendarRoutine> routineList = [];
   await _firestore
       .collection(
           'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
       .get()
       .then((QuerySnapshot querySnapshot) {
     for (var doc in querySnapshot.docs) {
-      currentRoutine.startDate = doc["startDate"];
-      currentRoutine.endDate = doc["endDate"];
+      CalendarRoutine currentRoutine = CalendarRoutine();
+
+      currentRoutine.startDate = parseDay(doc["startDate"].toDate());
+      currentRoutine.endDate = parseDay(doc["endDate"].toDate());
       currentRoutine.duration = doc["duration"];
       currentRoutine.name = doc["name"];
       routineList.add(currentRoutine);
     }
   });
+
+  return routineList;
 }
