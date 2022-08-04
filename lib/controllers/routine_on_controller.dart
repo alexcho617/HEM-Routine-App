@@ -11,34 +11,32 @@ class RoutineOnController extends GetxController {
   //   return RoutineEntity(name: '루틴 항목 이름 $index', goalCount: (index + 1) * 7, index: index);
   // });
   RoutineOnController();
-  late RxString name = "".obs;
-  late dynamic goals = [].obs;
-  late dynamic currentCount = [].obs;
-  late dynamic routineItems = [].obs;
-  late dynamic todayIndex = 0.obs;
+  dynamic name = "".obs;
+  dynamic goals = [].obs;
+  dynamic currentCount = [].obs;
+  dynamic routineItems = [].obs;
+  dynamic todayIndex = 0.obs;
   Rx<DateTime> today = DateTime.now().obs;
-  late dynamic startday;
-  late dynamic days = 0.obs;
+  dynamic startday;
+  dynamic days = 0.obs;
   dynamic selectedDayIndex = 0.obs;
   LoginService loginService = Get.find();
 
   dynamic routineDocumentSnapshot;
-  late DocumentSnapshot routineHistoryDocumentSnapshot;
+  dynamic routineHistoryDocumentSnapshot;
 
   @override
   void onInit() async {
     super.onInit();
 
-    await getRoutineData();
-    if (routineDocumentSnapshot != null) {
-      await getRoutineHistoryData();
-    }
+    await getData();
   }
 
   Future<void> getData() async {
-    await getRoutineData().then((_) async {
-      await getRoutineHistoryData();
-    });
+    await getRoutineData();
+    if (routineDocumentSnapshot != null) {
+      getRoutineHistoryData();
+    }
   }
 
   Future<void> getRoutineData() async {
@@ -75,7 +73,7 @@ class RoutineOnController extends GetxController {
   }
 
   Future<void> getCurrday() async {
-    routineItems = routineHistoryDocumentSnapshot.get('routineItem');
+    routineItems.value = routineHistoryDocumentSnapshot.get('routineItem');
     startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
     todayIndex.value = today.value.difference(startday).inDays;
     selectedDayIndex = todayIndex;
@@ -85,8 +83,8 @@ class RoutineOnController extends GetxController {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    final RoutineEntity itemToSwap = routineItems.removeAt(oldIndex);
-    routineItems.insert(newIndex, itemToSwap);
+    final RoutineEntity itemToSwap = routineItems.value.removeAt(oldIndex);
+    routineItems.value.insert(newIndex, itemToSwap);
     // print(routineItems);
   }
 
