@@ -16,7 +16,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => HomePageState();
 }
 
-class HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   final _pages = [
     Calendar(),
     RoutinePage(),
@@ -25,65 +26,79 @@ class HomePageState extends State<HomePage> {
     ),
     SettingsPage(),
   ];
-  final _navigatorKeyList =
+  static List<GlobalKey<NavigatorState>> navigatorKeyList =
       List.generate(4, (index) => GlobalKey<NavigatorState>());
-  int _currentIndex = 0;
-  
+  static int currentIndex = 0;
+  static late TabController tabController;
+  @override
+  void initState() {
+    for(var page in _pages){
+      page.createElement();
+    }
+    super.initState();
+    tabController = TabController(vsync: this, length: 4);
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return !(await _navigatorKeyList[_currentIndex]
+        return !(await navigatorKeyList[currentIndex]
             .currentState!
             .maybePop());
       },
-      child: DefaultTabController(
-        length: 4,
-        child: Scaffold(
-          body: SafeArea(
-            child: TabBarView(
-              children: _pages.map(
-                (page) {
-                  int index = _pages.indexOf(page);
-                  return CustomNavigator(
-                    page: page,
-                    navigatorKey: _navigatorKeyList[index],
-                  );
-                },
-              ).toList(),
-            ),
+      child: Scaffold(
+        body: SafeArea(
+          child: TabBarView(
+            controller: tabController,
+            children: _pages.map(
+              (page) {
+                int index = _pages.indexOf(page);
+                return CustomNavigator(
+                  page: page,
+                  navigatorKey: navigatorKeyList[index],
+                );
+              },
+            ).toList(),
           ),
-          bottomNavigationBar: Container(
-            color: Color.fromRGBO(238, 240, 255, 1),
-            child: TabBar(
-              isScrollable: false,
-              indicatorColor: Colors.transparent,
-              indicatorPadding: const EdgeInsets.only(bottom: 74),
-              // automaticIndicatorColorAdjustment: true,
-              labelColor: grey900,
-              unselectedLabelColor: grey600,
-              onTap: (index) => setState(() {
-                _currentIndex = index;
-              }),
-              tabs: const [
-                Tab(
-                  icon: Icon(Icons.event),
-                  text: '캘린더',
-                ),
-                Tab(
-                  icon: Icon(Icons.tour),
-                  text: '루틴 도전',
-                ),
-                Tab(
-                  icon: Icon(Icons.description),
-                  text: '리포트',
-                ),
-                Tab(
-                  icon: Icon(Icons.settings_outlined),
-                  text: '설정',
-                ),
-              ],
-            ),
+        ),
+        bottomNavigationBar: Container(
+          color: Color.fromRGBO(238, 240, 255, 1),
+          child: TabBar(
+            controller: tabController,
+            isScrollable: false,
+            indicatorColor: Colors.transparent,
+            indicatorPadding: const EdgeInsets.only(bottom: 74),
+            // automaticIndicatorColorAdjustment: true,
+            labelColor: grey900,
+            unselectedLabelColor: grey600,
+            onTap: (index) => setState(() {
+              currentIndex = index;
+            }),
+            tabs: const [
+              Tab(
+                icon: Icon(Icons.event),
+                text: '캘린더',
+              ),
+              Tab(
+                icon: Icon(Icons.tour),
+                text: '루틴 도전',
+              ),
+              Tab(
+                icon: Icon(Icons.description),
+                text: '리포트',
+              ),
+              Tab(
+                icon: Icon(Icons.settings_outlined),
+                text: '설정',
+              ),
+            ],
           ),
         ),
       ),

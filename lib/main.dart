@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/firebase_options.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/routine/routineBuild.dart';
@@ -21,7 +22,7 @@ import 'package:hem_routine_app/views/splash.dart';
 import 'package:hem_routine_app/views/test.dart';
 
 import 'package:hem_routine_app/views/widgetTestPage.dart';
-import 'controllers/routineOnController.dart';
+import 'controllers/routine_on_controller.dart';
 import 'views/setting/completed_routines.dart';
 import 'views/setting/profile_settings.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(RoutineOnController());
+    Get.put(AppStateController());
     Get.put(CalendarController());
 
     return ScreenUtilInit(

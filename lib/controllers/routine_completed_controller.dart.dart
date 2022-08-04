@@ -25,20 +25,18 @@ class RoutineCompletedController extends GetxController {
     for (var doc in routineCompleted.docs) {
       Routine routine = Routine();
       routine.averageComplete = doc.get("averageComplete");
-      routine.averageRating = doc.get("averageRating");
+      routine.averageRating = doc.get("averageRating") + .0;
       routine.name = doc.get("name");
       routine.routineItem = doc.get("routineItem");
       routine.days = doc.get("days");
       routine.goals = doc.get("goals");
       routine.isActive = doc.get("isActive");
       routine.tryCount = doc.get("tryCount");
-      routine.uid = doc.id;
-      //
+      routine.id = doc.id;
 
       routines.add(routine);
-
-      sortByName();
     }
+    sortByName();
   }
 
   void sortByName() {

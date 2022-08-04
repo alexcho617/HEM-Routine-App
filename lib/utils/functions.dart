@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:hem_routine_app/views/home.dart';
 
 void kangmin(context, Widget page) {
   Navigator.push(
@@ -20,14 +23,37 @@ void kangmin(context, Widget page) {
         );
       },
     ),
-  );
+  ).then((_) {
+    //
+  });
 }
 
-// bool routineInit(String text, String uid) {
-//   FirebaseFirestore.instance.collection('user/$uid/routine').add({
-//                             'averageComplete': 0,
-//                             'averageRating': 0,
-//                             'name': text
-//                           });
-  
-// }
+void kangminBack(context) {
+  int _currentIndex = HomePageState.tabController.index;
+  HomePageState.navigatorKeyList[_currentIndex].currentState!.pop(context);
+}
+
+void yechan(BuildContext context, int index, Widget page) async {
+  int _currentIndex = HomePageState.tabController.index;
+  kangminBackUntil(context);
+  HomePageState.tabController.index = index;
+  // WidgetsBinding.instance.scheduleForcedFrame();
+  while (true) {
+    if (HomePageState.navigatorKeyList[index].currentContext == null) {
+      await Future.delayed(const Duration(milliseconds: 50));
+    } else {
+      break;
+    }
+  }
+
+  kangmin(HomePageState.navigatorKeyList[index].currentContext, page);
+
+  //callBack함수를 쓰면 되지 않을까?
+}
+
+void kangminBackUntil(BuildContext context) async {
+  int _currentIndex = HomePageState.tabController.index;
+  while (HomePageState.navigatorKeyList[_currentIndex].currentState!.canPop()) {
+    kangminBack(context);
+  }
+}

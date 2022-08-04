@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/routineEntityController.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
-import 'package:hem_routine_app/controllers/routineOnController.dart';
+import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 
 import 'package:hem_routine_app/models/routine.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
@@ -440,10 +440,10 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
-Widget routineItemList(RoutineOnController controller) {
+Widget routineItemList() {
+  RoutineOnController controller = Get.put(RoutineOnController());
   int itemLength = controller.routineItems.length;
   return ReorderableListView.builder(
-    
     padding: EdgeInsets.all(10.r),
     proxyDecorator: ((child, index, animation) {
       return Material(
@@ -457,8 +457,9 @@ Widget routineItemList(RoutineOnController controller) {
       );
     }),
     itemBuilder: (BuildContext context, int index) {
-      double percent = controller.getPercent(controller.countList[index],
-          controller.routineItems[index].goalCount);
+      // double percent = controller.getPercent(controller.countList[index],
+      //     controller.routineItems[index].goalCount);
+      double percent = 0.7;
       return Container(
         key: Key('$index'),
         padding: EdgeInsets.symmetric(vertical: 8.h),
@@ -482,12 +483,12 @@ Widget routineItemList(RoutineOnController controller) {
             horizontalTitleGap: 0,
             minVerticalPadding: 22.w,
             title: SizedBox(
-              height: 35.h,
+              height: 36.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    controller.routineItems[index].name,
+                    controller.routineItems[index],
                     style: AppleFont18_Black,
                   ),
                   Column(
@@ -497,7 +498,7 @@ Widget routineItemList(RoutineOnController controller) {
                         style: AppleFont14_Grey600,
                       ),
                       Text(
-                        '${controller.countList[index]}/${controller.routineItems[index].goalCount}',
+                        '0/${controller.goals[index]}', // TODO : current Count
                         style: AppleFont14_Grey600,
                       ),
                     ],
@@ -520,7 +521,7 @@ Widget routineItemList(RoutineOnController controller) {
                   width: 34.w,
                   height: 34.h,
                   child: InkWell(
-                    onTap: () => controller.onPressed(),
+                    onTap: () => controller.onPlusPressed(),
                     child: Ink(
                       child: CircleAvatar(
                         backgroundColor: blue600,
@@ -1120,141 +1121,143 @@ Widget addRoutineItemList(RoutineEntityController controller) {
     shrinkWrap: true,
     padding: EdgeInsets.all(10.r),
     itemBuilder: (BuildContext context, int index) {
-      
-      return index == itemLength -1?
-      Column(
-        key: Key('$index'),
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.h),
-            child: PhysicalModel(
-              color: white,
-              elevation: 5.r,
-              borderRadius: BorderRadius.circular(12.r),
-              child: ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                leading: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 11.h),
-                  child: Icon(Icons.menu),
-                ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-                horizontalTitleGap: 0,
-                minVerticalPadding: 22.w,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 145.w,
-                      padding: EdgeInsets.symmetric(vertical: 8.h),
-                      child: Text(
-                        controller.routineEntities[index].name,
-                        style: AppleFont18_Black,
-                        overflow: TextOverflow.ellipsis,
+      return index == itemLength - 1
+          ? Column(
+              key: Key('$index'),
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.h),
+                  child: PhysicalModel(
+                    color: white,
+                    elevation: 5.r,
+                    borderRadius: BorderRadius.circular(12.r),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      leading: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 11.h),
+                        child: Icon(Icons.menu),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+                      horizontalTitleGap: 0,
+                      minVerticalPadding: 22.w,
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 145.w,
+                            padding: EdgeInsets.symmetric(vertical: 8.h),
+                            child: Text(
+                              controller.routineEntities[index].name,
+                              style: AppleFont18_Black,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Text(
+                            '일일 목표',
+                            style: TextStyle(fontSize: 14.sp),
+                          ),
+                          ConstrainedBox(
+                              constraints:
+                                  BoxConstraints.tight(Size(30.w, 18.h)),
+                              child: TextFormField(
+                                controller: controller.inputControllers[index],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 14.sp),
+                                // onChanged: (value){
+
+                                // },
+                              )),
+                          // {controller.routineEntities[index].goalCount}'
+                          Text(
+                            '회',
+                            style: TextStyle(fontSize: 14.sp),
+                          ),
+
+                          // SizedBox(
+                          //   width: 5.w,
+                          // ),
+                        ],
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          controller.deleteRoutineEntities(index);
+                        },
                       ),
                     ),
-                    Text(
-                      '일일 목표',
-                      style: TextStyle(fontSize: 14.sp),
-                    ),
-                    ConstrainedBox(
-                        constraints: BoxConstraints.tight(Size(30.w, 18.h)),
-                        child: TextFormField(
-                          controller: controller.inputControllers[index],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 14.sp),
-                          // onChanged: (value){
-                            
-                          // },
-                        )),
-                    // {controller.routineEntities[index].goalCount}'
-                    Text(
-                      '회',
-                      style: TextStyle(fontSize: 14.sp),
-                    ),
-
-                    // SizedBox(
-                    //   width: 5.w,
-                    // ),
-                  ],
-                ),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    controller.deleteRoutineEntities(index);
-                  },
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 80.h,)
-        ],
-      )
-      :Padding(
-        key: Key('$index'),
-        padding: EdgeInsets.symmetric(vertical: 8.h),
-        child: PhysicalModel(
-          color: white,
-          elevation: 5.r,
-          borderRadius: BorderRadius.circular(12.r),
-          child: ListTile(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            leading: Padding(
-              padding: EdgeInsets.symmetric(vertical: 11.h),
-              child: Icon(Icons.menu),
-            ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-            horizontalTitleGap: 0,
-            minVerticalPadding: 22.w,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: 145.w,
-                  padding: EdgeInsets.symmetric(vertical: 8.h),
-                  child: Text(
-                    controller.routineEntities[index].name,
-                    style: AppleFont18_Black,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Text(
-                  '일일 목표',
-                  style: TextStyle(fontSize: 14.sp),
-                ),
-                ConstrainedBox(
-                    constraints: BoxConstraints.tight(Size(30.w, 18.h)),
-                    child: TextFormField(
-                      controller: controller.inputControllers[index],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 14.sp),
-                      // onChanged: (value){
-                        
-                      // },
-                    )),
-                // {controller.routineEntities[index].goalCount}'
-                Text(
-                  '회',
-                  style: TextStyle(fontSize: 14.sp),
-                ),
-
-                // SizedBox(
-                //   width: 5.w,
-                // ),
+                SizedBox(
+                  height: 80.h,
+                )
               ],
-            ),
-            trailing: IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                controller.deleteRoutineEntities(index);
-              },
-            ),
-          ),
-        ),
-      );
+            )
+          : Padding(
+              key: Key('$index'),
+              padding: EdgeInsets.symmetric(vertical: 8.h),
+              child: PhysicalModel(
+                color: white,
+                elevation: 5.r,
+                borderRadius: BorderRadius.circular(12.r),
+                child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  leading: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 11.h),
+                    child: Icon(Icons.menu),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+                  horizontalTitleGap: 0,
+                  minVerticalPadding: 22.w,
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 145.w,
+                        padding: EdgeInsets.symmetric(vertical: 8.h),
+                        child: Text(
+                          controller.routineEntities[index].name,
+                          style: AppleFont18_Black,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text(
+                        '일일 목표',
+                        style: TextStyle(fontSize: 14.sp),
+                      ),
+                      ConstrainedBox(
+                          constraints: BoxConstraints.tight(Size(30.w, 18.h)),
+                          child: TextFormField(
+                            controller: controller.inputControllers[index],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 14.sp),
+                            // onChanged: (value){
+
+                            // },
+                          )),
+                      // {controller.routineEntities[index].goalCount}'
+                      Text(
+                        '회',
+                        style: TextStyle(fontSize: 14.sp),
+                      ),
+
+                      // SizedBox(
+                      //   width: 5.w,
+                      // ),
+                    ],
+                  ),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      controller.deleteRoutineEntities(index);
+                    },
+                  ),
+                ),
+              ),
+            );
     },
     itemCount: itemLength,
     onReorder: (int oldIndex, int newIndex) {
@@ -1266,7 +1269,7 @@ Widget addRoutineItemList(RoutineEntityController controller) {
 Widget customAppBar(context, String name) {
   return AppBar(
     elevation: 0,
-    backgroundColor: Colors.grey[50],
+    backgroundColor: background,
     foregroundColor: black,
     centerTitle: false,
     leading: IconButton(
@@ -1279,7 +1282,7 @@ Widget customAppBar(context, String name) {
   );
 }
 
-Widget routineItemCard(String name, int goal) {
+Widget routineItemCard(String name, int goal, bool isTapped) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 8.h),
     child: PhysicalModel(
@@ -1292,7 +1295,7 @@ Widget routineItemCard(String name, int goal) {
         ),
         leading: Padding(
           padding: EdgeInsets.symmetric(vertical: 11.h),
-          child: Icon(Icons.menu),
+          child: const Icon(Icons.menu),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
         horizontalTitleGap: 0,
@@ -1300,15 +1303,26 @@ Widget routineItemCard(String name, int goal) {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.h),
-              child: Text(
-                name,
-                style: AppleFont18_Black,
+            Flexible(
+              child: Container(
+                width: 124.w,
+                padding: EdgeInsets.symmetric(vertical: 8.h),
+                child: Text(
+                  name,
+                  style: AppleFont18_Black,
+                  overflow:
+                      isTapped ? TextOverflow.visible : TextOverflow.ellipsis,
+                ),
               ),
             ),
-            Text('일일 목표'),
-            Text('${goal * 2}회'),
+            Text(
+              '일일 목표',
+              style: AppleFont14_Black,
+            ),
+            Text(
+              '$goal회',
+              style: AppleFont14_Black,
+            ),
             SizedBox(
               width: 5.w,
             ),
@@ -1570,4 +1584,74 @@ Widget routineCategoryButton(int index, String text) {
       ? selectedRoutineButton(() {}, text)
       : unSelectedRoutineButton(
           () => controller.updateCategoryIndex(index), text);
+}
+
+Widget routineStopAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: Container(
+      height: 196.h,
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 140.h,
+          child: Center(
+              child: Text(
+            '루틴을 중단하시길 원하시나요?\n\n루틴을 중간에 종료하실 경우\n오늘 기록은 저장되지 않습니다.',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '중단',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
 }

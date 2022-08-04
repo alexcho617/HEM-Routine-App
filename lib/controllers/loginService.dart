@@ -48,16 +48,16 @@ class LoginService extends GetxController {
       }
     });
 
-    // DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
-    //     .collection('user')
-    //     .doc(auth.value.currentUser!.uid)
-    //     .get();
-    // if (userSnapshot == null || !userSnapshot.exists) {
-    //   addUserDocument();
-    // }
+    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+        .collection('user')
+        .doc(auth.value.currentUser!.uid)
+        .get();
+    if (userSnapshot == null || !userSnapshot.exists) {
+      addUserDocument();
+    }
   }
 
-  Future<void> signOut() async{
+  Future<void> signOut() async {
     auth.value.signOut();
   }
 
@@ -71,11 +71,14 @@ class LoginService extends GetxController {
         .catchError((error) => print("Faied to Add User document: ${error}"));
   }
 
-  Future<void> profileSetting(String name, DateTime birthDate, String gender) {
+
+  Future<void> profileSetting(
+      String newName, DateTime birthDate, String gender) {
+    name.value = newName;
     return users
         .doc(auth.value.currentUser!.uid)
         .set({
-          'name': name,
+          'name': newName,
           'birthDate': birthDate,
           'gender': gender,
         })
@@ -84,12 +87,12 @@ class LoginService extends GetxController {
   }
 
   Future<void> deleteUser() {
-  return users
-    .doc(auth.value.currentUser!.uid)
-    .delete()
-    .then((value) => print("User Deleted"))
-    .catchError((error) => print("Failed to delete user: $error"));
-}
+    return users
+        .doc(auth.value.currentUser!.uid)
+        .delete()
+        .then((value) => print("User Deleted"))
+        .catchError((error) => print("Failed to delete user: $error"));
+  }
 
   Future<void> signInWithApple() async {
     final rawNonce = generateNonce();

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
 import '../models/routineItem.dart';
 import '../widgets/widgets.dart';
-import '../controllers/routineOnController.dart';
+import '../controllers/routine_on_controller.dart';
 
 class WidgetTestPage extends StatefulWidget {
   const WidgetTestPage({Key? key}) : super(key: key);
@@ -79,7 +79,7 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
                 padding: REdgeInsets.all(8),
                 child: Container(
                   height: 350,
-                  child: routineItemList(routineItemController),),
+                  child: routineItemList(),),
               ),
               Text('CircularGuage'),
               Padding(

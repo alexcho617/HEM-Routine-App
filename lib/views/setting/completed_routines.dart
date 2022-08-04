@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/home.dart';
+import 'package:hem_routine_app/views/routine/routineBuild.dart';
 import 'package:hem_routine_app/views/setting/routine_detail.dart';
 import '../../utils/colors.dart';
 import 'package:get/get.dart';
@@ -16,17 +18,28 @@ class CompletedRoutinesPage extends StatefulWidget {
 }
 
 class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
-  // var sorting = "이름 순";
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(RoutineCompletedController());
     return Obx(() {
       return Container(
-        color: Colors.white,
-        child: controller.routines.isEmpty //routineList.isEmpty
+        color: background,
+        child: controller.routines.isEmpty
             ? Column(
                 children: [
-                  customAppBar(context, '내가 수행한 루틴'),
+                  AppBar(
+                    elevation: 0,
+                    backgroundColor: background,
+                    foregroundColor: black,
+                    centerTitle: false,
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    title: Text("내가 수행한 루틴"),
+                  ),
                   SizedBox(
                     height: 170.h,
                   ),
@@ -46,7 +59,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                   ),
                   makeMyRoutineButton(() {
                     //나만의 쾌변 루틴 만들기
-                    //TODO : Navigate tp 5-3-1
+                    yechan(context, 1, RoutineBuildPage());
                   })
                 ],
               )
@@ -147,12 +160,13 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                         itemCount: controller.routines.length,
                         itemBuilder: (BuildContext context, int index) {
                           return routineCard(
-                              controller.routines[index].name,
-                              controller.routines[index].averageComplete,
-                              controller.routines[index].averageRating,
-                              controller.routines[index].tryCount,
-                              controller.routines[index].days,
-                              index);
+                            controller.routines[index].name,
+                            controller.routines[index].averageComplete,
+                            controller.routines[index].averageRating,
+                            controller.routines[index].tryCount,
+                            controller.routines[index].days,
+                            controller.routines[index].id,
+                          );
                         },
                       ),
                     ),
@@ -163,11 +177,11 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
     });
   }
 
-  Widget routineCard(String name, int complete, int rating, int tryCount,
-      int days, int index) {
+  Widget routineCard(String name, dynamic complete, dynamic rating,
+      int tryCount, int days, String uid) {
     return InkWell(
       onTap: () {
-        kangmin(context, RoutineDetailPage(index: index));
+        kangmin(context, RoutineDetailPage(uid: uid));
       },
       child: Card(
         elevation: 4,
@@ -201,7 +215,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "달성도 $complete%",
+                        "달성도 ${complete.toStringAsFixed(0)}%",
                         style: AppleFont14_Grey600,
                       ),
                       satisfaction(rating),
@@ -220,7 +234,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
     );
   }
 
-  Widget satisfaction(int stars) {
+  Widget satisfaction(dynamic stars) {
     return Row(
       children: [
         Text(

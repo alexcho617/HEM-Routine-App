@@ -1,27 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 
 class Routine {
-  Routine(
-      {this.averageComplete,
-      this.averageRating,
-      this.name,
-      this.routineItem,
-      this.days,
-      this.goals,
-      this.isActive,
-      this.tryCount,
-      this.uid,
-      });
-  dynamic averageComplete;
-  dynamic averageRating;
+  Routine({
+    this.averageComplete,
+    this.averageRating,
+    this.name,
+    this.routineItem,
+    this.days,
+    this.goals,
+    this.isActive,
+    this.tryCount,
+    this.id,
+  });
+  dynamic averageComplete; // percentage itself (int)
+  dynamic averageRating; // double
   dynamic name;
-  dynamic routineItem; // RotineItem class or RoutineItem Name ??
-  dynamic goals;
-  dynamic isActive;
+  dynamic routineItem; // List of RoutineItem Name(String[])
+  dynamic goals; // List of RoutineItem goals(int[])
+  dynamic isActive; // bool
   dynamic days;
   dynamic tryCount;
-  dynamic uid; // used for navigating to routine detail page
-
+  dynamic id; // used for navigating to routine detail page
 /*
   factory Routine.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
