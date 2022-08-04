@@ -823,6 +823,13 @@ Widget customBottomSheet(BuildContext context, Widget contents) {
   );
 }
 
+Widget calendarLogBottomSheet(BuildContext context, Widget contents) {
+  return SizedBox(
+    height: 674.h,
+    child: Scaffold(body: contents),
+  );
+}
+
 Widget routineCard(
     String name, int day, double percent, int rank, VoidCallback? onPressed) {
   return Card(

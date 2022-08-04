@@ -69,4 +69,34 @@ DateTime parseDay(DateTime before) {
   DateTime after = DateTime(before.year, before.month, before.day);
   return after;
 }
-// final kLastDay = DateTime.now();
+
+String parseDayToString(DateTime before) {
+  String weekday;
+  switch (before.weekday) {
+    case 1:
+      weekday = '월';
+      break;
+    case 2:
+      weekday = '화';
+      break;
+    case 3:
+      weekday = '수';
+      break;
+    case 4:
+      weekday = '목';
+      break;
+    case 5:
+      weekday = '금';
+      break;
+    case 6:
+      weekday = '토';
+      break;
+    case 7:
+      weekday = '일';
+      break;
+
+    default:
+      weekday = '월';
+  }
+  return "${before.year}-${before.month}-${before.day} ($weekday)";
+}

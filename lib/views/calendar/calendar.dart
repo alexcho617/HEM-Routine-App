@@ -1,12 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/models/calendarRoutine.dart';
 import 'package:hem_routine_app/utils/colors.dart';
+import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
+import 'package:hem_routine_app/views/calendar/calendarLog.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../tableCalendar/src/customization/calendar_builders.dart';
 import '../../tableCalendar/src/customization/calendar_style.dart';
@@ -52,13 +56,18 @@ class _CalendarState extends State<Calendar> {
                   return _eventLoader(selectedDay);
                 },
                 onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                  // print(focusDay);
-                  // print(
-                  //     controller.eventsLibrary[parseDay(focusDay)].toString());
+                  print(focusDay);
+                  print(
+                      controller.eventsLibrary[parseDay(focusDay)].toString());
 
                   controller.selectedDay.value = selectDay;
                   controller.focusedDate.value = focusDay;
                   controller.update();
+                  showCupertinoModalBottomSheet(
+                    context: context,
+                    expand: false,
+                    builder: (context) => CalendarLog(),
+                  );
                 },
               )),
           SizedBox(height: 50.h),
