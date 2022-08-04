@@ -11,8 +11,9 @@ import 'package:intl/intl.dart';
 class CalendarController extends GetxController {
   @override
   void onInit() async {
-    eventsLibrary = await fetchAllEvents();
     super.onInit();
+    eventsLibrary = await fetchAllEvents();
+    update();
   }
 
   LoginService loginService = Get.find();

@@ -3,7 +3,6 @@ import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/tableCalendar/table_calendar.dart';
 import 'dart:collection';
 
-
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
 }
@@ -65,4 +64,9 @@ HeaderStyle kHeaderStyle = HeaderStyle(
 final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month, kToday.day);
+
+DateTime parseDay(DateTime before) {
+  DateTime after = DateTime(before.year, before.month, before.day);
+  return after;
+}
 // final kLastDay = DateTime.now();

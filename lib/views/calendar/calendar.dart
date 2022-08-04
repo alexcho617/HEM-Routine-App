@@ -27,65 +27,69 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Obx(() {
-            return TableCalendar<CalendarEvent>(
-              calendarBuilders:
-                  CalendarBuilders(routineMarkerBuilder: routineContainer),
-              firstDay: kFirstDay,
-              lastDay: kLastDay,
-              startingDayOfWeek: StartingDayOfWeek.sunday,
-              focusedDay: controller.focusedDate.value,
-              selectedDayPredicate: (DateTime date) {
-                return isSameDay(controller.selectedDay.value, date);
-              },
-              calendarFormat: CalendarFormat.month,
-              headerStyle: kHeaderStyle,
-              calendarStyle: CalendarStyle(), //using default calendar style
-              //event loader is for marking
-              eventLoader: (DateTime selectedDay) {
-                return _eventLoader(selectedDay);
-              },
-              onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                print(focusDay);
-                print(controller.eventsLibrary[focusDay].toString());
-                controller.selectedDay.value = selectDay;
-                controller.focusedDate.value = focusDay;
-              },
-            );
-          }),
-        ),
-        SizedBox(height: 50.h),
-        plusSquareButton(
-          () {
-            Get.to(NewCalendarEvent());
+    return GetBuilder<CalendarController>(builder: (_) {
+      return Column(
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TableCalendar<CalendarEvent>(
+                calendarBuilders:
+                    CalendarBuilders(routineMarkerBuilder: routineContainer),
+                firstDay: kFirstDay,
+                lastDay: kLastDay,
+                startingDayOfWeek: StartingDayOfWeek.sunday,
+                focusedDay: controller.focusedDate.value,
+                selectedDayPredicate: (DateTime date) {
+                  return isSameDay(controller.selectedDay.value, date);
+                },
+                calendarFormat: CalendarFormat.month,
+                headerStyle: kHeaderStyle,
+                calendarStyle: CalendarStyle(), //using default calendar style
+                //event loader is for marking
+                eventLoader: (DateTime selectedDay) {
+                  return _eventLoader(selectedDay);
+                },
+                onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                  print(focusDay);
+                  print(
+                      controller.eventsLibrary[parseDay(focusDay)].toString());
 
-            //   if (controller.selectedDay.value.day == DateTime.now().day) {
-            //     controller.newEventTime.value = DateTime.now();
-            //   } else {
-            //     controller.newEventTime.value = controller.selectedDay.value;
-            //   }
-            //   Get.to(NewCalendarEvent());
-          },
-        ),
-        TextButton(
-            onPressed: () {
-              controller.printAllEvents();
+                  controller.selectedDay.value = selectDay;
+                  controller.focusedDate.value = focusDay;
+                  controller.update();
+                },
+              )),
+          SizedBox(height: 50.h),
+          plusSquareButton(
+            () {
+              Get.to(NewCalendarEvent());
+
+              //   if (controller.selectedDay.value.day == DateTime.now().day) {
+              //     controller.newEventTime.value = DateTime.now();
+              //   } else {
+              //     controller.newEventTime.value = controller.selectedDay.value;
+              //   }
+              //   Get.to(NewCalendarEvent());
             },
-            child: Text('PrintEvents'))
-      ],
-      // ),
-    );
+          ),
+          // TextButton(
+          //   onPressed: () {
+          //     controller.printAllEvents();
+          //   },
+          //   child: Text('PrintEvents'),
+          // ),
+        ],
+        // ),
+      );
+    });
   }
 
   List<CalendarEvent> _eventLoader(DateTime day) {
+    DateTime parsedDay = parseDay(day);
     CalendarController controller = Get.find();
     List<CalendarEvent> listOfEvents;
-    listOfEvents = controller.getEventsfromDay(day) ?? [];
+    listOfEvents = controller.getEventsfromDay(parsedDay) ?? [];
     return listOfEvents;
   }
 

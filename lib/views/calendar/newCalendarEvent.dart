@@ -232,11 +232,10 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
               ),
               Container(
                 alignment: Alignment.center,
-                child: saveButtonBlue(() {
+                child: saveButtonBlue(() async {
                   LoginService loginService = Get.find();
-
                   try {
-                    addEventToCalendar(
+                    await addEventToCalendar(
                         CalendarEvent(
                             time: controller.newEventTime,
                             color: colorCode,
@@ -245,7 +244,10 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                             iconCode: iconCode,
                             memo: eventTextController.text),
                         loginService.auth.value.currentUser!.uid);
-                    print('event add success');
+
+                    controller.eventsLibrary = await fetchAllEvents();
+                    controller.update();
+                    Navigator.pop(context);
 
                     // setState(
                     //   () {
@@ -258,8 +260,6 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
 
                   eventTextController.clear();
 
-                  Navigator.pop(context);
-                  Get.reload();
                   return;
                 }),
               ),
@@ -284,7 +284,6 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                   SizedBox(
                     height: 300,
                     child: CupertinoDatePicker(
-                        
                         initialDateTime: controller.newEventTime,
                         maximumDate: DateTime.now(),
                         onDateTimeChanged: (val) {
