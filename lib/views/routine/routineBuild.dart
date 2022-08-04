@@ -16,7 +16,6 @@ class RoutineBuildPage extends StatelessWidget {
   RoutineBuildPage({Key? key}) : super(key: key);
 
   RoutineOffController pageController = Get.put(RoutineOffController());
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
