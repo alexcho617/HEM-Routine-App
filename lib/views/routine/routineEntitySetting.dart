@@ -69,7 +69,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
                           Container(
                             height: 105.33.h,
                             width: 160.w,
-                            child: Image.asset('icons/g139087@4x.png'),
+                            child: Image.asset('assets/appIcon.png'),
                           ),
                           SizedBox(
                             height: 45.67.h,

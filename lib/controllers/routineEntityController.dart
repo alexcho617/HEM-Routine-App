@@ -38,7 +38,7 @@ class RoutineEntityController extends GetxController {
   Future<bool> addRoutine() async {
     print(loginService.auth.value.currentUser!.uid);
     DateTime later =
-        now.add(Duration(days: controller.routinePeriodIndex.value + 1));
+        now.add(Duration(days: controller.routinePeriodIndex.value));
     List<String> routineItems = [];
     List<int> routineGoalCount = [];
     for (int i = 0; i < routineEntities.length; i++) {
@@ -78,7 +78,7 @@ class RoutineEntityController extends GetxController {
   Future<void> startRoutine() async {
     DateTime now = DateTime.now();
     DateTime later =
-        now.add(Duration(days: controller.routinePeriodIndex.value + 1));
+        now.add(Duration(days: controller.routinePeriodIndex.value));
     List<String> routineItems = [];
     List<int> routineGoalCount = [];
     for (int i = 0; i < routineEntities.length; i++) {
