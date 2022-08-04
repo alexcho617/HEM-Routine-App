@@ -5,6 +5,9 @@ import 'package:hem_routine_app/controllers/routineEntityController.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/constants.dart';
+import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/home.dart';
+import 'package:hem_routine_app/views/setting/custom_routine_item.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../widgets/widgets.dart';
 
@@ -52,7 +55,7 @@ class RoutineItemAddPage extends StatelessWidget {
                       // physics: const AlwaysScrollableScrollPhysics(),
                       // itemExtent: 95.h,
                       itemBuilder: (BuildContext context, int index) =>
-                          routineItem(index),
+                          routineItem(index, context),
 
                       shrinkWrap: true,
                     );
@@ -91,7 +94,7 @@ class RoutineItemAddPage extends StatelessWidget {
     return false;
   }
 
-  Widget routineItem(int index) {
+  Widget routineItem(int index, context) {
     if (routineVisibility(index)) {
       if (pageController.categoryIndex ==
           pageController.categories.length - 1) {
@@ -185,7 +188,10 @@ class RoutineItemAddPage extends StatelessWidget {
               width: 348.w,
               height: 56.h,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.back();
+                  kangmin(HomePageState.navigatorKeyList[HomePageState.currentIndex].currentContext, CustomRoutineItemPage());
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
