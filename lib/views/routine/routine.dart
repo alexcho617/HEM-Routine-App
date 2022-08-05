@@ -199,7 +199,10 @@ class RoutinePage extends StatelessWidget {
               splashColor: Colors.transparent,
               key: Key('$index'),
               onTap: () {
-                if (index <= today) controller.selectedDayIndex.value = index;
+                if (index <= today) {
+                  controller.selectedDayIndex.value = index;
+                  controller.getCurrCount();
+                }
                 // print("focused day : $focusedDay   today : $today");
                 // } else {
                 //   // print("Clicked out of date!");
@@ -216,7 +219,7 @@ class RoutinePage extends StatelessWidget {
                     ),
                     index <= today
                         ? Text(
-                            'xxx',
+                            '',
                             style: index == focusedDay
                                 ? AppleFont11_Blue600
                                 : AppleFont11_Grey700,
@@ -305,8 +308,7 @@ class RoutinePage extends StatelessWidget {
                   SizedBox(
                     width: 46.w,
                     height: 46.h,
-                    child: circluarGuage(controller.getPercent(controller.currentCount[index],
-                        controller.goals[index])), 
+                    child: circluarGuage(controller.getPercent(controller.currentCount.value[index], controller.goals.value[index])),
                   ),
                   SizedBox(
                     width: 34.w,
