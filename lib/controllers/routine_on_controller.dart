@@ -54,7 +54,6 @@ class RoutineOnController extends GetxController {
 
     if (routineDocumentSnapshot != null) {
       name.value = routineDocumentSnapshot.get('name');
-      goals.value = routineDocumentSnapshot.get('goals');
       days.value = routineDocumentSnapshot.get('days');
     }
   }
@@ -74,6 +73,7 @@ class RoutineOnController extends GetxController {
 
   Future<void> getCurrday() async {
     routineItems.value = routineHistoryDocumentSnapshot.get('routineItem');
+    goals.value = routineHistoryDocumentSnapshot.get('goals');
     startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
     todayIndex.value = today.value.difference(startday).inDays;
   }

@@ -212,7 +212,7 @@ class RoutinePage extends StatelessWidget {
                                 ? AppleFont11_Blue600
                                 : AppleFont11_Grey700,
                           )
-                        : Text(""),
+                        : const Text(""),
                   ],
                 ),
               ),
