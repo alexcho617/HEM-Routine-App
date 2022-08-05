@@ -440,114 +440,10 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
-Widget routineItemList() {
-  RoutineOnController controller = Get.put(RoutineOnController());
-  int itemLength = controller.routineItems.length;
-  return ReorderableListView.builder(
-    padding: EdgeInsets.all(10.r),
-    proxyDecorator: ((child, index, animation) {
-      return Material(
-        child: Container(
-          decoration: BoxDecoration(
-              border: Border.all(
-            color: Colors.transparent,
-          )),
-          child: child,
-        ),
-      );
-    }),
-    itemBuilder: (BuildContext context, int index) {
-      // double percent = controller.getPercent(controller.countList[index],
-      //     controller.routineItems[index].goalCount);
-      double percent = 0.7;
-      return Container(
-        key: Key('$index'),
-        padding: EdgeInsets.symmetric(vertical: 8.h),
-        child: PhysicalModel(
-          color: white,
-          elevation: 5.r,
-          borderRadius: BorderRadius.circular(12.r),
-          child: ListTile(
-            shape: RoundedRectangleBorder(
-              // side: BorderSide(
-              //   color: Colors.black,
-              //   width: 1.r,
-              // ),
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            leading: Padding(
-              padding: EdgeInsets.symmetric(vertical: 11.h),
-              child: Icon(Icons.menu),
-            ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-            horizontalTitleGap: 0,
-            minVerticalPadding: 22.w,
-            title: SizedBox(
-              height: 36.h,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    controller.routineItems[index],
-                    style: AppleFont18_Black,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        '수행/목표',
-                        style: AppleFont14_Grey600,
-                      ),
-                      Text(
-                        '0/${controller.goals[index]}', // TODO : current Count
-                        style: AppleFont14_Grey600,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                ],
-              ),
-            ),
-            trailing: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  width: 46.w,
-                  height: 46.h,
-                  child: circluarGuage(percent),
-                ),
-                Container(
-                  width: 34.w,
-                  height: 34.h,
-                  child: InkWell(
-                    onTap: () => controller.onPlusPressed(),
-                    child: Ink(
-                      child: CircleAvatar(
-                        backgroundColor: blue600,
-                        child: Icon(
-                          Icons.add,
-                          color: grey50,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    },
-    itemCount: itemLength,
-    onReorder: (int oldIndex, int newIndex) {
-      controller.itemReorder(oldIndex, newIndex);
-    },
-  );
-}
+
 
 Widget circluarGuage(double percent) {
-  return Container(
+  return SizedBox(
     child: SfRadialGauge(
       axes: <RadialAxis>[
         RadialAxis(
@@ -576,7 +472,7 @@ Widget circluarGuage(double percent) {
 }
 
 Widget halfCircluarGuage(double percent) {
-  return Container(
+  return SizedBox(
     width: 225.w,
     height: 225.h,
     child: Stack(
@@ -605,7 +501,10 @@ Widget halfCircluarGuage(double percent) {
         ),
         Positioned(
           bottom: 112.h,
-          left: 74.5.w,
+          left: percent >= 0.1?
+          74.5.w
+          :
+          84.5.w,
           child: Column(
             children: [
               Text(
@@ -1533,6 +1432,88 @@ Widget routineDeleteAlertDialog(
               ),
               Text(
                 '정말로 루틴을 삭제하시겠습니까?\n',
+                style: AppleFont16_Black,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '삭제',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
+Widget routineItemDeleteAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 184.h),
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 128.h,
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(12.r),
+                child: Text(
+                  "루틴 항목 삭제",
+                  style: AppleFont16_BlackBold,
+                ),
+              ),
+              Text(
+                '정말로 루틴 항목을 삭제하시겠습니까?\n',
                 style: AppleFont16_Black,
                 textAlign: TextAlign.center,
               ),

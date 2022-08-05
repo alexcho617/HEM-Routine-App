@@ -6,6 +6,7 @@ import 'package:hem_routine_app/views/calendar/calendar.dart';
 import 'package:hem_routine_app/views/setting/settings.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
+import '../controllers/routine_on_controller.dart';
 import '../utils/colors.dart';
 import 'routine/routine.dart';
 

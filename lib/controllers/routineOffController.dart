@@ -166,6 +166,8 @@ class RoutineOffController extends GetxController {
     buildRoutineButtons();
   }
 
+  
+
   void checkState(bool value, int index) {
     routineItems[index].isChecked = value;
     update();

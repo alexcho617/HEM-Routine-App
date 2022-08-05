@@ -22,8 +22,7 @@ class RoutinePage extends StatelessWidget {
   RoutinePage({Key? key}) : super(key: key);
   AppStateController appStateController = Get.find();
   LoginService loginService = Get.find();
-  RoutineOnController controller = Get.put(RoutineOnController());
-
+  RoutineOnController controller = Get.find<RoutineOnController>();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -75,7 +74,7 @@ class RoutinePage extends StatelessWidget {
                       height: 19.h,
                     ),
                     Text(
-                      appStateController.name.value,
+                      controller.name.value,
                       style: AppleFont24_Black,
                     ),
                     SizedBox(
@@ -83,30 +82,44 @@ class RoutinePage extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.all(5.r),
-                      child: DayPicker(controller.currentDay.value, controller.days.value),
+                      child: dayPicker(controller.selectedDayIndex.value,
+                          controller.days.value, controller.todayIndex.value),
                     ),
-                    InkWell(
-                      child: halfCircluarGuage(0.75),
-                      onTap: () {
-                        showCupertinoModalBottomSheet(
-                          context: context
-                              .findAncestorStateOfType<HomePageState>()!
-                              .context,
-                          expand: false,
-                          builder: (context) => RoutineLogPage(),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: 308.h,
-                      child: OverflowBox(
-                        minHeight: 500.h,
-                        maxHeight: 500.h,
-                        child: SingleChildScrollView(
-                          child: Container(
-                              height: 400.h, child: routineItemList()),
+                    Stack(
+                      alignment: AlignmentDirectional.topCenter,
+                      children: [
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: 225.w,
+                              height: 116.h,
+                            ),
+                            SizedBox(
+                              height: 308.h,
+                              child: SingleChildScrollView(
+                                child: Container(
+                                    width: 390.w,
+                                    height: 400.h,
+                                    child: Obx(() {
+                                      return routineItemList();
+                                    })),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
+                        InkWell(
+                          onTap: () {
+                            showCupertinoModalBottomSheet(
+                              context: context
+                                  .findAncestorStateOfType<HomePageState>()!
+                                  .context,
+                              expand: false,
+                              builder: (context) => RoutineLogPage(),
+                            );
+                          },
+                          child: halfCircluarGuage(controller.getAvgPercent()),
+                        ),
+                      ],
                     ),
                   ],
                 )
@@ -172,8 +185,9 @@ class RoutinePage extends StatelessWidget {
     //void onPressed
   }
 
-  Widget DayPicker(int focusedDay, int itemCount) {
-    return Container(
+  Widget dayPicker(int focusedDay, int itemCount, int today) {
+    return SizedBox(
+      width: itemCount * 76.w + 18.w,
       height: 50.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -182,11 +196,14 @@ class RoutinePage extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: InkWell(
+              splashColor: Colors.transparent,
               key: Key('$index'),
               onTap: () {
-                // setState(() {
-                //   dayStatus = index + 1;
-                // });
+                if (index <= today) controller.selectedDayIndex.value = index;
+                // print("focused day : $focusedDay   today : $today");
+                // } else {
+                //   // print("Clicked out of date!");
+                // }
               },
               child: Ink(
                 child: Column(
@@ -197,12 +214,14 @@ class RoutinePage extends StatelessWidget {
                           ? AppleFont22_Blue600
                           : AppleFont16_Black,
                     ),
-                    Text(
-                      '${index * 10}%',
-                      style: index == focusedDay
-                          ? AppleFont11_Blue600
-                          : AppleFont11_Grey700,
-                    ),
+                    index <= today
+                        ? Text(
+                            'xxx',
+                            style: index == focusedDay
+                                ? AppleFont11_Blue600
+                                : AppleFont11_Grey700,
+                          )
+                        : const Text(""),
                   ],
                 ),
               ),
@@ -210,6 +229,111 @@ class RoutinePage extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Widget routineItemList() {
+    int itemLength = controller.routineItems.length;
+    return ReorderableListView.builder(
+      padding: EdgeInsets.all(10.r),
+      proxyDecorator: ((child, index, animation) {
+        return Material(
+          child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(
+              color: Colors.transparent,
+            )),
+            child: child,
+          ),
+        );
+      }),
+      itemBuilder: (BuildContext context, int index) {
+        // double percent = controller.getPercent(controller.countList[index],
+        //     controller.routineItems[index].goalCount);
+        return Container(
+          key: Key('$index'),
+          padding: EdgeInsets.symmetric(vertical: 8.h),
+          child: PhysicalModel(
+            color: white,
+            elevation: 5.r,
+            borderRadius: BorderRadius.circular(12.r),
+            child: ListTile(
+              shape: RoundedRectangleBorder(
+                // side: BorderSide(
+                //   color: Colors.black,
+                //   width: 1.r,
+                // ),
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              leading: Padding(
+                padding: EdgeInsets.symmetric(vertical: 11.h),
+                child: Icon(Icons.menu),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+              horizontalTitleGap: 0,
+              minVerticalPadding: 22.w,
+              title: SizedBox(
+                height: 36.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      controller.routineItems[index],
+                      style: AppleFont18_Black,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          '수행/목표',
+                          style: AppleFont14_Grey600,
+                        ),
+                        Text(
+                          '${controller.currentCount[index]}/${controller.goals[index]}',
+                          style: AppleFont14_Grey600,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                  ],
+                ),
+              ),
+              trailing: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: 46.w,
+                    height: 46.h,
+                    child: circluarGuage(controller.getPercent(controller.currentCount[index],
+                        controller.goals[index])), 
+                  ),
+                  SizedBox(
+                    width: 34.w,
+                    height: 34.h,
+                    child: InkWell(
+                      onTap: () => controller.onPlusPressed(index),
+                      child: Ink(
+                        child: CircleAvatar(
+                          backgroundColor: blue600,
+                          child: Icon(
+                            Icons.add,
+                            color: grey50,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+      itemCount: itemLength,
+      onReorder: (int oldIndex, int newIndex) {
+        controller.itemReorder(oldIndex, newIndex);
+      },
     );
   }
 }

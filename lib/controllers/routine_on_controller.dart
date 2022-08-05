@@ -11,14 +11,18 @@ class RoutineOnController extends GetxController {
   //   return RoutineEntity(name: '루틴 항목 이름 $index', goalCount: (index + 1) * 7, index: index);
   // });
   RoutineOnController();
-  late dynamic goals = [].obs;
-  late dynamic currentCount = [].obs;
-  late dynamic routineItems = [].obs;
-  late dynamic currentDay = 0.obs;
-  Rx<DateTime> today = DateTime.now().obs;
-  late dynamic startday;
-  late dynamic days = 0.obs;
   LoginService loginService = Get.find();
+
+  dynamic name = "".obs;
+  dynamic goals = [].obs;
+  RxList<dynamic> routineItems = [].obs;
+  dynamic todayIndex = 0.obs;
+  Rx<DateTime> today = DateTime.now().obs;
+  dynamic startday;
+  dynamic days = 0.obs;
+  dynamic selectedDayIndex = 0.obs;
+
+  dynamic currentCount = [].obs;
 
   dynamic routineDocumentSnapshot;
   late DocumentSnapshot routineHistoryDocumentSnapshot;
@@ -26,10 +30,17 @@ class RoutineOnController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    await getData();
+    selectedDayIndex.value = todayIndex.value;
+  }
 
+  Future<void> getData() async {
     await getRoutineData();
     if (routineDocumentSnapshot != null) {
       await getRoutineHistoryData();
+      if (routineHistoryDocumentSnapshot != null) {
+        await getCurrCount();
+      }
     }
   }
 
@@ -47,7 +58,7 @@ class RoutineOnController extends GetxController {
     });
 
     if (routineDocumentSnapshot != null) {
-      goals = routineDocumentSnapshot.get('goals');
+      name.value = routineDocumentSnapshot.get('name');
       days.value = routineDocumentSnapshot.get('days');
     }
   }
@@ -62,22 +73,55 @@ class RoutineOnController extends GetxController {
         routineHistoryDocumentSnapshot = doc;
       });
     });
-    if (routineHistoryDocumentSnapshot.exists) {
-      routineItems = routineHistoryDocumentSnapshot.get('routineItem');
-      startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
-      currentDay.value = today.value.difference(startday).inDays;
-    }
+    await getCurrday();
   }
 
-  Future<void> getDayData() async {}
+  Future<void> getCurrday() async {
+    routineItems.value = routineHistoryDocumentSnapshot.get('routineItem');
+    goals.value = routineHistoryDocumentSnapshot.get('goals');
+    startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
+    todayIndex.value = today.value.difference(startday).inDays;
+  }
 
-  itemReorder(int oldIndex, int newIndex) {
+  Future<void> getCurrCount() async {
+    for (int i = 0; i < routineItems.value.length; i++) {
+      currentCount.value.add(0);
+    }
+    routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .doc('${selectedDayIndex.value + 1}')
+        .collection('routineItemHistory')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        //find index for routineItems by name and put currentCount value on it's index.
+        // print(doc.get('name'));
+        // print(currentCount);
+        int ind = routineItems.value.indexOf(doc.get('name'));
+        //print(doc.get('name') + " : " + ind.toString());
+        currentCount.value[ind] = doc.get('currentCount');
+        // print(currentCount.value);
+      });
+    });
+  }
+
+  itemReorder(int oldIndex, int newIndex) async {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    final RoutineEntity itemToSwap = routineItems.removeAt(oldIndex);
-    routineItems.insert(newIndex, itemToSwap);
-    // print(routineItems);
+    //TODO : sawp currval
+    final String itemToSwap1 = routineItems.value.removeAt(oldIndex);
+    final int itemToSwap2 = goals.value.removeAt(oldIndex);
+    final int itemToSwap3 = currentCount.value.removeAt(oldIndex);
+    routineItems.value.insert(newIndex, itemToSwap1);
+    goals.value.insert(newIndex, itemToSwap2);
+    currentCount.value.insert(newIndex, itemToSwap3);
+
+    await routineHistoryDocumentSnapshot.reference.update({
+      'routineItem': routineItems.value,
+      'goals': goals.value,
+      // currentCount is referenced by doc id? dont have to change currentCount val here
+    });
   }
 
   double getPercent(int eventCount, int goalCount) {
@@ -85,12 +129,25 @@ class RoutineOnController extends GetxController {
     double gCount = goalCount.toDouble();
 
     double percent = eCount / gCount;
+    if (percent > 1) percent = 1.0;
     return percent;
   }
 
-  void onPlusPressed() {
+  double getAvgPercent() {
+    double avg = 0.0;
+    for (int i = 0; i < goals.value.length; i++) {
+      avg += getPercent(currentCount.value[i], goals.value[i]);
+    }
+    avg /= goals.value.length;
+    return avg;
+  }
+
+  void onPlusPressed(int index) {
     // TODO : increse count in countList
     // TODO : calculate several completion
     // TODO : Firestore sync
+
+    // TO DEL: FOR TEST
+    print('plus button pressed! $index');
   }
 }
