@@ -96,6 +96,7 @@ class RoutineEntityController extends GetxController {
       'isActive': true,
       'name': controller.inputController.text,
       'rating': 0,
+      'goals': routineGoalCount,
     }).then((DocumentReference routineHistoryDoc) async {
       //start alex calenderRoutine
 
