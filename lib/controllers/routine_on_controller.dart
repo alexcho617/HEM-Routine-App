@@ -11,19 +11,21 @@ class RoutineOnController extends GetxController {
   //   return RoutineEntity(name: '루틴 항목 이름 $index', goalCount: (index + 1) * 7, index: index);
   // });
   RoutineOnController();
+  LoginService loginService = Get.find();
+
   dynamic name = "".obs;
   dynamic goals = [].obs;
-  dynamic currentCount = [].obs;
   dynamic routineItems = [].obs;
   dynamic todayIndex = 0.obs;
   Rx<DateTime> today = DateTime.now().obs;
   dynamic startday;
   dynamic days = 0.obs;
   dynamic selectedDayIndex = 0.obs;
-  LoginService loginService = Get.find();
+
+  dynamic currentCount = [].obs;
 
   dynamic routineDocumentSnapshot;
-  dynamic routineHistoryDocumentSnapshot;
+  late DocumentSnapshot routineHistoryDocumentSnapshot;
 
   @override
   void onInit() async {
@@ -35,7 +37,10 @@ class RoutineOnController extends GetxController {
   Future<void> getData() async {
     await getRoutineData();
     if (routineDocumentSnapshot != null) {
-      getRoutineHistoryData();
+      await getRoutineHistoryData();
+      if (routineHistoryDocumentSnapshot != null) {
+        await getCurrCount();
+      }
     }
   }
 
@@ -78,7 +83,25 @@ class RoutineOnController extends GetxController {
     todayIndex.value = today.value.difference(startday).inDays;
   }
 
-  itemReorder(int oldIndex, int newIndex) {
+  Future<void> getCurrCount() async {
+    for (int i = 0; i < routineItems.value.length; i++) {
+      currentCount.value.add(0);
+    }
+    routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .doc('${selectedDayIndex.value + 1}')
+        .collection('routineItemHistory')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        //find index for routineItems by name and put currentCount value on it's index.
+        print(doc.get('name'));
+        print(currentCount);
+      });
+    });
+  }
+
+  itemReorder(int oldIndex, int newIndex) async {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
@@ -87,6 +110,12 @@ class RoutineOnController extends GetxController {
     final int itemToSwap2 = goals.value.removeAt(oldIndex);
     routineItems.value.insert(newIndex, itemToSwap1);
     goals.value.insert(newIndex, itemToSwap2);
+
+    await routineHistoryDocumentSnapshot.reference.update({
+      'routineItem': routineItems.value,
+      'goals': goals.value,
+      // currentCount is referenced by doc id? dont have to change currentCount val here
+    });
   }
 
   double getPercent(int eventCount, int goalCount) {
@@ -102,5 +131,8 @@ class RoutineOnController extends GetxController {
     // TODO : increse count in countList
     // TODO : calculate several completion
     // TODO : Firestore sync
+
+    // TO DEL: FOR TEST
+    print('plus button pressed');
   }
 }
