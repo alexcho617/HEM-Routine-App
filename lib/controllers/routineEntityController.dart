@@ -75,6 +75,7 @@ class RoutineEntityController extends GetxController {
     List<String> routineItems = [];
     List<int> routineGoalCount = [];
     for (int i = 0; i < routineEntities.length; i++) {
+      // print(routineEntities.length);
       routineItems.add(routineEntities[i].name);
       routineGoalCount.add(int.parse(inputControllers[i].text));
     }
@@ -116,7 +117,9 @@ class RoutineEntityController extends GetxController {
       //end alex calenderRoutine
 
       //며칠 만큼 반복할 것인가
+      //이게 지금 1인가봐
       for (int i = 1; i <= controller.routinePeriodIndex.value; i++) {
+        // print(controller.routinePeriodIndex.value);
         // print('Executed!');
         await controller.firestore
             .collection(
@@ -125,8 +128,9 @@ class RoutineEntityController extends GetxController {
             .set({
           'dayComplete': 0,
         });
-
+        //이것도 1인듯
         for (int j = 0; j < routineItems.length; j++) {
+          // print('Executed2');
           await controller.firestore
               .collection(
                   'user/${loginService.auth.value.currentUser!.uid}/routine/$uid/routineHistory/${routineHistoryDoc.id}/days/$i/routineItemHistory')
@@ -136,7 +140,6 @@ class RoutineEntityController extends GetxController {
             'name': routineItems[j],
             'eventTime': []
           });
-          return true;
         }
       }
     });

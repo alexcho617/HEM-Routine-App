@@ -1474,6 +1474,88 @@ Widget routineDeleteAlertDialog(
   );
 }
 
+Widget routineItemDeleteAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 184.h),
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 128.h,
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(12.r),
+                child: Text(
+                  "루틴 항목 삭제",
+                  style: AppleFont16_BlackBold,
+                ),
+              ),
+              Text(
+                '정말로 루틴 항목을 삭제하시겠습니까?\n',
+                style: AppleFont16_Black,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '삭제',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
 Widget routineCategoryButton(int index, String text) {
   RoutineOffController controller = Get.find();
   return index == controller.categoryIndex
