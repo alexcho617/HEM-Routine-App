@@ -85,32 +85,43 @@ class RoutinePage extends StatelessWidget {
                       child: dayPicker(controller.selectedDayIndex.value,
                           controller.days.value, controller.todayIndex.value),
                     ),
-                    InkWell(
-                      child: halfCircluarGuage(0.75),
-                      onTap: () {
-                        showCupertinoModalBottomSheet(
-                          context: context
-                              .findAncestorStateOfType<HomePageState>()!
-                              .context,
-                          expand: false,
-                          builder: (context) => RoutineLogPage(),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      height: 308.h,
-                      child: OverflowBox(
-                        minHeight: 500.h,
-                        maxHeight: 500.h,
-                        child: SingleChildScrollView(
-                          child: Container(
-                              width: 390.w,
-                              height: 400.h,
-                              child: Obx(() {
-                                return routineItemList();
-                              })),
+                    Stack(
+                      alignment: AlignmentDirectional.topCenter,
+                      children: [
+                        Column(
+                          children: [
+                            GestureDetector(
+                              
+                              onTap: () {
+                                print("ONTAP");
+                                showCupertinoModalBottomSheet(
+                                  context: context
+                                      .findAncestorStateOfType<HomePageState>()!
+                                      .context,
+                                  expand: false,
+                                  builder: (context) => RoutineLogPage(),
+                                );
+                              },
+                              child: Container(
+                                width: 225.w,
+                                height: 116.h,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 308.h,
+                              child: SingleChildScrollView(
+                                child: Container(
+                                    width: 390.w,
+                                    height: 400.h,
+                                    child: Obx(() {
+                                      return routineItemList();
+                                    })),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
+                        halfCircluarGuage(0.75),
+                      ],
                     ),
                   ],
                 )
@@ -296,7 +307,8 @@ class RoutinePage extends StatelessWidget {
                   Container(
                     width: 46.w,
                     height: 46.h,
-                    child: circluarGuage(controller.getPercent(1, controller.goals[index])),//TODO: change to curr cont
+                    child: circluarGuage(controller.getPercent(1,
+                        controller.goals[index])), //TODO: change to curr cont
                   ),
                   Container(
                     width: 34.w,

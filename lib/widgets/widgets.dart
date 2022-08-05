@@ -443,7 +443,7 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
 
 
 Widget circluarGuage(double percent) {
-  return Container(
+  return SizedBox(
     child: SfRadialGauge(
       axes: <RadialAxis>[
         RadialAxis(
@@ -472,7 +472,7 @@ Widget circluarGuage(double percent) {
 }
 
 Widget halfCircluarGuage(double percent) {
-  return Container(
+  return SizedBox(
     width: 225.w,
     height: 225.h,
     child: Stack(

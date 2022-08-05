@@ -1,0 +1,12 @@
+onTap: () {
+                        showCupertinoModalBottomSheet(
+                          context: context
+                              .findAncestorStateOfType<HomePageState>()!
+                              .context,
+                          expand: false,
+                          builder: (context) => RoutineLogPage(),
+                        );
+                      },
+
+
+이거슨 달성도 게이지 누르면 되야하는 잉크웰 온탭입니다.
