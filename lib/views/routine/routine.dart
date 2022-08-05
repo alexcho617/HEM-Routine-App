@@ -83,7 +83,7 @@ class RoutinePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(5.r),
                       child: dayPicker(controller.selectedDayIndex.value,
-                          controller.days.value),
+                          controller.days.value, controller.todayIndex.value),
                     ),
                     InkWell(
                       child: halfCircluarGuage(0.75),
@@ -107,9 +107,8 @@ class RoutinePage extends StatelessWidget {
                               width: 390.w,
                               height: 400.h,
                               child: Obx(() {
-                                  return routineItemList();
-                                }
-                              )),
+                                return routineItemList();
+                              })),
                         ),
                       ),
                     ),
@@ -177,7 +176,7 @@ class RoutinePage extends StatelessWidget {
     //void onPressed
   }
 
-  Widget dayPicker(int focusedDay, int itemCount) {
+  Widget dayPicker(int focusedDay, int itemCount, int today) {
     return SizedBox(
       width: itemCount * 76.w + 18.w,
       height: 50.h,
@@ -188,10 +187,14 @@ class RoutinePage extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: InkWell(
+              splashColor: Colors.transparent,
               key: Key('$index'),
               onTap: () {
-                // TODO : change day status note! index is day - 1
-                controller.selectedDayIndex.value = index;
+                if (index <= today) controller.selectedDayIndex.value = index;
+                // print("focused day : $focusedDay   today : $today");
+                // } else {
+                //   // print("Clicked out of date!");
+                // }
               },
               child: Ink(
                 child: Column(
@@ -202,12 +205,14 @@ class RoutinePage extends StatelessWidget {
                           ? AppleFont22_Blue600
                           : AppleFont16_Black,
                     ),
-                    Text(
-                      'xxx',
-                      style: index == focusedDay
-                          ? AppleFont11_Blue600
-                          : AppleFont11_Grey700,
-                    ),
+                    index <= today
+                        ? Text(
+                            'xxx',
+                            style: index == focusedDay
+                                ? AppleFont11_Blue600
+                                : AppleFont11_Grey700,
+                          )
+                        : Text(""),
                   ],
                 ),
               ),
@@ -236,7 +241,6 @@ class RoutinePage extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         // double percent = controller.getPercent(controller.countList[index],
         //     controller.routineItems[index].goalCount);
-        double percent = 0.7;
         return Container(
           key: Key('$index'),
           padding: EdgeInsets.symmetric(vertical: 8.h),
@@ -275,7 +279,7 @@ class RoutinePage extends StatelessWidget {
                           style: AppleFont14_Grey600,
                         ),
                         Text(
-                          '0/${controller.goals[index]}', // TODO : current Count
+                          '1/${controller.goals[index]}', // TODO : current Count
                           style: AppleFont14_Grey600,
                         ),
                       ],
@@ -292,7 +296,7 @@ class RoutinePage extends StatelessWidget {
                   Container(
                     width: 46.w,
                     height: 46.h,
-                    child: circluarGuage(percent),
+                    child: circluarGuage(controller.getPercent(1, controller.goals[index])),//TODO: change to curr cont
                   ),
                   Container(
                     width: 34.w,

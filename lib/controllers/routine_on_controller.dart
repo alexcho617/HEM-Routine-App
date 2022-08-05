@@ -28,8 +28,8 @@ class RoutineOnController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-
     await getData();
+    selectedDayIndex.value = todayIndex.value;
   }
 
   Future<void> getData() async {
@@ -76,16 +76,17 @@ class RoutineOnController extends GetxController {
     routineItems.value = routineHistoryDocumentSnapshot.get('routineItem');
     startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
     todayIndex.value = today.value.difference(startday).inDays;
-    selectedDayIndex = todayIndex;
   }
 
   itemReorder(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    final RoutineEntity itemToSwap = routineItems.value.removeAt(oldIndex);
-    routineItems.value.insert(newIndex, itemToSwap);
-    // print(routineItems);
+    //TODO : sawp currval
+    final String itemToSwap1 = routineItems.value.removeAt(oldIndex);
+    final int itemToSwap2 = goals.value.removeAt(oldIndex);
+    routineItems.value.insert(newIndex, itemToSwap1);
+    goals.value.insert(newIndex, itemToSwap2);
   }
 
   double getPercent(int eventCount, int goalCount) {
@@ -93,6 +94,7 @@ class RoutineOnController extends GetxController {
     double gCount = goalCount.toDouble();
 
     double percent = eCount / gCount;
+    if (percent > 1) percent = 1.0;
     return percent;
   }
 
