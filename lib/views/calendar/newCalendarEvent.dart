@@ -134,10 +134,16 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                 decoration: BoxDecoration(
                     color: blue50, borderRadius: BorderRadius.circular(15.sp)),
                 child: InkWell(
-                    onTap: () => _showDatePicker(context),
-                    child: Text(
-                        textAlign: TextAlign.center,
-                        '${controller.newEventTime.year.toString()}년 ${controller.newEventTime.month.toString()}월 ${controller.newEventTime.day.toString()}일 ${controller.newEventTime.hour.toString()}시 ${controller.newEventTime.minute.toString()}분')),
+                  onTap: () => _showDatePicker(context),
+                  // child: Text(
+                  //     textAlign: TextAlign.center,
+                  //     '${controller.newEventTime.year.toString()}년 ${controller.newEventTime.month.toString()}월 ${controller.newEventTime.day.toString()}일 ${controller.newEventTime.hour.toString()}시 ${controller.newEventTime.minute.toString()}분'),
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    DateFormat('yyyy-MM-dd, a hh시 mm분', 'ko_KR')
+                        .format(controller.newEventTime),
+                  ),
+                ),
               ),
               Container(
                 padding: EdgeInsets.all(8.0.sp),
@@ -287,11 +293,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                         initialDateTime: controller.newEventTime,
                         maximumDate: DateTime.now(),
                         onDateTimeChanged: (val) {
-                          setState(() {
-                            controller.newEventTime = val;
-                          });
-                          // controller.focusedDate.value = val;
-                          // controller.selectedDay.value = val;
+                          controller.newEventTime = val;
                         }),
                   ),
 
@@ -299,9 +301,10 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                   CupertinoButton(
                     child: const Text('저장'),
                     onPressed: () {
-                      //TODO: Calendar 이벤트 추가 할 때 시간 변경
-                      // controller.selectedDay = controller.newEventTime.value;
-
+                     
+                      setState(() {
+                        //save time
+                      });
                       Navigator.of(ctx).pop();
                     },
                   )

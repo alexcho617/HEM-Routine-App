@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/utils/colors.dart';
+import 'package:hem_routine_app/utils/constants.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
@@ -46,15 +47,10 @@ class _CalendarLogState extends State<CalendarLog> {
                   },
                   icon: const Icon(Icons.arrow_back_ios),
                 ),
-                Text(
-                  parseDayToString(controller.focusedDate.value),
+                Text(parseDayToString(controller.focusedDate.value),
 
-                  // '${controller.focusedDate.year.toString()}년 ${controller.newEventTime.month.toString()}월 ${controller.newEventTime.day.toString()}일',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+                    // '${controller.focusedDate.year.toString()}년 ${controller.newEventTime.month.toString()}월 ${controller.newEventTime.day.toString()}일',
+                    style: AppleFont16_BlackBold),
                 IconButton(
                   padding: EdgeInsets.all(0),
                   constraints: BoxConstraints(),
@@ -70,11 +66,11 @@ class _CalendarLogState extends State<CalendarLog> {
                 ),
               ],
             ),
-            TextButton(
-              child: Text('PrintEvents'),
-              onPressed: () => print(controller
-                  .getEventsfromDay(parseDay(controller.focusedDate.value))),
-            ),
+            // TextButton(
+            //   child: Text('PrintEvents'),
+            //   onPressed: () => print(controller
+            //       .getEventsfromDay(parseDay(controller.focusedDate.value))),
+            // ),
             SizedBox(
               height: 33.h,
             ),
@@ -88,7 +84,10 @@ class _CalendarLogState extends State<CalendarLog> {
                           width: 160.w,
                           height: 105.h,
                           image: AssetImage('assets/appIcon.png')),
-                      Text('기록이 없습니다.'),
+                      Text(
+                        '기록이 없습니다.',
+                        style: AppleFont16_BlackBold,
+                      ),
                     ],
                   ))
                 : Expanded(
@@ -108,28 +107,96 @@ class _CalendarLogState extends State<CalendarLog> {
                               image: AssetImage(
                                   'assets/marker/${events![index].iconCode}.png'),
                             ),
-                            Text(events[index].type),
-                            Divider(
-                              thickness: 1,
+                            SizedBox(
+                              height: 8.0.h,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(events[index].color),
-                                Text(events[index].hardness),
-                                Text(events[index].memo ?? 'no memo'),
-                                Text(parseDayToString(events[index].time)),
-                              ],
+                            events[index].type != null
+                                ? Text(
+                                    parseTypeCode(events[index].type),
+                                    style: AppleFont16_BlackBold,
+                                  )
+                                : Text('없음'),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 21.0),
+                              child: Divider(
+                                color: Color.fromARGB(255, 193, 185, 185),
+                                thickness: 1,
+                              ),
+                            ),
+                            Container(
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: 28.0.sp),
+                              // height: 120.h,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text('배변색', style: AppleFont14_Grey600),
+                                      SizedBox(
+                                        width: 20.w,
+                                      ),
+                                      events[index].color != null
+                                          ? Text(
+                                              parseColorCode(
+                                                  events[index].color),
+                                              style: AppleFont14_Black)
+                                          : Text('없음'),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('배변감', style: AppleFont14_Grey600),
+                                      SizedBox(
+                                        width: 20.w,
+                                      ),
+                                      events[index].hardness != null
+                                          ? Text(
+                                              parseHardnessCode(
+                                                  events[index].hardness),
+                                              style: AppleFont14_Black)
+                                          : Text('없음'),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('메모', style: AppleFont14_Grey600),
+                                      SizedBox(
+                                        width: 32.w,
+                                      ),
+                                      Flexible(child: Text(events[index].memo,overflow: TextOverflow.clip))
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.access_alarm,
+                                        color: grey600,
+                                      ),
+                                      SizedBox(
+                                        width: 34.w,
+                                      ),
+                                      events[index].time != null
+                                          ? Text(parseTime(events[index].time),
+                                              style: AppleFont14_Black)
+                                          : Text('없음'),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         );
                       },
-
+                
                       shrinkWrap: true,
-                      separatorBuilder: (context, index) => const Padding(
-                        padding: EdgeInsets.all(8.0),
+                      separatorBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 21.0.w, vertical: 8.0.h),
                         child: Divider(
-                          color: const Color.fromRGBO(0x60, 0x60, 0x60, 1),
+                          color: Color.fromRGBO(0x60, 0x60, 0x60, 1),
                           thickness: 2,
                         ),
                       ),

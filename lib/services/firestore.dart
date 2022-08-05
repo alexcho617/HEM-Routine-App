@@ -53,6 +53,7 @@ Future<RxMap> fetchAllEvents() async {
       event.color = doc.get("color");
       event.hardness = doc.get("hardness");
       event.iconCode = doc.get("iconCode");
+      event.memo = doc.get("memo");
 
       //check if its in map
       //not in the map then create a new list then add to map

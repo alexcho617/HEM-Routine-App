@@ -1,7 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/tableCalendar/table_calendar.dart';
-import 'dart:collection';
+import 'package:intl/intl.dart';
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
@@ -99,4 +100,92 @@ String parseDayToString(DateTime before) {
       weekday = '월';
   }
   return "${before.year}-${before.month}-${before.day} ($weekday)";
+}
+
+String parseColorCode(String code) {
+  String color = '';
+  switch (code) {
+    case '0':
+      color = '회색';
+      break;
+    case '1':
+      color = '붉은색';
+      break;
+    case '2':
+      color = '초록색';
+      break;
+    case '3':
+      color = '노란색';
+      break;
+    case '4':
+      color = '갈색';
+      break;
+    case '5':
+      color = '고동색';
+      break;
+    case '6':
+      color = '흑색';
+      break;
+    default:
+      '';
+  }
+  return color;
+}
+
+String parseTypeCode(String code) {
+  String type = '';
+  switch (code) {
+    case '0':
+      type = '물변';
+      break;
+    case '1':
+      type = '진흙변';
+      break;
+    case '2':
+      type = '무른변';
+      break;
+    case '3':
+      type = '매끈변';
+      break;
+    case '4':
+      type = '금간변';
+      break;
+    case '5':
+      type = '딱딱변';
+      break;
+    case '6':
+      type = '토끼변';
+      break;
+    default:
+      '매끈변';
+  }
+  return type;
+}
+
+String parseHardnessCode(String code) {
+  String hardness = '';
+  switch (code) {
+    case '0':
+      hardness = '많이 불편';
+      break;
+    case '1':
+      hardness = '불편';
+      break;
+    case '2':
+      hardness = '편함';
+      break;
+    case '3':
+      hardness = '매우 편함';
+      break;
+    default:
+      '';
+  }
+  return hardness;
+}
+
+String parseTime(DateTime date) {
+  String dateString = '';
+
+  dateString = DateFormat('a hh:mm', 'ko_KR').format(date);
+  return dateString;
 }
