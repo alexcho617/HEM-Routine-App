@@ -219,7 +219,7 @@ class RoutinePage extends StatelessWidget {
                     ),
                     index <= today
                         ? Text(
-                            '',
+                            '${(controller.dayCompletes.value[index] * 100 ).round()} %',
                             style: index == focusedDay
                                 ? AppleFont11_Blue600
                                 : AppleFont11_Grey700,

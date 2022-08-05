@@ -26,7 +26,20 @@ class RoutineOnController extends GetxController {
 
   dynamic dayCompletes = [
     0.0,
-  ];
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0, //14
+  ].obs;
 
   dynamic routineDocumentSnapshot;
   late DocumentSnapshot routineHistoryDocumentSnapshot;
@@ -46,6 +59,7 @@ class RoutineOnController extends GetxController {
         await getCurrday();
         selectedDayIndex.value = todayIndex.value;
         await getCurrCount();
+        await getDayCompletes();
       }
     }
   }
@@ -151,29 +165,23 @@ class RoutineOnController extends GetxController {
     }
     avg /= goals.value.length;
 
-    routineHistoryDocumentSnapshot.reference
-        .collection('days')
-        .doc("${selectedDayIndex.value + 1}")
-        .update({
-      'dayComplete': avg,
-    });
-
     return avg;
   }
 
   Future<void> getDayCompletes() async {
-    routineHistoryDocumentSnapshot.reference.collection('days');
+    routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        dayCompletes.value[int.parse(doc.id) - 1] = doc.get('dayComplete');
+      });
+    });
   }
 
   void onPlusPressed(int index) {
-    // TODO : increse count in countList
-    // TODO : calculate several completion
-    // TODO : Firestore sync
-
     // TODO : Firestore event time save
 
-    // TO DEL: FOR TEST
-    // print('plus button pressed! $index');
     currentCount[index]++;
     routineHistoryDocumentSnapshot.reference
         .collection('days')
@@ -187,6 +195,14 @@ class RoutineOnController extends GetxController {
           'currentCount': currentCount.value[index],
         });
       });
+    });
+
+    dayCompletes.value[selectedDayIndex.value] = getAvgPercent();
+    routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .doc("${selectedDayIndex.value + 1}")
+        .update({
+      'dayComplete': dayCompletes.value[selectedDayIndex.value],
     });
   }
 }
