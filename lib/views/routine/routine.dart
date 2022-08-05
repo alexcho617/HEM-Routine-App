@@ -90,22 +90,9 @@ class RoutinePage extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            GestureDetector(
-                              
-                              onTap: () {
-                                print("ONTAP");
-                                showCupertinoModalBottomSheet(
-                                  context: context
-                                      .findAncestorStateOfType<HomePageState>()!
-                                      .context,
-                                  expand: false,
-                                  builder: (context) => RoutineLogPage(),
-                                );
-                              },
-                              child: Container(
-                                width: 225.w,
-                                height: 116.h,
-                              ),
+                            SizedBox(
+                              width: 225.w,
+                              height: 116.h,
                             ),
                             SizedBox(
                               height: 308.h,
@@ -120,7 +107,18 @@ class RoutinePage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        halfCircluarGuage(0.75),
+                        InkWell(
+                          onTap: () {
+                            showCupertinoModalBottomSheet(
+                              context: context
+                                  .findAncestorStateOfType<HomePageState>()!
+                                  .context,
+                              expand: false,
+                              builder: (context) => RoutineLogPage(),
+                            );
+                          },
+                          child: halfCircluarGuage(0.75),
+                        ),
                       ],
                     ),
                   ],
