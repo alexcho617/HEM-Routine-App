@@ -147,6 +147,8 @@ class RoutineOnController extends GetxController {
     // TODO : calculate several completion
     // TODO : Firestore sync
 
+    // TODO : Firestore event time save
+
     // TO DEL: FOR TEST
     print('plus button pressed! $index');
     currentCount[index]++;
