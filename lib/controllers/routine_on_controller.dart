@@ -15,7 +15,7 @@ class RoutineOnController extends GetxController {
 
   dynamic name = "".obs;
   dynamic goals = [].obs;
-  dynamic routineItems = [].obs;
+  RxList<dynamic> routineItems = [].obs;
   dynamic todayIndex = 0.obs;
   Rx<DateTime> today = DateTime.now().obs;
   dynamic startday;
@@ -95,8 +95,12 @@ class RoutineOnController extends GetxController {
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         //find index for routineItems by name and put currentCount value on it's index.
-        print(doc.get('name'));
-        print(currentCount);
+        // print(doc.get('name'));
+        // print(currentCount);
+        int ind = routineItems.value.indexOf(doc.get('name'));
+        //print(doc.get('name') + " : " + ind.toString());
+        currentCount.value[ind] = doc.get('currentCount');
+        // print(currentCount.value);
       });
     });
   }
@@ -108,8 +112,10 @@ class RoutineOnController extends GetxController {
     //TODO : sawp currval
     final String itemToSwap1 = routineItems.value.removeAt(oldIndex);
     final int itemToSwap2 = goals.value.removeAt(oldIndex);
+    final int itemToSwap3 = currentCount.value.removeAt(oldIndex);
     routineItems.value.insert(newIndex, itemToSwap1);
     goals.value.insert(newIndex, itemToSwap2);
+    currentCount.value.insert(newIndex, itemToSwap3);
 
     await routineHistoryDocumentSnapshot.reference.update({
       'routineItem': routineItems.value,
@@ -127,12 +133,21 @@ class RoutineOnController extends GetxController {
     return percent;
   }
 
-  void onPlusPressed() {
+  double getAvgPercent() {
+    double avg = 0.0;
+    for (int i = 0; i < goals.value.length; i++) {
+      avg += getPercent(currentCount.value[i], goals.value[i]);
+    }
+    avg /= goals.value.length;
+    return avg;
+  }
+
+  void onPlusPressed(int index) {
     // TODO : increse count in countList
     // TODO : calculate several completion
     // TODO : Firestore sync
 
     // TO DEL: FOR TEST
-    print('plus button pressed');
+    print('plus button pressed! $index');
   }
 }

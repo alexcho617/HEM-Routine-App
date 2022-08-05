@@ -501,7 +501,10 @@ Widget halfCircluarGuage(double percent) {
         ),
         Positioned(
           bottom: 112.h,
-          left: 74.5.w,
+          left: percent >= 0.1?
+          74.5.w
+          :
+          84.5.w,
           child: Column(
             children: [
               Text(

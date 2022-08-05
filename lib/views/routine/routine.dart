@@ -117,7 +117,7 @@ class RoutinePage extends StatelessWidget {
                               builder: (context) => RoutineLogPage(),
                             );
                           },
-                          child: halfCircluarGuage(0.75),
+                          child: halfCircluarGuage(controller.getAvgPercent()),
                         ),
                       ],
                     ),
@@ -288,7 +288,7 @@ class RoutinePage extends StatelessWidget {
                           style: AppleFont14_Grey600,
                         ),
                         Text(
-                          '1/${controller.goals[index]}', // TODO : current Count
+                          '${controller.currentCount[index]}/${controller.goals[index]}',
                           style: AppleFont14_Grey600,
                         ),
                       ],
@@ -302,17 +302,17 @@ class RoutinePage extends StatelessWidget {
               trailing: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 46.w,
                     height: 46.h,
-                    child: circluarGuage(controller.getPercent(1,
-                        controller.goals[index])), //TODO: change to curr cont
+                    child: circluarGuage(controller.getPercent(controller.currentCount[index],
+                        controller.goals[index])), 
                   ),
-                  Container(
+                  SizedBox(
                     width: 34.w,
                     height: 34.h,
                     child: InkWell(
-                      onTap: () => controller.onPlusPressed(),
+                      onTap: () => controller.onPlusPressed(index),
                       child: Ink(
                         child: CircleAvatar(
                           backgroundColor: blue600,
