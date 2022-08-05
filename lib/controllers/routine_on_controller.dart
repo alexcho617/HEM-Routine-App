@@ -149,5 +149,7 @@ class RoutineOnController extends GetxController {
 
     // TO DEL: FOR TEST
     print('plus button pressed! $index');
+    currentCount[index]++;
+    print(currentCount);
   }
 }
