@@ -512,7 +512,7 @@ Widget halfCircluarGuage(double percent) {
                 style: AppleFont14_Grey600,
               ),
               Text(
-                (percent * 100).toInt().toString() + "%",
+                (percent * 100).round().toInt().toString() + "%",
                 style: AppleFont36_Blue600,
               )
             ],
