@@ -54,8 +54,61 @@ class RoutineItemAddPage extends StatelessWidget {
                       // physics: NeverScrollableScrollPhysics(),
                       // physics: const AlwaysScrollableScrollPhysics(),
                       // itemExtent: 95.h,
-                      itemBuilder: (BuildContext context, int index) =>
-                          routineItem(index, context),
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index == pageController.routineItems.length-1 &&
+                            pageController.categoryIndex ==
+                                pageController.categories.length - 1) {
+                          return Column(
+                            children: [
+                              routineItem(index, context),
+                              Container(
+                                width: 348.w,
+                                height: 56.h,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Get.back();
+                                    kangmin(
+                                        HomePageState
+                                            .navigatorKeyList[
+                                                HomePageState.currentIndex]
+                                            .currentContext,
+                                        CustomRoutineItemPage());
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.add,
+                                        color: grey600,
+                                      ),
+                                      SizedBox(
+                                        width: 6.w,
+                                      ),
+                                      Text(
+                                        '나만의 루틴 항목 만들기',
+                                        style: AppleFont14_Grey600,
+                                      ),
+                                    ],
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    shadowColor: Colors.transparent,
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                    primary: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      side:
+                                          BorderSide(color: grey600, width: 1),
+                                      borderRadius: BorderRadius.circular(12.r),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        } else {
+                          return routineItem(index, context);
+                        }
+                      },
 
                       shrinkWrap: true,
                     );
@@ -98,127 +151,88 @@ class RoutineItemAddPage extends StatelessWidget {
     if (routineVisibility(index)) {
       if (pageController.categoryIndex ==
           pageController.categories.length - 1) {
-        return Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                if (pageController.routineItems[index].isChecked) {
-                  pageController.decreaseSelectedRoutineCount();
-                } else {
-                  pageController.increaseSelectedRoutineCount();
-                }
-                pageController.checkState(
-                    !pageController.routineItems[index].isChecked, index);
-              },
-              onLongPress: () {
-                //1
-                pageController.tapState(true, index);
-              },
-              onLongPressUp: () {
-                pageController.tapState(false, index);
-              },
-              child: Container(
-                // height: 95.h,
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-                child: Card(
-                  margin: EdgeInsets.zero,
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    side: pageController.routineItems[index].isChecked
-                        ? BorderSide(color: primary, width: 1)
-                        : BorderSide(color: Colors.transparent, width: 1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ListTile(
-                    leading: Checkbox(
-                      //2
-                      side: BorderSide(color: Colors.black, width: 0.5),
-                      value: pageController.routineItems[index].isChecked,
-                      onChanged: (value) {
-                        if (pageController.routineItems[index].isChecked) {
-                          pageController.decreaseSelectedRoutineCount();
-                        } else {
-                          pageController.increaseSelectedRoutineCount();
-                        }
-                        pageController.checkState(
-                            !pageController.routineItems[index].isChecked,
-                            index);
-                      },
+        return GestureDetector(
+          onTap: () {
+            if (pageController.routineItems[index].isChecked) {
+              pageController.decreaseSelectedRoutineCount();
+            } else {
+              pageController.increaseSelectedRoutineCount();
+            }
+            pageController.checkState(
+                !pageController.routineItems[index].isChecked, index);
+          },
+          onLongPress: () {
+            //1
+            pageController.tapState(true, index);
+          },
+          onLongPressUp: () {
+            pageController.tapState(false, index);
+          },
+          child: Container(
+            // height: 95.h,
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+            child: Card(
+              margin: EdgeInsets.zero,
+              elevation: 1,
+              shape: RoundedRectangleBorder(
+                side: pageController.routineItems[index].isChecked
+                    ? BorderSide(color: primary, width: 1)
+                    : BorderSide(color: Colors.transparent, width: 1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ListTile(
+                leading: Checkbox(
+                  //2
+                  side: BorderSide(color: Colors.black, width: 0.5),
+                  value: pageController.routineItems[index].isChecked,
+                  onChanged: (value) {
+                    if (pageController.routineItems[index].isChecked) {
+                      pageController.decreaseSelectedRoutineCount();
+                    } else {
+                      pageController.increaseSelectedRoutineCount();
+                    }
+                    pageController.checkState(
+                        !pageController.routineItems[index].isChecked, index);
+                  },
+                ),
+                title: pageController.routineItems[index].isTapped
+                    ? Text(
+                        '${pageController.routineItems[index].name}',
+                        style: TextStyle(fontSize: 18.sp),
+                      )
+                    : Text(
+                        '${pageController.routineItems[index].name}',
+                        style: TextStyle(fontSize: 18.sp),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                subtitle: pageController.routineItems[index].isTapped
+                    ? Text(
+                        '${pageController.routineItems[index].description}',
+                      )
+                    : Text(
+                        '${pageController.routineItems[index].description}',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                trailing: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      '#${pageController.routineItems[index].category}',
+                      style: TextStyle(fontSize: 12.sp, color: primary),
                     ),
-                    title: pageController.routineItems[index].isTapped
-                        ? Text(
-                            '${pageController.routineItems[index].name}',
-                            style: TextStyle(fontSize: 18.sp),
-                          )
-                        : Text(
-                            '${pageController.routineItems[index].name}',
-                            style: TextStyle(fontSize: 18.sp),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                    subtitle: pageController.routineItems[index].isTapped
-                        ? Text(
-                            '${pageController.routineItems[index].description}',
-                          )
-                        : Text(
-                            '${pageController.routineItems[index].description}',
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                    trailing: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          '#${pageController.routineItems[index].category}',
-                          style: TextStyle(fontSize: 12.sp, color: primary),
-                        ),
-                        pageController.routineItems[index].isCustom
-                            ? Container(
-                                height: 41.h,
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.settings_outlined)))
-                            : SizedBox.shrink()
-                      ],
-                    ),
-                  ),
+                    pageController.routineItems[index].isCustom
+                        ? Container(
+                            height: 41.h,
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.settings_outlined)))
+                        : SizedBox.shrink()
+                  ],
                 ),
               ),
             ),
-            Container(
-              width: 348.w,
-              height: 56.h,
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.back();
-                  kangmin(HomePageState.navigatorKeyList[HomePageState.currentIndex].currentContext, CustomRoutineItemPage());
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.add,
-                      color: grey600,),
-                    SizedBox(
-                      width: 6.w,
-                    ),
-                    Text(
-                      '나만의 루틴 항목 만들기',
-                      style: AppleFont14_Grey600,
-                    ),
-                  ],
-                ),
-                style: ElevatedButton.styleFrom(
-                  shadowColor: Colors.transparent,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  primary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(color: grey600, width: 1),
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                ),
-              ),
-            )
-          ],
+          ),
         );
       }
       return GestureDetector(
