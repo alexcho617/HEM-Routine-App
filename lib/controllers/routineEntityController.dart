@@ -54,7 +54,7 @@ class RoutineEntityController extends GetxController {
         .add({
       'isActive': false,
       'days': controller.routinePeriodIndex.value,
-      'averageComplete': 0,
+      'averageComplete': 0.0,
       'averageRating': 0.0,
       'name': controller.inputController.text,
       'routineItem': routineItems,
@@ -146,6 +146,7 @@ class RoutineEntityController extends GetxController {
     });
 
     Get.find<RoutineOnController>().getData();
+    Get.find<RoutineOffController>().getRoutineList();
   }
 
   void deleteRoutineEntities(int index) {

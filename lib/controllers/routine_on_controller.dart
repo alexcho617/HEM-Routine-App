@@ -160,7 +160,7 @@ class RoutineOnController extends GetxController {
 
   double getAvgPercent() {
     double avg = 0.0;
-    if (goals == null) return avg;
+    if (goals.value.isEmpty || goals == null || goals.value == null) return avg;
     for (int i = 0; i < goals.value.length; i++) {
       avg += getPercent(currentCount.value[i], goals.value[i]);
     }

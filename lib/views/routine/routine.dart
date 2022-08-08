@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
@@ -13,6 +15,7 @@ import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/routine/routineBuild.dart';
 import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
 import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
+import 'package:hem_routine_app/views/setting/routine_detail.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
@@ -22,7 +25,8 @@ class RoutinePage extends StatelessWidget {
   RoutinePage({Key? key}) : super(key: key);
   AppStateController appStateController = Get.find();
   LoginService loginService = Get.find();
-  RoutineOnController controller = Get.find<RoutineOnController>();
+  RoutineOnController onController = Get.find<RoutineOnController>();
+  RoutineOffController offController = Get.put(RoutineOffController());
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -74,7 +78,7 @@ class RoutinePage extends StatelessWidget {
                       height: 19.h,
                     ),
                     Text(
-                      controller.name.value,
+                      onController.name.value,
                       style: AppleFont24_Black,
                     ),
                     SizedBox(
@@ -82,8 +86,10 @@ class RoutinePage extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.all(5.r),
-                      child: dayPicker(controller.selectedDayIndex.value,
-                          controller.days.value, controller.todayIndex.value),
+                      child: dayPicker(
+                          onController.selectedDayIndex.value,
+                          onController.days.value,
+                          onController.todayIndex.value),
                     ),
                     Stack(
                       alignment: AlignmentDirectional.topCenter,
@@ -117,7 +123,8 @@ class RoutinePage extends StatelessWidget {
                               builder: (context) => RoutineLogPage(),
                             );
                           },
-                          child: halfCircluarGuage(controller.getAvgPercent()),
+                          child:
+                              halfCircluarGuage(onController.getAvgPercent()),
                         ),
                       ],
                     ),
@@ -161,16 +168,33 @@ class RoutinePage extends StatelessWidget {
                               style: AppleFont16_Black,
                             ),
                           ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                routineCard('루틴이름 1', 7, 80, 3, onPressed),
-                                routineCard('루틴이름 2', 7, 80, 3, onPressed),
-                                routineCard('루틴이름 3', 7, 80, 3, onPressed),
-                              ],
-                            ),
-                          ),
+                          GetBuilder(
+                              init: offController,
+                              builder: (context) {
+                                return SizedBox(
+                                  width: 392.w,
+                                  height: 200.h,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        offController.routines.length > 10
+                                            ? 10
+                                            : offController.routines.length,
+                                    itemBuilder: (BuildContext context, int i) {
+                                      return routineCard(
+                                          offController.routines[i].name,
+                                          offController.routines[i].days,
+                                          offController
+                                              .routines[i].averageComplete,
+                                          offController
+                                              .routines[i].averageRating, () {
+                                        yechan(context, 3,
+                                            RoutineDetailPage(uid: offController.routines[i].id));
+                                      });
+                                    },
+                                  ),
+                                );
+                              })
                         ],
                       ),
                     ),
@@ -179,10 +203,6 @@ class RoutinePage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void onPressed() {
-    //void onPressed
   }
 
   Widget dayPicker(int focusedDay, int itemCount, int today) {
@@ -200,8 +220,8 @@ class RoutinePage extends StatelessWidget {
               key: Key('$index'),
               onTap: () {
                 if (index <= today) {
-                  controller.selectedDayIndex.value = index;
-                  controller.getCurrCount();
+                  onController.selectedDayIndex.value = index;
+                  onController.getCurrCount();
                 }
                 // print("focused day : $focusedDay   today : $today");
                 // } else {
@@ -219,7 +239,7 @@ class RoutinePage extends StatelessWidget {
                     ),
                     index <= today
                         ? Text(
-                            '${(controller.dayCompletes.value[index] * 100 ).round()} %',
+                            '${(onController.dayCompletes.value[index] * 100).round()} %',
                             style: index == focusedDay
                                 ? AppleFont11_Blue600
                                 : AppleFont11_Grey700,
@@ -236,7 +256,7 @@ class RoutinePage extends StatelessWidget {
   }
 
   Widget routineItemList() {
-    int itemLength = controller.routineItems.length;
+    int itemLength = onController.routineItems.length;
     return ReorderableListView.builder(
       padding: EdgeInsets.all(10.r),
       proxyDecorator: ((child, index, animation) {
@@ -281,7 +301,7 @@ class RoutinePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      controller.routineItems[index],
+                      onController.routineItems[index],
                       style: AppleFont18_Black,
                     ),
                     Column(
@@ -291,7 +311,7 @@ class RoutinePage extends StatelessWidget {
                           style: AppleFont14_Grey600,
                         ),
                         Text(
-                          '${controller.currentCount[index]}/${controller.goals[index]}',
+                          '${onController.currentCount[index]}/${onController.goals[index]}',
                           style: AppleFont14_Grey600,
                         ),
                       ],
@@ -308,13 +328,15 @@ class RoutinePage extends StatelessWidget {
                   SizedBox(
                     width: 46.w,
                     height: 46.h,
-                    child: circluarGuage(controller.getPercent(controller.currentCount.value[index], controller.goals.value[index])),
+                    child: circluarGuage(onController.getPercent(
+                        onController.currentCount.value[index],
+                        onController.goals.value[index])),
                   ),
                   SizedBox(
                     width: 34.w,
                     height: 34.h,
                     child: InkWell(
-                      onTap: () => controller.onPlusPressed(index),
+                      onTap: () => onController.onPlusPressed(index),
                       child: Ink(
                         child: CircleAvatar(
                           backgroundColor: blue600,
@@ -334,7 +356,7 @@ class RoutinePage extends StatelessWidget {
       },
       itemCount: itemLength,
       onReorder: (int oldIndex, int newIndex) {
-        controller.itemReorder(oldIndex, newIndex);
+        onController.itemReorder(oldIndex, newIndex);
       },
     );
   }

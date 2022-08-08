@@ -724,7 +724,7 @@ Widget customBottomSheet(BuildContext context, Widget contents) {
 }
 
 Widget routineCard(
-    String name, int day, double percent, int rank, VoidCallback? onPressed) {
+    String name, int day, double percent, double rank, VoidCallback? onPressed) {
   return Card(
     elevation: 5,
     shadowColor: Colors.grey,
@@ -809,7 +809,7 @@ Widget circleGauzeIndicator(double percent) {
         height: 43.h,
         child: Center(
           child: Text(
-            percent.toInt().toString() + "%",
+            (percent * 100).toInt().toString() + "%",
             style: AppleFont12_Blue600,
           ),
         ),
@@ -828,7 +828,7 @@ Widget circleGauzeIndicator(double percent) {
   );
 }
 
-Widget starRankIndicator(int rank) {
+Widget starRankIndicator(double rank) {
   return Container(
     child: Text(
       "여긴 \n이미지로\n 해야할듯",

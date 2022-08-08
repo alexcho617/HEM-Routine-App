@@ -10,6 +10,7 @@ import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
+import '../models/routine.dart';
 
 //TODO: 아마 프로그램 흐름상 routine item읽어오는 건 다른 Controller로 구분해야 한다.
 class RoutineOffController extends GetxController {
@@ -48,10 +49,13 @@ class RoutineOffController extends GetxController {
   int categoryIndex = 0;
   int selectedRoutineItemCount = 0;
 
+  List<Routine> routines = [];
+
   @override
   void onInit() {
     getRoutineList();
     getRoutineItemList();
+    // update();
     super.onInit();
   }
 
@@ -59,9 +63,9 @@ class RoutineOffController extends GetxController {
     inputController.clear();
     isValid.value = true;
     activateButton.value = false;
-  
+
     //화면을 나갈 때에 값들을 전부 초기화하기 위함
-    
+
     for (int i = 0; i < routineItems.length; i++) {
       routineItems[i].isAdded = false;
       routineItems[i].isChecked = false;
@@ -111,6 +115,7 @@ class RoutineOffController extends GetxController {
   }
 
   void getRoutineList() async {
+    routines = [];
     await firestore
         .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
         .get()
@@ -118,8 +123,16 @@ class RoutineOffController extends GetxController {
       querySnapshot.docs.forEach((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         existingRoutineName.add(data['name']);
+        Routine routine = Routine();
+        routine.averageComplete = data['averageComplete'];
+        routine.averageRating = data['averageRating'];
+        routine.days = data['days'];
+        routine.name = data['name'];
+        routine.id = doc.id;
+        routines.add(routine);
       });
     });
+    update();
   }
 
   void getRoutineItemList() async {
@@ -165,8 +178,6 @@ class RoutineOffController extends GetxController {
     // print(routineItems);
     buildRoutineButtons();
   }
-
-  
 
   void checkState(bool value, int index) {
     routineItems[index].isChecked = value;

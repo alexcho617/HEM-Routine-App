@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/routineOffController.dart';
 
 class AppStateController extends GetxController {
   Rx<bool> status = false.obs;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   LoginService loginService = Get.find();
-  
+
   @override
   void onInit() {
     isRoutineActive();
@@ -43,25 +44,24 @@ class AppStateController extends GetxController {
           'isActive': false,
         });
 
-        await firestore.collection(
-            'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
-          .where('isActive', isEqualTo: true)
-              .get()
-              .then((QuerySnapshot smallQuerySnapshot) {
-            smallQuerySnapshot.docs.forEach((smallDoc) async {
-              await firestore
-                  .collection(
-                      'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
-                  .doc(smallDoc.id)
-                  .update({
-                'isActive': false,
-              });
+        await firestore
+            .collection(
+                'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
+            .where('isActive', isEqualTo: true)
+            .get()
+            .then((QuerySnapshot smallQuerySnapshot) {
+          smallQuerySnapshot.docs.forEach((smallDoc) async {
+            await firestore
+                .collection(
+                    'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
+                .doc(smallDoc.id)
+                .update({
+              'isActive': false,
             });
           });
+        });
       });
     });
     status.value = false;
   }
-
-  
 }
