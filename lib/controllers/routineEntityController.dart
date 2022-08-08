@@ -127,7 +127,7 @@ class RoutineEntityController extends GetxController {
                 'user/${loginService.auth.value.currentUser!.uid}/routine/$uid/routineHistory/${routineHistoryDoc.id}/days')
             .doc('$i')
             .set({
-          'dayComplete': 0,
+          'dayComplete': 0.0,
         });
         //이것도 1인듯
         for (int j = 0; j < routineItems.length; j++) {
