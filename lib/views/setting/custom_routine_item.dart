@@ -161,6 +161,7 @@ class CustomRoutineItemPage extends StatelessWidget {
                                   await pageController.writeCustomRoutineItem();
                                   //아 근데 그냥 가져오는데 리스트는 그대로 둬야 한다.
                                   await pageController.refreshRoutineItems();
+                                  
                                   Get.delete<CustomRoutineItemController>();
                                   kangminBack(context);
                                 }
