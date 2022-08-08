@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
-import 'package:hem_routine_app/models/routineEntity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RoutineOnController extends GetxController {
@@ -21,6 +20,7 @@ class RoutineOnController extends GetxController {
   dynamic startday;
   dynamic days = 0.obs;
   dynamic selectedDayIndex = (-99).obs;
+  dynamic isToday = true;
 
   dynamic currentCount = [].obs;
 
@@ -107,6 +107,11 @@ class RoutineOnController extends GetxController {
   }
 
   Future<void> getCurrCount() async {
+    if (selectedDayIndex.value == todayIndex.value) {
+      isToday = true;
+    } else {
+      isToday = false;
+    }
     //initialize currentCount
     currentCount.value = [].obs;
     for (int i = 0; i < routineItems.value.length; i++) {
@@ -134,7 +139,7 @@ class RoutineOnController extends GetxController {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    //TODO : sawp currval
+    
     final String itemToSwap1 = routineItems.value.removeAt(oldIndex);
     final int itemToSwap2 = goals.value.removeAt(oldIndex);
     final int itemToSwap3 = currentCount.value.removeAt(oldIndex);
@@ -181,9 +186,9 @@ class RoutineOnController extends GetxController {
   }
 
   void onPlusPressed(int index) {
-
     DateTime nowdt = DateTime.now();
-    Timestamp nowts = Timestamp.fromDate(nowdt);
+    String nowst = nowdt.hour.toString() + nowdt.minute.toString();
+    // print("nowst : $nowst");
     currentCount[index]++;
     routineHistoryDocumentSnapshot.reference
         .collection('days')
@@ -193,9 +198,16 @@ class RoutineOnController extends GetxController {
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
+        dynamic eventTime = [];
+        eventTime = doc.get('eventTime');
+        if (isToday) {
+          eventTime.add(nowst);
+        } else {
+          eventTime.add("NULL");
+        }
         doc.reference.update({
           'currentCount': currentCount.value[index],
-          'eventTime': FieldValue.arrayUnion([nowts]),
+          'eventTime': eventTime,
         });
       });
     });
