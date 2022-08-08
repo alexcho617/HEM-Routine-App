@@ -261,7 +261,7 @@ class RoutineItemAddPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               side: pageController.routineItems[index].isChecked
                   ? BorderSide(color: primary, width: 1)
-                  : BorderSide(color: Colors.transparent, width: 1),
+                  : BorderSide(color: Color.fromARGB(0, 202, 130, 130), width: 1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: ListTile(

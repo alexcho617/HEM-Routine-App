@@ -7,6 +7,7 @@ import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 
 import 'package:hem_routine_app/models/routine.dart';
+import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
 import 'package:hem_routine_app/views/setting/account_settings.dart';
 import '../utils/constants.dart';
@@ -1171,7 +1172,7 @@ Widget customAppBar(context, String name) {
     leading: IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
-        Navigator.pop(context);
+        kangminBack(context);
       },
     ),
     title: Text(name),
