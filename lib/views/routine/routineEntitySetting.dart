@@ -154,18 +154,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                               kangminBackUntil(context);
                                             }, () async {
                                               //TODO: day랑 routine item 하나만 되는 거 수정.
-                                              await routineEntityController
-                                                  .startRoutine();
-                                              Get.find<AppStateController>()
-                                                  .status
-                                                  .value = true;
-                                              Get.delete<
-                                                  RoutineEntityController>();
-                                              pageController.initValues();
-                                              await Get.find<RoutineOnController>()
-                                                  .getRoutineData();
-                                              await Get.find<RoutineOnController>()
-                                                  .getRoutineHistoryData();
+                                              await _fetchData(context);
                                               Navigator.pop(context);
                                               kangminBackUntil(context);
                                             });
@@ -251,5 +240,45 @@ class RoutineEntitySettingPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _fetchData(BuildContext context) async {
+    // show the loading dialog
+    showDialog(
+        // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Loading...')
+                ],
+              ),
+            ),
+          );
+        });
+
+    // Your asynchronous computation here (fetching data from an API, processing files, inserting something to the database, etc)
+    await routineEntityController.startRoutine();
+    Get.find<AppStateController>().status.value = true;
+    Get.delete<RoutineEntityController>();
+    pageController.initValues();
+    await Get.find<RoutineOnController>().getRoutineData();
+    await Get.find<RoutineOnController>().getRoutineHistoryData();
+
+    // Close the dialog programmatically
+    Navigator.of(context).pop();
   }
 }
