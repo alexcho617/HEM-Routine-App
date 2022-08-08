@@ -160,6 +160,7 @@ class RoutineOnController extends GetxController {
 
   double getAvgPercent() {
     double avg = 0.0;
+    if (goals == null) return avg;
     for (int i = 0; i < goals.value.length; i++) {
       avg += getPercent(currentCount.value[i], goals.value[i]);
     }
@@ -180,8 +181,9 @@ class RoutineOnController extends GetxController {
   }
 
   void onPlusPressed(int index) {
-    // TODO : Firestore event time save
 
+    DateTime nowdt = DateTime.now();
+    Timestamp nowts = Timestamp.fromDate(nowdt);
     currentCount[index]++;
     routineHistoryDocumentSnapshot.reference
         .collection('days')
@@ -193,6 +195,7 @@ class RoutineOnController extends GetxController {
       querySnapshot.docs.forEach((doc) {
         doc.reference.update({
           'currentCount': currentCount.value[index],
+          'eventTime': FieldValue.arrayUnion([nowts]),
         });
       });
     });
