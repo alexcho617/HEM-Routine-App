@@ -17,6 +17,7 @@ import 'package:hem_routine_app/views/login.dart';
 import 'package:hem_routine_app/views/onBoarding.dart';
 import 'package:hem_routine_app/views/routine/routine.dart';
 import 'package:hem_routine_app/views/setting/account_settings.dart';
+import 'package:hem_routine_app/views/setting/custom_routine_item.dart';
 import 'package:hem_routine_app/views/setting/settings.dart';
 import 'package:hem_routine_app/views/splash.dart';
 import 'package:hem_routine_app/views/test.dart';
@@ -72,7 +73,6 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: createMaterialColor(primary),
             ),
-
             initialRoute:
                 '/splash', //use home for development, spalsh for deployment
             routes: {
@@ -90,6 +90,7 @@ class MyApp extends StatelessWidget {
               '/routineEntrySetting': (context) => RoutineEntitySettingPage(),
               '/profileSettings': (context) => ProfileSettingsPage(),
               '/completedRoutines': (context) => CompletedRoutinesPage(),
+              
 
               // '/test1' : (context) => MyStatefulWidget(),
             },

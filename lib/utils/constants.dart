@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hem_routine_app/models/routineItem.dart';
 import 'colors.dart';
 
 TextStyle BottomNavigationOptionStyle =
@@ -173,3 +174,21 @@ TextStyle AppleFont36_Blue600 = TextStyle(
   fontSize: 36.sp,
   color: blue600,
 );
+
+
+
+enum CRUD {
+  create, read, update, delete
+}
+
+enum FromWhere {
+  routineItemAdd, routineItemSetting
+}
+
+class ScreenArguments {
+  CRUD crud;
+  FromWhere fromWhere;
+  RoutineItem? routineItem;
+  
+  ScreenArguments(this.crud, this.fromWhere, this.routineItem);
+}
