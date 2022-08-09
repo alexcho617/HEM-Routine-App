@@ -1,6 +1,11 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
+import '../models/event.dart';
 
 class RoutineOnController extends GetxController {
   // // This code is for Testing
@@ -17,10 +22,13 @@ class RoutineOnController extends GetxController {
   RxList<dynamic> routineItems = [].obs;
   dynamic todayIndex = 0.obs;
   Rx<DateTime> today = DateTime.now().obs;
-  dynamic startday;
+  Rx<DateTime> startday = DateTime.now().obs;
   dynamic days = 0.obs;
   dynamic selectedDayIndex = (-99).obs;
   dynamic isToday = true;
+
+  dynamic selectedFilter = 0;
+  dynamic selectedFilterString;
 
   dynamic currentCount = [].obs;
 
@@ -44,6 +52,8 @@ class RoutineOnController extends GetxController {
   dynamic routineDocumentSnapshot;
   late DocumentSnapshot routineHistoryDocumentSnapshot;
   // late DocumentSnapshot dayDocumentSnapshot;
+
+  List<Event> events = [];
 
   @override
   void onInit() async {
@@ -102,8 +112,8 @@ class RoutineOnController extends GetxController {
   Future<void> getCurrday() async {
     routineItems.value = routineHistoryDocumentSnapshot.get('routineItem');
     goals.value = routineHistoryDocumentSnapshot.get('goals');
-    startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
-    todayIndex.value = today.value.difference(startday).inDays;
+    startday.value = routineHistoryDocumentSnapshot.get('startDate').toDate();
+    todayIndex.value = today.value.difference(startday.value).inDays;
   }
 
   Future<void> getCurrCount() async {
@@ -139,7 +149,7 @@ class RoutineOnController extends GetxController {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    
+
     final String itemToSwap1 = routineItems.value.removeAt(oldIndex);
     final int itemToSwap2 = goals.value.removeAt(oldIndex);
     final int itemToSwap3 = currentCount.value.removeAt(oldIndex);
@@ -187,7 +197,8 @@ class RoutineOnController extends GetxController {
 
   void onPlusPressed(int index) {
     DateTime nowdt = DateTime.now();
-    String nowst = nowdt.hour.toString() + nowdt.minute.toString();
+    String nowst =
+        DateFormat("HH").format(nowdt) + DateFormat("mm").format(nowdt);
     // print("nowst : $nowst");
     currentCount[index]++;
     routineHistoryDocumentSnapshot.reference
@@ -198,7 +209,7 @@ class RoutineOnController extends GetxController {
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
-        dynamic eventTime = [];
+        List<dynamic> eventTime = [];
         eventTime = doc.get('eventTime');
         if (isToday) {
           eventTime.add(nowst);
@@ -219,5 +230,57 @@ class RoutineOnController extends GetxController {
         .update({
       'dayComplete': dayCompletes.value[selectedDayIndex.value],
     });
+  }
+
+  String getSelectedDay() {
+    final adnum = selectedDayIndex.value;
+    final date = DateTime(startday.value.year, startday.value.month,
+        (startday.value.day + adnum).toInt());
+    final dateFormated = DateFormat('yyyy-MM-dd').format(date);
+    return "($dateFormated)";
+  }
+
+  Future<void> fetchEvent() async {
+    events = [];
+    // Load all (event[] + name) in routineItemHistoy collection.
+    // Put in List of Class
+    await routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .doc("${selectedDayIndex.value + 1}")
+        .collection('routineItemHistory')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        List<dynamic> eventTimes = [];
+        eventTimes = doc.get('eventTime');
+        for (var i in eventTimes) {
+          Event event = Event();
+          event.eventTime = i;
+          event.name = doc.get('name');
+          events.add(event);
+        }
+      });
+    });
+    sortByTime();
+    // print(events);
+    update();
+  }
+
+  void sortByTime() {
+    events.sort(((a, b) => a.eventTime.compareTo(b.eventTime)));
+  }
+
+  String displayDate(String eventTime) {
+    if (eventTime == "NULL") {
+      return "-";
+    } else {
+      String meridiem = "오전 ";
+      num hour = int.parse(eventTime[0] + eventTime[1]);
+      if (hour > 12) {
+        hour -= 12;
+        meridiem = "오후 ";
+      }
+      return meridiem + hour.toString() + ":" + eventTime[2] + eventTime[3];
+    }
   }
 }

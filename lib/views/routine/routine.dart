@@ -11,6 +11,7 @@ import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/calendar/calendar.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/routine/routineBuild.dart';
 import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
@@ -120,7 +121,10 @@ class RoutinePage extends StatelessWidget {
                                   .findAncestorStateOfType<HomePageState>()!
                                   .context,
                               expand: false,
-                              builder: (context) => RoutineLogPage(),
+                              builder: (context) {
+                                onController.fetchEvent();
+                                return RoutineLogPage();
+                              },
                             );
                           },
                           child:
@@ -188,8 +192,12 @@ class RoutinePage extends StatelessWidget {
                                               .routines[i].averageComplete,
                                           offController
                                               .routines[i].averageRating, () {
-                                        yechan(context, 3,
-                                            RoutineDetailPage(uid: offController.routines[i].id));
+                                        yechan(
+                                            context,
+                                            3,
+                                            RoutineDetailPage(
+                                                uid: offController
+                                                    .routines[i].id));
                                       });
                                     },
                                   ),
