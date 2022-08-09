@@ -147,6 +147,7 @@ class RoutineOffController extends GetxController {
           name: data['name'],
           category: data['category'],
           description: data['description'],
+          docID: doc.id,
         ));
         if (categories.contains(data['category']) != true) {
           categories.add(data['category']);
@@ -166,6 +167,7 @@ class RoutineOffController extends GetxController {
           category: data['category'],
           description: data['description'],
           isCustom: true,
+          docID: doc.id,
         ));
       });
     });
