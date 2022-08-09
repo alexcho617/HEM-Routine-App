@@ -336,6 +336,7 @@ Widget deleteAlertDialog(
     actionsPadding: EdgeInsets.all(0),
     contentPadding: EdgeInsets.all(0),
     content: Container(
+      height: 176.h,
       child: Column(children: [
         Container(
           width: 312.w,

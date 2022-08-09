@@ -5,6 +5,9 @@ import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/constants.dart';
+import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
+import 'package:hem_routine_app/views/calendar/editCalendarEvent.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
@@ -20,8 +23,7 @@ class _CalendarLogState extends State<CalendarLog> {
   @override
   Widget build(BuildContext context) {
     CalendarController controller = Get.find();
-    List<CalendarEvent>? events =
-        controller.getEventsfromDay(parseDay(controller.focusedDate.value));
+
     return calendarLogBottomSheet(
         context,
         Column(
@@ -42,6 +44,7 @@ class _CalendarLogState extends State<CalendarLog> {
                         controller.focusedDate.value = controller
                             .focusedDate.value
                             .subtract(Duration(days: 1));
+                        controller.getCalendarLog();
                       });
                     }
                   },
@@ -59,6 +62,7 @@ class _CalendarLogState extends State<CalendarLog> {
                       setState(() {
                         controller.focusedDate.value =
                             controller.focusedDate.value.add(Duration(days: 1));
+                        controller.getCalendarLog();
                       });
                     }
                   },
@@ -71,8 +75,9 @@ class _CalendarLogState extends State<CalendarLog> {
             //   onPressed: () => print(controller
             //       .getEventsfromDay(parseDay(controller.focusedDate.value))),
             // ),
-            SizedBox(
+            Container(
               height: 33.h,
+              padding: EdgeInsets.symmetric(horizontal: 21.0.w),
             ),
             controller.getEventsfromDay(
                         parseDay(controller.focusedDate.value)) ==
@@ -91,116 +96,150 @@ class _CalendarLogState extends State<CalendarLog> {
                     ],
                   ))
                 : Expanded(
-                    child: ListView.separated(
-                      itemCount: controller
-                          .getEventsfromDay(
-                              parseDay(controller.focusedDate.value))!
-                          .length,
-                      // physics: NeverScrollableScrollPhysics(),
-                      // physics: const AlwaysScrollableScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            Image(
-                              width: 160.w,
-                              height: 105.h,
-                              image: AssetImage(
-                                  'assets/marker/${events![index].iconCode}.png'),
-                            ),
-                            SizedBox(
-                              height: 8.0.h,
-                            ),
-                            events[index].type != null
-                                ? Text(
-                                    parseTypeCode(events[index].type),
-                                    style: AppleFont16_BlackBold,
-                                  )
-                                : Text('없음'),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 21.0),
-                              child: Divider(
-                                color: Color.fromARGB(255, 193, 185, 185),
-                                thickness: 1,
-                              ),
-                            ),
-                            Container(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: 28.0.sp),
-                              // height: 120.h,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                    child: GetBuilder(
+                        init: controller,
+                        builder: (_) {
+                          return ListView.separated(
+                            itemCount: controller.events!.length,
+                            // physics: NeverScrollableScrollPhysics(),
+                            // physics: const AlwaysScrollableScrollPhysics(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
                                 children: [
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text('배변색', style: AppleFont14_Grey600),
-                                      SizedBox(
-                                        width: 20.w,
-                                      ),
-                                      events[index].color != null
-                                          ? Text(
-                                              parseColorCode(
-                                                  events[index].color),
-                                              style: AppleFont14_Black)
-                                          : Text('없음'),
+                                      IconButton(
+                                        onPressed: () {
+                                          controller.editIndex = index;
+                                          kangmin(context, EditCalendarEvent());
+                                        },
+                                        icon: Icon(
+                                          Icons.edit_note,
+                                          color: black,
+                                        ),
+                                      )
                                     ],
                                   ),
-                                  Row(
-                                    children: [
-                                      Text('배변감', style: AppleFont14_Grey600),
-                                      SizedBox(
-                                        width: 20.w,
-                                      ),
-                                      events[index].hardness != null
-                                          ? Text(
-                                              parseHardnessCode(
-                                                  events[index].hardness),
-                                              style: AppleFont14_Black)
-                                          : Text('없음'),
-                                    ],
+                                  Image(
+                                    width: 160.w,
+                                    height: 105.h,
+                                    image: AssetImage(
+                                        'assets/marker/${controller.events![index].iconCode}.png'),
                                   ),
-                                  Row(
-                                    children: [
-                                      Text('메모', style: AppleFont14_Grey600),
-                                      SizedBox(
-                                        width: 32.w,
-                                      ),
-                                      Flexible(child: Text(events[index].memo,overflow: TextOverflow.clip))
-                                    ],
+                                  SizedBox(
+                                    height: 8.0.h,
                                   ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.access_alarm,
-                                        color: grey600,
-                                      ),
-                                      SizedBox(
-                                        width: 34.w,
-                                      ),
-                                      events[index].time != null
-                                          ? Text(parseTime(events[index].time),
-                                              style: AppleFont14_Black)
-                                          : Text('없음'),
-                                    ],
+                                  controller.events![index].type != null
+                                      ? Text(
+                                          parseTypeCode(
+                                              controller.events![index].type),
+                                          style: AppleFont16_BlackBold,
+                                        )
+                                      : Text('없음'),
+                                  Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 21.0),
+                                    child: Divider(
+                                      color: Color.fromARGB(255, 193, 185, 185),
+                                      thickness: 1,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 28.0.sp),
+                                    // height: 120.h,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text('배변색',
+                                                style: AppleFont14_Grey600),
+                                            SizedBox(
+                                              width: 20.w,
+                                            ),
+                                            controller.events![index].color !=
+                                                    null
+                                                ? Text(
+                                                    parseColorCode(controller
+                                                        .events![index].color),
+                                                    style: AppleFont14_Black)
+                                                : Text('없음'),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text('배변감',
+                                                style: AppleFont14_Grey600),
+                                            SizedBox(
+                                              width: 20.w,
+                                            ),
+                                            controller.events![index]
+                                                        .hardness !=
+                                                    null
+                                                ? Text(
+                                                    parseHardnessCode(controller
+                                                        .events![index]
+                                                        .hardness),
+                                                    style: AppleFont14_Black)
+                                                : Text('없음'),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text('메모',
+                                                style: AppleFont14_Grey600),
+                                            SizedBox(
+                                              width: 32.w,
+                                            ),
+                                            Flexible(
+                                                child: Text(
+                                                    controller
+                                                        .events![index].memo,
+                                                    overflow:
+                                                        TextOverflow.clip))
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.access_alarm,
+                                              color: grey600,
+                                            ),
+                                            SizedBox(
+                                              width: 34.w,
+                                            ),
+                                            controller.events![index].time !=
+                                                    null
+                                                ? Text(
+                                                    parseTime(controller
+                                                        .events![index].time),
+                                                    style: AppleFont14_Black)
+                                                : Text('없음'),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
+                              );
+                            },
+
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) => Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 21.0.w, vertical: 8.0.h),
+                              child: Divider(
+                                color: Color.fromRGBO(0x60, 0x60, 0x60, 1),
+                                thickness: 2,
                               ),
                             ),
-                          ],
-                        );
-                      },
-                
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) => Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 21.0.w, vertical: 8.0.h),
-                        child: Divider(
-                          color: Color.fromRGBO(0x60, 0x60, 0x60, 1),
-                          thickness: 2,
-                        ),
-                      ),
-                    ),
+                          );
+                        }),
                   )
           ],
         ));

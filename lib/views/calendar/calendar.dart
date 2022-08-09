@@ -7,7 +7,7 @@ import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/models/calendarRoutine.dart';
 import 'package:hem_routine_app/utils/colors.dart';
-import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
+import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/calendar/calendarLog.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -62,6 +62,7 @@ class _CalendarState extends State<Calendar> {
 
                   controller.selectedDay.value = selectDay;
                   controller.focusedDate.value = focusDay;
+                  controller.getCalendarLog();
                   controller.update();
                   showCupertinoModalBottomSheet(
                     context: context,
@@ -73,33 +74,11 @@ class _CalendarState extends State<Calendar> {
           SizedBox(height: 50.h),
           plusSquareButton(
             () {
-              Get.to(NewCalendarEvent());
-
-              //   if (controller.selectedDay.value.day == DateTime.now().day) {
-              //     controller.newEventTime.value = DateTime.now();
-              //   } else {
-              //     controller.newEventTime.value = controller.selectedDay.value;
-              //   }
-              //   Get.to(NewCalendarEvent());
+              controller.newEventTime = DateTime.now();
+              // Get.to(NewCalendarEvent());
+              kangmin(context, NewCalendarEvent());
             },
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     TextButton(
-          //       onPressed: () {
-          //         controller.printAllEvents();
-          //       },
-          //       child: Text('PrintEvents'),
-          //     ),
-          //     TextButton(
-          //       onPressed: () {
-          //         controller.printAllRoutines();
-          //       },
-          //       child: Text('PrintRoutines'),
-          //     ),
-          //   ],
-          // ),
         ],
         // ),
       );
