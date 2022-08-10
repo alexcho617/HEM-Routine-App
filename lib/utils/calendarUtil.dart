@@ -201,47 +201,6 @@ String parseTime(DateTime date) {
 
 //TODO make function for calendar event feedback 기획 12페이지
 //function made by yechan jung
-String parseRoutineMessage(CalendarEvent event) {
-  String user = loginService.name.value;
-  if ((event.type == '0' || event.type == '1') && (event.hardness == '9')) {
-    return "배가 많이 불편하신가요?\n$user님에게 맞는 루틴을 만들어보세요!";
-  }
-  if ((event.type == '2' || event.type == '3' || event.type == '4') &&
-      (event.hardness == '9')) {
-    return "매일 작은 습관을 통해 쾌변을 이어가세요!";
-  }
-  if ((event.type == '5' || event.type == '6') && (event.hardness == '9')) {
-    return "$user님, 변비가 걱정 되신다면\n쾌변 루틴을 만들어 보세요!";
-  }
-  if ((event.type == '0' || event.type == '1') &&
-      (event.hardness == '0' || event.hardness == '1')) {
-    return "배가 많이 불편하신가요?\n$user님에게 맞는 루틴을 만들어보세요!";
-  }
-  if ((event.type == '2' || event.type == '3' || event.type == '4') &&
-      (event.hardness == '0' || event.hardness == '1')) {
-    return "배변보는 것이 불편하시다면\n쾌변을 유지할 수 있도록 루틴을 만들어 보세요!";
-  }
-  if ((event.type == '5' || event.type == '6') &&
-      (event.hardness == '0' || event.hardness == '1')) {
-    return "$user님, 쾌변 루틴을 통해\n변비를 탈출해보세요!";
-  }
-  if ((event.type == '0' || event.type == '1') &&
-      (event.hardness == '2' || event.hardness == '3')) {
-    return "더 나은 쾌변을 위해\n$user님만의 쾌변 루틴을 만들어 보세요!";
-  }
-  if ((event.type == '2' || event.type == '3' || event.type == '4') &&
-      (event.hardness == '2' || event.hardness == '3')) {
-    return "$user님만의 좋은 습관을\n루틴으로 한번 만들어 보세요!";
-  }
-  if ((event.type == '5' || event.type == '6') &&
-      (event.hardness == '2' || event.hardness == '3')) {
-    return "매일매일 쾌변을 이어갈 수 있게,\n$user님만의 쾌변 루틴을 만들어 보세요!";
-  }
-  if (event.type == '9' && event.hardness == '9') {
-    return "$user님에게 꼭 맞는 나만의 루틴을 만들어 보세요!";
-  }
-  return "오늘도 성공하셨네요!";
-}
 
 Widget calendarAlertDialog(CalendarEvent event, VoidCallback? onPressed) {
   return AlertDialog(
@@ -268,7 +227,7 @@ Widget calendarAlertDialog(CalendarEvent event, VoidCallback? onPressed) {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 52.0.w),
                 child: Text(
-                  parseRoutineMessage(event),
+                  parseCalendarMessage(event),
                   style: AppleFont16_Black,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.clip,
@@ -365,4 +324,49 @@ Widget calendarAlertDialog(CalendarEvent event, VoidCallback? onPressed) {
       ]),
     ),
   );
+}
+
+String parseCalendarMessage(CalendarEvent event) {
+  String user = loginService.name.value;
+  if ((event.type == '0') && (event.hardness == '9')) {
+    return "속이 많이 좋지 않으신 것 같아요. 😨";
+  }
+  if ((event.type == '1') && (event.hardness == '9')) {
+    return "배가 아프시진 않으셨나요? 😫";
+  }
+  if ((event.type == '2' || event.type == '3' || event.type == '4') &&
+      (event.hardness == '9')) {
+    return "오늘도 성공하셨네요! 🤗";
+  }
+  if ((event.type == '5' || event.type == '6') && (event.hardness == '9')) {
+    return "변을 보실 때 힘드시진 않으셨나요?🤔";
+  }
+  if ((event.type == '0') && (event.hardness == '0' || event.hardness == '1')) {
+    return "배 아픈 것이 얼른 나았으면 좋겠어요. 😭";
+  }
+  if ((event.type == '1') && (event.hardness == '0' || event.hardness == '1')) {
+    return "속이 많이 불편하셨죠? 😭";
+  }
+  if ((event.type == '2' || event.type == '3' || event.type == '4') &&
+      (event.hardness == '0' || event.hardness == '1')) {
+    return "쾌변 하실 수 있도록 응원해요!🥰";
+  }
+  if ((event.type == '5' || event.type == '6') &&
+      (event.hardness == '0' || event.hardness == '1')) {
+    return "변을 보실 때 힘드셨죠 😢";
+  }
+  if ((event.type == '0' || event.type == '1') &&
+      (event.hardness == '2' || event.hardness == '3')) {
+    return "배가 아프진 않으신 거죠?😊";
+  }
+  if ((event.type == '2' || event.type == '3' || event.type == '4') &&
+      (event.hardness == '2' || event.hardness == '3')) {
+    return "오늘도 완벽한 쾌변이네요!😍";
+  }
+  if ((event.type == '5' || event.type == '6') &&
+      (event.hardness == '2' || event.hardness == '3')) {
+    return "다음 번엔 꼭 쾌변할거에요!😉";
+  }
+
+  return "오늘도 성공하셨네요!";
 }

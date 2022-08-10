@@ -160,6 +160,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                 ),
                 Container(
                     alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
                     child: Text('배변 형태(묽기) 선택')),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -184,7 +185,9 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                   height: 26.h,
                 ),
                 Container(
-                    alignment: Alignment.centerLeft, child: Text('배변 색 선택')),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    alignment: Alignment.centerLeft,
+                    child: Text('배변 색 선택')),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -208,7 +211,9 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                   height: 26.h,
                 ),
                 Container(
-                    alignment: Alignment.centerLeft, child: Text('배변감 선택')),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    alignment: Alignment.centerLeft,
+                    child: Text('배변감 선택')),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -231,13 +236,19 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                 SizedBox(
                   height: 26.h,
                 ),
-                Container(alignment: Alignment.centerLeft, child: Text('메모')),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: '메모 입력',
-                    hintStyle: TextStyle(fontSize: 12.sp),
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    alignment: Alignment.centerLeft,
+                    child: Text('메모')),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: '메모 입력',
+                      hintStyle: TextStyle(fontSize: 12.sp),
+                    ),
+                    controller: eventTextController,
                   ),
-                  controller: eventTextController,
                 ),
                 SizedBox(
                   height: 26.h,

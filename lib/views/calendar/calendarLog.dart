@@ -70,15 +70,6 @@ class _CalendarLogState extends State<CalendarLog> {
                 ),
               ],
             ),
-            // TextButton(
-            //   child: Text('PrintEvents'),
-            //   onPressed: () => print(controller
-            //       .getEventsfromDay(parseDay(controller.focusedDate.value))),
-            // ),
-            Container(
-              height: 33.h,
-              padding: EdgeInsets.symmetric(horizontal: 21.0.w),
-            ),
             controller.getEventsfromDay(
                         parseDay(controller.focusedDate.value)) ==
                     null
@@ -155,6 +146,9 @@ class _CalendarLogState extends State<CalendarLog> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.stretch,
                                       children: [
+                                        SizedBox(
+                                          height: 12.h,
+                                        ),
                                         Row(
                                           children: [
                                             Text('배변색',
@@ -170,6 +164,9 @@ class _CalendarLogState extends State<CalendarLog> {
                                                     style: AppleFont14_Black)
                                                 : Text('없음'),
                                           ],
+                                        ),
+                                        SizedBox(
+                                          height: 8.h,
                                         ),
                                         Row(
                                           children: [
@@ -189,6 +186,9 @@ class _CalendarLogState extends State<CalendarLog> {
                                                 : Text('없음'),
                                           ],
                                         ),
+                                        SizedBox(
+                                          height: 8.h,
+                                        ),
                                         Row(
                                           children: [
                                             Text('메모',
@@ -203,6 +203,9 @@ class _CalendarLogState extends State<CalendarLog> {
                                                     overflow:
                                                         TextOverflow.clip))
                                           ],
+                                        ),
+                                        SizedBox(
+                                          height: 8.h,
                                         ),
                                         Row(
                                           children: [

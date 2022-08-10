@@ -16,7 +16,7 @@ class AppStateController extends GetxController {
     CalendarEvent? latestEvent =
         Get.find<CalendarController>().getLatestCalendarEvent();
     if (latestEvent != null) {
-      return parseRoutineMessage(latestEvent);
+      return Get.find<RoutineOffController>().parseRoutineMessage(latestEvent);
     } else {
       return '배변 기록을 추가하세요.';
     }
