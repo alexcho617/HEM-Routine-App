@@ -247,27 +247,29 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                   child: saveButtonBlue(() async {
                     LoginService loginService = Get.find();
                     try {
+                      CalendarEvent newEvent = CalendarEvent(
+                          time: controller.newEventTime,
+                          color: colorCode,
+                          type: typeCode,
+                          hardness: hardnessCode,
+                          iconCode: iconCode,
+                          memo: eventTextController.text);
                       await addEventToCalendar(
-                          CalendarEvent(
-                              time: controller.newEventTime,
-                              color: colorCode,
-                              type: typeCode,
-                              hardness: hardnessCode,
-                              iconCode: iconCode,
-                              memo: eventTextController.text),
-                          loginService.auth.value.currentUser!.uid);
+                          newEvent, loginService.auth.value.currentUser!.uid);
 
                       controller.eventsLibrary = await fetchAllEvents();
                       controller.update();
-                      // Navigator.pop(context);
                       kangminBack(context);
-
-                      // setState(
-                      //   () {
-                      //     iconCode = typeCode + colorCode + hardnessCode;
-                      //   },
-                      // );
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return calendarAlertDialog(newEvent, () {
+                              //on button Pressed
+                              Get.back();
+                            });
+                          });
                     } on Exception catch (e) {
+                      kangminBack(context);
                       print(e);
                     }
 

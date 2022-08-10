@@ -120,6 +120,7 @@ Future<RxMap> fetchAllEvents() async {
     print(e);
   }
   controller.getCalendarLog();
+  
   return eventMap;
 }
 

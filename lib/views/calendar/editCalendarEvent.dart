@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/services/firestore.dart';
+import 'package:hem_routine_app/utils/calendarUtil.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
@@ -256,20 +257,30 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
                 child: saveButtonBlue(() async {
                   LoginService loginService = Get.find();
                   try {
+                    CalendarEvent newEvent = CalendarEvent(
+                        time: _controller.newEventTime,
+                        color: colorCode,
+                        type: typeCode,
+                        hardness: hardnessCode,
+                        iconCode: iconCode,
+                        memo: eventTextController.text);
                     await editCalendarEvent(
-                        CalendarEvent(
-                            time: _controller.newEventTime,
-                            color: colorCode,
-                            type: typeCode,
-                            hardness: hardnessCode,
-                            iconCode: iconCode,
-                            memo: eventTextController.text),
+                        newEvent,
                         loginService.auth.value.currentUser!.uid,
                         event.eventId);
 
                     _controller.eventsLibrary = await fetchAllEvents();
                     _controller.update();
                     kangminBackUntil(context);
+
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return calendarAlertDialog(newEvent, () {
+                            //on button Pressed
+                            Get.back();
+                          });
+                        });
                   } on Exception catch (e) {
                     print(e);
                     kangminBackUntil(context);
@@ -324,7 +335,10 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
                       setState(() {
                         //save time
                       });
-                      Navigator.of(context.findAncestorStateOfType<HomePageState>()!.context).maybePop();
+                      Navigator.of(context
+                              .findAncestorStateOfType<HomePageState>()!
+                              .context)
+                          .maybePop();
                     },
                   )
                 ],

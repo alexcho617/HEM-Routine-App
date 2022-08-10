@@ -33,6 +33,14 @@ class CalendarController extends GetxController {
   //used in log
   List<CalendarEvent>? events = [];
 
+  CalendarEvent? getLatestCalendarEvent() {
+    CalendarEvent latest = CalendarEvent();
+    Iterable keys = eventsLibrary.keys;
+
+    latest = eventsLibrary[keys.first][0];
+    return latest;
+  }
+
   void getCalendarLog() {
     events = getEventsfromDay(parseDay(focusedDate.value));
     update();
