@@ -99,8 +99,7 @@ class RoutineLogPage extends StatelessWidget {
                                       controller.selectedFilterString =
                                           controller
                                               .routineItems.value[index - 1];
-                                      print(
-                                          "selected : ${controller.selectedFilterString}");
+                                      // print("selected : ${controller.selectedFilterString}");
                                       controller.update();
                                     },
                                       '${controller.routineItems.value[index - 1]}'),
@@ -174,7 +173,19 @@ class RoutineLogPage extends StatelessWidget {
                           trailing: IconButton(
                             icon: Icon(Icons.delete),
                             onPressed: () {
-                              // TODO : 이벤트 삭제하기
+                              // 정말로 수행 기록을 삭제하시겠습니까?
+                              showDialog(
+                                  context: context,
+                                  builder: ((context) {
+                                    return deleteEventAlertDialog(() {
+                                      //취소
+                                      Get.back();
+                                    }, () {
+                                      //삭제
+                                      controller.deleteEvent(index);
+                                      Get.back();
+                                    });
+                                  }));
                             },
                           ),
                         );

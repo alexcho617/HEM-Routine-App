@@ -246,12 +246,16 @@ class RoutinePage extends StatelessWidget {
                           : AppleFont16_Black,
                     ),
                     index <= today
-                        ? Text(
-                            '${(onController.dayCompletes.value[index] * 100).round()} %',
-                            style: index == focusedDay
-                                ? AppleFont11_Blue600
-                                : AppleFont11_Grey700,
-                          )
+                        ? GetBuilder<RoutineOnController>(
+                          builder: (context) {
+                            return Text(
+                                '${(onController.dayCompletes.value[index] * 100).round()} %',
+                                style: index == focusedDay
+                                    ? AppleFont11_Blue600
+                                    : AppleFont11_Grey700,
+                              );
+                          }
+                        )
                         : const Text(""),
                   ],
                 ),
@@ -340,22 +344,28 @@ class RoutinePage extends StatelessWidget {
                         onController.currentCount.value[index],
                         onController.goals.value[index])),
                   ),
-                  SizedBox(
-                    width: 34.w,
-                    height: 34.h,
-                    child: InkWell(
-                      onTap: () => onController.onPlusPressed(index),
-                      child: Ink(
-                        child: CircleAvatar(
-                          backgroundColor: blue600,
-                          child: Icon(
-                            Icons.add,
-                            color: grey50,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  Obx(() {
+                    return SizedBox(
+                      width: 34.w,
+                      height: 34.h,
+                      child: onController.isFinished.value
+                          ? InkWell(
+                              onTap: () async {
+                                return onController.onPlusPressed(index);
+                              },
+                              child: Ink(
+                                child: CircleAvatar(
+                                  backgroundColor: blue600,
+                                  child: Icon(
+                                    Icons.add,
+                                    color: grey50,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : CircularProgressIndicator(),
+                    );
+                  }),
                 ],
               ),
             ),
