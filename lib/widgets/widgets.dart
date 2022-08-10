@@ -7,6 +7,7 @@ import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 
 import 'package:hem_routine_app/models/routine.dart';
+import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
 import 'package:hem_routine_app/views/setting/account_settings.dart';
 import '../utils/constants.dart';
@@ -726,7 +727,7 @@ Widget calendarLogBottomSheet(BuildContext context, Widget contents) {
 }
 
 Widget routineCard(
-    String name, int day, double percent, int rank, VoidCallback? onPressed) {
+    String name, int day, double percent, double rank, VoidCallback? onPressed) {
   return Card(
     elevation: 5,
     shadowColor: Colors.grey,
@@ -811,7 +812,7 @@ Widget circleGauzeIndicator(double percent) {
         height: 43.h,
         child: Center(
           child: Text(
-            percent.toInt().toString() + "%",
+            (percent * 100).toInt().toString() + "%",
             style: AppleFont12_Blue600,
           ),
         ),
@@ -830,7 +831,7 @@ Widget circleGauzeIndicator(double percent) {
   );
 }
 
-Widget starRankIndicator(int rank) {
+Widget starRankIndicator(double rank) {
   return Container(
     child: Text(
       "여긴 \n이미지로\n 해야할듯",
@@ -1177,7 +1178,7 @@ Widget customAppBar(context, String name) {
     leading: IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
-        Navigator.pop(context);
+        kangminBack(context);
       },
     ),
     title: Text(name),

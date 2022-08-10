@@ -117,7 +117,7 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                               style: AppleFont22_Blue600,
                             ),
                             Text(
-                              "${controller.averageComplete}%",
+                              "${(controller.averageComplete.value * 100).round().toString()}%",
                               style: AppleFont22_Blue600,
                             ),
                             Text(

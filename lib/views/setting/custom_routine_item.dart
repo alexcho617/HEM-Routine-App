@@ -12,9 +12,10 @@ import 'package:hem_routine_app/widgets/widgets.dart';
 
 class CustomRoutineItemPage extends StatelessWidget {
   //TODO: 일단 form으로 validation 하는 거 먼저 하자.
-  CustomRoutineItemPage({Key? key}) : super(key: key);
-  CustomRoutineItemController pageController =
-      Get.put(CustomRoutineItemController());
+  // CustomRoutineItemPage({Key? key}) : super(key: key);
+  CustomRoutineItemPage(this.args);
+  ScreenArguments args;
+  CustomRoutineItemController pageController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +41,24 @@ class CustomRoutineItemPage extends StatelessWidget {
               IconButton(
                   padding: EdgeInsets.only(right: 21.h),
                   icon: Icon(Icons.delete_outline),
-                  onPressed: () {showDialog(
-                    context: context,
-                    builder: ((context) {
-                      return routineItemDeleteAlertDialog(() {
-                        Get.back();
-                      }, (){});
-                    }));}),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: ((context) {
+                          return routineItemDeleteAlertDialog(() {
+                            Get.back();
+                            
+                          }, () async{
+                            //TODO: update이면 지우는 코드를 작성하고 그게 아니면 그냥 초기화시키는 것으로 끝내면 된다.
+                            if(args.crud == CRUD.update) {
+                              await pageController.deleteCustomRoutineItem();
+                            }
+                            Get.back();
+                            Get.delete<CustomRoutineItemController>();
+                            kangminBack(context);
+                          });
+                        }));
+                  }),
             ],
           ),
           Padding(
@@ -158,9 +170,7 @@ class CustomRoutineItemPage extends StatelessWidget {
                                 pageController.onSubmitted.value = true;
                                 if (pageController.globalKeys[0].currentState!
                                     .validate()) {
-                                  await pageController.writeCustomRoutineItem();
-                                  //아 근데 그냥 가져오는데 리스트는 그대로 둬야 한다.
-                                  await pageController.refreshRoutineItems();
+                                  pageController.beforeBack();
                                   Get.delete<CustomRoutineItemController>();
                                   kangminBack(context);
                                 }

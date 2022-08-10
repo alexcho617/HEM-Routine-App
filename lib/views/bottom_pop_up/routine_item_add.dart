@@ -55,7 +55,7 @@ class RoutineItemAddPage extends StatelessWidget {
                       // physics: const AlwaysScrollableScrollPhysics(),
                       // itemExtent: 95.h,
                       itemBuilder: (BuildContext context, int index) {
-                        if (index == pageController.routineItems.length-1 &&
+                        if (index == pageController.routineItems.length - 1 &&
                             pageController.categoryIndex ==
                                 pageController.categories.length - 1) {
                           return Column(
@@ -67,12 +67,13 @@ class RoutineItemAddPage extends StatelessWidget {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     Get.back();
-                                    kangmin(
+                                    kangminToCustomRoutineItem(
+                                        ScreenArguments(CRUD.create,
+                                            FromWhere.routineItemAdd, null),
                                         HomePageState
                                             .navigatorKeyList[
                                                 HomePageState.currentIndex]
-                                            .currentContext,
-                                        CustomRoutineItemPage());
+                                            .currentContext);
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -225,7 +226,18 @@ class RoutineItemAddPage extends StatelessWidget {
                         ? Container(
                             height: 41.h,
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.maybePop(context);
+                                  kangminToCustomRoutineItem(
+                                      ScreenArguments(
+                                          CRUD.update,
+                                          FromWhere.routineItemAdd,
+                                          pageController.routineItems[index]),
+                                      HomePageState
+                                          .navigatorKeyList[
+                                              HomePageState.currentIndex]
+                                          .currentContext);
+                                },
                                 icon: Icon(Icons.settings_outlined)))
                         : SizedBox.shrink()
                   ],
@@ -261,7 +273,8 @@ class RoutineItemAddPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               side: pageController.routineItems[index].isChecked
                   ? BorderSide(color: primary, width: 1)
-                  : BorderSide(color: Colors.transparent, width: 1),
+                  : BorderSide(
+                      color: Color.fromARGB(0, 202, 130, 130), width: 1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: ListTile(
@@ -309,7 +322,18 @@ class RoutineItemAddPage extends StatelessWidget {
                       ? Container(
                           height: 41.h,
                           child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.maybePop(context);
+                                kangminToCustomRoutineItem(
+                                    ScreenArguments(
+                                        CRUD.update,
+                                        FromWhere.routineItemAdd,
+                                        pageController.routineItems[index]),
+                                    HomePageState
+                                        .navigatorKeyList[
+                                            HomePageState.currentIndex]
+                                        .currentContext);
+                              },
                               icon: Icon(Icons.settings_outlined)))
                       : SizedBox.shrink()
                 ],

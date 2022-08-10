@@ -4,18 +4,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
+import 'package:hem_routine_app/controllers/routine_item_setting_controller.dart';
 import 'package:hem_routine_app/models/routineItem.dart';
+import 'package:hem_routine_app/utils/constants.dart';
+import 'package:hem_routine_app/views/setting/routineitem_settings.dart';
 
 import '../widgets/widgets.dart';
 
 class CustomRoutineItemController extends GetxController {
+  //TODO: 중복을 검사하는 것에서 이름 검사에 유의해야 한다.
+  CustomRoutineItemController({required this.args});
+  ScreenArguments args;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   RxList<bool> isValid = [true, true].obs;
   Rx<bool> onSubmitted = false.obs;
   RxList<bool> activateButton = [false, false].obs;
   int categoryIndex = 0;
-  List<String> categoryNames = [];
+  //
+  List<String> routineItemNames = [];
 
   List<TextEditingController> inputController =
       List<TextEditingController>.generate(
@@ -39,8 +46,22 @@ class CustomRoutineItemController extends GetxController {
   // }).obs;
   @override
   void onInit() {
+    if(args.crud == CRUD.update){
+      activateButton[0] = true;
+      activateButton[1] = true;
+    }
+    updateInput();
     getRoutineItemNameList();
     super.onInit();
+  }
+
+  void updateInput() {
+    if (args.crud == CRUD.update) {
+      inputController[0].text = args.routineItem!.name;
+      inputController[1].text = args.routineItem!.description;
+      categoryIndex = categories
+          .indexWhere((element) => element == args.routineItem!.category);
+    }
   }
 
   List<Widget> makeCategoryButtons() {
@@ -66,7 +87,7 @@ class CustomRoutineItemController extends GetxController {
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        categoryNames.add(data['name']);
+        routineItemNames.add(data['name']);
       });
     });
 
@@ -77,7 +98,7 @@ class CustomRoutineItemController extends GetxController {
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        categoryNames.add(data['name']);
+        routineItemNames.add(data['name']);
       });
     });
   }
@@ -89,18 +110,42 @@ class CustomRoutineItemController extends GetxController {
         .add({
       'name': inputController[0].text,
       'description': inputController[1].text,
-      'category': categoryNames[categoryIndex],
+      'category': categories[categoryIndex],
     });
+  }
+
+  Future<void> updateCustomRoutineItem(String docID) async {
+    await firestore
+        .collection(
+            'user/${Get.find<LoginService>().auth.value.currentUser!.uid}/userRoutineItems')
+        .doc(docID)
+        .set({
+      'name': inputController[0].text,
+      'description': inputController[1].text,
+      'category': categories[categoryIndex],
+    });
+  }
+  Future<void> deleteCustomRoutineItem() async {
+    await firestore
+        .collection(
+            'user/${Get.find<LoginService>().auth.value.currentUser!.uid}/userRoutineItems')
+        .doc(args.routineItem!.docID).delete();
+    if (args.fromWhere == FromWhere.routineItemAdd) {
+      //아 근데 그냥 가져오는데 리스트는 그대로 둬야 한다.
+      await refreshRoutineItems();
+    } else if (args.fromWhere == FromWhere.routineItemSetting) {
+      Get.find<RotuineItemSettingController>().getCustomRoutineItemNameList();
+    }
   }
 
   //이게 돌아왔을 때 routine Off가 꺼졌을 수도 있으니까. 이걸 잘 처리해야 해.
   Future<void> refreshRoutineItems() async {
-    RoutineOffController routineOffController = Get.put(RoutineOffController());
+    RoutineOffController routineOffController = Get.find();
     //only custom routine items list are updated.
     routineOffController.routineItems.add(RoutineItem(
       name: inputController[0].text,
       description: inputController[1].text,
-      category: categoryNames[categoryIndex],
+      category: categories[categoryIndex],
       isCustom: true,
     ));
     //이름에 따라 sorting
@@ -136,10 +181,14 @@ class CustomRoutineItemController extends GetxController {
       } else {
         // print('working');
         onSubmitted.value = false;
-        if (categoryNames.contains(inputController[index].text)) {
-          isValid[index] = false;
-          activateButton[index] = false;
-          inputController[index].clear();
+        if (routineItemNames.contains(inputController[index].text)) {
+          if (args.crud == CRUD.update &&
+              args.routineItem!.name == inputController[index].text) {
+          } else {
+            isValid[index] = false;
+            activateButton[index] = false;
+            inputController[index].clear();
+          }
 
           return '이미 사용하신 루틴 항목 이름이에요.';
         }
@@ -163,6 +212,25 @@ class CustomRoutineItemController extends GetxController {
       activateButton[index] = true;
 
       return null;
+    }
+  }
+
+  void beforeBack() async {
+    //이것만 달라지면 되는 것 같은데..?
+    
+    if (args.crud == CRUD.update) {
+      await updateCustomRoutineItem(args.routineItem!.docID);
+    } else if(args.crud == CRUD.create){
+      await writeCustomRoutineItem();
+    }
+    else if(args.crud == CRUD.delete){
+      
+    }
+    if (args.fromWhere == FromWhere.routineItemAdd) {
+      //아 근데 그냥 가져오는데 리스트는 그대로 둬야 한다.
+      await refreshRoutineItems();
+    } else if (args.fromWhere == FromWhere.routineItemSetting) {
+      Get.find<RotuineItemSettingController>().getCustomRoutineItemNameList();
     }
   }
 }

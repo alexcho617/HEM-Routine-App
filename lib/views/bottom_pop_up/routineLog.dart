@@ -2,17 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../widgets/widgets.dart';
 
 class RoutineLogPage extends StatelessWidget {
-  const RoutineLogPage({Key? key}) : super(key: key);
+  RoutineLogPage({Key? key}) : super(key: key);
+  RoutineOnController controller = Get.find<RoutineOnController>();
 
   @override
   Widget build(BuildContext context) {
-    return customBottomSheet(context, Column(
+    return customBottomSheet(
+        context,
+        Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
@@ -28,7 +33,7 @@ class RoutineLogPage extends StatelessWidget {
                   icon: const Icon(Icons.arrow_back_ios),
                 ),
                 Text(
-                  'Day 5 (2022-06-27)',
+                  'Day ${controller.selectedDayIndex.value + 1} ',
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w400,
@@ -45,32 +50,51 @@ class RoutineLogPage extends StatelessWidget {
             SizedBox(
               height: 33.h,
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 21.w,
-                  ),
-                  selectedRoutineButton(() {}, '전체'),
-                  SizedBox(
-                    width: 16.w,
-                  ),
-                  unSelectedRoutineButton(() {}, '루틴 항목 이름 1'),
-                  SizedBox(
-                    width: 16.w,
-                  ),
-                  unSelectedRoutineButton(() {}, '루틴 항목 이름 2'),
-                  SizedBox(
-                    width: 16.w,
-                  ),
-                  unSelectedRoutineButton(() {}, '루틴 항목 이름 3'),
-                  SizedBox(
-                    width: 21.w,
-                  ),
-                ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              child: SizedBox(
+                width: 390.w,
+                height: 40.h,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 7,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      child: index == 0
+                          ? selectedRoutineButton(() {}, '전체')
+                          : unSelectedRoutineButton(() {}, 'name'),
+                    );
+                  },
+                ),
               ),
             ),
+            // SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: Row(
+            //     children: [
+            //       SizedBox(
+            //         width: 21.w,
+            //       ),
+            //       selectedRoutineButton(() {}, '전체'),
+            //       SizedBox(
+            //         width: 16.w,
+            //       ),
+            //       unSelectedRoutineButton(() {}, '루틴 항목 이름 1'),
+            //       SizedBox(
+            //         width: 16.w,
+            //       ),
+            //       unSelectedRoutineButton(() {}, '루틴 항목 이름 2'),
+            //       SizedBox(
+            //         width: 16.w,
+            //       ),
+            //       unSelectedRoutineButton(() {}, '루틴 항목 이름 3'),
+            //       SizedBox(
+            //         width: 21.w,
+            //       ),
+            //     ],
+            //   ),
+            // ),
             SizedBox(
               height: 45.h,
             ),
@@ -88,22 +112,24 @@ class RoutineLogPage extends StatelessWidget {
                     radius: 40.r,
                     backgroundColor: grey400,
                   ),
-            
+
                   title: Text('루틴 항목 이름 $index'),
                   subtitle: Text('오후 HH : MM'),
                   trailing: Icon(Icons.delete),
                 ),
-            
+
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => Container(
                     height: 24,
                     child: OverflowBox(
                       maxHeight: 40,
-                      minHeight: 40, 
+                      minHeight: 40,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(width: 48,),
+                          SizedBox(
+                            width: 48,
+                          ),
                           VerticalDivider(
                             thickness: 1,
                             color: Colors.grey,

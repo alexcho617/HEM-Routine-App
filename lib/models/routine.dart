@@ -12,7 +12,7 @@ class Routine {
     this.tryCount,
     this.id,
   });
-  dynamic averageComplete; // percentage itself (int)
+  dynamic averageComplete; // percentage (double) * 100
   dynamic averageRating; // double
   dynamic name;
   dynamic routineItem; // List of RoutineItem Name(String[])

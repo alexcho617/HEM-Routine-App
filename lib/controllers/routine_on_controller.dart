@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
-import 'package:hem_routine_app/models/routineEntity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RoutineOnController extends GetxController {
@@ -20,31 +19,52 @@ class RoutineOnController extends GetxController {
   Rx<DateTime> today = DateTime.now().obs;
   dynamic startday;
   dynamic days = 0.obs;
-  dynamic selectedDayIndex = 0.obs;
+  dynamic selectedDayIndex = (-99).obs;
+  dynamic isToday = true;
 
   dynamic currentCount = [].obs;
 
+  dynamic dayCompletes = [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0, //14
+  ].obs;
+
   dynamic routineDocumentSnapshot;
   late DocumentSnapshot routineHistoryDocumentSnapshot;
+  // late DocumentSnapshot dayDocumentSnapshot;
 
   @override
   void onInit() async {
     super.onInit();
     await getData();
-    selectedDayIndex.value = todayIndex.value;
   }
 
   Future<void> getData() async {
-    await getRoutineData();
+    routineDocumentSnapshot = await getRoutineData();
     if (routineDocumentSnapshot != null) {
-      await getRoutineHistoryData();
+      routineHistoryDocumentSnapshot = await getRoutineHistoryData();
       if (routineHistoryDocumentSnapshot != null) {
+        await getCurrday();
+        selectedDayIndex.value = todayIndex.value;
         await getCurrCount();
+        await getDayCompletes();
       }
     }
   }
 
-  Future<void> getRoutineData() async {
+  Future<dynamic> getRoutineData() async {
     await FirebaseFirestore.instance
         .collection('user')
         .doc(loginService.auth.value.currentUser!.uid)
@@ -58,12 +78,14 @@ class RoutineOnController extends GetxController {
     });
 
     if (routineDocumentSnapshot != null) {
-      name.value = routineDocumentSnapshot.get('name');
-      days.value = routineDocumentSnapshot.get('days');
+      name.value = await routineDocumentSnapshot.get('name');
+      days.value = await routineDocumentSnapshot.get('days');
     }
+
+    return await routineDocumentSnapshot;
   }
 
-  Future<void> getRoutineHistoryData() async {
+  Future<DocumentSnapshot> getRoutineHistoryData() async {
     await routineDocumentSnapshot.reference
         .collection('routineHistory')
         .where('isActive', isEqualTo: true)
@@ -73,7 +95,8 @@ class RoutineOnController extends GetxController {
         routineHistoryDocumentSnapshot = doc;
       });
     });
-    await getCurrday();
+
+    return routineHistoryDocumentSnapshot;
   }
 
   Future<void> getCurrday() async {
@@ -84,10 +107,17 @@ class RoutineOnController extends GetxController {
   }
 
   Future<void> getCurrCount() async {
+    if (selectedDayIndex.value == todayIndex.value) {
+      isToday = true;
+    } else {
+      isToday = false;
+    }
+    //initialize currentCount
+    currentCount.value = [].obs;
     for (int i = 0; i < routineItems.value.length; i++) {
       currentCount.value.add(0);
     }
-    routineHistoryDocumentSnapshot.reference
+    await routineHistoryDocumentSnapshot.reference
         .collection('days')
         .doc('${selectedDayIndex.value + 1}')
         .collection('routineItemHistory')
@@ -109,7 +139,7 @@ class RoutineOnController extends GetxController {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    //TODO : sawp currval
+    
     final String itemToSwap1 = routineItems.value.removeAt(oldIndex);
     final int itemToSwap2 = goals.value.removeAt(oldIndex);
     final int itemToSwap3 = currentCount.value.removeAt(oldIndex);
@@ -135,23 +165,59 @@ class RoutineOnController extends GetxController {
 
   double getAvgPercent() {
     double avg = 0.0;
+    if (goals.value.isEmpty || goals == null || goals.value == null) return avg;
     for (int i = 0; i < goals.value.length; i++) {
       avg += getPercent(currentCount.value[i], goals.value[i]);
     }
     avg /= goals.value.length;
+
     return avg;
   }
 
+  Future<void> getDayCompletes() async {
+    routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        dayCompletes.value[int.parse(doc.id) - 1] = doc.get('dayComplete');
+      });
+    });
+  }
+
   void onPlusPressed(int index) {
-    // TODO : increse count in countList
-    // TODO : calculate several completion
-    // TODO : Firestore sync
-
-    // TODO : Firestore event time save
-
-    // TO DEL: FOR TEST
-    print('plus button pressed! $index');
+    DateTime nowdt = DateTime.now();
+    String nowst = nowdt.hour.toString() + nowdt.minute.toString();
+    // print("nowst : $nowst");
     currentCount[index]++;
-    print(currentCount);
+    routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .doc('${selectedDayIndex.value + 1}')
+        .collection('routineItemHistory')
+        .where('name', isEqualTo: routineItems[index])
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        dynamic eventTime = [];
+        eventTime = doc.get('eventTime');
+        if (isToday) {
+          eventTime.add(nowst);
+        } else {
+          eventTime.add("NULL");
+        }
+        doc.reference.update({
+          'currentCount': currentCount.value[index],
+          'eventTime': eventTime,
+        });
+      });
+    });
+
+    dayCompletes.value[selectedDayIndex.value] = getAvgPercent();
+    routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .doc("${selectedDayIndex.value + 1}")
+        .update({
+      'dayComplete': dayCompletes.value[selectedDayIndex.value],
+    });
   }
 }

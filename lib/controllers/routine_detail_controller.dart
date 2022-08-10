@@ -7,7 +7,7 @@ import 'package:hem_routine_app/controllers/routine_completed_controller.dart.da
 class RoutineDetailController extends GetxController {
   RoutineDetailController({required this.id});
   LoginService loginService = Get.find();
-  RoutineCompletedController routineCompletedController = Get.find();
+  RoutineCompletedController routineCompletedController = Get.put(RoutineCompletedController());
   DateTime now = DateTime.now();
 
   dynamic id;
@@ -16,7 +16,7 @@ class RoutineDetailController extends GetxController {
   var name = "".obs;
   var days = 0.obs;
   var tryCount = 0.obs;
-  var averageComplete = 0.obs;
+  var averageComplete = 0.0.obs;
   var averageRating = 0.0.obs;
   var routineItem = [].obs;
   var goals = [].obs;
@@ -68,13 +68,13 @@ class RoutineDetailController extends GetxController {
             'user/${loginService.auth.value.currentUser!.uid}/routine/$id/routineHistory')
         .add({
       'routineItem': routineItem,
-      'complete': 0,
+      'complete': 0.0,
       'duration': days.value,
       'startDate': DateTime(now.year, now.month, now.day),
       'endDate': DateTime(later.year, later.month, later.day),
       'isActive': true,
       'name': name.value,
-      'rating': 0,
+      'rating': 0.0,
     }).then((DocumentReference routineHistoryDoc) async {
       for (int i = 1; i <= days.value; i++) {
         await FirebaseFirestore.instance
@@ -82,7 +82,7 @@ class RoutineDetailController extends GetxController {
                 'user/${loginService.auth.value.currentUser!.uid}/routine/$id/routineHistory/${routineHistoryDoc.id}/days')
             .doc('$i')
             .set({
-          'dayComplete': 0,
+          'dayComplete': 0.0,
         });
 
         for (int j = 0; j < routineItem.length; j++) {
