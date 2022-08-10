@@ -337,6 +337,7 @@ Widget deleteAlertDialog(
     actionsPadding: EdgeInsets.all(0),
     contentPadding: EdgeInsets.all(0),
     content: Container(
+      height: 176.h,
       child: Column(children: [
         Container(
           width: 312.w,
@@ -441,8 +442,6 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
-
-
 Widget circluarGuage(double percent) {
   return SizedBox(
     child: SfRadialGauge(
@@ -502,10 +501,7 @@ Widget halfCircluarGuage(double percent) {
         ),
         Positioned(
           bottom: 112.h,
-          left: percent >= 0.1?
-          74.5.w
-          :
-          84.5.w,
+          left: percent >= 0.1 ? 74.5.w : 84.5.w,
           child: Column(
             children: [
               Text(
@@ -718,6 +714,13 @@ Widget unSelectedRoutineButton(VoidCallback? onPressed, String type) {
 
 Widget customBottomSheet(BuildContext context, Widget contents) {
   return Container(
+    height: 674.h,
+    child: Scaffold(body: contents),
+  );
+}
+
+Widget calendarLogBottomSheet(BuildContext context, Widget contents) {
+  return SizedBox(
     height: 674.h,
     child: Scaffold(body: contents),
   );

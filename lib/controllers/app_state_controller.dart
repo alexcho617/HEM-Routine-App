@@ -1,12 +1,29 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/utils/calendarUtil.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
+import '../controllers/loginService.dart';
+import '../controllers/calendarController.dart';
+import '../models/calendarEvent.dart';
+
 
 class AppStateController extends GetxController {
   Rx<bool> status = false.obs;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   LoginService loginService = Get.find();
+
+  CalendarController calendarController = Get.find();
+
+  //TODO : 가장 최신 이벤트
+  String getLatestCalendarMessage() {
+    CalendarEvent? latestEvent = calendarController.getLatestCalendarEvent();
+    if (latestEvent != null) {
+      return parseCalendarMessage(latestEvent);
+    } else {
+      return '배변 기록을 추가하세요.';
+    }
+  }
+
 
   @override
   void onInit() {

@@ -14,6 +14,7 @@ class CalendarController extends GetxController {
     super.onInit();
     eventsLibrary = await fetchAllEvents();
     routineLibrary = await fetchAllRoutines();
+    getCalendarLog();
     update();
   }
 
@@ -25,9 +26,25 @@ class CalendarController extends GetxController {
   var selectedDay = DateTime.now().obs;
   var focusedDate = DateTime.now().obs;
   DateTime newEventTime = DateTime.now();
-
+  var editIndex;
   //where events are stored, map of day to events
   RxMap eventsLibrary = {}.obs;
+
+  //used in log
+  List<CalendarEvent>? events = [];
+
+  CalendarEvent? getLatestCalendarEvent() {
+    CalendarEvent latest = CalendarEvent();
+    Iterable keys = eventsLibrary.keys;
+
+    latest = eventsLibrary[keys.first][0];
+    return latest;
+  }
+
+  void getCalendarLog() {
+    events = getEventsfromDay(parseDay(focusedDate.value));
+    update();
+  }
 
   //returns list of events from a given date
   List<CalendarEvent>? getEventsfromDay(DateTime? date) {
