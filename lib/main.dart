@@ -54,8 +54,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(AppStateController());
-    Get.put(CalendarController());
-    Get.put(RoutineOnController());
 
     return ScreenUtilInit(
         designSize: const Size(390, 844),
@@ -91,7 +89,6 @@ class MyApp extends StatelessWidget {
               '/routineEntrySetting': (context) => RoutineEntitySettingPage(),
               '/profileSettings': (context) => ProfileSettingsPage(),
               '/completedRoutines': (context) => CompletedRoutinesPage(),
-              
 
               // '/test1' : (context) => MyStatefulWidget(),
             },

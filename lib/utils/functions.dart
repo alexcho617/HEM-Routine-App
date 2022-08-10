@@ -98,9 +98,9 @@ Future<void> progressDialog(
 
   // Close the dialog programmatically
   Navigator.of(context).pop();
+}
 
 void kangminToCustomRoutineItem(ScreenArguments args, context) {
   Get.put(CustomRoutineItemController(args: args));
   kangmin(context, CustomRoutineItemPage(args));
-
 }

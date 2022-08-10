@@ -199,8 +199,9 @@ String parseTime(DateTime date) {
   return dateString;
 }
 
+//TODO make function for calendar event feedback 기획 12페이지
 //function made by yechan jung
-String parseCalendarMessage(CalendarEvent event) {
+String parseRoutineMessage(CalendarEvent event) {
   String user = loginService.name.value;
   if ((event.type == '0' || event.type == '1') && (event.hardness == '9')) {
     return "배가 많이 불편하신가요?\n$user님에게 맞는 루틴을 만들어보세요!";
@@ -267,7 +268,7 @@ Widget calendarAlertDialog(CalendarEvent event, VoidCallback? onPressed) {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 52.0.w),
                 child: Text(
-                  parseCalendarMessage(event),
+                  parseRoutineMessage(event),
                   style: AppleFont16_Black,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.clip,

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'dart:convert';
@@ -55,6 +56,8 @@ class LoginService extends GetxController {
     if (userSnapshot == null || !userSnapshot.exists) {
       addUserDocument();
     }
+
+    Get.find<AppStateController>().isRoutineActive();
   }
 
   Future<void> signOut() async {
@@ -70,7 +73,6 @@ class LoginService extends GetxController {
         .then((value) => print("User Document Created"))
         .catchError((error) => print("Faied to Add User document: ${error}"));
   }
-
 
   Future<void> profileSetting(
       String newName, DateTime birthDate, String gender) {

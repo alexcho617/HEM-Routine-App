@@ -20,8 +20,6 @@ import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-CalendarController controller = Get.find();
-
 class Calendar extends StatefulWidget {
   const Calendar({Key? key}) : super(key: key);
 
@@ -30,6 +28,7 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  CalendarController controller = Get.put(CalendarController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CalendarController>(builder: (_) {
@@ -106,12 +105,12 @@ class _CalendarState extends State<Calendar> {
         // print('Printing Routine -----'+routine.toString());
         if (routine.startDate == date) {
           // print('start');
-          return leftRoutineMarker(date);
+          return leftRoutineMarker(date,controller);
         }
         //right border
         if (routine.endDate == date) {
           // print('end');
-          return rightRoutineMarker(date);
+          return rightRoutineMarker(date,controller);
         }
         //inside rectangle border
         if (routine.startDate.isBefore(date) && routine.endDate.isAfter(date)) {
@@ -119,7 +118,7 @@ class _CalendarState extends State<Calendar> {
           // print(routine.endDate);
 
           // print('middle');
-          return middleRoutineMarker(date);
+          return middleRoutineMarker(date,controller);
         }
 
         // else {
@@ -127,11 +126,11 @@ class _CalendarState extends State<Calendar> {
         // }
       }
     }
-    return emptyRoutineMarker(date);
+    return emptyRoutineMarker(date, controller);
   }
 }
 
-Widget emptyRoutineMarker(DateTime date) {
+Widget emptyRoutineMarker(DateTime date, CalendarController controller) {
   return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
@@ -147,7 +146,7 @@ Widget emptyRoutineMarker(DateTime date) {
   );
 }
 
-Widget rightRoutineMarker(DateTime date) {
+Widget rightRoutineMarker(DateTime date, CalendarController controller) {
   return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
@@ -167,7 +166,7 @@ Widget rightRoutineMarker(DateTime date) {
   );
 }
 
-Widget middleRoutineMarker(DateTime date) {
+Widget middleRoutineMarker(DateTime date, CalendarController controller) {
   return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
@@ -183,7 +182,7 @@ Widget middleRoutineMarker(DateTime date) {
   );
 }
 
-Widget leftRoutineMarker(DateTime date) {
+Widget leftRoutineMarker(DateTime date, CalendarController controller) {
   return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(

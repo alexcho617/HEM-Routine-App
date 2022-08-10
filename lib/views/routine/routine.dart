@@ -25,7 +25,7 @@ class RoutinePage extends StatelessWidget {
   RoutinePage({Key? key}) : super(key: key);
   AppStateController appStateController = Get.find();
   LoginService loginService = Get.find();
-  RoutineOnController onController = Get.find<RoutineOnController>();
+  RoutineOnController onController = Get.put(RoutineOnController());
   RoutineOffController offController = Get.put(RoutineOffController());
   @override
   Widget build(BuildContext context) {
