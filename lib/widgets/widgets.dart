@@ -395,6 +395,75 @@ Widget deleteAlertDialog(
   );
 }
 
+Widget deleteEventAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: Container(
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Container(
+          width: 312.w,
+          height: 120.h,
+          child: Center(
+              child: Text(
+            '정말로 수행 기록을 \n삭제 하시겠습니까?',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '삭제',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
 Widget saveAlertDialog(VoidCallback? onPressed) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
@@ -726,8 +795,9 @@ Widget calendarLogBottomSheet(BuildContext context, Widget contents) {
   );
 }
 
-Widget routineCard(
-    String name, int day, double percent, double rank, VoidCallback? onPressed) {
+Widget routineCard(String name, int day, double percent, double rank,
+    VoidCallback? onPressed) {
+
   return Card(
     elevation: 5,
     shadowColor: Colors.grey,

@@ -1,6 +1,11 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
+import '../models/event.dart';
 
 class RoutineOnController extends GetxController {
   // // This code is for Testing
@@ -17,10 +22,13 @@ class RoutineOnController extends GetxController {
   RxList<dynamic> routineItems = [].obs;
   dynamic todayIndex = 0.obs;
   Rx<DateTime> today = DateTime.now().obs;
-  dynamic startday;
+  Rx<DateTime> startday = DateTime.now().obs;
   dynamic days = 0.obs;
   dynamic selectedDayIndex = (-99).obs;
   dynamic isToday = true;
+
+  dynamic selectedFilter = 0;
+  dynamic selectedFilterString = "전체";
 
   dynamic currentCount = [].obs;
 
@@ -44,6 +52,8 @@ class RoutineOnController extends GetxController {
   dynamic routineDocumentSnapshot;
   late DocumentSnapshot routineHistoryDocumentSnapshot;
   // late DocumentSnapshot dayDocumentSnapshot;
+
+  List<Event> events = [];
 
   @override
   void onInit() async {
@@ -102,8 +112,8 @@ class RoutineOnController extends GetxController {
   Future<void> getCurrday() async {
     routineItems.value = routineHistoryDocumentSnapshot.get('routineItem');
     goals.value = routineHistoryDocumentSnapshot.get('goals');
-    startday = routineHistoryDocumentSnapshot.get('startDate').toDate();
-    todayIndex.value = today.value.difference(startday).inDays;
+    startday.value = routineHistoryDocumentSnapshot.get('startDate').toDate();
+    todayIndex.value = today.value.difference(startday.value).inDays;
   }
 
   Future<void> getCurrCount() async {
@@ -139,7 +149,7 @@ class RoutineOnController extends GetxController {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
-    
+
     final String itemToSwap1 = routineItems.value.removeAt(oldIndex);
     final int itemToSwap2 = goals.value.removeAt(oldIndex);
     final int itemToSwap3 = currentCount.value.removeAt(oldIndex);
@@ -185,39 +195,182 @@ class RoutineOnController extends GetxController {
     });
   }
 
-  void onPlusPressed(int index) {
+  Rx<bool> isFinished = true.obs;
+  Future<void> onPlusPressed(int index) async {
+    isFinished.value = false;
     DateTime nowdt = DateTime.now();
-    String nowst = nowdt.hour.toString() + nowdt.minute.toString();
+    String nowst =
+        DateFormat("HH").format(nowdt) + DateFormat("mm").format(nowdt);
     // print("nowst : $nowst");
-    currentCount[index]++;
-    routineHistoryDocumentSnapshot.reference
+    await routineHistoryDocumentSnapshot.reference
         .collection('days')
         .doc('${selectedDayIndex.value + 1}')
         .collection('routineItemHistory')
         .where('name', isEqualTo: routineItems[index])
         .get()
         .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        dynamic eventTime = [];
-        eventTime = doc.get('eventTime');
+      currentCount.value[index]++;
+      querySnapshot.docs.forEach((doc) async {
+        List<dynamic> eventTime = [];
+        eventTime = await doc.get('eventTime');
         if (isToday) {
           eventTime.add(nowst);
         } else {
           eventTime.add("NULL");
         }
         doc.reference.update({
-          'currentCount': currentCount.value[index],
+          // 'currentCount': currentCount.value[index],
+          'currentCount': FieldValue.increment(1),
           'eventTime': eventTime,
         });
       });
     });
 
+    await getAvgPercents();
+    await dayComplete();
+
+    isFinished.value = true;
+  }
+
+  Future<void> getAvgPercents() async {
     dayCompletes.value[selectedDayIndex.value] = getAvgPercent();
-    routineHistoryDocumentSnapshot.reference
+  }
+
+  Future<void> dayComplete() async {
+    await routineHistoryDocumentSnapshot.reference
         .collection('days')
         .doc("${selectedDayIndex.value + 1}")
         .update({
       'dayComplete': dayCompletes.value[selectedDayIndex.value],
     });
   }
+
+  String getSelectedDay() {
+    final adnum = selectedDayIndex.value;
+    final date = DateTime(startday.value.year, startday.value.month,
+        (startday.value.day + adnum).toInt());
+    final dateFormated = DateFormat('yyyy-MM-dd').format(date);
+    return "($dateFormated)";
+  }
+
+  Future<void> fetchEvent() async {
+    events = [];
+    // Load all (event[] + name) in routineItemHistoy collection.
+    // Put in List of Class
+    await routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .doc("${selectedDayIndex.value + 1}")
+        .collection('routineItemHistory')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        List<dynamic> eventTimes = [];
+        eventTimes = doc.get('eventTime');
+        for (var i in eventTimes) {
+          Event event = Event();
+          event.eventTime = i;
+          event.name = doc.get('name');
+          events.add(event);
+        }
+      });
+    });
+    sortByTime();
+    // print(events);
+    update();
+  }
+
+  void sortByTime() {
+    events.sort(((a, b) => a.eventTime.compareTo(b.eventTime)));
+  }
+
+  String displayDate(String eventTime) {
+    if (eventTime == "NULL") {
+      return "-";
+    } else {
+      String meridiem = "오전 ";
+      num hour = int.parse(eventTime[0] + eventTime[1]);
+      if (hour > 12) {
+        hour -= 12;
+        meridiem = "오후 ";
+      }
+      return meridiem + hour.toString() + ":" + eventTime[2] + eventTime[3];
+    }
+  }
+
+  Future<void> deleteEvent(int index) async {
+    // 해당 인덱스의 이름을 알아낸다. String eventName
+    String eventName = events[index].name;
+    //get index of eventName index
+    num indexOfCount = routineItems.indexWhere((item) => item == eventName);
+    currentCount[indexOfCount]--;
+
+    // events 에서 해당 인덱스의 아이템을 삭제한다.
+    events.removeAt(index);
+    update();
+    // eventName 이랑 동일한 이름을 가지는 instance들의 eventTime의 리스트를 새로 만든다. List<String> setEvents , 이때 리스트는 이미 삭제가 완료된 리스트이다.
+    List<String> setEvents = [];
+    for (var i in events) {
+      if (i.name == eventName) {
+        setEvents.add(i.eventTime);
+      }
+    }
+    // print("setEvents : $setEvents");
+    // setEvents를 eventName을 name으로 가지는 document에 eventItem으로 update한다.
+    await routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .doc("${selectedDayIndex.value + 1}")
+        .collection('routineItemHistory')
+        .where('name', isEqualTo: eventName)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.update({
+          'eventTime': setEvents,
+          'currentCount': currentCount.value[indexOfCount],
+        });
+      });
+    });
+    await getAvgPercents();
+    await dayComplete();
+    update();
+  }
+
+  Future<void> changeEvent(int index, String eventTime) async {
+    // 해당 인덱스의 이름을 알아낸다. String eventName
+    String eventName = events[index].name;
+    //get index of eventName index
+    num indexOfCount = routineItems.indexWhere((item) => item == eventName);
+    currentCount[indexOfCount]--;
+
+    // TODO : events 에서 해당 인덱스의 아이템을 수정한다.
+    
+    update();
+    // eventName 이랑 동일한 이름을 가지는 instance들의 eventTime의 리스트를 새로 만든다. List<String> setEvents , 이때 리스트는 이미 수정이 완료된 리스트이다.
+    List<String> setEvents = [];
+    for (var i in events) {
+      if (i.name == eventName) {
+        setEvents.add(i.eventTime);
+      }
+    }
+    // print("setEvents : $setEvents");
+    // setEvents를 eventName을 name으로 가지는 document에 eventItem으로 update한다.
+    await routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .doc("${selectedDayIndex.value + 1}")
+        .collection('routineItemHistory')
+        .where('name', isEqualTo: eventName)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.update({
+          'eventTime': setEvents,
+          'currentCount': currentCount.value[indexOfCount],
+        });
+      });
+    });
+    await getAvgPercents();
+    await dayComplete();
+    update();
+  }
+
 }
