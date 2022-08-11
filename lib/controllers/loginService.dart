@@ -19,12 +19,23 @@ class LoginService extends GetxController {
 
   var uid = ''.obs;
   var name = ''.obs;
+  late DocumentSnapshot userSnapshot;
 
   @override
   void onInit() async {
-    uid.value = auth.value.currentUser!.uid;
-    name.value = auth.value.currentUser!.displayName!;
+    await getSnapshot();
+    if (userSnapshot.exists) {
+      uid.value = userSnapshot.id;
+      name.value = userSnapshot.get('name');
+    }
     super.onInit();
+  }
+
+  Future<void> getSnapshot() async {
+    userSnapshot = await FirebaseFirestore.instance
+        .collection('user')
+        .doc(auth.value.currentUser!.uid)
+        .get();
   }
 
   Future<void> signInwithGoogle() async {
