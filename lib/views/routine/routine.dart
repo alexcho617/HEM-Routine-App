@@ -151,12 +151,6 @@ class RoutinePage extends StatelessWidget {
                       style: AppleFont12_Black,
                       textAlign: TextAlign.center,
                     ),
-                    //TODO : FOR TEST
-                    TextButton(
-                        onPressed: () {
-                          print(appStateController.getLatestCalendarMessage());
-                        },
-                        child: Text("OOOOOO")),
                     SizedBox(
                       height: 43.h,
                     ),
