@@ -329,7 +329,6 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                               .findAncestorStateOfType<HomePageState>()!
                               .context)
                           .maybePop();
-                      //TODO: show popup screen
                     },
                   )
                 ],
