@@ -147,10 +147,16 @@ class RoutinePage extends StatelessWidget {
                       height: 15.h,
                     ),
                     Text(
-                      '배가 많이 불편하신가요?\n ${loginService.name.value}님에게 맞는 루틴을 만들어 보세요!',
+                      appStateController.getLatestCalendarMessage(),
                       style: AppleFont12_Black,
                       textAlign: TextAlign.center,
                     ),
+                    //TODO : FOR TEST
+                    TextButton(
+                        onPressed: () {
+                          print(appStateController.getLatestCalendarMessage());
+                        },
+                        child: Text("OOOOOO")),
                     SizedBox(
                       height: 43.h,
                     ),
@@ -246,16 +252,14 @@ class RoutinePage extends StatelessWidget {
                           : AppleFont16_Black,
                     ),
                     index <= today
-                        ? GetBuilder<RoutineOnController>(
-                          builder: (context) {
+                        ? GetBuilder<RoutineOnController>(builder: (context) {
                             return Text(
-                                '${(onController.dayCompletes.value[index] * 100).round()} %',
-                                style: index == focusedDay
-                                    ? AppleFont11_Blue600
-                                    : AppleFont11_Grey700,
-                              );
-                          }
-                        )
+                              '${(onController.dayCompletes.value[index] * 100).round()} %',
+                              style: index == focusedDay
+                                  ? AppleFont11_Blue600
+                                  : AppleFont11_Grey700,
+                            );
+                          })
                         : const Text(""),
                   ],
                 ),

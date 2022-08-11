@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:get/get.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/models/calendarRoutine.dart';
@@ -26,7 +24,7 @@ class CalendarController extends GetxController {
   var selectedDay = DateTime.now().obs;
   var focusedDate = DateTime.now().obs;
   DateTime newEventTime = DateTime.now();
-  var editIndex;
+  dynamic editIndex;
   //where events are stored, map of day to events
   RxMap eventsLibrary = {}.obs;
 
@@ -36,8 +34,10 @@ class CalendarController extends GetxController {
   CalendarEvent? getLatestCalendarEvent() {
     CalendarEvent latest = CalendarEvent();
     Iterable keys = eventsLibrary.keys;
-
-    latest = eventsLibrary[keys.first][0];
+    List<dynamic> keyList = keys.toList();
+    keyList.sort();
+    List<CalendarEvent> latestDayEvents = eventsLibrary[keyList.last]; //events of the last day
+    latest = latestDayEvents.first; //events are already stored in descending order
     return latest;
   }
 

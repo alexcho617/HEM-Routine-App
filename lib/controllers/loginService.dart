@@ -20,6 +20,13 @@ class LoginService extends GetxController {
   var uid = ''.obs;
   var name = ''.obs;
 
+  @override
+  void onInit() async {
+    uid.value = auth.value.currentUser!.uid;
+    name.value = auth.value.currentUser!.displayName!;
+    super.onInit();
+  }
+
   Future<void> signInwithGoogle() async {
     googleCredential = await GoogleSignIn(
       scopes: [
