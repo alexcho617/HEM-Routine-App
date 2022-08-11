@@ -28,7 +28,7 @@ Future<void> addEventToCalendar(CalendarEvent newEvent, String uid) async {
         }))
         .then((DocumentReference docRef) =>
             docRef.update({'eventId': docRef.id}));
-    Get.snackbar('배변기록', '배변 기록이 추가되었습니다.', isDismissible: true);
+    // Get.snackbar('배변기록', '배변 기록이 추가되었습니다.', isDismissible: true);
   } on Exception catch (e) {
     Get.snackbar('에러', '배변 기록 추가 실패');
     print(e);
@@ -52,7 +52,7 @@ Future<void> editCalendarEvent(
       'hardness': newEvent.hardness,
       'iconCode': newEvent.iconCode
     }));
-    Get.snackbar('배변기록', '배변 기록이 업데이트되었습니다.', isDismissible: true);
+    // Get.snackbar('배변기록', '배변 기록이 업데이트되었습니다.', isDismissible: true);
   } on Exception catch (e) {
     Get.snackbar('에러', '배변 기록 업데이트 실패');
     print(e);
@@ -89,7 +89,7 @@ Future<RxMap> fetchAllEvents() async {
 
   RxMap eventMap = {}.obs; // Map<DateTime,List<CalendarEvent>>
   try {
-    await eventCollectionReference.get().then((QuerySnapshot querySnapshot) {
+    await eventCollectionReference.orderBy("time",descending: true).get().then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         // doc id event instance
         // check and put event instacne in Map<DateTime, List<event>>
