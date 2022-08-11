@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'dart:math';
 
 import 'package:get/get.dart';
@@ -54,6 +56,9 @@ class RoutineOnController extends GetxController {
   // late DocumentSnapshot dayDocumentSnapshot;
 
   List<Event> events = [];
+
+  DateTime selectedEventDateTime = DateTime.now();
+  dynamic selectedEventIndex = -1;
 
   @override
   void onInit() async {
@@ -297,6 +302,11 @@ class RoutineOnController extends GetxController {
     }
   }
 
+  String firebaseDate(DateTime eventTime) {
+    return DateFormat('HH').format(eventTime) +
+        DateFormat('mm').format(eventTime);
+  }
+
   Future<void> deleteEvent(int index) async {
     // 해당 인덱스의 이름을 알아낸다. String eventName
     String eventName = events[index].name;
@@ -340,10 +350,9 @@ class RoutineOnController extends GetxController {
     String eventName = events[index].name;
     //get index of eventName index
     num indexOfCount = routineItems.indexWhere((item) => item == eventName);
-    currentCount[indexOfCount]--;
 
     // TODO : events 에서 해당 인덱스의 아이템을 수정한다.
-    
+    events[selectedEventIndex].eventTime = eventTime;
     update();
     // eventName 이랑 동일한 이름을 가지는 instance들의 eventTime의 리스트를 새로 만든다. List<String> setEvents , 이때 리스트는 이미 수정이 완료된 리스트이다.
     List<String> setEvents = [];
@@ -364,13 +373,28 @@ class RoutineOnController extends GetxController {
       querySnapshot.docs.forEach((doc) {
         doc.reference.update({
           'eventTime': setEvents,
-          'currentCount': currentCount.value[indexOfCount],
         });
       });
     });
-    await getAvgPercents();
-    await dayComplete();
+    // await getAvgPercents();
+    // await dayComplete();
+    sortByTime();
     update();
   }
 
+  Future<void> onDateTimeSave() async {
+    routineHistoryDocumentSnapshot.reference
+        .collection('days')
+        .doc("${selectedDayIndex.value + 1}")
+        .collection('routineItemHistory')
+        .where('name', isEqualTo: events[selectedDayIndex].name)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.update({
+          //update eventTime
+        });
+      });
+    });
+  }
 }

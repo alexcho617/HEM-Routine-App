@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -168,6 +169,14 @@ class RoutineLogPage extends StatelessWidget {
                             ),
                             onTap: (() {
                               // TODO : 시간 변경하기
+                              // controller
+                              controller.selectedEventIndex = index;
+                              // print(controller.selectedEventIndex);
+                              // print(controller.events);
+                              // print(controller
+                              //     .events[controller.selectedEventIndex]
+                              //     .name);
+                              _showDatePicker(context);
                             }),
                           ),
                           trailing: IconButton(
@@ -230,5 +239,39 @@ class RoutineLogPage extends StatelessWidget {
   bool isFiltered(int index) {
     return (controller.selectedFilterString == "전체" ||
         controller.selectedFilterString == controller.events[index].name);
+  }
+  void _showDatePicker(ctx) {
+    //TODO : change this method
+    showCupertinoModalPopup(
+        context: ctx,
+        builder: (_) => Container(
+              height: 370,
+              color: const Color.fromARGB(255, 255, 255, 255),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 300,
+                    child: CupertinoDatePicker(
+                      mode: CupertinoDatePickerMode.time,
+                      initialDateTime: DateTime.now(), // Have to change this to selected value?
+                      onDateTimeChanged: (val) {
+                        //TODO : onDateTime Change
+                        controller.selectedEventDateTime = val;
+
+                      },
+                    ),
+                  ),
+                  CupertinoButton(
+                    child: const Text('저장'),
+                    onPressed: () {
+                      //onPressed
+                      controller.changeEvent(
+                            controller.selectedEventIndex, controller.firebaseDate(controller.selectedEventDateTime));
+                      Get.back();
+                    },
+                  )
+                ],
+              ),
+            ));
   }
 }
