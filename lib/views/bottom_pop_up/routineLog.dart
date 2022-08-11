@@ -168,7 +168,6 @@ class RoutineLogPage extends StatelessWidget {
                               style: AppleFont16_Grey600,
                             ),
                             onTap: (() {
-                              // TODO : 시간 변경하기
                               // controller
                               controller.selectedEventIndex = index;
                               // print(controller.selectedEventIndex);
@@ -241,7 +240,6 @@ class RoutineLogPage extends StatelessWidget {
         controller.selectedFilterString == controller.events[index].name);
   }
   void _showDatePicker(ctx) {
-    //TODO : change this method
     showCupertinoModalPopup(
         context: ctx,
         builder: (_) => Container(
@@ -255,9 +253,7 @@ class RoutineLogPage extends StatelessWidget {
                       mode: CupertinoDatePickerMode.time,
                       initialDateTime: DateTime.now(), // Have to change this to selected value?
                       onDateTimeChanged: (val) {
-                        //TODO : onDateTime Change
                         controller.selectedEventDateTime = val;
-
                       },
                     ),
                   ),
