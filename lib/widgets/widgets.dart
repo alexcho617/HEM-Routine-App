@@ -797,7 +797,6 @@ Widget calendarLogBottomSheet(BuildContext context, Widget contents) {
 
 Widget routineCard(String name, int day, double percent, double rank,
     VoidCallback? onPressed) {
-
   return Card(
     elevation: 5,
     shadowColor: Colors.grey,
@@ -902,11 +901,36 @@ Widget circleGauzeIndicator(double percent) {
 }
 
 Widget starRankIndicator(double rank) {
-  return Container(
-    child: Text(
-      "여긴 \n이미지로\n 해야할듯",
-      style: AppleFont12_Black,
-    ),
+  return Column(
+    children: [
+      SizedBox(
+        width: 43.w,
+        height: 43.h,
+        child: Builder(
+          builder: (context) {
+            if (rank < 2) {
+              return Image.asset('assets/stars/1.png');
+            }if (rank < 3) {
+              return Image.asset('assets/stars/2.png');
+            }if (rank < 4) {
+              return Image.asset('assets/stars/3.png');
+            }if (rank < 5) {
+              return Image.asset('assets/stars/4.png');
+            }else{
+              return Image.asset('assets/stars/5.png');
+            }
+            
+          },
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.all(3.r),
+        child: Text(
+          '만족도',
+          style: AppleFont12_Black,
+        ),
+      )
+    ],
   );
 }
 
