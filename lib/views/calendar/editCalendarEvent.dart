@@ -80,7 +80,8 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
     );
   }
 
-  CalendarEvent event = controller.events![controller.editIndex];
+  CalendarEvent event =
+      calendarController.events![calendarController.editIndex];
 
   //Event related
   var iconCode = '399';
@@ -248,11 +249,12 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
               SizedBox(
                 height: 26.h,
               ),
-              Container(                    padding: EdgeInsets.symmetric(horizontal: 8.w),
-alignment: Alignment.centerLeft, child: Text('메모')),
               Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 8.w),
-
+                  padding: EdgeInsets.symmetric(horizontal: 8.w),
+                  alignment: Alignment.centerLeft,
+                  child: Text('메모')),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: TextFormField(
                   decoration: InputDecoration(
                     hintText: '메모 입력',
@@ -313,7 +315,7 @@ alignment: Alignment.centerLeft, child: Text('메모')),
 
   void _getEventData(CalendarEvent event) {
     iconCode = event.iconCode;
-    controller.newEventTime = event.time;
+    calendarController.newEventTime = event.time;
     typeCode = iconCode[0];
     colorCode = iconCode[1];
     hardnessCode = iconCode[2];
