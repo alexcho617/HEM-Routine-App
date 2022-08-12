@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
+import 'package:hem_routine_app/views/report/report.dart';
 import 'package:hem_routine_app/views/setting/settings.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
@@ -22,9 +23,7 @@ class HomePageState extends State<HomePage>
   final _pages = [
     Calendar(),
     RoutinePage(),
-    Center(
-      child: Text('Report'),
-    ),
+    ReportPage(),
     SettingsPage(),
   ];
   static List<GlobalKey<NavigatorState>> navigatorKeyList =
@@ -33,7 +32,7 @@ class HomePageState extends State<HomePage>
   static late TabController tabController;
   @override
   void initState() {
-    for(var page in _pages){
+    for (var page in _pages) {
       page.createElement();
     }
     super.initState();
@@ -50,9 +49,7 @@ class HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return !(await navigatorKeyList[currentIndex]
-            .currentState!
-            .maybePop());
+        return !(await navigatorKeyList[currentIndex].currentState!.maybePop());
       },
       child: Scaffold(
         body: SafeArea(

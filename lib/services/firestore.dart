@@ -9,7 +9,7 @@ import '../models/calendarRoutine.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 LoginService loginService = Get.find();
-CalendarController controller = Get.find();
+CalendarController calendarController = Get.find();
 
 Future<void> addEventToCalendar(CalendarEvent newEvent, String uid) async {
   CollectionReference eventReference =
@@ -34,7 +34,7 @@ Future<void> addEventToCalendar(CalendarEvent newEvent, String uid) async {
     print(e);
   }
 
-  controller.eventsLibrary = await fetchAllEvents();
+  calendarController.eventsLibrary = await fetchAllEvents();
 }
 
 Future<void> editCalendarEvent(
@@ -42,7 +42,6 @@ Future<void> editCalendarEvent(
   DocumentReference documentReference =
       _firestore.collection('user').doc(uid).collection('Events').doc(docId);
 
-  //add document since doc id can be auto generated
   try {
     await documentReference.update(({
       'memo': newEvent.memo,
@@ -58,7 +57,7 @@ Future<void> editCalendarEvent(
     print(e);
   }
 
-  controller.eventsLibrary = await fetchAllEvents();
+  calendarController.eventsLibrary = await fetchAllEvents();
 }
 
 Future<void> deleteCalendarEvent(String docId) async {
@@ -77,10 +76,134 @@ Future<void> deleteCalendarEvent(String docId) async {
     print(e);
   }
 
-  controller.eventsLibrary = await fetchAllEvents();
+  calendarController.eventsLibrary = await fetchAllEvents();
 }
 
-//get all events and make it into map<DateTime, List<CalendarEvent>>
+//최근 7일 데이터 불러오기
+Future<RxMap> fetchPastSevenDaysEvent() async {
+  CollectionReference eventCollectionReference = _firestore
+      .collection('user')
+      .doc(loginService.auth.value.currentUser!.uid)
+      .collection('Events');
+  DateTime sevenDaysAgo = DateTime.now().subtract(const Duration(days: 7));
+  RxMap eventMap = {}.obs; // Map<DateTime,List<CalendarEvent>>
+  try {
+    await eventCollectionReference
+        .where("time", isGreaterThan: sevenDaysAgo)
+        .orderBy("time", descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        CalendarEvent event = CalendarEvent();
+        event.eventId = doc.get("eventId");
+        event.time = doc.get("time").toDate();
+        event.type = doc.get("type");
+        event.color = doc.get("color");
+        event.hardness = doc.get("hardness");
+        event.iconCode = doc.get("iconCode");
+        event.memo = doc.get("memo");
+
+        DateTime day = parseDay(event.time);
+        if (eventMap[day] == null) {
+          eventMap[day] = [event];
+        } else {
+          eventMap[day].add(event);
+        }
+      });
+    });
+  } on Exception catch (e) {
+    Get.snackbar('에러', '한 주간의 이벤트 데이터를 불러올 수 없습니다.');
+    print(e);
+  }
+  return eventMap;
+}
+
+//이번 달 이벤트 불러오기
+Future<RxMap> fetchThisMonthsEvent() async {
+  CollectionReference eventCollectionReference = _firestore
+      .collection('user')
+      .doc(loginService.auth.value.currentUser!.uid)
+      .collection('Events');
+
+  DateTime firstDayOfMonth = DateTime(kToday.year, kToday.month, 1);
+  RxMap eventMap = {}.obs; // Map<DateTime,List<CalendarEvent>>
+  try {
+    await eventCollectionReference
+        .where("time", isGreaterThan: firstDayOfMonth)
+        .orderBy("time", descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        CalendarEvent event = CalendarEvent();
+        event.eventId = doc.get("eventId");
+        event.time = doc.get("time").toDate();
+        event.type = doc.get("type");
+        event.color = doc.get("color");
+        event.hardness = doc.get("hardness");
+        event.iconCode = doc.get("iconCode");
+        event.memo = doc.get("memo");
+
+        DateTime day = parseDay(event.time);
+        if (eventMap[day] == null) {
+          eventMap[day] = [event];
+        } else {
+          eventMap[day].add(event);
+        }
+      });
+    });
+  } on Exception catch (e) {
+    Get.snackbar('에러', '한 달간의 이벤트 데이터를 불러올 수 없습니다.');
+    print(e);
+  }
+  return eventMap;
+}
+
+//지난 달 이벤트 불러오기
+Future<RxMap> fetchPreviousMonthsEvent(int monthsBefore) async {
+  CollectionReference eventCollectionReference = _firestore
+      .collection('user')
+      .doc(loginService.auth.value.currentUser!.uid)
+      .collection('Events');
+  //해당 달의 첫날 00시
+  DateTime start = DateTime(kToday.year, kToday.month - monthsBefore, 1);
+  //해당 달의 마지막날 자정 직전
+  DateTime end =
+      DateTime(kToday.year, kToday.month - monthsBefore, 31, 23, 59, 59);
+
+  RxMap eventMap = {}.obs; // Map<DateTime,List<CalendarEvent>>
+  try {
+    await eventCollectionReference
+        .where("time", isGreaterThanOrEqualTo: start) //첫 날~마지막 날
+        .where("time", isLessThanOrEqualTo: end)
+        .orderBy("time", descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        CalendarEvent event = CalendarEvent();
+        event.eventId = doc.get("eventId");
+        event.time = doc.get("time").toDate();
+        event.type = doc.get("type");
+        event.color = doc.get("color");
+        event.hardness = doc.get("hardness");
+        event.iconCode = doc.get("iconCode");
+        event.memo = doc.get("memo");
+
+        DateTime day = parseDay(event.time);
+        if (eventMap[day] == null) {
+          eventMap[day] = [event];
+        } else {
+          eventMap[day].add(event);
+        }
+      });
+    });
+  } on Exception catch (e) {
+    Get.snackbar('에러', '한 달간의 이벤트 데이터를 불러올 수 없습니다.');
+    print(e);
+  }
+  return eventMap;
+}
+
+//모든 이벤트 들고오기 get all events and make it into map<DateTime, List<CalendarEvent>>
 Future<RxMap> fetchAllEvents() async {
   CollectionReference eventCollectionReference = _firestore
       .collection('user')
@@ -89,7 +212,10 @@ Future<RxMap> fetchAllEvents() async {
 
   RxMap eventMap = {}.obs; // Map<DateTime,List<CalendarEvent>>
   try {
-    await eventCollectionReference.orderBy("time",descending: true).get().then((QuerySnapshot querySnapshot) {
+    await eventCollectionReference
+        .orderBy("time", descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         // doc id event instance
         // check and put event instacne in Map<DateTime, List<event>>
@@ -119,8 +245,8 @@ Future<RxMap> fetchAllEvents() async {
     Get.snackbar('에러', '캘린더 데이터를 불러올 수 없습니다.');
     print(e);
   }
-  controller.getCalendarLog();
-  
+  calendarController.getCalendarLog();
+
   return eventMap;
 }
 
