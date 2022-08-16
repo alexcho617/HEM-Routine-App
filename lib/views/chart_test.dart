@@ -25,7 +25,7 @@ class _ChartTestPageState extends State<ChartTestPage> {
             Text("Chart Test Page"),
             Container(
               color: Colors.pink[50],
-              child: circularChart(0.2, 0.7, 0.1),
+              child: circularChart(0.10, 0.67, 0.23),
             ),
           ],
         ),
@@ -36,9 +36,9 @@ class _ChartTestPageState extends State<ChartTestPage> {
 
 Widget circularChart(double x1, double x2, double x3) {
   List<ChartData> chartdatas = [
-    ChartData("묽은변", x1, color: Colors.amber),
-    ChartData("쾌변", x2, color: Colors.deepPurple),
-    ChartData("단단한 변", x3, color: Colors.red),
+    ChartData("묽은변", x1, color: blue50),
+    ChartData("쾌변", x2, color: blue600),
+    ChartData("단단한 변", x3, color: blue200),
   ];
   return SfCircularChart(
     annotations: <CircularChartAnnotation>[
@@ -50,7 +50,7 @@ Widget circularChart(double x1, double x2, double x3) {
             SizedBox(
               height: 100.h,
             ),
-            Text("이번달 쾌변율", style: AppleFont14_Grey600,),
+            Text("이번 달 쾌변율", style: AppleFont14_Grey600,),
             Text("${(x2 * 100).toStringAsFixed(0)}%",style: AppleFont36_Blue600,)
           ],
         ),
@@ -60,6 +60,8 @@ Widget circularChart(double x1, double x2, double x3) {
     series: <CircularSeries>[
       DoughnutSeries(
           dataSource: chartdatas,
+          startAngle: 270,
+          endAngle: 270,
           pointColorMapper: (data, index) {
             return data.color;
           },
@@ -73,7 +75,7 @@ Widget circularChart(double x1, double x2, double x3) {
           dataLabelSettings: DataLabelSettings(
             isVisible: true,
             builder: (data, point, series, pointIndex, seriesIndex) {
-              return Text((data.y * 100).toStringAsFixed(0) + "%", style: TextStyle(color: white, fontSize: 14),);
+              return Text((data.y * 100).toStringAsFixed(0) + "%", style: TextStyle(color:pointIndex==0? blue600:white, fontSize: 14),);
             },
           ),
           ),
