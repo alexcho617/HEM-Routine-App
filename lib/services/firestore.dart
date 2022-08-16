@@ -158,6 +158,7 @@ Future<RxMap> fetchThisMonthsEvent() async {
   return eventMap;
 }
 
+//사용 안 할 가능성 있음. fetchSixMonthSmooth 로 대체
 //지난 달 이벤트 불러오기
 Future<RxMap> fetchPreviousMonthsEvent(int monthsBefore) async {
   CollectionReference eventCollectionReference = _firestore
@@ -197,10 +198,123 @@ Future<RxMap> fetchPreviousMonthsEvent(int monthsBefore) async {
       });
     });
   } on Exception catch (e) {
-    Get.snackbar('에러', '한 달간의 이벤트 데이터를 불러올 수 없습니다.');
+    Get.snackbar('에러', '지난 $monthsBefore달 간의 이벤트 데이터를 불러올 수 없습니다.');
     print(e);
   }
   return eventMap;
+}
+
+//리포트 페이지 6개월 라인 차트용
+Future<RxList> fetchSixMonthSmooth(int monthsBefore) async {
+  RxList data = [].obs;
+
+  CollectionReference eventCollectionReference = _firestore
+      .collection('user')
+      .doc(loginService.auth.value.currentUser!.uid)
+      .collection('Events');
+
+  //옛날 데이터부터 지금까지.
+  for (var offSet = monthsBefore; offSet >= 0; offSet--) {
+    //해당 달의 첫날 00시
+    DateTime start = DateTime(kToday.year, kToday.month - offSet, 1);
+    //해당 달의 마지막날 자정 직전
+    DateTime end = DateTime(
+        kToday.year, kToday.month - offSet, 31, 23, 59, 59); //달의 31일 자정 직전
+    // RxMap eventMap = {}.obs; // Map<DateTime,List<CalendarEvent>>
+    try {
+      int bottom = 0;
+      int top = 0;
+      await eventCollectionReference
+          .where("time", isGreaterThanOrEqualTo: start) //첫 날~마지막 날
+          .where("time", isLessThanOrEqualTo: end)
+          .orderBy("time", descending: true)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        bottom = querySnapshot.size;
+      });
+      // print('BOTTOM : $bottom');
+      if (bottom == 0) {
+        data.add("기록 없음");
+      } else {
+        //event record exists
+        await eventCollectionReference
+            .where("time", isGreaterThanOrEqualTo: start) //첫 날~마지막 날
+            .where("time", isLessThanOrEqualTo: end)
+            .where("type", whereIn: ["2", "3", "4"])
+            .orderBy("time", descending: true)
+            .get()
+            .then((QuerySnapshot querySnapshot) {
+              top = querySnapshot.size;
+            });
+        // print('TOP : $top');
+        data.add((top / bottom).toStringAsFixed(2));
+      }
+
+      // print('$top / $bottom');
+    } on Exception catch (e) {
+      Get.snackbar('에러', '$offSet달 전의 이벤트 데이터를 불러올 수 없습니다.');
+      print(e);
+    }
+  }
+  // print(data);
+  return data;
+}
+
+//리포트 페이지 컬러차트용
+Future<RxList> fetchColorData(int days) async {
+  RxList data = [].obs;
+  RxMap colorMap = {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "9": 0 // 9는 선택을 하지 않은것
+  }.obs;
+  DateTime daysAgo = DateTime.now().subtract(Duration(days: days));
+  CollectionReference eventCollectionReference = _firestore
+      .collection('user')
+      .doc(loginService.auth.value.currentUser!.uid)
+      .collection('Events');
+
+  try {
+    int bottom = 0;
+    int top = 0;
+    await eventCollectionReference
+        .where("time", isGreaterThan: daysAgo)
+        .orderBy("time", descending: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      bottom = querySnapshot.size;
+      if (bottom != 0) {
+        //do counting here
+        top = querySnapshot.size;
+        querySnapshot.docs.forEach((doc) {
+          String color = doc.get("color");
+          // print(color);
+          colorMap[color] += 1;
+        });
+      } else {
+        return "기록 없음";
+      }
+
+      var keyList = colorMap.keys.toList();
+      for (var key in keyList) {
+        if (key != "9") data.add((colorMap[key] / bottom).toStringAsFixed(2));
+      }
+      // print(data);
+      return data;
+    });
+
+    // print('$top / $bottom');
+  } on Exception catch (e) {
+    Get.snackbar('에러', '$daysAgo일 전의 색 데이터를 불러올 수 없습니다.');
+    print(e);
+  }
+  // print(data);
+  return data;
 }
 
 //모든 이벤트 들고오기 get all events and make it into map<DateTime, List<CalendarEvent>>
