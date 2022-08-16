@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/report_controller.dart';
+import 'package:hem_routine_app/views/report/bar_graph.dart';
+import '../chart_test.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({Key? key}) : super(key: key);
@@ -13,47 +15,63 @@ class _ReportPageState extends State<ReportPage> {
   final ReportController _reportController = Get.put(ReportController());
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text('Report'),
-        Text('사용자의 리포트'),
-        Row(
-          children: [
-            Column(
-              children: [
-                Text('주간(최근 7일) 배변 횟수:'),
-                Text(_reportController.sevenDayEventCount.value),
-              ],
-            ),
-            Column(
-              children: [
-                Text('수행 완료 루틴:'),
-                Text(_reportController.getCompletedRoutines().toString()),
-              ],
-            ),
-            Column(
-              children: [
-                Text('평균 루틴 달성도'),
-                Text((_reportController.getAvgRoutineCompletion() * 100).toStringAsFixed(0) + "%"),
-              ],
-            )
-          ],
-        ),
-        Text('묽은변 횟수 : ${_reportController.pieChartData[0]}'),
-        Text('쾌변 횟수 : ${_reportController.pieChartData[1]}'),
-        Text('단단한 변 횟수 : ${_reportController.pieChartData[2]}'),
-        Divider(
-          thickness: 3,
-        ),
-        Text('월별 쾌변율 : ${_reportController.lineChartData}'),
-        Divider(
-          thickness: 3,
-        ),
-        Text('1주일(7일) 색상통계 : ${_reportController.colorChartData7}'),
-        Text('1개월(30일) 색상통계 : ${_reportController.colorChartData30}'),
-        Text('3개월(90일) 색상통계 : ${_reportController.colorChartData90}'),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text('Report'),
+          Text('사용자의 리포트'),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Text('주간(최근 7일) 배변 횟수:'),
+                  Text(_reportController.sevenDayEventCount.value),
+                ],
+              ),
+              Column(
+                children: [
+                  Text('수행 완료 루틴:'),
+                  Text(_reportController.getCompletedRoutines().toString()),
+                ],
+              ),
+              Column(
+                children: [
+                  Text('평균 루틴 달성도'),
+                  Text((_reportController.getAvgRoutineCompletion() * 100)
+                          .toStringAsFixed(0) +
+                      "%"),
+                ],
+              )
+            ],
+          ),
+          Divider(
+            thickness: 3,
+          ),
+          circularChart(
+              _reportController.pieChartData[0],
+              _reportController.pieChartData[1],
+              _reportController.pieChartData[2]),
+          Text('묽은변 횟수 : ${_reportController.pieChartData[0]}'),
+          Text('쾌변 횟수 : ${_reportController.pieChartData[1]}'),
+          Text('단단한 변 횟수 : ${_reportController.pieChartData[2]}'),
+          Divider(
+            thickness: 3,
+          ),
+          Text('월별 쾌변율 : ${_reportController.lineChartData}'),
+          Divider(
+            thickness: 3,
+          ),
+          Text('1주일(7일) 색상통계 : ${_reportController.colorChartData7}'),
+          Text('1개월(30일) 색상통계 : ${_reportController.colorChartData30}'),
+          Text('3개월(90일) 색상통계 : ${_reportController.colorChartData90}'),
+          Divider(
+            thickness: 3,
+          ),
+          Text('배변 패턴'),
+          BarGraph()
+        ],
+      ),
     );
   }
 }

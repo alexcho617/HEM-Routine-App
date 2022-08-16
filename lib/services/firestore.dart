@@ -263,7 +263,7 @@ Future<RxList> fetchSixMonthSmooth(int monthsBefore) async {
 }
 
 //리포트 페이지 컬러차트용
-Future<RxList> fetchColorData(int days) async {
+Future<RxList> fetchColorChartData(int days) async {
   RxList data = [].obs;
   RxMap colorMap = {
     "0": 0,
@@ -304,7 +304,9 @@ Future<RxList> fetchColorData(int days) async {
 
       var keyList = colorMap.keys.toList();
       for (var key in keyList) {
-        if (key != "9") data.add((colorMap[key] / bottom).toStringAsFixed(2));
+        if (key != "9") {
+          data.add(((colorMap[key] / bottom) * 100).round() / 100);
+        }
       }
       // print(data);
       return data;

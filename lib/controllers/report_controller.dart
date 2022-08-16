@@ -42,9 +42,9 @@ class ReportController extends GetxController {
     lineChartData = await fetchSixMonthSmooth(5);
     routineList.value = await fetchAllRoutines();
 
-    colorChartData7 = await fetchColorData(7);
-    colorChartData30 = await fetchColorData(30);
-    colorChartData90 = await fetchColorData(90);
+    colorChartData7 = await fetchColorChartData(7);
+    colorChartData30 = await fetchColorChartData(30);
+    colorChartData90 = await fetchColorChartData(90);
 
     update();
   }
@@ -84,9 +84,9 @@ class ReportController extends GetxController {
     }
 
     //asign
-    pieChartData.add((water / count).toStringAsFixed(2));
-    pieChartData.add((smooth / count).toStringAsFixed(2));
-    pieChartData.add((hard / count).toStringAsFixed(2));
+    pieChartData.add(((water / count) * 100).round() / 100);
+    pieChartData.add(((smooth / count) * 100).round() / 100);
+    pieChartData.add(((hard / count) * 100).round() / 100);
 
     // thisMonthEventCount.value = count.toString();
     // wateryCount.value = water.toString();
