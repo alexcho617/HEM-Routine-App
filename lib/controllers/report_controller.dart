@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/services/firestore.dart';
@@ -28,6 +29,8 @@ class ReportController extends GetxController {
   RxList colorChartData30 = [].obs;
   RxList colorChartData90 = [].obs;
 
+  RxList routineList = [].obs;
+
   @override
   void onInit() async {
     super.onInit();
@@ -37,6 +40,7 @@ class ReportController extends GetxController {
     await getWeeklyEventCount();
     getPieChartData();
     lineChartData = await fetchSixMonthSmooth(5);
+    routineList.value = await fetchAllRoutines();
 
     colorChartData7 = await fetchColorData(7);
     colorChartData30 = await fetchColorData(30);
@@ -88,5 +92,23 @@ class ReportController extends GetxController {
     // wateryCount.value = water.toString();
     // smoothCount.value = smooth.toString();
     // hardCount.value = hard.toString();
+  }
+
+  num getCompletedRoutines() {
+    num com = 0;
+    for (var i in routineList) {
+      com += i.tryCount;
+    }
+    return com;
+  }
+
+  num getAvgRoutineCompletion() {
+    num avg = 0.0;
+    for (var i in routineList) {
+      avg += i.averageComplete;
+    }
+    avg /= routineList.length;
+
+    return avg;
   }
 }

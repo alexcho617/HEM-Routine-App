@@ -25,6 +25,18 @@ class _ReportPageState extends State<ReportPage> {
                 Text('주간(최근 7일) 배변 횟수:'),
                 Text(_reportController.sevenDayEventCount.value),
               ],
+            ),
+            Column(
+              children: [
+                Text('수행 완료 루틴:'),
+                Text(_reportController.getCompletedRoutines().toString()),
+              ],
+            ),
+            Column(
+              children: [
+                Text('평균 루틴 달성도'),
+                Text((_reportController.getAvgRoutineCompletion() * 100).toStringAsFixed(0) + "%"),
+              ],
             )
           ],
         ),

@@ -11,7 +11,7 @@ class CalendarController extends GetxController {
   void onInit() async {
     super.onInit();
     eventsLibrary = await fetchAllEvents();
-    routineLibrary = await fetchAllRoutines();
+    routineLibrary = await fetchAllCalendarRoutines();
     getCalendarLog();
     update();
   }
@@ -36,8 +36,10 @@ class CalendarController extends GetxController {
     Iterable keys = eventsLibrary.keys;
     List<dynamic> keyList = keys.toList();
     keyList.sort();
-    List<CalendarEvent> latestDayEvents = eventsLibrary[keyList.last]; //events of the last day
-    latest = latestDayEvents.first; //events are already stored in descending order
+    List<CalendarEvent> latestDayEvents =
+        eventsLibrary[keyList.last]; //events of the last day
+    latest =
+        latestDayEvents.first; //events are already stored in descending order
     return latest;
   }
 

@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
+import 'package:hem_routine_app/models/routine.dart';
 import 'package:hem_routine_app/utils/calendarUtil.dart';
 
 import '../controllers/loginService.dart';
 import '../models/calendarRoutine.dart';
+import '../models/routine.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 LoginService loginService = Get.find();
@@ -364,9 +366,40 @@ Future<RxMap> fetchAllEvents() async {
   return eventMap;
 }
 
+//fetch routine
+Future<List<Routine>> fetchAllRoutines() async {
+  List<Routine> routineList = [];
+  try {
+    await _firestore
+        .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        Routine currentRoutine = Routine();
+
+        currentRoutine.averageComplete = doc["averageComplete"];
+        currentRoutine.averageRating = doc["averageRating"];
+        currentRoutine.days = doc["days"];
+        currentRoutine.goals = doc["goals"];
+        currentRoutine.id = doc.id;
+        currentRoutine.name = doc["name"];
+        currentRoutine.routineItem = doc["routineItem"];
+        currentRoutine.tryCount = doc["tryCount"];
+
+        routineList.add(currentRoutine);
+      }
+    });
+  } on Exception catch (e) {
+    print(e);
+    Get.snackbar('에러', '루틴 데이터를 불러올 수 없습니다.');
+  }
+
+  return routineList;
+}
+
 //this will fetch routine data from firestore
 //fetch is not working corretl,y it is replacing all routines
-Future<List<CalendarRoutine>> fetchAllRoutines() async {
+Future<List<CalendarRoutine>> fetchAllCalendarRoutines() async {
   List<CalendarRoutine> routineList = [];
   try {
     await _firestore
