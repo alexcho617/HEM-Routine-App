@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/services/firestore.dart';
@@ -11,11 +12,14 @@ class ReportController extends GetxController {
   var sevenDayEventCount = '0'.obs;
   var thisMonthEventCount = '0'.obs;
 
+  RxList routineList = [].obs;
+
   @override
   void onInit() async {
     super.onInit();
     weekEvents = await fetchPastSevenDaysEvent();
     monthEvents = await fetchThisMonthsEvent();
+    routineList.value = await fetchAllRoutines();
 
     sevenDayEventCount.value = await getSevenDayEventNumber();
     thisMonthEventCount.value = await getThisMonthsEventNumber();
@@ -41,5 +45,23 @@ class ReportController extends GetxController {
       count += events.length;
     }
     return count.toString();
+  }
+
+  num getCompletedRoutines() {
+    num com = 0;
+    for (var i in routineList) {
+      com += i.tryCount;
+    }
+    return com;
+  }
+
+  num getAvgRoutineCompletion() {
+    num avg = 0.0;
+    for (var i in routineList) {
+      avg += i.averageComplete;
+    }
+    avg /= routineList.length;
+
+    return avg;
   }
 }

@@ -113,7 +113,7 @@ class RoutineEntityController extends GetxController {
               print("Error adding document to calendarRoutine: $error"));
 
       //fetch routine collection and add to routineLibrary
-      calendarController.routineLibrary = await fetchAllRoutines();
+      calendarController.routineLibrary = await fetchAllCalendarRoutines();
       calendarController.update();
       //end alex calenderRoutine
 

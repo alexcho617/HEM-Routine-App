@@ -9,6 +9,7 @@ import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/firebase_options.dart';
 import 'package:hem_routine_app/utils/colors.dart';
+import 'package:hem_routine_app/views/chart_test.dart';
 import 'package:hem_routine_app/views/routine/routineBuild.dart';
 import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
 import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
@@ -89,6 +90,7 @@ class MyApp extends StatelessWidget {
               '/routineEntrySetting': (context) => RoutineEntitySettingPage(),
               '/profileSettings': (context) => ProfileSettingsPage(),
               '/completedRoutines': (context) => CompletedRoutinesPage(),
+              '/chartTest' : (context) => ChartTestPage(),
 
               // '/test1' : (context) => MyStatefulWidget(),
             },
