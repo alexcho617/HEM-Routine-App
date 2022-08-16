@@ -24,7 +24,7 @@ class _ChartTestPageState extends State<ChartTestPage> {
           children: [
             Text("Chart Test Page"),
             Container(
-              color: Colors.pink[50],
+              color: Colors.transparent,
               child: circularChart(0.10, 0.67, 0.23),
             ),
           ],
