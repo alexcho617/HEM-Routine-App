@@ -28,7 +28,7 @@ class _BarGraphState extends State<BarGraph> {
     return Container(
         // height: totalHeight,
         // width: totalWidth,
-        color: blue50,
+        // color: blue50,
         child: Padding(
           padding: EdgeInsets.all(8.r),
           child: Column(
@@ -39,7 +39,7 @@ class _BarGraphState extends State<BarGraph> {
                 children: [
                   yAxis(
                     gap: SizedBox(
-                      height: blockHeight / 5 - 10,
+                      height: blockHeight / 5 - 10.h,
                     ),
                   ),
                   Row(
@@ -64,9 +64,9 @@ class _BarGraphState extends State<BarGraph> {
           children: [
             Container(
               //delete border
-              decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.black),
-                  color: blue50),
+              // decoration: BoxDecoration(
+              //     border: Border.all(width: 1, color: Colors.black),
+              //     color: blue50),
               width: blockWidth,
               height: blockHeight,
               child: Stack(
@@ -99,9 +99,9 @@ class _BarGraphState extends State<BarGraph> {
           Column(
             children: [
               Container(
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.black),
-                    color: blue50),
+                // decoration: BoxDecoration(
+                //     border: Border.all(width: 1, color: Colors.black),
+                //     color: blue50),
                 width: blockWidth,
                 height: blockHeight,
                 // color: blue100,

@@ -236,7 +236,7 @@ Future<RxList> fetchSixMonthSmooth(int monthsBefore) async {
       });
       // print('BOTTOM : $bottom');
       if (bottom == 0) {
-        data.add(0);
+        data.add(0.0);
       } else {
         //event record exists
         await eventCollectionReference

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/report_controller.dart';
 import 'package:hem_routine_app/views/report/bar_graph.dart';
 
+import './report_widget.dart';
+
 class ReportPage extends StatefulWidget {
   const ReportPage({Key? key}) : super(key: key);
 
@@ -47,19 +49,26 @@ class _ReportPageState extends State<ReportPage> {
           Divider(
             thickness: 3,
           ),
-          // circularChart(
-          //     _reportController.pieChartData[0],
-          //     _reportController.pieChartData[1],
-          //     _reportController.pieChartData[2]),
-          Text('묽은변 횟수 : ${_reportController.pieChartData[0]}'),
-          Text('쾌변 횟수 : ${_reportController.pieChartData[1]}'),
-          Text('단단한 변 횟수 : ${_reportController.pieChartData[2]}'),
+          circularAnalysisChart(_reportController.pieChartData),
+          // Text('묽은변 횟수 : ${_reportController.pieChartData[0]}'),
+          // Text('쾌변 횟수 : ${_reportController.pieChartData[1]}'),
+          // Text('단단한 변 횟수 : ${_reportController.pieChartData[2]}'),
           Divider(
             thickness: 3,
           ),
-          Text('월별 쾌변율 : ${_reportController.lineChartData}'),
+          GetBuilder<ReportController>(
+            builder: (context) {
+              return monthlyRateChart(_reportController.lineChartData);
+            }
+          ),
+          // Text('월별 쾌변율 : ${_reportController.lineChartData}'),
           Divider(
             thickness: 3,
+          ),
+          GetBuilder<ReportController>(
+            builder: (context) {
+              return circularColorChart(_reportController.colorChartData7);
+            }
           ),
           Text('1주일(7일) 색상통계 : ${_reportController.colorChartData7}'),
           Text('1개월(30일) 색상통계 : ${_reportController.colorChartData30}'),

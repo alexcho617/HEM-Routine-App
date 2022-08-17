@@ -90,7 +90,6 @@ class MyApp extends StatelessWidget {
               '/routineEntrySetting': (context) => RoutineEntitySettingPage(),
               '/profileSettings': (context) => ProfileSettingsPage(),
               '/completedRoutines': (context) => CompletedRoutinesPage(),
-              '/chartTest' : (context) => ReportWidgetTestPage(),
 
               // '/test1' : (context) => MyStatefulWidget(),
             },

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+// import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 
-Widget circularAnalysisChart(List<double> x) {
+Widget circularAnalysisChart(RxList x) {
   List<AnalysisChartData> chartdatas = [
     AnalysisChartData("묽은변", x[0], color: blue50),
     AnalysisChartData("쾌변", x[1], color: blue600),
@@ -27,7 +28,7 @@ Widget circularAnalysisChart(List<double> x) {
               style: AppleFont14_Grey600,
             ),
             Text(
-              "${(x[2] * 100).toStringAsFixed(0)}%",
+              "${(x[1] * 100).toStringAsFixed(0)}%",
               style: AppleFont36_Blue600,
             )
           ],
@@ -76,7 +77,10 @@ class AnalysisChartData {
   final Color color;
 }
 
-Widget circularColorChart(List<double> x) {
+Widget circularColorChart(RxList x) {
+  if (x.isEmpty) {
+    return CircularProgressIndicator();
+  }
   List<ColorChartData> chartdatas = [
     ColorChartData(x[0], const Color.fromRGBO(0xD9, 0xD9, 0xD9, 1)),
     ColorChartData(x[1], const Color.fromRGBO(0xDC, 0x6D, 0x69, 1)),
@@ -117,7 +121,7 @@ Widget circularColorChart(List<double> x) {
         yValueMapper: (data, index) {
           return data.y;
         },
-        innerRadius: '75%',
+        innerRadius: '60%',
         dataLabelSettings: DataLabelSettings(
           isVisible: true,
           builder: (data, point, series, pointIndex, seriesIndex) {
@@ -142,36 +146,37 @@ class ColorChartData {
   final Color color;
 }
 
-class ReportWidgetTestPage extends StatefulWidget {
-  const ReportWidgetTestPage({Key? key}) : super(key: key);
+// class ReportWidgetTestPage extends StatefulWidget {
+//   const ReportWidgetTestPage({Key? key}) : super(key: key);
 
-  @override
-  State<ReportWidgetTestPage> createState() => _ReportWidgetTestPageState();
-}
+//   @override
+//   State<ReportWidgetTestPage> createState() => _ReportWidgetTestPageState();
+// }
 
-class _ReportWidgetTestPageState extends State<ReportWidgetTestPage> {
-  List<double> hardness = [0.10, 0.67, 0.23];
-  List<double> colors = [0.10, 0.0, 0.25, 0.30, 0.20, 0.05, 0.05];
-  List<double> lines = [0.0, 0.0, 1.0, 0.0, 0.41, 0.67];
-  // 회색, 붉은색, 초록색, 노란색, 갈색, 고동색, 흑색
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              circularAnalysisChart(hardness),
-              circularColorChart(colors),
-              // syncLineChart(),
-              lineChart(lines),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+// //TEST CODE
+// class _ReportWidgetTestPageState extends State<ReportWidgetTestPage> {
+//   RxList hardness = [0.10, 0.67, 0.23].obs;
+//   RxList colors = [0.10, 0.0, 0.25, 0.30, 0.20, 0.05, 0.05].obs;
+//   RxList lines = [0.0, 0.0, 1.0, 0.0, 0.41, 0.67].obs;
+//   // 회색, 붉은색, 초록색, 노란색, 갈색, 고동색, 흑색
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: SafeArea(
+//         child: SingleChildScrollView(
+//           child: Column(
+//             children: [
+//               circularAnalysisChart(hardness),
+//               circularColorChart(colors),
+//               // syncLineChart(),
+//               monthlyRateChart(lines),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 // Widget syncLineChart() {
 //   return SfSparkLineChart(
@@ -181,7 +186,7 @@ class _ReportWidgetTestPageState extends State<ReportWidgetTestPage> {
 //   );
 // }
 
-List<LineChartBarData> lineBarsData(List<double> x) {
+List<LineChartBarData> lineBarsData(RxList x) {
   return [
     LineChartBarData(
       spots: [
@@ -206,7 +211,10 @@ List<LineChartBarData> lineBarsData(List<double> x) {
   ];
 }
 
-Widget lineChart(List<double> x) {
+Widget monthlyRateChart(RxList x) {
+  if (x.isEmpty) {
+    return CircularProgressIndicator();
+  }
   final lineChartBarsData = lineBarsData(x);
   final showIndex = [0, 1, 2, 3, 4, 5];
   return SizedBox(
