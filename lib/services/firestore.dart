@@ -87,7 +87,7 @@ Future<RxMap> fetchPastSevenDaysEvent() async {
       .collection('user')
       .doc(loginService.auth.value.currentUser!.uid)
       .collection('Events');
-  DateTime sevenDaysAgo = DateTime.now().subtract(const Duration(days: 7));
+  DateTime sevenDaysAgo = kLastDay.subtract(const Duration(days: 7));
   RxMap eventMap = {}.obs; // Map<DateTime,List<CalendarEvent>>
   try {
     await eventCollectionReference
@@ -236,7 +236,7 @@ Future<RxList> fetchSixMonthSmooth(int monthsBefore) async {
       });
       // print('BOTTOM : $bottom');
       if (bottom == 0) {
-        data.add("기록 없음");
+        data.add(0);
       } else {
         //event record exists
         await eventCollectionReference
@@ -249,7 +249,7 @@ Future<RxList> fetchSixMonthSmooth(int monthsBefore) async {
               top = querySnapshot.size;
             });
         // print('TOP : $top');
-        data.add((top / bottom).toStringAsFixed(2));
+        data.add(((top / bottom) * 100).round() / 100);
       }
 
       // print('$top / $bottom');

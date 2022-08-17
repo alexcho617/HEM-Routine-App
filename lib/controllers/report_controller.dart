@@ -9,7 +9,7 @@ class ReportController extends GetxController {
   RxMap monthEvents = {}.obs;
   RxMap threeMonthsEvents = {}.obs;
   // RxMap sixMonthsEvents = {}.obs;
-
+  var weekEventsKeys = [];
   //기획 4
   var sevenDayEventCount = '0'.obs;
 
@@ -35,9 +35,10 @@ class ReportController extends GetxController {
   void onInit() async {
     super.onInit();
     weekEvents = await fetchPastSevenDaysEvent();
+    await getWeeklyEventCount();
+
     monthEvents = await fetchThisMonthsEvent();
     // sixMonthsEvents = await fetchPreviousMonthsEvent(5);
-    await getWeeklyEventCount();
     getPieChartData();
     lineChartData = await fetchSixMonthSmooth(5);
     routineList.value = await fetchAllRoutines();
@@ -51,8 +52,9 @@ class ReportController extends GetxController {
 
   Future<void> getWeeklyEventCount() async {
     var count = 0;
-    var keyList = weekEvents.keys.toList();
-    for (var key in keyList) {
+    weekEventsKeys = weekEvents.keys.toList();
+    for (var key in weekEventsKeys) {
+      //empty list 인 경우 대응해줘야함.
       List<CalendarEvent> events = weekEvents[key];
       count += events.length;
     }
