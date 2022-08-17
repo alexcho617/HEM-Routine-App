@@ -75,6 +75,9 @@ final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month, kToday.day);
 
+final List<DateTime> keysForBarChart = [
+  for (int i = 6; i >= 0; i--) kLastDay.subtract(Duration(days: i))
+];
 DateTime parseDay(DateTime before) {
   DateTime after = DateTime(before.year, before.month, before.day);
   return after;
@@ -193,9 +196,16 @@ String parseHardnessCode(String code) {
 }
 
 String parseTime(DateTime date) {
+  String timeString = '';
+
+  timeString = DateFormat('a hh:mm', 'ko_KR').format(date);
+  return timeString;
+}
+
+String parseDate(DateTime date) {
   String dateString = '';
 
-  dateString = DateFormat('a hh:mm', 'ko_KR').format(date);
+  dateString = DateFormat('MM.dd', 'ko_KR').format(date);
   return dateString;
 }
 

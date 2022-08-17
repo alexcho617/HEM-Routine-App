@@ -16,62 +16,71 @@ class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text('Report'),
-          Text('사용자의 리포트'),
-          Row(
+      child: Obx(
+        () {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(
+              Text('Report'),
+              Text('사용자의 리포트'),
+              Row(
                 children: [
-                  Text('주간(최근 7일) 배변 횟수:'),
-                  Text(_reportController.sevenDayEventCount.value),
+                  Column(
+                    children: [
+                      Text('주간(최근 7일) 배변 횟수:'),
+                      Text(_reportController.sevenDayEventCount.value),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text('수행 완료 루틴:'),
+                      Text(_reportController.getCompletedRoutines().toString()),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text('평균 루틴 달성도'),
+                      Text((_reportController.getAvgRoutineCompletion() * 100)
+                              .toStringAsFixed(0) +
+                          "%"),
+                    ],
+                  )
                 ],
               ),
-              Column(
-                children: [
-                  Text('수행 완료 루틴:'),
-                  Text(_reportController.getCompletedRoutines().toString()),
-                ],
+              Divider(
+                thickness: 3,
               ),
-              Column(
-                children: [
-                  Text('평균 루틴 달성도'),
-                  Text((_reportController.getAvgRoutineCompletion() * 100)
-                          .toStringAsFixed(0) +
-                      "%"),
-                ],
-              )
+              circularChart(
+                  _reportController.pieChartData[0],
+                  _reportController.pieChartData[1],
+                  _reportController.pieChartData[2]),
+              Text('묽은변 횟수 : ${_reportController.pieChartData[0]}'),
+              Text('쾌변 횟수 : ${_reportController.pieChartData[1]}'),
+              Text('단단한 변 횟수 : ${_reportController.pieChartData[2]}'),
+              Divider(
+                thickness: 3,
+              ),
+              Text('월별 쾌변율 : ${_reportController.lineChartData}'),
+              Divider(
+                thickness: 3,
+              ),
+              Text('1주일(7일) 색상통계 : ${_reportController.colorChartData7}'),
+              Text('1개월(30일) 색상통계 : ${_reportController.colorChartData30}'),
+              Text('3개월(90일) 색상통계 : ${_reportController.colorChartData90}'),
+              Divider(
+                thickness: 3,
+              ),
+              Text('배변 패턴'),
+              BarGraph()
             ],
-          ),
-          Divider(
-            thickness: 3,
-          ),
-          circularChart(
-              _reportController.pieChartData[0],
-              _reportController.pieChartData[1],
-              _reportController.pieChartData[2]),
-          Text('묽은변 횟수 : ${_reportController.pieChartData[0]}'),
-          Text('쾌변 횟수 : ${_reportController.pieChartData[1]}'),
-          Text('단단한 변 횟수 : ${_reportController.pieChartData[2]}'),
-          Divider(
-            thickness: 3,
-          ),
-          Text('월별 쾌변율 : ${_reportController.lineChartData}'),
-          Divider(
-            thickness: 3,
-          ),
-          Text('1주일(7일) 색상통계 : ${_reportController.colorChartData7}'),
-          Text('1개월(30일) 색상통계 : ${_reportController.colorChartData30}'),
-          Text('3개월(90일) 색상통계 : ${_reportController.colorChartData90}'),
-          Divider(
-            thickness: 3,
-          ),
-          Text('배변 패턴'),
-          BarGraph()
-        ],
+          );
+        }
       ),
     );
   }
+
+
+
+
+  
 }
