@@ -34,6 +34,7 @@ dependencies:
   flutter_picker: ^2.0.4
   simple_gesture_detector: ^0.2.0
   syncfusion_flutter_charts: ^20.2.43
+  fl_chart: ^0.55.1
 
 
 dev_dependencies:
