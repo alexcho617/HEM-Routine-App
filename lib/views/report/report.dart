@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/report_controller.dart';
 import 'package:hem_routine_app/views/report/bar_graph.dart';
-import '../chart_test.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({Key? key}) : super(key: key);
@@ -48,10 +47,10 @@ class _ReportPageState extends State<ReportPage> {
           Divider(
             thickness: 3,
           ),
-          circularChart(
-              _reportController.pieChartData[0],
-              _reportController.pieChartData[1],
-              _reportController.pieChartData[2]),
+          // circularChart(
+          //     _reportController.pieChartData[0],
+          //     _reportController.pieChartData[1],
+          //     _reportController.pieChartData[2]),
           Text('묽은변 횟수 : ${_reportController.pieChartData[0]}'),
           Text('쾌변 횟수 : ${_reportController.pieChartData[1]}'),
           Text('단단한 변 횟수 : ${_reportController.pieChartData[2]}'),
