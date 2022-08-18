@@ -310,6 +310,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                 children: [
                   SizedBox(
                     height: 300,
+                    //cannot add datetime and year at the same time. otherwise separte year+date from time
                     child: CupertinoDatePicker(
                         initialDateTime: controller.newEventTime,
                         maximumDate: DateTime.now(),
