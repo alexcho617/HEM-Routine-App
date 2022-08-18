@@ -84,12 +84,12 @@ class ReportController extends GetxController {
         }
       }
     }
-
-    //asign
-    pieChartData.add(((water / count) * 100).round() / 100);
-    pieChartData.add(((smooth / count) * 100).round() / 100);
-    pieChartData.add(((hard / count) * 100).round() / 100);
-
+    if (count != 0) {
+      //asign
+      pieChartData.add(((water / count) * 100).round() / 100);
+      pieChartData.add(((smooth / count) * 100).round() / 100);
+      pieChartData.add(((hard / count) * 100).round() / 100);
+    }
     // thisMonthEventCount.value = count.toString();
     // wateryCount.value = water.toString();
     // smoothCount.value = smooth.toString();

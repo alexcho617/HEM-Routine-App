@@ -27,6 +27,7 @@ class AppStateController extends GetxController {
     if (loginService.auth.value.currentUser != null) {
       isRoutineActive();
     }
+    // Get.put(CalendarController());
     super.onInit();
   }
 

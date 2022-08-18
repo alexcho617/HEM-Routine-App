@@ -281,6 +281,6 @@ class RoutineOffController extends GetxController {
     if (event.type == '9' && event.hardness == '9') {
       return "$user님에게 꼭 맞는 나만의 루틴을 만들어 보세요!";
     }
-    return "오늘도 성공하셨네요!";
+    return "$user님에게 꼭 맞는 나만의 루틴을 만들어 보세요!";
   }
 }
