@@ -441,7 +441,53 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
-
+Widget goalCountAlertDialog(VoidCallback? onPressed) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: Container(
+      height: 176.h,
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 120.h,
+          child: Center(
+              child: 
+              Text(
+            '목표 횟수는 1 ~ 20회 사이로 기입해주세요.',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        InkWell(
+          onTap: onPressed,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(20.r),
+              ),
+              color: primary,
+            ),
+            width: 312.w,
+            height: 56.h,
+            child: Center(
+              child: Text(
+                '확인',
+                style: AppleFont16_White,
+              ),
+            ),
+          ),
+        )
+      ]),
+    ),
+  );
+}
 
 Widget circluarGuage(double percent) {
   return SizedBox(
@@ -1065,9 +1111,7 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                                 controller: controller.inputControllers[index],
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 14.sp),
-                                // onChanged: (value){
-
-                                // },
+                               
                               )),
                           // {controller.routineEntities[index].goalCount}'
                           Text(
@@ -1134,9 +1178,7 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                             controller: controller.inputControllers[index],
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 14.sp),
-                            // onChanged: (value){
-
-                            // },
+                           
                           )),
                       // {controller.routineEntities[index].goalCount}'
                       Text(

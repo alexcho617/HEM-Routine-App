@@ -29,6 +29,7 @@ class AppStateController extends GetxController {
   }
 
   Future<void> offRoutine() async {
+    DateTime now = DateTime.now();
     //TODO: is active인 것을 찾아서 그것을 끄는게 필요
     await firestore
         .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
@@ -51,13 +52,25 @@ class AppStateController extends GetxController {
             .get()
             .then((QuerySnapshot smallQuerySnapshot) {
           smallQuerySnapshot.docs.forEach((smallDoc) async {
-            await firestore
-                .collection(
-                    'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
-                .doc(smallDoc.id)
-                .update({
-              'isActive': false,
-            });
+            Map<String, dynamic> data = smallDoc.data() as Map<String, dynamic>;
+            //여기서 startDate를 읽어내서 오늘과 월, 일까지 같다면 삭제.
+            if (data['startDate'] ==
+                Timestamp.fromDate(DateTime(now.year, now.month, now.day))) {
+              await firestore
+                  .collection(
+                      'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
+                  .doc(smallDoc.id)
+                  .delete();
+            } else {
+              //그렇지 않으면 update
+              await firestore
+                  .collection(
+                      'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
+                  .doc(smallDoc.id)
+                  .update({
+                'isActive': false,
+              });
+            }
           });
         });
       });

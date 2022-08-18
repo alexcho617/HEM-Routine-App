@@ -26,20 +26,7 @@ class RoutineBuildPage extends StatelessWidget {
         child: Column(
           // mainAxisSize: MainAxisSize.min,
           children: [
-            AppBar(
-              elevation: 0,
-              backgroundColor: Colors.grey[50],
-              foregroundColor: Colors.black,
-              centerTitle: false,
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                  pageController.initValues();
-                },
-              ),
-              title: Text('루틴 설계'),
-            ),
+            customAppBar(context, '루틴설계'),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 21),
               child: SizedBox(

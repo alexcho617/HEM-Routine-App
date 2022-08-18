@@ -151,6 +151,8 @@ class RoutinePage extends StatelessWidget {
                       height: 43.h,
                     ),
                     makeMyRoutineButton(() {
+                      RoutineOffController controller = Get.put(RoutineOffController());
+                      controller.initValues();
                       kangmin(context, RoutineBuildPage());
                     }),
                     SizedBox(

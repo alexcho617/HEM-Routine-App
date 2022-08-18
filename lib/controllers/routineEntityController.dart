@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
@@ -9,6 +10,7 @@ import 'package:hem_routine_app/utils/calendarUtil.dart';
 import '../models/routineEntity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../widgets/widgets.dart';
 import 'app_state_controller.dart';
 
 class RoutineEntityController extends GetxController {
@@ -174,5 +176,17 @@ class RoutineEntityController extends GetxController {
         inputControllers.removeAt(oldIndex);
     inputControllers.insert(newIndex, controllerToSwap);
     //여기서 바로 write를 해야 한다.
+  }
+
+  bool validateGoalCount() {
+    bool result = true;
+    for (int i = 0; i < routineEntities.length; i++) {
+      if (inputControllers[i].text.isEmpty || int.parse(inputControllers[i].text) > 20) {
+        // print('false');
+        inputControllers[i].clear();
+        result = false;
+      }
+    }
+    return result;
   }
 }

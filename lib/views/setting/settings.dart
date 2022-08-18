@@ -11,6 +11,8 @@ import 'package:hem_routine_app/views/setting/routineitem_settings.dart';
 import 'package:hem_routine_app/views/setting/service_info.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
+import '../../controllers/routine_item_setting_controller.dart';
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -82,6 +84,8 @@ class _SettingsPageState extends State<SettingsPage> {
             style: AppleFont22_Black,
           ),
           onTap: () {
+            RotuineItemSettingController controller = Get.put(RotuineItemSettingController());
+            controller.onInit();
             kangmin(context, RoutineItemSettingsPage());
           },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),

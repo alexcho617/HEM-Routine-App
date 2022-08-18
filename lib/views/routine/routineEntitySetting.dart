@@ -60,6 +60,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
                 height: 33.h,
               ),
               GetBuilder<RoutineEntityController>(builder: (_) {
+                //추가된 루틴항목이 아무것도 없으면
                 return routineEntityController.addedRoutineItemCount == 0
                     ? Column(
                         children: [
@@ -135,32 +136,42 @@ class RoutineEntitySettingPage extends StatelessWidget {
                             child: storeRoutineButton(() {
                               Navigator.pop(context);
                             }, () async {
-                              await routineEntityController.addRoutine();
-
-                              showDialog(
-                                  context: context,
-                                  builder: ((context) {
-                                    return saveAlertDialog(() {
-                                      Navigator.pop(context);
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return routineStartAlertDialog(
-                                                () async {
-                                              Get.delete<
-                                                  RoutineEntityController>();
-                                              pageController.initValues();
-                                              Navigator.pop(context);
-                                              kangminBackUntil(context);
-                                            }, () async {
-                                              //TODO: day랑 routine item 하나만 되는 거 수정.
-                                              await _fetchData(context);
-                                              Navigator.pop(context);
-                                              kangminBackUntil(context);
+                              //TODO: 여기서 alter관련 함수 호출
+                              if (routineEntityController.validateGoalCount()) {
+                                await routineEntityController.addRoutine();
+                                showDialog(
+                                    context: context,
+                                    builder: ((context) {
+                                      return saveAlertDialog(() {
+                                        Navigator.pop(context);
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return routineStartAlertDialog(
+                                                  () async {
+                                                Get.delete<
+                                                    RoutineEntityController>();
+                                                pageController.initValues();
+                                                Navigator.pop(context);
+                                                kangminBackUntil(context);
+                                              }, () async {
+                                                //TODO: day랑 routine item 하나만 되는 거 수정.
+                                                await _fetchData(context);
+                                                Navigator.pop(context);
+                                                kangminBackUntil(context);
+                                              });
                                             });
-                                          });
-                                    });
-                                  }));
+                                      });
+                                    }));
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: ((context) {
+                                      return goalCountAlertDialog(() {
+                                        Navigator.pop(context);
+                                      });
+                                    }));
+                              }
                             }),
                           ),
                         ],
