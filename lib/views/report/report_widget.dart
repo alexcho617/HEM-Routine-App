@@ -7,7 +7,25 @@ import 'package:fl_chart/fl_chart.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 
+Widget noDataWidget() {
+  return Column(
+    children: [
+      Image.asset(
+        'assets/appIcon.png',
+        width: 160.w,
+      ),
+      Text(
+        "기록이 없습니다.",
+        style: AppleFont16_Black,
+      ),
+    ],
+  );
+}
+
 Widget circularAnalysisChart(RxList x) {
+  if (x.isEmpty) {
+    return noDataWidget();
+  }
   List<AnalysisChartData> chartdatas = [
     AnalysisChartData("묽은변", x[0], color: blue50),
     AnalysisChartData("쾌변", x[1], color: blue600),
@@ -79,7 +97,7 @@ class AnalysisChartData {
 
 Widget circularColorChart(RxList x) {
   if (x.isEmpty) {
-    return CircularProgressIndicator();
+    return noDataWidget();
   }
   List<ColorChartData> chartdatas = [
     ColorChartData(x[0], const Color.fromRGBO(0xD9, 0xD9, 0xD9, 1)),

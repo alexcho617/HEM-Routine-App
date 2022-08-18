@@ -36,10 +36,10 @@ class CalendarController extends GetxController {
     Iterable keys = eventsLibrary.keys;
     List<dynamic> keyList = keys.toList();
     keyList.sort();
-    List<CalendarEvent> latestDayEvents =
-        eventsLibrary[keyList.last]; //events of the last day
-    latest =
-        latestDayEvents.first; //events are already stored in descending order
+    if (!keyList.isEmpty) {
+      List<CalendarEvent> latestDayEvents = eventsLibrary[keyList.last];
+      latest =latestDayEvents.first;
+    }
     return latest;
   }
 
