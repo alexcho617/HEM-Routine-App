@@ -72,7 +72,8 @@ HeaderStyle kHeaderStyle = HeaderStyle(
 );
 
 final kToday = DateTime.now();
-final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
+//calendar range
+final kFirstDay = DateTime(kToday.year - 1, kToday.month, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month, kToday.day);
 
 final List<DateTime> keysForBarChart = [

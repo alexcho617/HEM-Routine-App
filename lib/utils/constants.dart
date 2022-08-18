@@ -14,6 +14,27 @@ TextStyle ReportTitleFont = TextStyle(
   height: 1.25,
   color: grey700,
 );
+
+ButtonStyle reportColorChartGreyButtonStyle = ElevatedButton.styleFrom(
+  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  // minimumSize: Size.zero, // Set this
+  // padding: EdgeInsets.zero,
+  primary: grey400,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(100.r),
+  ),
+);
+
+ButtonStyle reportColorChartBlueButtonStyle = ElevatedButton.styleFrom(
+  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  // minimumSize: Size.zero, // Set this
+  // padding: EdgeInsets.zero,
+  primary: primary,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(100.r),
+  ),
+);
+
 TextStyle AppleFont11_White = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,

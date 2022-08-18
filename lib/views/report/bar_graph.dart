@@ -30,27 +30,41 @@ class _BarGraphState extends State<BarGraph> {
         // width: totalWidth,
         // color: blue50,
         child: Padding(
-          padding: EdgeInsets.all(8.r),
-          child: Column(
+      padding: EdgeInsets.symmetric(horizontal: 8.r),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  yAxis(
-                    gap: SizedBox(
-                      height: blockHeight / 5 - 10.h,
+              yAxis(
+                gap: SizedBox(
+                  height: blockHeight / 5 - 10.h,
+                ),
+              ),
+              Stack(children: [
+                Positioned(
+                  child: SizedBox(
+                    width: 321,
+                    height: blockHeight,
+                    child: canvas(
+                      gap: SizedBox(
+                        height: blockHeight / 5 - 10.h,
+                      ),
                     ),
                   ),
-                  Row(
-                    children: barWidget(),
-                  )
+                ),
+                Row(
+                  children: barWidget(),
+                )
+              ]
                   //single day unit, need size adjustment.
-                ],
-              ),
+                  )
             ],
           ),
-        ));
+        ],
+      ),
+    ));
   }
 
   List<Widget> barWidget() {
@@ -79,7 +93,7 @@ class _BarGraphState extends State<BarGraph> {
                       // width: blockWidth,
                       height: markerHeight,
                       child: Image(
-                        width: 30.w,
+                        width: 32.w,
                         height: 25.h,
                         image:
                             AssetImage('assets/marker/${event.iconCode}.png'),
@@ -119,10 +133,25 @@ class _BarGraphState extends State<BarGraph> {
   }
 
   double getMarkerPosition(DateTime eventTime) {
-    double offSet = 144.r;
+    double spacingOffset = 190.h;
+    double positionOffset = 4.h;
     // print(eventTime.hour);
-    num position =
-        (eventTime.hour * 60 + eventTime.minute) * blockHeight / (1440 + offSet);
+    num position = (eventTime.hour * 60 + eventTime.minute) *
+            blockHeight /
+            (1440 + spacingOffset) +
+        positionOffset;
+    // print(position);
+    return position.toDouble(); // assets 크기 절반?
+  }
+
+  double getTimelinePosition(DateTime eventTime) {
+    double spacingOffset = 190.h;
+    double positionOffset = 4.h;
+    // print(eventTime.hour);
+    num position = (eventTime.hour * 60 + eventTime.minute) *
+            blockHeight /
+            (1440 + spacingOffset) +
+        positionOffset;
     // print(position);
     return position.toDouble(); // assets 크기 절반?
   }
@@ -144,9 +173,13 @@ class yAxis extends StatelessWidget {
         SizedBox(
           height: 15.h,
         ),
-        Text(
-          '00시',
-          style: AppleFont12_Black,
+        Row(
+          children: [
+            Text(
+              '00시',
+              style: AppleFont12_Black,
+            ),
+          ],
         ),
         gap,
         Text(
@@ -167,6 +200,46 @@ class yAxis extends StatelessWidget {
         Text(
           '24시',
           style: AppleFont12_Black,
+        ),
+      ],
+    );
+  }
+}
+
+class canvas extends StatelessWidget {
+  const canvas({
+    Key? key,
+    required this.gap,
+  }) : super(key: key);
+
+  final SizedBox gap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 12.h,
+        ),
+        Divider(
+          thickness: 1,
+        ),
+        gap,
+        Divider(
+          thickness: 1,
+        ),
+        gap,
+        Divider(
+          thickness: 1,
+        ),
+        gap,
+        Divider(
+          thickness: 1,
+        ),
+        gap,
+        Divider(
+          thickness: 1,
         ),
       ],
     );
