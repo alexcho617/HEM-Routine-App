@@ -53,6 +53,7 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                                 Get.back();
                               },
                               (() {
+                                //삭제
                                 controller.deleteDoc();
                                 Get.back();
                                 kangminBack(context);

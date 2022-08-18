@@ -2,12 +2,14 @@ import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/controllers/routine_completed_controller.dart.dart';
 
 class RoutineDetailController extends GetxController {
   RoutineDetailController({required this.id});
   LoginService loginService = Get.find();
-  RoutineCompletedController routineCompletedController = Get.put(RoutineCompletedController());
+  RoutineCompletedController routineCompletedController =
+      Get.put(RoutineCompletedController());
   DateTime now = DateTime.now();
 
   dynamic id;
@@ -33,6 +35,7 @@ class RoutineDetailController extends GetxController {
         .removeWhere((element) => element.id == routineSnapshot.id);
     routineSnapshot.reference.delete();
     routineCompletedController.update();
+    Get.find<RoutineOffController>().getRoutineList();
   }
 
   @override

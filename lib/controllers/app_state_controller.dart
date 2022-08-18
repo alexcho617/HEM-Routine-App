@@ -73,9 +73,16 @@ class AppStateController extends GetxController {
             //여기서 startDate를 읽어내서 오늘과 월, 일까지 같다면 삭제.
             if (data['startDate'] ==
                 Timestamp.fromDate(DateTime(now.year, now.month, now.day))) {
+              //routine 삭제
               await firestore
                   .collection(
                       'user/${loginService.auth.value.currentUser!.uid}/routine/${doc.id}/routineHistory')
+                  .doc(smallDoc.id)
+                  .delete();
+              //calendarRoutine 삭제
+              await firestore
+                  .collection(
+                      'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
                   .doc(smallDoc.id)
                   .delete();
             } else {
