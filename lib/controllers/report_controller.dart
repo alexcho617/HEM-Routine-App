@@ -105,12 +105,14 @@ class ReportController extends GetxController {
   }
 
   num getAvgRoutineCompletion() {
+    if (routineList.isEmpty) {
+      return 0.0;
+    }
     num avg = 0.0;
     for (var i in routineList) {
       avg += i.averageComplete;
     }
     avg /= routineList.length;
-
     return avg;
   }
 }
