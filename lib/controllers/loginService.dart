@@ -19,6 +19,7 @@ class LoginService extends GetxController {
 
   var uid = ''.obs;
   var name = ''.obs;
+  late bool isRated;
   late DocumentSnapshot userSnapshot;
 
   @override
@@ -87,6 +88,7 @@ class LoginService extends GetxController {
         .doc(auth.value.currentUser!.uid)
         .set({
           'name': auth.value.currentUser!.displayName,
+          'isRated': true,
         })
         .then((value) => print("User Document Created"))
         .catchError((error) => print("Faied to Add User document: ${error}"));
@@ -97,7 +99,7 @@ class LoginService extends GetxController {
     name.value = newName;
     return users
         .doc(auth.value.currentUser!.uid)
-        .set({
+        .update({
           'name': newName,
           'birthDate': birthDate,
           'gender': gender,

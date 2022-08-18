@@ -1,7 +1,4 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
-
-import 'dart:math';
-
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,6 +15,7 @@ class RoutineOnController extends GetxController {
   // });
   RoutineOnController();
   LoginService loginService = Get.find();
+  late String uid;
 
   dynamic name = "".obs;
   dynamic goals = [].obs;
@@ -28,6 +26,7 @@ class RoutineOnController extends GetxController {
   dynamic days = 0.obs;
   dynamic selectedDayIndex = (-99).obs;
   dynamic isToday = true;
+  dynamic isTodayFirstDay;
 
   dynamic selectedFilter = 0;
   dynamic selectedFilterString = "전체";
@@ -51,9 +50,8 @@ class RoutineOnController extends GetxController {
     0.0, //14
   ].obs;
 
-  dynamic routineDocumentSnapshot;
+  late DocumentSnapshot routineDocumentSnapshot;
   late DocumentSnapshot routineHistoryDocumentSnapshot;
-  // late DocumentSnapshot dayDocumentSnapshot;
 
   List<Event> events = [];
 
@@ -62,15 +60,16 @@ class RoutineOnController extends GetxController {
 
   @override
   void onInit() async {
+    uid = loginService.auth.value.currentUser!.uid;
     super.onInit();
     await getData();
   }
 
   Future<void> getData() async {
     routineDocumentSnapshot = await getRoutineData();
-    if (routineDocumentSnapshot != null) {
+    if (routineDocumentSnapshot.exists) {
       routineHistoryDocumentSnapshot = await getRoutineHistoryData();
-      if (routineHistoryDocumentSnapshot != null) {
+      if (routineHistoryDocumentSnapshot.exists) {
         await getCurrday();
         selectedDayIndex.value = todayIndex.value;
         await getCurrCount();
@@ -82,7 +81,7 @@ class RoutineOnController extends GetxController {
   Future<dynamic> getRoutineData() async {
     await FirebaseFirestore.instance
         .collection('user')
-        .doc(loginService.auth.value.currentUser!.uid)
+        .doc(uid)
         .collection('routine')
         .where('isActive', isEqualTo: true)
         .get()
@@ -92,12 +91,12 @@ class RoutineOnController extends GetxController {
       });
     });
 
-    if (routineDocumentSnapshot != null) {
+    if (routineDocumentSnapshot.exists) {
       name.value = await routineDocumentSnapshot.get('name');
       days.value = await routineDocumentSnapshot.get('days');
     }
 
-    return await routineDocumentSnapshot;
+    return routineDocumentSnapshot;
   }
 
   Future<DocumentSnapshot> getRoutineHistoryData() async {
@@ -119,6 +118,11 @@ class RoutineOnController extends GetxController {
     goals.value = routineHistoryDocumentSnapshot.get('goals');
     startday.value = routineHistoryDocumentSnapshot.get('startDate').toDate();
     todayIndex.value = today.value.difference(startday.value).inDays;
+    if (today.value.difference(startday.value).inDays == 0) {
+      isTodayFirstDay = true;
+    } else {
+      isTodayFirstDay = false;
+    }
   }
 
   Future<void> getCurrCount() async {
@@ -349,9 +353,9 @@ class RoutineOnController extends GetxController {
     // 해당 인덱스의 이름을 알아낸다. String eventName
     String eventName = events[index].name;
     //get index of eventName index
-    num indexOfCount = routineItems.indexWhere((item) => item == eventName);
+    // num indexOfCount = routineItems.indexWhere((item) => item == eventName);
 
-    // TODO : events 에서 해당 인덱스의 아이템을 수정한다.
+    // events 에서 해당 인덱스의 아이템을 수정한다.
     events[selectedEventIndex].eventTime = eventTime;
     update();
     // eventName 이랑 동일한 이름을 가지는 instance들의 eventTime의 리스트를 새로 만든다. List<String> setEvents , 이때 리스트는 이미 수정이 완료된 리스트이다.
@@ -395,6 +399,94 @@ class RoutineOnController extends GetxController {
           //update eventTime
         });
       });
+    });
+  }
+
+  // TODO : cut from app_state_controller
+
+  // late DocumentSnapshot activeRoutineSnapshot;
+  // late DocumentSnapshot activeRoutineHistorySnapshot;
+  // FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  // TODO: 오늘일 때와 아닐떄 다른 함수를 실행하자
+  Future<void> offRoutineToday() async {
+    print("function: offRoutineToday called");
+  }
+
+  Future<void> offRoutineNotToday() async {
+    print("function: offRoutineNotToday called");
+  }
+
+  Future<void> getRoutineSnapshot() async {
+    /// Get activeRoutineSnapshot at firestore
+    await FirebaseFirestore.instance
+        .collection('user/$uid/routine')
+        .where('isActive', isEqualTo: true)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) async {
+        // Get activeRoutineSnapshot
+        // activeRoutineSnapshot = doc;
+        routineDocumentSnapshot = doc;
+      });
+    });
+  }
+
+  Future<void> getActiveRoutineHistorySnapshot() async {
+    /// Get activeRoutineHistorySnapshot at firestore
+    assert(routineDocumentSnapshot.exists);
+    await FirebaseFirestore.instance
+        .collection(
+            'user/$uid/routine/${routineDocumentSnapshot.id}/routineHistory')
+        .where('isActive', isEqualTo: true)
+        .get()
+        .then((QuerySnapshot smallQuerySnapshot) {
+      smallQuerySnapshot.docs.forEach((doc) async {
+        // Get activeRoutineHistorySnapshot
+        // activeRoutineHistorySnapshot = smallDoc;
+        routineHistoryDocumentSnapshot = doc;
+      });
+    });
+  }
+
+  Future<void> routinDeactivate() async {
+    /// Make Routine Document active to false
+    assert(routineDocumentSnapshot.exists);
+    await FirebaseFirestore.instance
+        .collection('user/$uid/routine')
+        .doc(routineDocumentSnapshot.id)
+        .update({
+      'isActive': false,
+    });
+  }
+
+  Future<void> routineHistoryDelete() async {
+    /// Delete Routine History at firestore. It should be executed when off routine && first day of Active Routine History
+    assert(routineDocumentSnapshot.exists);
+    assert(routineHistoryDocumentSnapshot.exists);
+    //routine 삭제
+    await FirebaseFirestore.instance
+        .collection(
+            'user/$uid/routine/${routineDocumentSnapshot.id}/routineHistory')
+        .doc(routineHistoryDocumentSnapshot.id)
+        .delete();
+    //calendarRoutine 삭제
+    await FirebaseFirestore.instance
+        .collection('user/$uid/calendarRoutine')
+        .doc(routineHistoryDocumentSnapshot.id)
+        .delete();
+  }
+
+  Future<void> routineHistoryDeactivate() async {
+    /// Make Routine History Document active to false. It should be executed at off routine, but NOT first day of Active Routine History
+    assert(routineDocumentSnapshot.exists);
+    assert(routineHistoryDocumentSnapshot.exists);
+    await FirebaseFirestore.instance
+        .collection(
+            'user/$uid/routine/${routineDocumentSnapshot.id}/routineHistory')
+        .doc(routineHistoryDocumentSnapshot.id)
+        .update({
+      'isActive': false,
     });
   }
 }
