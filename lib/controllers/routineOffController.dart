@@ -10,6 +10,7 @@ import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
+import '../models/calendarEvent.dart';
 import '../models/routine.dart';
 
 //TODO: 아마 프로그램 흐름상 routine item읽어오는 건 다른 Controller로 구분해야 한다.
@@ -239,5 +240,47 @@ class RoutineOffController extends GetxController {
         // addRoutine();
       }
     }
+  }
+
+  String parseRoutineMessage(CalendarEvent event) {
+    String user = loginService.name.value;
+    if ((event.type == '0' || event.type == '1') && (event.hardness == '9')) {
+      return "배가 많이 불편하신가요?\n$user님에게 맞는 루틴을 만들어보세요!";
+    }
+    if ((event.type == '2' || event.type == '3' || event.type == '4') &&
+        (event.hardness == '9')) {
+      return "매일 작은 습관을 통해 쾌변을 이어가세요!";
+    }
+    if ((event.type == '5' || event.type == '6') && (event.hardness == '9')) {
+      return "$user님, 변비가 걱정 되신다면\n쾌변 루틴을 만들어 보세요!";
+    }
+    if ((event.type == '0' || event.type == '1') &&
+        (event.hardness == '0' || event.hardness == '1')) {
+      return "배가 많이 불편하신가요?\n$user님에게 맞는 루틴을 만들어보세요!";
+    }
+    if ((event.type == '2' || event.type == '3' || event.type == '4') &&
+        (event.hardness == '0' || event.hardness == '1')) {
+      return "배변보는 것이 불편하시다면\n쾌변을 유지할 수 있도록 루틴을 만들어 보세요!";
+    }
+    if ((event.type == '5' || event.type == '6') &&
+        (event.hardness == '0' || event.hardness == '1')) {
+      return "$user님, 쾌변 루틴을 통해\n변비를 탈출해보세요!";
+    }
+    if ((event.type == '0' || event.type == '1') &&
+        (event.hardness == '2' || event.hardness == '3')) {
+      return "더 나은 쾌변을 위해\n$user님만의 쾌변 루틴을 만들어 보세요!";
+    }
+    if ((event.type == '2' || event.type == '3' || event.type == '4') &&
+        (event.hardness == '2' || event.hardness == '3')) {
+      return "$user님만의 좋은 습관을\n루틴으로 한번 만들어 보세요!";
+    }
+    if ((event.type == '5' || event.type == '6') &&
+        (event.hardness == '2' || event.hardness == '3')) {
+      return "매일매일 쾌변을 이어갈 수 있게,\n$user님만의 쾌변 루틴을 만들어 보세요!";
+    }
+    if (event.type == '9' && event.hardness == '9') {
+      return "$user님에게 꼭 맞는 나만의 루틴을 만들어 보세요!";
+    }
+    return "$user님에게 꼭 맞는 나만의 루틴을 만들어 보세요!";
   }
 }

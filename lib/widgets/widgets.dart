@@ -337,6 +337,7 @@ Widget deleteAlertDialog(
     actionsPadding: EdgeInsets.all(0),
     contentPadding: EdgeInsets.all(0),
     content: Container(
+      height: 176.h,
       child: Column(children: [
         Container(
           width: 312.w,
@@ -344,6 +345,75 @@ Widget deleteAlertDialog(
           child: Center(
               child: Text(
             '정말로 배변 기록을 \n삭제 하시겠습니까?',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '삭제',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
+Widget deleteEventAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: Container(
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Container(
+          width: 312.w,
+          height: 120.h,
+          child: Center(
+              child: Text(
+            '정말로 수행 기록을 \n삭제 하시겠습니까?',
             style: AppleFont16_Black,
             textAlign: TextAlign.center,
           )),
@@ -441,6 +511,7 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
+
 Widget goalCountAlertDialog(VoidCallback? onPressed) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
@@ -488,6 +559,7 @@ Widget goalCountAlertDialog(VoidCallback? onPressed) {
     ),
   );
 }
+
 
 Widget circluarGuage(double percent) {
   return SizedBox(
@@ -548,10 +620,7 @@ Widget halfCircluarGuage(double percent) {
         ),
         Positioned(
           bottom: 112.h,
-          left: percent >= 0.1?
-          74.5.w
-          :
-          84.5.w,
+          left: percent >= 0.1 ? 74.5.w : 84.5.w,
           child: Column(
             children: [
               Text(
@@ -769,8 +838,15 @@ Widget customBottomSheet(BuildContext context, Widget contents) {
   );
 }
 
-Widget routineCard(
-    String name, int day, double percent, double rank, VoidCallback? onPressed) {
+Widget calendarLogBottomSheet(BuildContext context, Widget contents) {
+  return SizedBox(
+    height: 674.h,
+    child: Scaffold(body: contents),
+  );
+}
+
+Widget routineCard(String name, int day, double percent, double rank,
+    VoidCallback? onPressed) {
   return Card(
     elevation: 5,
     shadowColor: Colors.grey,
@@ -875,11 +951,36 @@ Widget circleGauzeIndicator(double percent) {
 }
 
 Widget starRankIndicator(double rank) {
-  return Container(
-    child: Text(
-      "여긴 \n이미지로\n 해야할듯",
-      style: AppleFont12_Black,
-    ),
+  return Column(
+    children: [
+      SizedBox(
+        width: 43.w,
+        height: 43.h,
+        child: Builder(
+          builder: (context) {
+            if (rank < 2) {
+              return Image.asset('assets/stars/1.png');
+            }if (rank < 3) {
+              return Image.asset('assets/stars/2.png');
+            }if (rank < 4) {
+              return Image.asset('assets/stars/3.png');
+            }if (rank < 5) {
+              return Image.asset('assets/stars/4.png');
+            }else{
+              return Image.asset('assets/stars/5.png');
+            }
+            
+          },
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.all(3.r),
+        child: Text(
+          '만족도',
+          style: AppleFont12_Black,
+        ),
+      )
+    ],
   );
 }
 

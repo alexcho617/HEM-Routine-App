@@ -6,6 +6,14 @@ import 'colors.dart';
 TextStyle BottomNavigationOptionStyle =
     TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold);
 
+TextStyle ReportTitleFont = TextStyle(
+  fontFamily: 'GmarketSansTTFMedium',
+  fontWeight: FontWeight.w500,
+  fontSize: 16.sp,
+  letterSpacing: 0.5.sp,
+  height: 1.25,
+  color: grey700,
+);
 TextStyle AppleFont11_White = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
@@ -51,11 +59,17 @@ TextStyle AppleFont12_Grey500 = TextStyle(
   color: grey500,
 );
 
-
 TextStyle AppleFont12_Blue600 = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
   fontSize: 12.sp,
+  letterSpacing: 0.4.sp,
+  color: blue600,
+);
+TextStyle AppleFont14_Blue600 = TextStyle(
+  fontFamily: 'AppleSDGothicNeoM',
+  fontWeight: FontWeight.w400,
+  fontSize: 14.sp,
   letterSpacing: 0.4.sp,
   color: blue600,
 );
@@ -83,7 +97,6 @@ TextStyle AppleFont14_Grey600 = TextStyle(
   letterSpacing: 0.1.sp,
   color: grey600,
 );
-
 
 TextStyle AppleFont14_Black = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
@@ -175,20 +188,14 @@ TextStyle AppleFont36_Blue600 = TextStyle(
   color: blue600,
 );
 
+enum CRUD { create, read, update, delete }
 
-
-enum CRUD {
-  create, read, update, delete
-}
-
-enum FromWhere {
-  routineItemAdd, routineItemSetting
-}
+enum FromWhere { routineItemAdd, routineItemSetting }
 
 class ScreenArguments {
   CRUD crud;
   FromWhere fromWhere;
   RoutineItem? routineItem;
-  
+
   ScreenArguments(this.crud, this.fromWhere, this.routineItem);
 }

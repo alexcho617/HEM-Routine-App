@@ -11,6 +11,7 @@ import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/calendar/calendar.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/routine/routineBuild.dart';
 import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
@@ -25,7 +26,7 @@ class RoutinePage extends StatelessWidget {
   RoutinePage({Key? key}) : super(key: key);
   AppStateController appStateController = Get.find();
   LoginService loginService = Get.find();
-  RoutineOnController onController = Get.find<RoutineOnController>();
+  RoutineOnController onController = Get.put(RoutineOnController());
   RoutineOffController offController = Get.put(RoutineOffController());
   @override
   Widget build(BuildContext context) {
@@ -120,7 +121,10 @@ class RoutinePage extends StatelessWidget {
                                   .findAncestorStateOfType<HomePageState>()!
                                   .context,
                               expand: false,
-                              builder: (context) => RoutineLogPage(),
+                              builder: (context) {
+                                onController.fetchEvent();
+                                return RoutineLogPage();
+                              },
                             );
                           },
                           child:
@@ -143,7 +147,7 @@ class RoutinePage extends StatelessWidget {
                       height: 15.h,
                     ),
                     Text(
-                      '배가 많이 불편하신가요?\n ${loginService.name.value}님에게 맞는 루틴을 만들어 보세요!',
+                      appStateController.getLatestCalendarMessage(),
                       style: AppleFont12_Black,
                       textAlign: TextAlign.center,
                     ),
@@ -190,8 +194,12 @@ class RoutinePage extends StatelessWidget {
                                               .routines[i].averageComplete,
                                           offController
                                               .routines[i].averageRating, () {
-                                        yechan(context, 3,
-                                            RoutineDetailPage(uid: offController.routines[i].id));
+                                        yechan(
+                                            context,
+                                            3,
+                                            RoutineDetailPage(
+                                                uid: offController
+                                                    .routines[i].id));
                                       });
                                     },
                                   ),
@@ -240,12 +248,14 @@ class RoutinePage extends StatelessWidget {
                           : AppleFont16_Black,
                     ),
                     index <= today
-                        ? Text(
-                            '${(onController.dayCompletes.value[index] * 100).round()} %',
-                            style: index == focusedDay
-                                ? AppleFont11_Blue600
-                                : AppleFont11_Grey700,
-                          )
+                        ? GetBuilder<RoutineOnController>(builder: (context) {
+                            return Text(
+                              '${(onController.dayCompletes.value[index] * 100).round()} %',
+                              style: index == focusedDay
+                                  ? AppleFont11_Blue600
+                                  : AppleFont11_Grey700,
+                            );
+                          })
                         : const Text(""),
                   ],
                 ),
@@ -334,22 +344,28 @@ class RoutinePage extends StatelessWidget {
                         onController.currentCount.value[index],
                         onController.goals.value[index])),
                   ),
-                  SizedBox(
-                    width: 34.w,
-                    height: 34.h,
-                    child: InkWell(
-                      onTap: () => onController.onPlusPressed(index),
-                      child: Ink(
-                        child: CircleAvatar(
-                          backgroundColor: blue600,
-                          child: Icon(
-                            Icons.add,
-                            color: grey50,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  Obx(() {
+                    return SizedBox(
+                      width: 34.w,
+                      height: 34.h,
+                      child: onController.isFinished.value
+                          ? InkWell(
+                              onTap: () async {
+                                return onController.onPlusPressed(index);
+                              },
+                              child: Ink(
+                                child: CircleAvatar(
+                                  backgroundColor: blue600,
+                                  child: Icon(
+                                    Icons.add,
+                                    color: grey50,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : CircularProgressIndicator(),
+                    );
+                  }),
                 ],
               ),
             ),

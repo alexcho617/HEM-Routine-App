@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:get/get.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/models/calendarRoutine.dart';
@@ -13,7 +11,8 @@ class CalendarController extends GetxController {
   void onInit() async {
     super.onInit();
     eventsLibrary = await fetchAllEvents();
-    routineLibrary = await fetchAllRoutines();
+    routineLibrary = await fetchAllCalendarRoutines();
+    getCalendarLog();
     update();
   }
 
@@ -25,9 +24,29 @@ class CalendarController extends GetxController {
   var selectedDay = DateTime.now().obs;
   var focusedDate = DateTime.now().obs;
   DateTime newEventTime = DateTime.now();
-
+  dynamic editIndex;
   //where events are stored, map of day to events
   RxMap eventsLibrary = {}.obs;
+
+  //used in log
+  List<CalendarEvent>? events = [];
+
+  CalendarEvent? getLatestCalendarEvent() {
+    CalendarEvent latest = CalendarEvent();
+    Iterable keys = eventsLibrary.keys;
+    List<dynamic> keyList = keys.toList();
+    keyList.sort();
+    if (!keyList.isEmpty) {
+      List<CalendarEvent> latestDayEvents = eventsLibrary[keyList.last];
+      latest =latestDayEvents.first;
+    }
+    return latest;
+  }
+
+  void getCalendarLog() {
+    events = getEventsfromDay(parseDay(focusedDate.value));
+    update();
+  }
 
   //returns list of events from a given date
   List<CalendarEvent>? getEventsfromDay(DateTime? date) {

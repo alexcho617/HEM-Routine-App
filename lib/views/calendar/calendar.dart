@@ -1,12 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/models/calendarRoutine.dart';
 import 'package:hem_routine_app/utils/colors.dart';
+import 'package:hem_routine_app/utils/functions.dart';
+import 'package:hem_routine_app/views/calendar/calendarLog.dart';
 import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../tableCalendar/src/customization/calendar_builders.dart';
 import '../../tableCalendar/src/customization/calendar_style.dart';
@@ -16,8 +20,6 @@ import '../../utils/calendarUtil.dart';
 import '../../widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-CalendarController controller = Get.find();
-
 class Calendar extends StatefulWidget {
   const Calendar({Key? key}) : super(key: key);
 
@@ -26,6 +28,7 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  CalendarController controller = Get.put(CalendarController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CalendarController>(builder: (_) {
@@ -52,45 +55,29 @@ class _CalendarState extends State<Calendar> {
                   return _eventLoader(selectedDay);
                 },
                 onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                  // print(focusDay);
-                  // print(
-                  //     controller.eventsLibrary[parseDay(focusDay)].toString());
+                  print(focusDay);
+                  print(
+                      controller.eventsLibrary[parseDay(focusDay)].toString());
 
                   controller.selectedDay.value = selectDay;
                   controller.focusedDate.value = focusDay;
+                  controller.getCalendarLog();
                   controller.update();
+                  showCupertinoModalBottomSheet(
+                    context: context,
+                    expand: false,
+                    builder: (context) => CalendarLog(),
+                  );
                 },
               )),
           SizedBox(height: 50.h),
           plusSquareButton(
             () {
-              Get.to(NewCalendarEvent());
-
-              //   if (controller.selectedDay.value.day == DateTime.now().day) {
-              //     controller.newEventTime.value = DateTime.now();
-              //   } else {
-              //     controller.newEventTime.value = controller.selectedDay.value;
-              //   }
-              //   Get.to(NewCalendarEvent());
+              controller.newEventTime = DateTime.now();
+              // Get.to(NewCalendarEvent());
+              kangmin(context, NewCalendarEvent());
             },
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     TextButton(
-          //       onPressed: () {
-          //         controller.printAllEvents();
-          //       },
-          //       child: Text('PrintEvents'),
-          //     ),
-          //     TextButton(
-          //       onPressed: () {
-          //         controller.printAllRoutines();
-          //       },
-          //       child: Text('PrintRoutines'),
-          //     ),
-          //   ],
-          // ),
         ],
         // ),
       );
@@ -118,12 +105,12 @@ class _CalendarState extends State<Calendar> {
         // print('Printing Routine -----'+routine.toString());
         if (routine.startDate == date) {
           // print('start');
-          return leftRoutineMarker(date);
+          return leftRoutineMarker(date,controller);
         }
         //right border
         if (routine.endDate == date) {
           // print('end');
-          return rightRoutineMarker(date);
+          return rightRoutineMarker(date,controller);
         }
         //inside rectangle border
         if (routine.startDate.isBefore(date) && routine.endDate.isAfter(date)) {
@@ -131,7 +118,7 @@ class _CalendarState extends State<Calendar> {
           // print(routine.endDate);
 
           // print('middle');
-          return middleRoutineMarker(date);
+          return middleRoutineMarker(date,controller);
         }
 
         // else {
@@ -139,11 +126,11 @@ class _CalendarState extends State<Calendar> {
         // }
       }
     }
-    return emptyRoutineMarker(date);
+    return emptyRoutineMarker(date, controller);
   }
 }
 
-Widget emptyRoutineMarker(DateTime date) {
+Widget emptyRoutineMarker(DateTime date, CalendarController controller) {
   return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
@@ -159,7 +146,7 @@ Widget emptyRoutineMarker(DateTime date) {
   );
 }
 
-Widget rightRoutineMarker(DateTime date) {
+Widget rightRoutineMarker(DateTime date, CalendarController controller) {
   return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
@@ -179,7 +166,7 @@ Widget rightRoutineMarker(DateTime date) {
   );
 }
 
-Widget middleRoutineMarker(DateTime date) {
+Widget middleRoutineMarker(DateTime date, CalendarController controller) {
   return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
@@ -195,7 +182,7 @@ Widget middleRoutineMarker(DateTime date) {
   );
 }
 
-Widget leftRoutineMarker(DateTime date) {
+Widget leftRoutineMarker(DateTime date, CalendarController controller) {
   return OverflowBox(
     alignment: Alignment.bottomCenter,
     child: Container(
