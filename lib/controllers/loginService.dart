@@ -39,6 +39,8 @@ class LoginService extends GetxController {
         .get();
   }
 
+  
+
   Future<void> signInwithGoogle() async {
     googleCredential = await GoogleSignIn(
       scopes: [
