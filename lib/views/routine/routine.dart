@@ -64,7 +64,13 @@ class RoutinePage extends StatelessWidget {
                           }, () {
                             // 중단
                             Get.back();
-                            Get.find<AppStateController>().offRoutine();
+                            if (onController.isTodayFirstDay) {
+                              // Today
+                              onController.offRoutineToday();
+                            } else {
+                              // NOT Today
+                              onController.offRoutineNotToday();
+                            }
                           });
                         }));
                   }
@@ -155,7 +161,8 @@ class RoutinePage extends StatelessWidget {
                       height: 43.h,
                     ),
                     makeMyRoutineButton(() {
-                      RoutineOffController controller = Get.put(RoutineOffController());
+                      RoutineOffController controller =
+                          Get.put(RoutineOffController());
                       controller.initValues();
                       kangmin(context, RoutineBuildPage());
                     }),
