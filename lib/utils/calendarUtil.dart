@@ -66,14 +66,14 @@ HeaderStyle kHeaderStyle = HeaderStyle(
     color: Colors.blue,
     borderRadius: BorderRadius.circular(5.0),
   ),
-  formatButtonTextStyle: TextStyle(
+  formatButtonTextStyle: const TextStyle(
     color: Colors.white,
   ),
 );
 
 final kToday = DateTime.now();
 //calendar range
-final kFirstDay = DateTime(kToday.year - 1, kToday.month, kToday.day);
+final kFirstDay = DateTime(kToday.year, kToday.month - 6, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month, kToday.day);
 
 final List<DateTime> keysForBarChart = [
@@ -210,9 +210,6 @@ String parseDate(DateTime date) {
   return dateString;
 }
 
-//TODO make function for calendar event feedback 기획 12페이지
-//function made by yechan jung
-
 Widget calendarAlertDialog(CalendarEvent event, VoidCallback? onPressed) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
@@ -244,9 +241,6 @@ Widget calendarAlertDialog(CalendarEvent event, VoidCallback? onPressed) {
                   overflow: TextOverflow.clip,
                 ),
               ),
-              // SizedBox(
-              //   height: 21.h,
-              // ),
               Container(
                 padding: EdgeInsets.all(8.0.sp),
                 alignment: Alignment.center,

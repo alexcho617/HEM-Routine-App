@@ -8,7 +8,8 @@ import 'package:hem_routine_app/utils/constants.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/setting/custom_routine_item.dart';
 
-void kangmin(context, Widget page) {//push하는 함수. 기본 push에 애니메이션 효과를 추가하였다.
+void kangmin(context, Widget page) {
+  //push하는 함수. 기본 push에 애니메이션 효과를 추가하였다.
 // 기본적으로는 Navigator.push(context, MaterialPageRoute(builder: (context) => const Page4()));
 ////이런 식으로 push를 해도 되는데 화면 뒤에 잔상이 남는 것 같아서 다음과 같은 함수를 적용하여 push를 구현하였다.
   Navigator.push(
@@ -34,15 +35,17 @@ void kangmin(context, Widget page) {//push하는 함수. 기본 push에 애니�
   });
 }
 
-void kangminBack(context) {//뒤로 가기인데 현재 탭에서 뒤로 가기이다. 그냥 pop을 하면 전체화면이 없어질 수 있다.
+void kangminBack(context) {
+  //뒤로 가기인데 현재 탭에서 뒤로 가기이다. 그냥 pop을 하면 전체화면이 없어질 수 있다.
   int _currentIndex = HomePageState.tabController.index;
   HomePageState.navigatorKeyList[_currentIndex].currentState!.pop(context);
 }
 
-void yechan(BuildContext context, int indexToSwitch, Widget page) async {//현재 보고 있는 page를 모두 pop하고 다른 page로 전환할 때 쓰는 함수
+void yechan(BuildContext context, int indexToSwitch, Widget page) async {
+  //현재 보고 있는 page를 모두 pop하고 다른 page로 전환할 때 쓰는 함수
   int _currentIndex = HomePageState.tabController.index;
   kangminBackUntil(context);
-  
+
   HomePageState.tabController.index = indexToSwitch;
   // WidgetsBinding.instance.scheduleForcedFrame();
   while (true) {
@@ -58,7 +61,8 @@ void yechan(BuildContext context, int indexToSwitch, Widget page) async {//현�
   //callBack함수를 쓰면 되지 않을까?
 }
 
-void kangminBackUntil(BuildContext context) async {//현재 보고 있는 tab의 모든 stack을 다 빠져나가는 함수 popUntil을 대신해서 만들었다.
+void kangminBackUntil(BuildContext context) async {
+  //현재 보고 있는 tab의 모든 stack을 다 빠져나가는 함수 popUntil을 대신해서 만들었다.
   int _currentIndex = HomePageState.tabController.index;
   while (HomePageState.navigatorKeyList[_currentIndex].currentState!.canPop()) {
     kangminBack(context);
