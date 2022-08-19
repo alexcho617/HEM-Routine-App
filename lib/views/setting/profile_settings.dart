@@ -28,81 +28,83 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: white,
-      child: Column(
-        children: [
-          customAppBar(context, '프로필 설정'),
-          Padding(
-            padding: EdgeInsets.all(22.r),
-            child: Form(
-              key: _formKey,
-              onChanged: (() {
-                setState(() {
-                  enableBtn = _formKey.currentState!.validate();
-                });
-              }),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('사용자 이름'),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        hintText: '사용자 이름 입력(최대 10자)',
-                        suffixIcon: IconButton(
-                          icon: Icon(Icons.replay_circle_filled_rounded),
-                          onPressed: () {
-                            //controller.stashname();
-                          },
-                        )),
-                    controller: nameController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return '사용자 이름을 입력하세요';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.h),
-                    child: Text('성별'),
-                  ),
-                  genderchooseButton(() {
-                    //when pressed Male
-                    setState(() {
-                      isMale = true;
-                    });
-                  }, () {
-                    //when pressed Female
-                    setState(() {
-                      isMale = false;
-                    });
-                  }),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  Text('생년월일'),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  SizedBox(
-                    height: 139.h,
-                    child: buildDatePicker(),
-                  ),
-                  SizedBox(
-                    height: 66.h,
-                  ),
-                  saveButtonLong(
-                      saveButtonPressed, enableBtn ? primary : grey600),
-                ],
+    return SingleChildScrollView(
+      child: Container(
+        color: background,
+        child: Column(
+          children: [
+            customAppBar(context, '프로필 설정'),
+            Padding(
+              padding: EdgeInsets.all(22.r),
+              child: Form(
+                key: _formKey,
+                onChanged: (() {
+                  setState(() {
+                    enableBtn = _formKey.currentState!.validate();
+                  });
+                }),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('사용자 이름'),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          hintText: '사용자 이름 입력(최대 10자)',
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.replay_circle_filled_rounded),
+                            onPressed: () {
+                              //controller.stashname();
+                            },
+                          )),
+                      controller: nameController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return '사용자 이름을 입력하세요';
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.h),
+                      child: Text('성별'),
+                    ),
+                    genderchooseButton(() {
+                      //when pressed Male
+                      setState(() {
+                        isMale = true;
+                      });
+                    }, () {
+                      //when pressed Female
+                      setState(() {
+                        isMale = false;
+                      });
+                    }),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    Text('생년월일'),
+                    SizedBox(
+                      height: 16.h,
+                    ),
+                    SizedBox(
+                      height: 139.h,
+                      child: buildDatePicker(),
+                    ),
+                    SizedBox(
+                      height: 66.h,
+                    ),
+                    saveButtonLong(
+                        saveButtonPressed, enableBtn ? primary : grey600),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
