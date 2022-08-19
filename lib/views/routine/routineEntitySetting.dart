@@ -155,7 +155,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                                 Navigator.pop(context);
                                                 kangminBackUntil(context);
                                               }, () async {
-                                                //TODO: day랑 routine item 하나만 되는 거 수정.
+                                                
                                                 await _fetchData(context);
                                                 Navigator.pop(context);
                                                 kangminBackUntil(context);
