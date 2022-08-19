@@ -30,22 +30,41 @@ class ReportController extends GetxController {
   RxList colorChartData90 = [].obs;
 
   RxList routineList = [].obs;
-
+  var isLoading = false.obs;
   @override
   void onInit() async {
     super.onInit();
+    await refreshData();
+    // weekEvents = await fetchPastSevenDaysEvent();
+    // await getWeeklyEventCount();
+
+    // monthEvents = await fetchThisMonthsEvent();
+    // // sixMonthsEvents = await fetchPreviousMonthsEvent(5);
+    // await getPieChartData();
+    // lineChartData = await fetchSixMonthSmooth(5);
+    // routineList.value = await fetchAllRoutines();
+
+    // colorChartData7 = await fetchColorChartData(7);
+    // colorChartData30 = await fetchColorChartData(30);
+    // colorChartData90 = await fetchColorChartData(90);
+
+    // update();
+  }
+
+  Future<void> refreshData() async {
+    isLoading.value = true;
     weekEvents = await fetchPastSevenDaysEvent();
     await getWeeklyEventCount();
 
     monthEvents = await fetchThisMonthsEvent();
-    // sixMonthsEvents = await fetchPreviousMonthsEvent(5);
-    getPieChartData();
-    lineChartData = await fetchSixMonthSmooth(5);
+    pieChartData = await fetchPieChartData();
+    lineChartData = await fetchLineChartData(5);
     routineList.value = await fetchAllRoutines();
 
     colorChartData7 = await fetchColorChartData(7);
     colorChartData30 = await fetchColorChartData(30);
     colorChartData90 = await fetchColorChartData(90);
+    isLoading.value = false;
 
     update();
   }
@@ -59,41 +78,6 @@ class ReportController extends GetxController {
       count += events.length;
     }
     sevenDayEventCount.value = count.toString();
-  }
-
-//데이터 양이 크지 않기 때문에 기기에서 계산한다.
-  Future<void> getPieChartData() async {
-    int count = 0;
-    int water = 0;
-    int smooth = 0;
-    int hard = 0;
-    var keyList = monthEvents.keys.toList();
-    //update
-    for (var key in keyList) {
-      List<CalendarEvent> events = monthEvents[key];
-      count += events.length;
-      for (CalendarEvent event in events) {
-        if (event.type == '0' || event.type == '1') {
-          water += 1;
-        } else if (event.type == '2' ||
-            event.type == '3' ||
-            event.type == '4') {
-          smooth += 1;
-        } else {
-          hard += 1;
-        }
-      }
-    }
-    if (count != 0) {
-      //asign
-      pieChartData.add(((water / count) * 100).round() / 100);
-      pieChartData.add(((smooth / count) * 100).round() / 100);
-      pieChartData.add(((hard / count) * 100).round() / 100);
-    }
-    // thisMonthEventCount.value = count.toString();
-    // wateryCount.value = water.toString();
-    // smoothCount.value = smooth.toString();
-    // hardCount.value = hard.toString();
   }
 
   num getCompletedRoutines() {

@@ -246,7 +246,6 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                             memo: eventTextController.text);
                         await addEventToCalendar(
                             newEvent, loginService.auth.value.currentUser!.uid);
-                        eventTextController.dispose();
 
                         controller.eventsLibrary = await fetchAllEvents();
                         controller.update();
@@ -265,6 +264,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                       }
 
                       eventTextController.clear();
+                      eventTextController.dispose();
 
                       return;
                     }),

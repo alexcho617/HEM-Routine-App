@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
+import 'package:hem_routine_app/controllers/report_controller.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/models/routine.dart';
 import 'package:hem_routine_app/utils/calendarUtil.dart';
@@ -206,8 +207,41 @@ Future<RxMap> fetchPreviousMonthsEvent(int monthsBefore) async {
   return eventMap;
 }
 
+Future<RxList> fetchPieChartData() async {
+  final ReportController _reportController = Get.find();
+
+  int count = 0;
+  int water = 0;
+  int smooth = 0;
+  int hard = 0;
+  RxList data = [].obs;
+
+  var keyList = _reportController.monthEvents.keys.toList();
+  //update
+  for (var key in keyList) {
+    List<CalendarEvent> events = _reportController.monthEvents[key];
+    count += events.length;
+    for (CalendarEvent event in events) {
+      if (event.type == '0' || event.type == '1') {
+        water += 1;
+      } else if (event.type == '2' || event.type == '3' || event.type == '4') {
+        smooth += 1;
+      } else {
+        hard += 1;
+      }
+    }
+  }
+  if (count != 0) {
+    //asign
+    data.add(((water / count) * 100).round() / 100);
+    data.add(((smooth / count) * 100).round() / 100);
+    data.add(((hard / count) * 100).round() / 100);
+  }
+  return data;
+}
+
 //리포트 페이지 6개월 라인 차트용
-Future<RxList> fetchSixMonthSmooth(int monthsBefore) async {
+Future<RxList> fetchLineChartData(int monthsBefore) async {
   RxList data = [].obs;
 
   CollectionReference eventCollectionReference = _firestore
