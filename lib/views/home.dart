@@ -52,6 +52,7 @@ class HomePageState extends State<HomePage>
         return !(await navigatorKeyList[currentIndex].currentState!.maybePop());
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: TabBarView(
             controller: tabController,
