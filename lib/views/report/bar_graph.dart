@@ -25,46 +25,44 @@ class _BarGraphState extends State<BarGraph> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        // height: totalHeight,
-        // width: totalWidth,
-        // color: blue50,
-        child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.r),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              yAxis(
-                gap: SizedBox(
-                  height: blockHeight / 5 - 10.h,
+    return Obx(() {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.r),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                yAxis(
+                  gap: SizedBox(
+                    height: blockHeight / 5 - 10.h,
+                  ),
                 ),
-              ),
-              Stack(children: [
-                Positioned(
-                  child: SizedBox(
-                    width: 321,
-                    height: blockHeight,
-                    child: canvas(
-                      gap: SizedBox(
-                        height: blockHeight / 5 - 10.h,
+                Stack(children: [
+                  Positioned(
+                    child: SizedBox(
+                      width: 321,
+                      height: blockHeight,
+                      child: canvas(
+                        gap: SizedBox(
+                          height: blockHeight / 5 - 10.h,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Row(
-                  children: barWidget(),
-                )
-              ]
-                  //single day unit, need size adjustment.
+                  Row(
+                    children: barWidget(),
                   )
-            ],
-          ),
-        ],
-      ),
-    ));
+                ]
+                    //single day unit, need size adjustment.
+                    )
+              ],
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   List<Widget> barWidget() {

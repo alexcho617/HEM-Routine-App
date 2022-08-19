@@ -38,12 +38,31 @@ class _ReportPageState extends State<ReportPage> {
                   'Report',
                   style: ReportTitleFont,
                 ),
-                Text(
-                  '${_loginService.name}의 리포트',
-                  style: AppleFont24_Black,
+                //TODO: report refreshing
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          text: '${_loginService.name}님의 리포트',
+                          style: AppleFont24_Black,
+                        ),
+                        overflow: TextOverflow.clip,
+                      ),
+                      //TODO: temp button
+                      IconButton(
+                          onPressed: () async {
+                            await _reportController.refreshData();
+                          },
+                          icon: Icon(Icons.refresh))
+                    ],
+                  ),
                 ),
                 SizedBox(
-                  height: 24.h,
+                  // height: 24.h,
+                  height: 6.h,
                 ),
                 Container(
                   height: 102.h,
@@ -53,66 +72,69 @@ class _ReportPageState extends State<ReportPage> {
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              '주간 배변 횟수',
-                              style: AppleFont14_Black,
-                            ),
-                            Text(
-                              '${_reportController.sevenDayEventCount.value}회',
-                              style: AppleFont22_Blue600,
-                            ),
-                            if (int.parse(_reportController
-                                    .sevenDayEventCount.value) <
-                                3)
+                    child: Obx(() {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
                               Text(
-                                '적은 편',
-                                style: AppleFont12_Blue600,
-                              )
-                            else if (int.parse(_reportController
-                                    .sevenDayEventCount.value) >
-                                20)
-                              Text(
-                                '많은 편',
-                                style: AppleFont12_Blue600,
-                              )
-                            else
-                              Text(
-                                '적당한 편',
-                                style: AppleFont12_Blue600,
+                                '주간 배변 횟수',
+                                style: AppleFont14_Black,
                               ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              '수행 완료 루틴',
-                              style: AppleFont14_Black,
-                            ),
-                            Text('${_reportController.getCompletedRoutines()}회',
-                                style: AppleFont22_Blue600),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              '평균 루틴 달성도',
-                              style: AppleFont14_Black,
-                            ),
-                            Text(
-                                (_reportController.getAvgRoutineCompletion() *
-                                            100)
-                                        .toStringAsFixed(0) +
-                                    "%",
-                                style: AppleFont22_Blue600),
-                          ],
-                        )
-                      ],
-                    ),
+                              Text(
+                                '${_reportController.sevenDayEventCount.value}회',
+                                style: AppleFont22_Blue600,
+                              ),
+                              if (int.parse(_reportController
+                                      .sevenDayEventCount.value) <
+                                  3)
+                                Text(
+                                  '적은 편',
+                                  style: AppleFont12_Blue600,
+                                )
+                              else if (int.parse(_reportController
+                                      .sevenDayEventCount.value) >
+                                  20)
+                                Text(
+                                  '많은 편',
+                                  style: AppleFont12_Blue600,
+                                )
+                              else
+                                Text(
+                                  '적당한 편',
+                                  style: AppleFont12_Blue600,
+                                ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                '수행 완료 루틴',
+                                style: AppleFont14_Black,
+                              ),
+                              Text(
+                                  '${_reportController.getCompletedRoutines()}회',
+                                  style: AppleFont22_Blue600),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                '평균 루틴 달성도',
+                                style: AppleFont14_Black,
+                              ),
+                              Text(
+                                  (_reportController.getAvgRoutineCompletion() *
+                                              100)
+                                          .toStringAsFixed(0) +
+                                      "%",
+                                  style: AppleFont22_Blue600),
+                            ],
+                          )
+                        ],
+                      );
+                    }),
                   ),
                 ),
                 Divider(
@@ -121,155 +143,171 @@ class _ReportPageState extends State<ReportPage> {
               ],
             ),
           ),
-          Container(
-            height: 530.h,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        '쾌변율 분석',
-                        style: AppleFont16_BlackBold,
-                      ),
-                    ],
-                  ),
-                  circularAnalysisChart(_reportController.pieChartData),
-                  // Text('묽은변 횟수 : ${_reportController.pieChartData[0]}'),
-                  // Text('쾌변 횟수 : ${_reportController.pieChartData[1]}'),
-                  // Text('단단한 변 횟수 : ${_reportController.pieChartData[2]}'),
-
-                  GetBuilder<ReportController>(builder: (context) {
-                    return monthlyRateChart(_reportController.lineChartData);
-                  }),
-                  // Text('월별 쾌변율 : ${_reportController.lineChartData}'),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16.0.w),
-                        child: Text(
-                          '색상 통계',
-                          style: AppleFont16_BlackBold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    width: 300.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        //3month button
-                        ElevatedButton(
-                          onPressed: () {
-                            if (colorChartButtonValue[0] == false) {
-                              setState(() {
-                                colorChartDay = 90;
-                                colorChartButtonValue[0] = true;
-                                colorChartButtonValue[1] = false;
-                                colorChartButtonValue[2] = false;
-                              });
-                            }
-                          },
-                          child: Text(
-                            '최근 3개월',
-                            style: colorChartButtonValue[0]
-                                ? AppleFont14_White
-                                : AppleFont14_Black,
-                          ),
-                          style: colorChartButtonValue[0]
-                              ? reportColorChartBlueButtonStyle
-                              : reportColorChartGreyButtonStyle,
-                        ),
-                        // 1month button
-                        ElevatedButton(
-                          onPressed: () {
-                            if (colorChartButtonValue[1] == false) {
-                              setState(() {
-                                colorChartDay = 30;
-                                colorChartButtonValue[0] = false;
-                                colorChartButtonValue[1] = true;
-                                colorChartButtonValue[2] = false;
-                              });
-                            }
-                          },
-                          child: Text(
-                            '최근 1개월',
-                            style: colorChartButtonValue[1]
-                                ? AppleFont14_White
-                                : AppleFont14_Black,
-                          ),
-                          style: colorChartButtonValue[1]
-                              ? reportColorChartBlueButtonStyle
-                              : reportColorChartGreyButtonStyle,
-                        ),
-                        //1week button
-                        ElevatedButton(
-                          onPressed: () {
-                            if (colorChartButtonValue[2] == false) {
-                              setState(() {
-                                colorChartDay = 7;
-                                colorChartButtonValue[0] = false;
-                                colorChartButtonValue[1] = false;
-                                colorChartButtonValue[2] = true;
-                              });
-                            }
-                          },
-                          child: Text(
-                            '최근 1주일',
-                            style: colorChartButtonValue[2]
-                                ? AppleFont14_White
-                                : AppleFont14_Black,
-                          ),
-                          style: colorChartButtonValue[2]
-                              ? reportColorChartBlueButtonStyle
-                              : reportColorChartGreyButtonStyle,
-                        ),
-                      ],
+          Obx(() {
+            return _reportController.isLoading.value
+                ? Container(
+                    height: 100.h,
+                    width: 100.w,
+                    child: CircularProgressIndicator(
+                      color: primary,
                     ),
-                  ),
-
-                  GetBuilder<ReportController>(builder: (context) {
-                    switch (colorChartDay) {
-                      case 90:
-                        return circularColorChart(
-                            _reportController.colorChartData90);
-                      case 30:
-                        return circularColorChart(
-                            _reportController.colorChartData30);
-                      case 7:
-                        return circularColorChart(
-                            _reportController.colorChartData7);
-                      default:
-                        return circularColorChart(
-                            _reportController.colorChartData90);
-                    }
-                  }),
-                  // Text('1주일(7일) 색상통계 : ${_reportController.colorChartData7}'),
-                  // Text('1개월(30일) 색상통계 : ${_reportController.colorChartData30}'),
-                  // Text('3개월(90일) 색상통계 : ${_reportController.colorChartData90}'),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16.0.w),
-                        child: Text('배변 패턴', style: AppleFont16_BlackBold),
-                      ),
-                    ],
-                  ),
-                  BarGraph(),
-                  SizedBox(
-                    height: 24,
                   )
-                ],
-              ),
-            ),
-          ),
+                : Container(
+                    height: 530.h,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                '쾌변율 분석',
+                                style: AppleFont16_BlackBold,
+                              ),
+                            ],
+                          ),
+
+                          GetBuilder<ReportController>(builder: (context) {
+                            return circularAnalysisChart(
+                                _reportController.pieChartData);
+                          }),
+
+                          GetBuilder<ReportController>(builder: (context) {
+                            return monthlyRateChart(
+                                _reportController.lineChartData);
+                          }),
+                          // Text('월별 쾌변율 : ${_reportController.lineChartData}'),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16.0.w),
+                                child: Text(
+                                  '색상 통계',
+                                  style: AppleFont16_BlackBold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            width: 300.w,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                //3month button
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (colorChartButtonValue[0] == false) {
+                                      setState(() {
+                                        colorChartDay = 90;
+                                        colorChartButtonValue[0] = true;
+                                        colorChartButtonValue[1] = false;
+                                        colorChartButtonValue[2] = false;
+                                      });
+                                    }
+                                  },
+                                  child: Text(
+                                    '최근 3개월',
+                                    style: colorChartButtonValue[0]
+                                        ? AppleFont14_White
+                                        : AppleFont14_Black,
+                                  ),
+                                  style: colorChartButtonValue[0]
+                                      ? reportColorChartBlueButtonStyle
+                                      : reportColorChartGreyButtonStyle,
+                                ),
+                                // 1month button
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (colorChartButtonValue[1] == false) {
+                                      setState(() {
+                                        colorChartDay = 30;
+                                        colorChartButtonValue[0] = false;
+                                        colorChartButtonValue[1] = true;
+                                        colorChartButtonValue[2] = false;
+                                      });
+                                    }
+                                  },
+                                  child: Text(
+                                    '최근 1개월',
+                                    style: colorChartButtonValue[1]
+                                        ? AppleFont14_White
+                                        : AppleFont14_Black,
+                                  ),
+                                  style: colorChartButtonValue[1]
+                                      ? reportColorChartBlueButtonStyle
+                                      : reportColorChartGreyButtonStyle,
+                                ),
+                                //1week button
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (colorChartButtonValue[2] == false) {
+                                      setState(() {
+                                        colorChartDay = 7;
+                                        colorChartButtonValue[0] = false;
+                                        colorChartButtonValue[1] = false;
+                                        colorChartButtonValue[2] = true;
+                                      });
+                                    }
+                                  },
+                                  child: Text(
+                                    '최근 1주일',
+                                    style: colorChartButtonValue[2]
+                                        ? AppleFont14_White
+                                        : AppleFont14_Black,
+                                  ),
+                                  style: colorChartButtonValue[2]
+                                      ? reportColorChartBlueButtonStyle
+                                      : reportColorChartGreyButtonStyle,
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          GetBuilder<ReportController>(builder: (context) {
+                            switch (colorChartDay) {
+                              case 90:
+                                return circularColorChart(
+                                    _reportController.colorChartData90);
+                              case 30:
+                                return circularColorChart(
+                                    _reportController.colorChartData30);
+                              case 7:
+                                return circularColorChart(
+                                    _reportController.colorChartData7);
+                              default:
+                                return circularColorChart(
+                                    _reportController.colorChartData90);
+                            }
+                          }),
+                          // Text('1주일(7일) 색상통계 : ${_reportController.colorChartData7}'),
+                          // Text('1개월(30일) 색상통계 : ${_reportController.colorChartData30}'),
+                          // Text('3개월(90일) 색상통계 : ${_reportController.colorChartData90}'),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16.0.w),
+                                child:
+                                    Text('배변 패턴', style: AppleFont16_BlackBold),
+                              ),
+                            ],
+                          ),
+                          GetBuilder<ReportController>(builder: (context) {
+                            return BarGraph();
+                          }),
+
+                          SizedBox(
+                            height: 24,
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+          }),
         ],
       ),
     );

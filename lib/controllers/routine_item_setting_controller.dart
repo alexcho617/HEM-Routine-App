@@ -4,7 +4,6 @@ import 'package:hem_routine_app/models/routineItem.dart';
 import 'loginService.dart';
 
 class RotuineItemSettingController extends GetxController {
-  //TODO: 내가 만든 모든 루틴 항목을 읽어들일 수 있는 코드가 필요하다. where? 아마....
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   RxString filter = ''.obs;
   List<RoutineItem> customRoutineItems = [];

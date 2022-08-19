@@ -10,6 +10,7 @@ import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/views/login.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import 'package:onboarding/onboarding.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../utils/colors.dart';
 import 'home.dart';
@@ -37,7 +38,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 0),
+              padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 63.h),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -46,6 +47,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
                 ),
               ),
             ),
+            Image.asset('assets/onboarding/1.png', height: 200.h,),
             Expanded(child: Container()),
           ],
         ),
@@ -62,7 +64,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 0),
+              padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 63.h),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -71,6 +73,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
                 ),
               ),
             ),
+            Image.asset('assets/onboarding/2.png', height: 200.h,),
             Expanded(child: Container()),
           ],
         ),
@@ -87,7 +90,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 0),
+              padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 63.h),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -96,6 +99,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
                 ),
               ),
             ),
+            Image.asset('assets/onboarding/3.png', height: 200.h,),
             Expanded(child: Container()),
           ],
         ),
@@ -112,7 +116,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 0),
+              padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 63.h),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -121,6 +125,7 @@ class _onBoardingPageState extends State<onBoardingPage> {
                 ),
               ),
             ),
+            Image.asset('assets/onboarding/4.png', height: 200.h,),
             Expanded(child: Container()),
           ],
         ),
@@ -223,13 +228,19 @@ class _onBoardingPageState extends State<onBoardingPage> {
               else if (index == pagesLength - 1)
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 31.w),
-                  child: GoogleSignInButton(
-                    clientId:
-                        '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
-                    onTap: () async {
-                      //get apple credential
-                      controller.signInwithGoogle();
-                    },
+                  child: Column(
+                    children: [
+                      GoogleSignInButton(
+                        clientId:
+                            '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
+                        onTap: () async {
+                          //get apple credential
+                          controller.signInwithGoogle();
+                        },
+                      ),
+                      SizedBox(height: 15.h,),
+                      SignInWithAppleButton(onPressed: (){controller.signInWithApple();})
+                    ],
                   ),
                 )
               else

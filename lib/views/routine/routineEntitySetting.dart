@@ -28,6 +28,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
+        height: 745.h,
         color: Colors.grey[50],
         child: Stack(
           children: [
@@ -61,7 +62,6 @@ class RoutineEntitySettingPage extends StatelessWidget {
                   height: 33.h,
                 ),
                 GetBuilder<RoutineEntityController>(builder: (_) {
-                  //추가된 루틴항목이 아무것도 없으면
                   return routineEntityController.addedRoutineItemCount == 0
                       ? Column(
                           children: [
@@ -139,6 +139,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
                               child: storeRoutineButton(() async {
                                 Navigator.pop(context);
                               }, () async {
+// <<<<<<< HEAD
                                 if (routineEntityController
                                     .validateGoalCount()) {
                                   await routineEntityController.addRoutine();
@@ -177,6 +178,34 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                         });
                                       }));
                                 }
+// =======
+//                                 await routineEntityController.addRoutine();
+
+//                                 showDialog(
+//                                     context: context,
+//                                     builder: ((context) {
+//                                       return saveAlertDialog(() {
+//                                         Navigator.pop(context);
+//                                         showDialog(
+//                                             context: context,
+//                                             builder: (context) {
+//                                               return routineStartAlertDialog(
+//                                                   () async {
+//                                                 Get.delete<
+//                                                     RoutineEntityController>();
+//                                                 pageController.initValues();
+//                                                 Navigator.pop(context);
+//                                                 kangminBackUntil(context);
+//                                               }, () async {
+
+//                                                 await _fetchData(context);
+//                                                 Navigator.pop(context);
+//                                                 kangminBackUntil(context);
+//                                               });
+//                                             });
+//                                       });
+//                                     }));
+// >>>>>>> 5f37d3b729c2bca489341be89a0e5fb580fe1091
                               }),
                             ),
                           ],
@@ -184,7 +213,6 @@ class RoutineEntitySettingPage extends StatelessWidget {
                 }),
               ],
             ),
-            //TODO: 키보드 때문에 SCSV 사용하였더니 버튼이 위로 올라감. 아래로 조정해야함.
             Positioned(
               child: addButton(() {
                 showCupertinoModalBottomSheet(

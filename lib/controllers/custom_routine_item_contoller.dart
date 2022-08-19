@@ -12,7 +12,6 @@ import 'package:hem_routine_app/views/setting/routineitem_settings.dart';
 import '../widgets/widgets.dart';
 
 class CustomRoutineItemController extends GetxController {
-  //TODO: 중복을 검사하는 것에서 이름 검사에 유의해야 한다.
   CustomRoutineItemController({required this.args});
   ScreenArguments args;
   FirebaseFirestore firestore = FirebaseFirestore.instance;

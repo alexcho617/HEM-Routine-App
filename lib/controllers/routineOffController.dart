@@ -13,7 +13,7 @@ import 'package:hem_routine_app/widgets/widgets.dart';
 import '../models/calendarEvent.dart';
 import '../models/routine.dart';
 
-//TODO: 아마 프로그램 흐름상 routine item읽어오는 건 다른 Controller로 구분해야 한다.
+//아마 프로그램 흐름상 routine item읽어오는 건 다른 Controller로 구분해야 한다.
 class RoutineOffController extends GetxController {
   LoginService loginService = Get.find();
   final inputController = TextEditingController();
