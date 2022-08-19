@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
-import 'package:hem_routine_app/controllers/routine_completed_controller.dart.dart';
+import 'package:hem_routine_app/controllers/routine_completed_controller.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:hem_routine_app/views/setting/routine_detail.dart';
 

@@ -10,6 +10,7 @@ import '../../utils/constants.dart';
 Widget noDataWidget() {
   return Column(
     children: [
+      SizedBox(height: 12.h),
       Image.asset(
         'assets/appIcon.png',
         width: 160.w,

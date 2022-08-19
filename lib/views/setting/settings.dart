@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/routine_completed_controller.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/constants.dart';
 import 'package:hem_routine_app/utils/functions.dart';
@@ -69,7 +70,9 @@ class _SettingsPageState extends State<SettingsPage> {
             style: AppleFont22_Black,
           ),
           onTap: () {
-            kangmin(context, CompletedRoutinesPage());
+            Get.put(RoutineCompletedController()).getLatestData();
+            // kangmin(context, CompletedRoutinesPage());
+            Get.to(CompletedRoutinesPage());
           },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),
@@ -84,7 +87,8 @@ class _SettingsPageState extends State<SettingsPage> {
             style: AppleFont22_Black,
           ),
           onTap: () {
-            RotuineItemSettingController controller = Get.put(RotuineItemSettingController());
+            RotuineItemSettingController controller =
+                Get.put(RotuineItemSettingController());
             controller.onInit();
             kangmin(context, RoutineItemSettingsPage());
           },

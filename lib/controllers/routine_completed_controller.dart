@@ -11,17 +11,25 @@ class RoutineCompletedController extends GetxController {
 
   @override
   void onInit() async {
+    await getLatestData();
     super.onInit();
-    routineCompleted = await FirebaseFirestore.instance
+  }
+
+  Future<void> getLatestData() async {
+    routineCompleted = await getRoutineCompleted();
+    await getData(routineCompleted);
+  }
+
+  Future<QuerySnapshot> getRoutineCompleted() async {
+    return await FirebaseFirestore.instance
         .collection('user')
         .doc(loginService.auth.value.currentUser!.uid)
         .collection('routine')
         .get();
-
-    await getData();
   }
 
-  Future<void> getData() async {
+  Future<void> getData(routineCompleted) async {
+    routines = [].obs;
     for (var doc in routineCompleted.docs) {
       Routine routine = Routine();
       routine.averageComplete = doc.get("averageComplete");
@@ -37,6 +45,7 @@ class RoutineCompletedController extends GetxController {
       routines.add(routine);
     }
     sortByName();
+    update();
   }
 
   void sortByName() {
