@@ -99,7 +99,8 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                   style: AppleFont14_Grey700,
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
                                   primary: Color.fromARGB(255, 212, 212, 212),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.r),
@@ -127,18 +128,19 @@ class RoutineEntitySettingPage extends StatelessWidget {
                             SingleChildScrollView(
                                 child: Container(
                               height: 347.h,
-                              child: addRoutineItemList(routineEntityController),
+                              child:
+                                  addRoutineItemList(routineEntityController),
                             )),
                             SizedBox(
                               height: 30.h,
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 28.w),
-                              child: storeRoutineButton(() {
+                              child: storeRoutineButton(() async {
                                 Navigator.pop(context);
                               }, () async {
-                                //TODO: 여기서 alter관련 함수 호출
-                                if (routineEntityController.validateGoalCount()) {
+                                if (routineEntityController
+                                    .validateGoalCount()) {
                                   await routineEntityController.addRoutine();
                                   showDialog(
                                       context: context,
@@ -164,6 +166,8 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                               });
                                         });
                                       }));
+                                  await Get.find<RoutineOffController>()
+                                      .getRoutineList();
                                 } else {
                                   showDialog(
                                       context: context,

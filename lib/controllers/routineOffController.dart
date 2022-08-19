@@ -115,7 +115,7 @@ class RoutineOffController extends GetxController {
     }
   }
 
-  void getRoutineList() async {
+  Future<void> getRoutineList() async {
     routines = [];
     await firestore
         .collection('user/${loginService.auth.value.currentUser!.uid}/routine')

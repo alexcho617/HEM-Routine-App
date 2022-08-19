@@ -181,7 +181,8 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
       int tryCount, int days, String uid) {
     return InkWell(
       onTap: () {
-        kangmin(context, RoutineDetailPage(uid: uid));
+        // kangmin(context, RoutineDetailPage(uid: uid));
+        Get.to(RoutineDetailPage(uid: uid));
       },
       child: Card(
         elevation: 4,

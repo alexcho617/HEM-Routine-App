@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,6 +18,11 @@ class AppStateController extends GetxController {
   LoginService loginService = Get.find();
   DateTime now = DateTime.now();
   late String uid;
+
+  //For Rating Logic
+  late bool isRated;
+  dynamic rateRoutineId;
+  dynamic rateRoutineHistoryId;
 
   String getLatestCalendarMessage() {
     CalendarEvent? latestEvent =
@@ -56,10 +63,31 @@ class AppStateController extends GetxController {
         .collection('user')
         .doc(uid)
         .get()
-        .then((DocumentSnapshot documentSnapshot) {
+        .then((DocumentSnapshot documentSnapshot) async {
       //check isRated
-      loginService.isRated = documentSnapshot.get('isRated');
+      isRated = await documentSnapshot.get('isRated');
+      if (!isRated) {
+        rateRoutineId = documentSnapshot.get('rateRoutineId');
+        rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
+      }
     });
+  }
+
+  void showRatingScreen(BuildContext context) {
+    if (!isRated) {
+      showDialog(
+        context: context,
+        builder: ((context) {
+          return routineRateDialog(() {
+            // 평가 제출
+            Navigator.pop(context);
+          });
+        }),
+      );
+    }
+    else{
+      // Do noting?
+    }
   }
 
   // Future<void> offRoutine() async {
@@ -95,7 +123,7 @@ class AppStateController extends GetxController {
   //   status.value = false;
   // }
 
-
+  RxInt rank = 3.obs;
   Widget routineRateDialog(VoidCallback? onPressed) {
     return AlertDialog(
       shape: RoundedRectangleBorder(
@@ -107,17 +135,36 @@ class AppStateController extends GetxController {
       actionsPadding: EdgeInsets.all(0),
       contentPadding: EdgeInsets.all(0),
       content: Container(
-        height: 176.h,
+        height: 302.h,
         child: Column(children: [
-          Container(
-            width: 312.w,
-            height: 120.h,
-            child: Center(
-                child: Text(
-              '이번 루틴 어떠셨어요?',
-              style: AppleFont16_Black,
-              textAlign: TextAlign.center,
-            )),
+          SizedBox(height: 36.h),
+          Center(
+              child: Text(
+            '이번 루틴 어떠셨어요?',
+            style: AppleFont22_Black,
+            textAlign: TextAlign.center,
+          )),
+          Obx(() {
+            return starRankIndicator();
+          }),
+          Divider(
+            indent: 24.w,
+            endIndent: 24.h,
+            color: grey600,
+          ),
+          Text("루틴이름", style: AppleFont22_Black),
+          SizedBox(
+            height: 4.h,
+          ),
+          Text(
+              "(${formatDate(DateTime.now())} ~ ${formatDate(DateTime.now())})",
+              style: AppleFont16_Grey600),
+          SizedBox(
+            height: 12.h,
+          ),
+          Text("수행기간: 5일 | 평균 달성도: 65%", style: AppleFont16_Black),
+          SizedBox(
+            height: 20.h,
           ),
           InkWell(
             onTap: onPressed,
@@ -140,6 +187,63 @@ class AppStateController extends GetxController {
           )
         ]),
       ),
+    );
+  }
+
+  String formatDate(DateTime dt) {
+    return DateFormat('yyyy-MM-dd').format(dt);
+  }
+
+  Widget starRankIndicator() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            starRankSelector(1),
+            starRankSelector(2),
+            starRankSelector(3),
+            starRankSelector(4),
+            starRankSelector(5),
+          ],
+        ),
+        Text(
+          "${rank.value}점",
+          style: AppleFont16_Grey600,
+        ),
+      ],
+    );
+  }
+
+  Widget starRankSelector(int i) {
+    return GestureDetector(
+      onTap: () {
+        rank.value = i;
+        update();
+      },
+      child: Builder(builder: (context) {
+        if (rank.value >= i) {
+          return selectedStar();
+        } else {
+          return unSelectedStar();
+        }
+      }),
+    );
+  }
+
+  Widget selectedStar() {
+    return Icon(
+      Icons.star,
+      size: 40.r,
+      color: starYellow,
+    );
+  }
+
+  Widget unSelectedStar() {
+    return Icon(
+      Icons.star_outline,
+      size: 40.r,
+      color: grey600,
     );
   }
 }

@@ -19,7 +19,6 @@ class LoginService extends GetxController {
 
   var uid = ''.obs;
   var name = ''.obs;
-  late bool isRated;
   late DocumentSnapshot userSnapshot;
 
   @override

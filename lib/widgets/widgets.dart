@@ -969,7 +969,6 @@ Widget starRankIndicator(double rank) {
             }else{
               return Image.asset('assets/stars/5.png');
             }
-            
           },
         ),
       ),

@@ -17,6 +17,7 @@ class RoutineOnController extends GetxController {
   // });
   RoutineOnController();
   LoginService loginService = Get.find();
+  AppStateController appStateController = Get.find();
   late String uid;
 
   dynamic name = "".obs;
@@ -416,7 +417,18 @@ class RoutineOnController extends GetxController {
     print("function: offRoutineNotToday called");
     routineDeactivate();
     routineHistoryDeactivate();
+    isRatedChecker();
     routineOff();
+  }
+
+  Future<void> isRatedChecker() async {
+    appStateController.isRated = false;
+    appStateController.rateRoutineId = routineDocumentSnapshot!.id;
+    appStateController.rateRoutineHistoryId = routineHistoryDocumentSnapshot.id;
+    FirebaseFirestore.instance.collection('user').doc(uid).update({
+      'rateRoutineId': routineDocumentSnapshot!.id,
+      'rateRoutineHistoryId': routineHistoryDocumentSnapshot.id,
+    });
   }
 
   Future<void> getRoutineSnapshot() async {
@@ -499,6 +511,6 @@ class RoutineOnController extends GetxController {
   }
 
   void routineOff() {
-    Get.find<AppStateController>().status.value = false;
+    appStateController.status.value = false;
   }
 }
