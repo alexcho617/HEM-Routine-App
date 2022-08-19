@@ -40,7 +40,6 @@ class RoutineEntityController extends GetxController {
     update();
   }
 
-//TODO : calendarRoutine에도 생겨야 함.
   Future<bool> addRoutine() async {
     print(loginService.auth.value.currentUser!.uid);
     DateTime later =
