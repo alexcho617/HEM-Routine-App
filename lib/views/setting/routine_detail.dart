@@ -215,7 +215,8 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                   }, () {
                     // 루틴 시작
                     Get.back();
-                    controller.addRoutineHistory();
+                    controller.fetchData(context);
+                    
                     yechan(context, 1, RoutinePage());
                   });
                 }),

@@ -1,9 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
 import 'package:hem_routine_app/controllers/routine_completed_controller.dart.dart';
+import 'package:hem_routine_app/controllers/routine_on_controller.dart';
+
+import '../services/firestore.dart';
+import '../utils/calendarUtil.dart';
 
 class RoutineDetailController extends GetxController {
   RoutineDetailController({required this.id});
@@ -65,12 +70,21 @@ class RoutineDetailController extends GetxController {
   }
 
   Future<void> addRoutineHistory() async {
+    await FirebaseFirestore.instance
+        .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
+        .doc(id)
+        .update({
+      'tryCount': FieldValue.increment(1),
+    });
+
+    //DONE? : 수정하기
     DateTime later = now.add(Duration(days: days.value + 1));
     await FirebaseFirestore.instance
         .collection(
             'user/${loginService.auth.value.currentUser!.uid}/routine/$id/routineHistory')
         .add({
       'routineItem': routineItem,
+      'goals': goals,
       'complete': 0.0,
       'duration': days.value,
       'startDate': DateTime(now.year, now.month, now.day),
@@ -80,30 +94,95 @@ class RoutineDetailController extends GetxController {
       'rating': 0.0,
     }).then((DocumentReference routineHistoryDoc) async {
       for (int i = 1; i <= days.value; i++) {
-        await FirebaseFirestore.instance
-            .collection(
-                'user/${loginService.auth.value.currentUser!.uid}/routine/$id/routineHistory/${routineHistoryDoc.id}/days')
-            .doc('$i')
-            .set({
-          'dayComplete': 0.0,
-        });
-
-        for (int j = 0; j < routineItem.length; j++) {
+        try {
           await FirebaseFirestore.instance
               .collection(
-                  'user/${loginService.auth.value.currentUser!.uid}/routine/$id/routineHistory/${routineHistoryDoc.id}/days/$i/routineItemHistory')
-              .add({
-            'currentCount': 0,
-            'goal': goals[j],
-            'name': routineItem[j],
-            'eventTime': []
+                  'user/${loginService.auth.value.currentUser!.uid}/routine/$id/routineHistory/${routineHistoryDoc.id}/days')
+              .doc('$i')
+              .set({
+            'dayComplete': 0.0,
           });
+        } on Exception catch (e) {
+          print("line 94: " + e.toString());
+        }
 
-          await routineSnapshot.reference.update({'isActive': true});
-          Get.find<AppStateController>().status.value = true;
-          return true;
+        for (int j = 0; j < routineItem.length; j++) {
+          try {
+            await FirebaseFirestore.instance
+                .collection(
+                    'user/${loginService.auth.value.currentUser!.uid}/routine/$id/routineHistory/${routineHistoryDoc.id}/days/$i/routineItemHistory')
+                .add({
+              'currentCount': 0,
+              'goal': goals[j],
+              'name': routineItem[j],
+              'eventTime': []
+            });
+          } on Exception catch (e) {
+            print("line 109: " + e.toString());
+          }
         }
       }
+
+      await routineSnapshot.reference.update({'isActive': true});
+      Get.find<AppStateController>().status.value = true;
     });
+  }
+
+  Future<void> fetchData(BuildContext context) async {
+    showDialog(
+        // The user CANNOT close this dialog  by pressing outsite it
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  // The loading indicator
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  // Some text
+                  Text('Loading...')
+                ],
+              ),
+            ),
+          );
+        });
+
+    await addRoutineHistory();
+    await addCalendarRoutine();
+    await Get.find<RoutineOnController>().getData();
+
+    Get.back();
+  }
+
+  Future<void> addCalendarRoutine() async{
+    DateTime now = DateTime.now();
+    DateTime later =
+        now.add(Duration(days: days.value));
+    //start alex calenderRoutine
+      await FirebaseFirestore.instance //add calendar routine doc
+          .collection(
+              'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
+          .doc(id)
+          .set({
+        'duration': days.value,
+        'startDate': parseDay(now),
+        'endDate': parseDay(later),
+        'name': name.value,
+      }).onError((error, _) =>
+              print("Error adding document to calendarRoutine: $error"));
+
+      //fetch routine collection and add to routineLibrary
+      calendarController.routineLibrary = await fetchAllCalendarRoutines();
+      calendarController.update();
+      //end alex calenderRoutine
+
   }
 }

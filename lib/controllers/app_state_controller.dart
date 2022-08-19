@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/utils/calendarUtil.dart';
@@ -6,6 +7,8 @@ import 'package:hem_routine_app/controllers/routineOffController.dart';
 import '../controllers/loginService.dart';
 import '../controllers/calendarController.dart';
 import '../models/calendarEvent.dart';
+import '../utils/colors.dart';
+import '../utils/constants.dart';
 
 class AppStateController extends GetxController {
   Rx<bool> status = false.obs;
@@ -59,36 +62,84 @@ class AppStateController extends GetxController {
     });
   }
 
-  Future<void> offRoutine() async {
-    // await firestore
-    //     .collection('user/$uid/routine')
-    //     .where('isActive', isEqualTo: true)
-    //     .get()
-    //     .then((QuerySnapshot querySnapshot) {
-    //   querySnapshot.docs.forEach((doc) async {
-    //     // Get activeRoutineSnapshot
-    //     activeRoutineSnapshot = doc;
-    //     await routinDeactivate();
-    //     await firestore
-    //         .collection('user/$uid/routine/${doc.id}/routineHistory')
-    //         .where('isActive', isEqualTo: true)
-    //         .get()
-    //         .then((QuerySnapshot smallQuerySnapshot) {
-    //       smallQuerySnapshot.docs.forEach((smallDoc) async {
-    //         // Get activeRoutineHistorySnapshot
-    //         activeRoutineHistorySnapshot = smallDoc;
-    //         Map<String, dynamic> data = smallDoc.data() as Map<String, dynamic>;
-    //         //여기서 startDate를 읽어내서 오늘과 월, 일까지 같다면 삭제.
-    //         if (data['startDate'] ==
-    //             Timestamp.fromDate(DateTime(now.year, now.month, now.day))) {
-    //           routineHistoryDelete();
-    //         } else {
-    //           routineHistoryDeactivate();
-    //         }
-    //       });
-    //     });
-    //   });
-    // });
-    status.value = false;
+  // Future<void> offRoutine() async {
+  //   // await firestore
+  //   //     .collection('user/$uid/routine')
+  //   //     .where('isActive', isEqualTo: true)
+  //   //     .get()
+  //   //     .then((QuerySnapshot querySnapshot) {
+  //   //   querySnapshot.docs.forEach((doc) async {
+  //   //     // Get activeRoutineSnapshot
+  //   //     activeRoutineSnapshot = doc;
+  //   //     await routinDeactivate();
+  //   //     await firestore
+  //   //         .collection('user/$uid/routine/${doc.id}/routineHistory')
+  //   //         .where('isActive', isEqualTo: true)
+  //   //         .get()
+  //   //         .then((QuerySnapshot smallQuerySnapshot) {
+  //   //       smallQuerySnapshot.docs.forEach((smallDoc) async {
+  //   //         // Get activeRoutineHistorySnapshot
+  //   //         activeRoutineHistorySnapshot = smallDoc;
+  //   //         Map<String, dynamic> data = smallDoc.data() as Map<String, dynamic>;
+  //   //         //여기서 startDate를 읽어내서 오늘과 월, 일까지 같다면 삭제.
+  //   //         if (data['startDate'] ==
+  //   //             Timestamp.fromDate(DateTime(now.year, now.month, now.day))) {
+  //   //           routineHistoryDelete();
+  //   //         } else {
+  //   //           routineHistoryDeactivate();
+  //   //         }
+  //   //       });
+  //   //     });
+  //   //   });
+  //   // });
+  //   status.value = false;
+  // }
+
+
+  Widget routineRateDialog(VoidCallback? onPressed) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+        Radius.circular(20.r),
+      )),
+      insetPadding: EdgeInsets.all(0),
+      titlePadding: EdgeInsets.all(0),
+      actionsPadding: EdgeInsets.all(0),
+      contentPadding: EdgeInsets.all(0),
+      content: Container(
+        height: 176.h,
+        child: Column(children: [
+          Container(
+            width: 312.w,
+            height: 120.h,
+            child: Center(
+                child: Text(
+              '이번 루틴 어떠셨어요?',
+              style: AppleFont16_Black,
+              textAlign: TextAlign.center,
+            )),
+          ),
+          InkWell(
+            onTap: onPressed,
+            child: Ink(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(20.r),
+                ),
+                color: primary,
+              ),
+              width: 312.w,
+              height: 56.h,
+              child: Center(
+                child: Text(
+                  '평가 제출',
+                  style: AppleFont16_White,
+                ),
+              ),
+            ),
+          )
+        ]),
+      ),
+    );
   }
 }

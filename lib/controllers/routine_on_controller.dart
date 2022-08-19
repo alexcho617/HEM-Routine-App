@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -50,7 +52,7 @@ class RoutineOnController extends GetxController {
     0.0, //14
   ].obs;
 
-  late DocumentSnapshot routineDocumentSnapshot;
+  DocumentSnapshot? routineDocumentSnapshot;
   late DocumentSnapshot routineHistoryDocumentSnapshot;
 
   List<Event> events = [];
@@ -67,7 +69,9 @@ class RoutineOnController extends GetxController {
 
   Future<void> getData() async {
     routineDocumentSnapshot = await getRoutineData();
-    if (routineDocumentSnapshot.exists) {
+    if (routineDocumentSnapshot != null && routineDocumentSnapshot!.exists) {
+      name.value = routineDocumentSnapshot!.get('name');
+      days.value = routineDocumentSnapshot!.get('days');
       routineHistoryDocumentSnapshot = await getRoutineHistoryData();
       if (routineHistoryDocumentSnapshot.exists) {
         await getCurrday();
@@ -90,22 +94,16 @@ class RoutineOnController extends GetxController {
         routineDocumentSnapshot = doc;
       });
     });
-
-    if (routineDocumentSnapshot.exists) {
-      name.value = await routineDocumentSnapshot.get('name');
-      days.value = await routineDocumentSnapshot.get('days');
-    }
-
     return routineDocumentSnapshot;
   }
 
   Future<DocumentSnapshot> getRoutineHistoryData() async {
-    await routineDocumentSnapshot.reference
+    await routineDocumentSnapshot!.reference
         .collection('routineHistory')
         .where('isActive', isEqualTo: true)
         .get()
         .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
+      querySnapshot.docs.forEach((doc) async {
         routineHistoryDocumentSnapshot = doc;
       });
     });
@@ -402,8 +400,6 @@ class RoutineOnController extends GetxController {
     });
   }
 
-  // TODO : cut from app_state_controller
-
   // late DocumentSnapshot activeRoutineSnapshot;
   // late DocumentSnapshot activeRoutineHistorySnapshot;
   // FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -411,10 +407,16 @@ class RoutineOnController extends GetxController {
   // TODO: 오늘일 때와 아닐떄 다른 함수를 실행하자
   Future<void> offRoutineToday() async {
     print("function: offRoutineToday called");
+    routineDeactivate();
+    routineHistoryDelete();
+    routineOff();
   }
 
   Future<void> offRoutineNotToday() async {
     print("function: offRoutineNotToday called");
+    routineDeactivate();
+    routineHistoryDeactivate();
+    routineOff();
   }
 
   Future<void> getRoutineSnapshot() async {
@@ -434,10 +436,10 @@ class RoutineOnController extends GetxController {
 
   Future<void> getActiveRoutineHistorySnapshot() async {
     /// Get activeRoutineHistorySnapshot at firestore
-    assert(routineDocumentSnapshot.exists);
+    assert(routineDocumentSnapshot!.exists);
     await FirebaseFirestore.instance
         .collection(
-            'user/$uid/routine/${routineDocumentSnapshot.id}/routineHistory')
+            'user/$uid/routine/${routineDocumentSnapshot!.id}/routineHistory')
         .where('isActive', isEqualTo: true)
         .get()
         .then((QuerySnapshot smallQuerySnapshot) {
@@ -449,12 +451,12 @@ class RoutineOnController extends GetxController {
     });
   }
 
-  Future<void> routinDeactivate() async {
+  Future<void> routineDeactivate() async {
     /// Make Routine Document active to false
-    assert(routineDocumentSnapshot.exists);
+    assert(routineDocumentSnapshot!.exists);
     await FirebaseFirestore.instance
         .collection('user/$uid/routine')
-        .doc(routineDocumentSnapshot.id)
+        .doc(routineDocumentSnapshot!.id)
         .update({
       'isActive': false,
     });
@@ -462,12 +464,12 @@ class RoutineOnController extends GetxController {
 
   Future<void> routineHistoryDelete() async {
     /// Delete Routine History at firestore. It should be executed when off routine && first day of Active Routine History
-    assert(routineDocumentSnapshot.exists);
+    assert(routineDocumentSnapshot!.exists);
     assert(routineHistoryDocumentSnapshot.exists);
     //routine 삭제
     await FirebaseFirestore.instance
         .collection(
-            'user/$uid/routine/${routineDocumentSnapshot.id}/routineHistory')
+            'user/$uid/routine/${routineDocumentSnapshot!.id}/routineHistory')
         .doc(routineHistoryDocumentSnapshot.id)
         .delete();
     //calendarRoutine 삭제
@@ -479,14 +481,24 @@ class RoutineOnController extends GetxController {
 
   Future<void> routineHistoryDeactivate() async {
     /// Make Routine History Document active to false. It should be executed at off routine, but NOT first day of Active Routine History
-    assert(routineDocumentSnapshot.exists);
+    assert(routineDocumentSnapshot!.exists);
     assert(routineHistoryDocumentSnapshot.exists);
     await FirebaseFirestore.instance
         .collection(
-            'user/$uid/routine/${routineDocumentSnapshot.id}/routineHistory')
+            'user/$uid/routine/${routineDocumentSnapshot!.id}/routineHistory')
         .doc(routineHistoryDocumentSnapshot.id)
         .update({
       'isActive': false,
     });
+    await FirebaseFirestore.instance
+        .collection('user/$uid/calendarRoutine')
+        .doc(routineHistoryDocumentSnapshot.id)
+        .update({
+      'endDate': DateTime(today.value.year, today.value.month, today.value.day),
+    });
+  }
+
+  void routineOff() {
+    Get.find<AppStateController>().status.value = false;
   }
 }

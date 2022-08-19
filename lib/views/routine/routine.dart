@@ -60,16 +60,26 @@ class RoutinePage extends StatelessWidget {
                         builder: ((context) {
                           return routineStopAlertDialog(() {
                             //취소
-                            Get.back();
+                            Navigator.pop(context);
                           }, () {
                             // 중단
-                            Get.back();
+                            // Navigator.pop(context);
                             if (onController.isTodayFirstDay) {
                               // Today
                               onController.offRoutineToday();
                             } else {
                               // NOT Today
                               onController.offRoutineNotToday();
+                              showDialog(
+                                context: context,
+                                builder: ((context) {
+                                  return appStateController
+                                      .routineRateDialog(() {
+                                    // 평가 제출
+                                    Navigator.pop(context);
+                                  });
+                                }),
+                              );
                             }
                           });
                         }));
@@ -110,12 +120,21 @@ class RoutinePage extends StatelessWidget {
                             SizedBox(
                               height: 308.h,
                               child: SingleChildScrollView(
-                                child: Container(
-                                    width: 390.w,
-                                    height: 400.h,
-                                    child: Obx(() {
-                                      return routineItemList();
-                                    })),
+                                child: Obx(() {
+                                  if (onController.currentCount.value.isEmpty) {
+                                    return SizedBox(
+                                      width: 50.w,
+                                      height: 50.h,
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else {
+                                    return SizedBox(
+                                        width: 390.w,
+                                        height: 400.h,
+                                        child: routineItemList(),
+                                    );
+                                  }
+                                }),
                               ),
                             ),
                           ],
