@@ -50,7 +50,7 @@ class CustomRoutineItemPage extends StatelessWidget {
                               Get.back();
                               
                             }, () async{
-                              //TODO: update이면 지우는 코드를 작성하고 그게 아니면 그냥 초기화시키는 것으로 끝내면 된다.
+                              
                               if(args.crud == CRUD.update) {
                                 await pageController.deleteCustomRoutineItem();
                               }
