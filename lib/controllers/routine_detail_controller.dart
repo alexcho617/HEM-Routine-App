@@ -63,10 +63,10 @@ class RoutineDetailController extends GetxController {
     averageRating.value = routineSnapshot.get('averageRating');
     routineItem.value = routineSnapshot.get('routineItem');
     goals.value = routineSnapshot.get('goals');
-    // for (var i in routineItem) {
-    //   isTapped.add(false);
-    // }
-    isTapped.fillRange(0, routineItem.length, false);
+    for (var i in routineItem) {
+      isTapped.add(false);
+    }
+    // isTapped.fillRange(0, routineItem.length, false);
   }
 
   Future<DocumentSnapshot> getRoutineSnapshot() async {
