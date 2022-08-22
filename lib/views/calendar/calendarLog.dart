@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendarController.dart';
-import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/constants.dart';
 import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
 import 'package:hem_routine_app/views/calendar/editCalendarEvent.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../utils/calendarUtil.dart';
@@ -36,14 +34,14 @@ class _CalendarLogState extends State<CalendarLog> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  padding: EdgeInsets.all(0),
-                  constraints: BoxConstraints(),
+                  padding: const EdgeInsets.all(0),
+                  constraints: const BoxConstraints(),
                   onPressed: () {
                     if (controller.focusedDate.value.isAfter(kFirstDay)) {
                       setState(() {
                         controller.focusedDate.value = controller
                             .focusedDate.value
-                            .subtract(Duration(days: 1));
+                            .subtract(const Duration(days: 1));
                         controller.getCalendarLog();
                       });
                     }
@@ -55,13 +53,14 @@ class _CalendarLogState extends State<CalendarLog> {
                     // '${controller.focusedDate.year.toString()}년 ${controller.newEventTime.month.toString()}월 ${controller.newEventTime.day.toString()}일',
                     style: AppleFont16_BlackBold),
                 IconButton(
-                  padding: EdgeInsets.all(0),
-                  constraints: BoxConstraints(),
+                  padding: const EdgeInsets.all(0),
+                  constraints: const BoxConstraints(),
                   onPressed: () {
                     if (controller.focusedDate.value.isBefore(kLastDay)) {
                       setState(() {
-                        controller.focusedDate.value =
-                            controller.focusedDate.value.add(Duration(days: 1));
+                        controller.focusedDate.value = controller
+                            .focusedDate.value
+                            .add(const Duration(days: 1));
                         controller.getCalendarLog();
                       });
                     }
@@ -79,7 +78,7 @@ class _CalendarLogState extends State<CalendarLog> {
                       Image(
                           width: 160.w,
                           height: 105.h,
-                          image: AssetImage('assets/appIcon.png')),
+                          image: const AssetImage('assets/appIcon.png')),
                       Text(
                         '기록이 없습니다.',
                         style: AppleFont16_BlackBold,
@@ -127,11 +126,11 @@ class _CalendarLogState extends State<CalendarLog> {
                                               controller.events![index].type),
                                           style: AppleFont16_BlackBold,
                                         )
-                                      : Text('없음'),
+                                      : const Text('없음'),
                                   Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 21.0),
-                                    child: Divider(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 21.0),
+                                    child: const Divider(
                                       color: Color.fromARGB(255, 193, 185, 185),
                                       thickness: 1,
                                     ),
@@ -162,7 +161,7 @@ class _CalendarLogState extends State<CalendarLog> {
                                                     parseColorCode(controller
                                                         .events![index].color),
                                                     style: AppleFont14_Black)
-                                                : Text('없음'),
+                                                : const Text('없음'),
                                           ],
                                         ),
                                         SizedBox(
@@ -183,7 +182,7 @@ class _CalendarLogState extends State<CalendarLog> {
                                                         .events![index]
                                                         .hardness),
                                                     style: AppleFont14_Black)
-                                                : Text('없음'),
+                                                : const Text('없음'),
                                           ],
                                         ),
                                         SizedBox(
@@ -222,7 +221,7 @@ class _CalendarLogState extends State<CalendarLog> {
                                                     parseTime(controller
                                                         .events![index].time),
                                                     style: AppleFont14_Black)
-                                                : Text('없음'),
+                                                : const Text('없음'),
                                           ],
                                         ),
                                       ],
@@ -236,8 +235,9 @@ class _CalendarLogState extends State<CalendarLog> {
                             separatorBuilder: (context, index) => Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 21.0.w, vertical: 8.0.h),
-                              child: Divider(
-                                color: Color.fromRGBO(0x60, 0x60, 0x60, 1),
+                              child: const Divider(
+                                color:
+                                    const Color.fromRGBO(0x60, 0x60, 0x60, 1),
                                 thickness: 2,
                               ),
                             ),
