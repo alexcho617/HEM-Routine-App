@@ -25,6 +25,12 @@ class AppStateController extends GetxController {
   dynamic rateRoutineId;
   dynamic rateRoutineHistoryId;
 
+  dynamic rateRoutineName;
+  dynamic rateRoutineDays;
+  dynamic rateRoutineHistoryStartDate;
+  dynamic rateRoutineHistoryEndDate;
+  dynamic rateRoutineHistoryComplete;
+
   String getLatestCalendarMessage() {
     CalendarEvent? latestEvent =
         Get.find<CalendarController>().getLatestCalendarEvent();
@@ -37,10 +43,13 @@ class AppStateController extends GetxController {
 
   @override
   void onInit() async {
-    uid = loginService.auth.value.currentUser!.uid;
     if (loginService.auth.value.currentUser != null) {
+      uid = loginService.auth.value.currentUser!.uid;
       await isRoutineActive();
       await isUserHaveRated();
+    }
+    if (!isRated) {
+      await fetchRateRoutine();
     }
     super.onInit();
   }
@@ -74,6 +83,32 @@ class AppStateController extends GetxController {
     });
   }
 
+  Future<void> fetchRateRoutine() async {
+    await firestore
+        .collection('user')
+        .doc(uid)
+        .collection('routine')
+        .doc(rateRoutineId)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      rateRoutineName = documentSnapshot.get('name');
+      rateRoutineDays = documentSnapshot.get('days');
+    });
+    await firestore
+        .collection('user')
+        .doc(uid)
+        .collection('routine')
+        .doc(rateRoutineId)
+        .collection('routineHistory')
+        .doc(rateRoutineHistoryId)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      rateRoutineHistoryComplete = documentSnapshot.get('complete');
+      rateRoutineHistoryStartDate = documentSnapshot.get('startDate');
+      rateRoutineHistoryEndDate = documentSnapshot.get('endDate');
+    });
+  }
+
   void showRatingScreen(BuildContext context) {
     if (!isRated) {
       showDialog(
@@ -81,14 +116,28 @@ class AppStateController extends GetxController {
         builder: ((context) {
           return routineRateDialog(() {
             // 평가 제출
+            // print("selected rank : ${rank.value}");
+            rankRoutineHistory();
             Navigator.pop(context);
           });
         }),
       );
-    }
-    else{
+    } else {
       // Do noting?
     }
+  }
+
+  Future<void> rankRoutineHistory() async {
+    await firestore
+        .collection('user')
+        .doc(uid)
+        .collection('routine')
+        .doc(rateRoutineId)
+        .collection('routineHistory')
+        .doc(rateRoutineHistoryId)
+        .update({
+      'rating': rank.value,
+    });
   }
 
   // Future<void> offRoutine() async {
@@ -153,17 +202,18 @@ class AppStateController extends GetxController {
             endIndent: 24.h,
             color: grey600,
           ),
-          Text("루틴이름", style: AppleFont22_Black),
+          Text("$rateRoutineName", style: AppleFont22_Black),
           SizedBox(
             height: 4.h,
           ),
           Text(
-              "(${formatDate(DateTime.now())} ~ ${formatDate(DateTime.now())})",
+              "(${formatDate(rateRoutineHistoryStartDate.toDate())} ~ ${formatDate(rateRoutineHistoryEndDate.toDate())})",
               style: AppleFont16_Grey600),
           SizedBox(
             height: 12.h,
           ),
-          Text("수행기간: 5일 | 평균 달성도: 65%", style: AppleFont16_Black),
+          Text("수행기간: $rateRoutineDays일 | 평균 달성도: $rateRoutineHistoryComplete%",
+              style: AppleFont16_Black),
           SizedBox(
             height: 20.h,
           ),

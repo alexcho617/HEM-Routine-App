@@ -424,6 +424,7 @@ class RoutineOnController extends GetxController {
     appStateController.rateRoutineId = routineDocumentSnapshot!.id;
     appStateController.rateRoutineHistoryId = routineHistoryDocumentSnapshot.id;
     FirebaseFirestore.instance.collection('user').doc(uid).update({
+      'isRated' : false,
       'rateRoutineId': routineDocumentSnapshot!.id,
       'rateRoutineHistoryId': routineHistoryDocumentSnapshot.id,
     });
