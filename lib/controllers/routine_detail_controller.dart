@@ -4,8 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
-import 'package:hem_routine_app/controllers/routine_completed_controller.dart.dart';
+import 'package:hem_routine_app/controllers/routine_completed_controller.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
+import 'package:hem_routine_app/views/setting/routine_detail.dart';
 
 import '../services/firestore.dart';
 import '../utils/calendarUtil.dart';
@@ -19,6 +20,7 @@ class RoutineDetailController extends GetxController {
 
   dynamic id;
   late DocumentSnapshot routineSnapshot;
+  late String newRoutineHistoryDocumentId;
 
   var name = "".obs;
   var days = 0.obs;
@@ -35,28 +37,24 @@ class RoutineDetailController extends GetxController {
     update();
   }
 
-  void deleteDoc() {
+  void deleteDoc() async {
     routineCompletedController.routines
         .removeWhere((element) => element.id == routineSnapshot.id);
     routineSnapshot.reference.delete();
     routineCompletedController.update();
-    Get.find<RoutineOffController>().getRoutineList();
+    await Get.find<RoutineOffController>().getRoutineList();
+    // Get.back();
+    // dispose();
   }
 
   @override
   void onInit() async {
+    routineSnapshot = await getRoutineSnapshot();
+    await getData(routineSnapshot);
     super.onInit();
-    routineSnapshot = await FirebaseFirestore.instance
-        .collection('user')
-        .doc(loginService.auth.value.currentUser!.uid)
-        .collection('routine')
-        .doc(id)
-        .get();
-
-    await getData();
   }
 
-  Future<void> getData() async {
+  Future<void> getData(routineSnapshot) async {
     name.value = routineSnapshot.get('name');
     days.value = routineSnapshot.get('days');
     tryCount.value = routineSnapshot.get('tryCount');
@@ -67,6 +65,15 @@ class RoutineDetailController extends GetxController {
     for (var i in routineItem) {
       isTapped.add(false);
     }
+  }
+
+  Future<DocumentSnapshot> getRoutineSnapshot() async {
+    return FirebaseFirestore.instance
+        .collection('user')
+        .doc(loginService.auth.value.currentUser!.uid)
+        .collection('routine')
+        .doc(id)
+        .get();
   }
 
   Future<void> addRoutineHistory() async {
@@ -122,7 +129,7 @@ class RoutineDetailController extends GetxController {
           }
         }
       }
-
+      newRoutineHistoryDocumentId = routineHistoryDoc.id;
       await routineSnapshot.reference.update({'isActive': true});
       Get.find<AppStateController>().status.value = true;
     });
@@ -162,27 +169,21 @@ class RoutineDetailController extends GetxController {
     Get.back();
   }
 
-  Future<void> addCalendarRoutine() async{
+  Future<void> addCalendarRoutine() async {
     DateTime now = DateTime.now();
-    DateTime later =
-        now.add(Duration(days: days.value));
-    //start alex calenderRoutine
-      await FirebaseFirestore.instance //add calendar routine doc
-          .collection(
-              'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
-          .doc(id)
-          .set({
-        'duration': days.value,
-        'startDate': parseDay(now),
-        'endDate': parseDay(later),
-        'name': name.value,
-      }).onError((error, _) =>
-              print("Error adding document to calendarRoutine: $error"));
-
-      //fetch routine collection and add to routineLibrary
-      calendarController.routineLibrary = await fetchAllCalendarRoutines();
-      calendarController.update();
-      //end alex calenderRoutine
-
+    DateTime later = now.add(Duration(days: days.value));
+    await FirebaseFirestore.instance //add calendar routine doc
+        .collection(
+            'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
+        .doc(newRoutineHistoryDocumentId)
+        .set({
+      'duration': days.value,
+      'startDate': parseDay(now),
+      'endDate': parseDay(later),
+      'name': name.value,
+    }).onError((error, _) =>
+            print("Error adding document to calendarRoutine: $error"));
+    calendarController.routineLibrary = await fetchAllCalendarRoutines();
+    calendarController.update();
   }
 }

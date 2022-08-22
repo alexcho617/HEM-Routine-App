@@ -7,6 +7,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hem_routine_app/controllers/loginService.dart';
 import 'package:hem_routine_app/controllers/routineOffController.dart';
+import 'package:hem_routine_app/controllers/routine_detail_controller.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
@@ -61,7 +62,7 @@ class RoutinePage extends StatelessWidget {
                           return routineStopAlertDialog(() {
                             //취소
                             Navigator.pop(context);
-                          }, () {
+                          }, () async {
                             // 중단
                             // Navigator.pop(context);
                             if (onController.isTodayFirstDay) {
@@ -69,17 +70,9 @@ class RoutinePage extends StatelessWidget {
                               onController.offRoutineToday();
                             } else {
                               // NOT Today
-                              onController.offRoutineNotToday();
-                              showDialog(
-                                context: context,
-                                builder: ((context) {
-                                  return appStateController
-                                      .routineRateDialog(() {
-                                    // 평가 제출
-                                    Navigator.pop(context);
-                                  });
-                                }),
-                              );
+                              await onController.offRoutineNotToday();
+                              Navigator.pop(context);
+                              appStateController.showRatingScreen(context);
                             }
                           });
                         }));
@@ -89,7 +82,8 @@ class RoutinePage extends StatelessWidget {
             ],
           ),
           appStateController.status.value
-              ? Column(
+              ? //WHEN ON
+              Column(
                   children: [
                     SizedBox(
                       height: 19.h,
@@ -129,9 +123,9 @@ class RoutinePage extends StatelessWidget {
                                     );
                                   } else {
                                     return SizedBox(
-                                        width: 390.w,
-                                        height: 400.h,
-                                        child: routineItemList(),
+                                      width: 390.w,
+                                      height: 400.h,
+                                      child: routineItemList(),
                                     );
                                   }
                                 }),
@@ -159,7 +153,8 @@ class RoutinePage extends StatelessWidget {
                     ),
                   ],
                 )
-              : Column(
+              : // WHEN OFF
+              Column(
                   children: [
                     SizedBox(
                       height: 19.h,
@@ -220,12 +215,14 @@ class RoutinePage extends StatelessWidget {
                                               .routines[i].averageComplete,
                                           offController
                                               .routines[i].averageRating, () {
-                                        yechan(
-                                            context,
-                                            3,
-                                            RoutineDetailPage(
-                                                uid: offController
-                                                    .routines[i].id));
+                                        // yechan(
+                                        //     context,
+                                        //     3,
+                                        //     RoutineDetailPage(
+                                        //         uid: offController
+                                        //             .routines[i].id));
+                                        Get.to(RoutineDetailPage(
+                                            uid: offController.routines[i].id));
                                       });
                                     },
                                   ),

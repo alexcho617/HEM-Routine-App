@@ -10,6 +10,7 @@ import '../../utils/constants.dart';
 Widget noDataWidget() {
   return Column(
     children: [
+      SizedBox(height: 12.h),
       Image.asset(
         'assets/appIcon.png',
         width: 160.w,
@@ -53,7 +54,7 @@ Widget circularAnalysisChart(RxList x) {
         ),
       ),
     ],
-    legend: Legend(isVisible: true, position: LegendPosition.bottom),
+    legend: Legend(isVisible: true, position: LegendPosition.bottom, toggleSeriesVisibility: false),
     series: <CircularSeries>[
       DoughnutSeries(
         dataSource: chartdatas,
@@ -127,6 +128,8 @@ Widget circularColorChart(RxList x) {
     legend: Legend(isVisible: false),
     series: <CircularSeries>[
       DoughnutSeries(
+        animationDelay: 0,
+        animationDuration: 100,
         dataSource: chartdatas,
         startAngle: 270,
         endAngle: 270,

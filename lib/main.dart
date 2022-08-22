@@ -24,7 +24,6 @@ import 'package:hem_routine_app/views/splash.dart';
 import 'package:hem_routine_app/views/test.dart';
 
 import 'package:hem_routine_app/views/widgetTestPage.dart';
-import 'controllers/routine_completed_controller.dart.dart';
 import 'controllers/routine_on_controller.dart';
 import 'views/setting/completed_routines.dart';
 import 'views/setting/profile_settings.dart';

@@ -99,7 +99,8 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                   style: AppleFont14_Grey700,
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
                                   primary: Color.fromARGB(255, 212, 212, 212),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.r),
@@ -127,42 +128,84 @@ class RoutineEntitySettingPage extends StatelessWidget {
                             SingleChildScrollView(
                                 child: Container(
                               height: 347.h,
-                              child: addRoutineItemList(routineEntityController),
+                              child:
+                                  addRoutineItemList(routineEntityController),
                             )),
                             SizedBox(
                               height: 30.h,
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 28.w),
-                              child: storeRoutineButton(() {
+                              child: storeRoutineButton(() async {
                                 Navigator.pop(context);
                               }, () async {
-                                await routineEntityController.addRoutine();
-    
-                                showDialog(
-                                    context: context,
-                                    builder: ((context) {
-                                      return saveAlertDialog(() {
-                                        Navigator.pop(context);
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return routineStartAlertDialog(
-                                                  () async {
-                                                Get.delete<
-                                                    RoutineEntityController>();
-                                                pageController.initValues();
-                                                Navigator.pop(context);
-                                                kangminBackUntil(context);
-                                              }, () async {
-                                                //TODO: day랑 routine item 하나만 되는 거 수정.
-                                                await _fetchData(context);
-                                                Navigator.pop(context);
-                                                kangminBackUntil(context);
+// <<<<<<< HEAD
+                                if (routineEntityController
+                                    .validateGoalCount()) {
+                                  await routineEntityController.addRoutine();
+                                  showDialog(
+                                      context: context,
+                                      builder: ((context) {
+                                        return saveAlertDialog(() {
+                                          Navigator.pop(context);
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return routineStartAlertDialog(
+                                                    () async {
+                                                  Get.delete<
+                                                      RoutineEntityController>();
+                                                  pageController.initValues();
+                                                  Navigator.pop(context);
+                                                  kangminBackUntil(context);
+                                                }, () async {
+                                                  //TODO: day랑 routine item 하나만 되는 거 수정.
+                                                  await _fetchData(context);
+                                                  Navigator.pop(context);
+                                                  kangminBackUntil(context);
+                                                });
                                               });
-                                            });
-                                      });
-                                    }));
+                                        });
+                                      }));
+                                  await Get.find<RoutineOffController>()
+                                      .getRoutineList();
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: ((context) {
+                                        return goalCountAlertDialog(() {
+                                          Navigator.pop(context);
+                                        });
+                                      }));
+                                }
+// =======
+//                                 await routineEntityController.addRoutine();
+
+//                                 showDialog(
+//                                     context: context,
+//                                     builder: ((context) {
+//                                       return saveAlertDialog(() {
+//                                         Navigator.pop(context);
+//                                         showDialog(
+//                                             context: context,
+//                                             builder: (context) {
+//                                               return routineStartAlertDialog(
+//                                                   () async {
+//                                                 Get.delete<
+//                                                     RoutineEntityController>();
+//                                                 pageController.initValues();
+//                                                 Navigator.pop(context);
+//                                                 kangminBackUntil(context);
+//                                               }, () async {
+
+//                                                 await _fetchData(context);
+//                                                 Navigator.pop(context);
+//                                                 kangminBackUntil(context);
+//                                               });
+//                                             });
+//                                       });
+//                                     }));
+// >>>>>>> 5f37d3b729c2bca489341be89a0e5fb580fe1091
                               }),
                             ),
                           ],

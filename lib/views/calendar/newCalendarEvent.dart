@@ -264,7 +264,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                       }
 
                       eventTextController.clear();
-                      eventTextController.dispose();
+                      // eventTextController.dispose(); 
 
                       return;
                     }),
