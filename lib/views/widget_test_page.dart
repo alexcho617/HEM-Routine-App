@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/views/calendar/calendar.dart';
-import '../models/routine_item.dart';
+
+
 import '../widgets/widgets.dart';
 import '../controllers/routine_on_controller.dart';
 
@@ -21,62 +21,62 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
     RoutineOnController routineItemController = Get.put(RoutineOnController());
     // RoutineOnController routineIController = Get.find();
     return Scaffold(
-      appBar: AppBar(title: Text('Widget Test')),
+      appBar: AppBar(title: const Text('Widget Test')),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text('NextButtonBig'),
+              const Text('NextButtonBig'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: nextButtonBig(voidFunction),
               ),
-              Text('NextAndBackButton'),
+              const Text('NextAndBackButton'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: nextAndBackButton(voidFunction, voidFunction),
               ),
-              Text('SaveButtonGray'),
+              const Text('SaveButtonGray'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: saveButtonGray(voidFunction),
               ),
-              Text('SaveButtonBlue'),
+              const Text('SaveButtonBlue'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: saveButtonBlue(voidFunction),
               ),
-              Text('MakeMyRoutineButton'),
+              const Text('MakeMyRoutineButton'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: makeMyRoutineButton(voidFunction),
               ),
-              Text('AddButton'),
+              const Text('AddButton'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: addButton(voidFunction),
               ),
-              Text('AddRoutineButton'),
+              const Text('AddRoutineButton'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: addRoutineButton(voidFunction),
               ),
-              Text('PlusSquareButton'),
+              const Text('PlusSquareButton'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: plusSquareButton(voidFunction),
               ),
-              Text('DeleteAlertDialog'),
+              const Text('DeleteAlertDialog'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: deleteAlertDialog(voidFunction, voidFunction),
               ),
-              Text('SaveAlertDialog'),
+              const Text('SaveAlertDialog'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: saveAlertDialog(voidFunction),
               ),
-              Text('CircularGuage'),
+              const Text('CircularGuage'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: Container(
@@ -84,7 +84,7 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
                   child: circluarGuage(0.75),
                 ),
               ),
-              Text('HalfCircularGuage'),
+              const Text('HalfCircularGuage'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: Container(
@@ -92,12 +92,12 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
                   child: halfCircluarGuage(0.75),
                 ),
               ),
-              Text('AcheiveAlertDialog'),
+              const Text('AcheiveAlertDialog'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: achieveAlertDialog('\$\ 사용자', voidFunction),
               ),
-              Text('RoutineStartAlertDialog'),
+              const Text('RoutineStartAlertDialog'),
               Padding(
                 padding: REdgeInsets.all(8),
                 child: routineStartAlertDialog(voidFunction, voidFunction),
