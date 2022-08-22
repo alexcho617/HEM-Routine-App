@@ -116,6 +116,8 @@ class AppStateController extends GetxController {
         builder: ((context) {
           return routineRateDialog(() {
             // 평가 제출
+            // print("selected rank : ${rank.value}");
+            rankRoutineHistory();
             Navigator.pop(context);
           });
         }),
@@ -123,6 +125,19 @@ class AppStateController extends GetxController {
     } else {
       // Do noting?
     }
+  }
+
+  Future<void> rankRoutineHistory() async {
+    await firestore
+        .collection('user')
+        .doc(uid)
+        .collection('routine')
+        .doc(rateRoutineId)
+        .collection('routineHistory')
+        .doc(rateRoutineHistoryId)
+        .update({
+      'rating': rank.value,
+    });
   }
 
   // Future<void> offRoutine() async {
@@ -197,7 +212,8 @@ class AppStateController extends GetxController {
           SizedBox(
             height: 12.h,
           ),
-          Text("수행기간: $rateRoutineDays일 | 평균 달성도: $rateRoutineHistoryComplete%", style: AppleFont16_Black),
+          Text("수행기간: $rateRoutineDays일 | 평균 달성도: $rateRoutineHistoryComplete%",
+              style: AppleFont16_Black),
           SizedBox(
             height: 20.h,
           ),

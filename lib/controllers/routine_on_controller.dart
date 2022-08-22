@@ -413,10 +413,10 @@ class RoutineOnController extends GetxController {
 
   Future<void> offRoutineNotToday() async {
     // print("function: offRoutineNotToday called");
-    // routineDeactivate();
-    // routineHistoryDeactivate();
-    // isRatedChecker();
-    // routineOff();
+    routineDeactivate();
+    routineHistoryDeactivate();
+    isRatedChecker();
+    routineOff();
   }
 
   Future<void> isRatedChecker() async {
