@@ -3,7 +3,7 @@ import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/models/calendarRoutine.dart';
 import 'package:hem_routine_app/services/firestore.dart';
 import 'package:hem_routine_app/utils/calendarUtil.dart';
-import 'loginService.dart';
+import 'login_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CalendarController extends GetxController {
@@ -36,7 +36,7 @@ class CalendarController extends GetxController {
     Iterable keys = eventsLibrary.keys;
     List<dynamic> keyList = keys.toList();
     keyList.sort();
-    if (!keyList.isEmpty) {
+    if (keyList.isNotEmpty) {
       List<CalendarEvent> latestDayEvents = eventsLibrary[keyList.last];
       latest =latestDayEvents.first;
     }
@@ -69,25 +69,25 @@ class CalendarController extends GetxController {
     return routineLibrary.length;
   }
 
-  void printAllEvents() {
-    print('---------PRINTING ALL EVENTS----------');
-    var keys = eventsLibrary.keys;
+  // void printAllEvents() {
+  //   print('---------PRINTING ALL EVENTS----------');
+  //   var keys = eventsLibrary.keys;
 
-    for (var key in keys) {
-      print('Date : $key');
-      List events = eventsLibrary[key];
-      for (var event in events) {
-        print(event.toString());
-      }
-    }
-    print('---------END OF ALL EVENTS----------');
-  }
+  //   for (var key in keys) {
+  //     print('Date : $key');
+  //     List events = eventsLibrary[key];
+  //     for (var event in events) {
+  //       print(event.toString());
+  //     }
+  //   }
+  //   print('---------END OF ALL EVENTS----------');
+  // }
 
-  void printAllRoutines() {
-    print('---------PRINTING ALL ROUTINES----------');
-    for (var routine in routineLibrary) {
-      print(routine.toString());
-    }
-    print('---------END OF ALL ROUTINES----------');
-  }
+  // void printAllRoutines() {
+  //   print('---------PRINTING ALL ROUTINES----------');
+  //   for (var routine in routineLibrary) {
+  //     print(routine.toString());
+  //   }
+  //   print('---------END OF ALL ROUTINES----------');
+  // }
 }

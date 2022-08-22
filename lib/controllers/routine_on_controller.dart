@@ -2,7 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
-import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/login_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
@@ -405,16 +405,15 @@ class RoutineOnController extends GetxController {
   // late DocumentSnapshot activeRoutineHistorySnapshot;
   // FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // TODO: 오늘일 때와 아닐떄 다른 함수를 실행하자
   Future<void> offRoutineToday() async {
-    print("function: offRoutineToday called");
+    // print("function: offRoutineToday called");
     routineDeactivate();
     routineHistoryDelete();
     routineOff();
   }
 
   Future<void> offRoutineNotToday() async {
-    print("function: offRoutineNotToday called");
+    // print("function: offRoutineNotToday called");
     routineDeactivate();
     routineHistoryDeactivate();
     isRatedChecker();

@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/login_service.dart';
 import 'package:hem_routine_app/views/login.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import 'package:onboarding/onboarding.dart';

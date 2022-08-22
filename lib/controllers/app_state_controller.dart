@@ -1,13 +1,14 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hem_routine_app/utils/calendarUtil.dart';
-import 'package:hem_routine_app/controllers/routineOffController.dart';
-import '../controllers/loginService.dart';
-import '../controllers/calendarController.dart';
+import 'package:hem_routine_app/controllers/routine_off_controller.dart';
+import 'login_service.dart';
+import 'calendar_controller.dart';
 import '../models/calendarEvent.dart';
 import '../utils/colors.dart';
 import '../utils/constants.dart';
@@ -130,11 +131,11 @@ class AppStateController extends GetxController {
           borderRadius: BorderRadius.all(
         Radius.circular(20.r),
       )),
-      insetPadding: EdgeInsets.all(0),
-      titlePadding: EdgeInsets.all(0),
-      actionsPadding: EdgeInsets.all(0),
-      contentPadding: EdgeInsets.all(0),
-      content: Container(
+      insetPadding: EdgeInsets.all(0.r),
+      titlePadding: EdgeInsets.all(0.r),
+      actionsPadding: EdgeInsets.all(0.r),
+      contentPadding: EdgeInsets.all(0.r),
+      content: SizedBox(
         height: 302.h,
         child: Column(children: [
           SizedBox(height: 36.h),

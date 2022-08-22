@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/login_service.dart';
 import 'package:hem_routine_app/controllers/report_controller.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/constants.dart';

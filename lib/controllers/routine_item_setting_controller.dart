@@ -1,7 +1,9 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/models/routineItem.dart';
-import 'loginService.dart';
+import 'login_service.dart';
 
 class RotuineItemSettingController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;

@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/routineEntityController.dart';
-import 'package:hem_routine_app/controllers/routineOffController.dart';
+import 'package:hem_routine_app/controllers/routine_entity_controller.dart';
+import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 
 import 'package:hem_routine_app/models/routine.dart';

@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hem_routine_app/controllers/loginService.dart';
-import 'package:hem_routine_app/controllers/routineEntityController.dart';
-import 'package:hem_routine_app/models/routineEntity.dart';
 
-import 'package:hem_routine_app/models/routineItem.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
+import '../controllers/login_service.dart';
+import '../models/routineItem.dart';
+import '../widgets/widgets.dart';
 import '../models/calendarEvent.dart';
 import '../models/routine.dart';
 
@@ -25,7 +21,7 @@ class RoutineOffController extends GetxController {
   Rx<int> routinePeriodIndex = 1.obs;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  List<Widget> routinePeriod = [
+  static const List<Widget> routinePeriod = [
     Text("1 일간"),
     Text("2 일간"),
     Text("3 일간"),

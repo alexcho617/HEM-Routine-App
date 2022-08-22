@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/calendarController.dart';
+import 'package:hem_routine_app/controllers/calendar_controller.dart';
 import 'package:hem_routine_app/controllers/report_controller.dart';
 import 'package:hem_routine_app/models/calendarEvent.dart';
 import 'package:hem_routine_app/models/routine.dart';
 import 'package:hem_routine_app/utils/calendarUtil.dart';
 
-import '../controllers/loginService.dart';
+import '../controllers/login_service.dart';
 import '../models/calendarRoutine.dart';
 import '../models/routine.dart';
 

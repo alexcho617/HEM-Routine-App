@@ -9,7 +9,7 @@ import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
-import '../../controllers/loginService.dart';
+import '../../controllers/login_service.dart';
 
 class ProfileSettingsPage extends StatefulWidget {
   ProfileSettingsPage({Key? key}) : super(key: key);

@@ -1,13 +1,13 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/loginService.dart';
-import 'package:hem_routine_app/controllers/routineOffController.dart';
+import 'package:hem_routine_app/controllers/login_service.dart';
+import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/controllers/routine_item_setting_controller.dart';
 import 'package:hem_routine_app/models/routineItem.dart';
 import 'package:hem_routine_app/utils/constants.dart';
-import 'package:hem_routine_app/views/setting/routineitem_settings.dart';
 
 import '../widgets/widgets.dart';
 
@@ -45,7 +45,7 @@ class CustomRoutineItemController extends GetxController {
   // }).obs;
   @override
   void onInit() {
-    if(args.crud == CRUD.update){
+    if (args.crud == CRUD.update) {
       activateButton[0] = true;
       activateButton[1] = true;
     }
@@ -124,11 +124,13 @@ class CustomRoutineItemController extends GetxController {
       'category': categories[categoryIndex],
     });
   }
+
   Future<void> deleteCustomRoutineItem() async {
     await firestore
         .collection(
             'user/${Get.find<LoginService>().auth.value.currentUser!.uid}/userRoutineItems')
-        .doc(args.routineItem!.docID).delete();
+        .doc(args.routineItem!.docID)
+        .delete();
     if (args.fromWhere == FromWhere.routineItemAdd) {
       //아 근데 그냥 가져오는데 리스트는 그대로 둬야 한다.
       await refreshRoutineItems();
@@ -209,22 +211,18 @@ class CustomRoutineItemController extends GetxController {
 
       isValid[index] = true;
       activateButton[index] = true;
-
-      return null;
     }
+    return null;
   }
 
   void beforeBack() async {
     //이것만 달라지면 되는 것 같은데..?
-    
+
     if (args.crud == CRUD.update) {
       await updateCustomRoutineItem(args.routineItem!.docID);
-    } else if(args.crud == CRUD.create){
+    } else if (args.crud == CRUD.create) {
       await writeCustomRoutineItem();
-    }
-    else if(args.crud == CRUD.delete){
-      
-    }
+    } else if (args.crud == CRUD.delete) {}
     if (args.fromWhere == FromWhere.routineItemAdd) {
       //아 근데 그냥 가져오는데 리스트는 그대로 둬야 한다.
       await refreshRoutineItems();

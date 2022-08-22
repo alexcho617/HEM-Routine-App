@@ -8,7 +8,7 @@ import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../widgets/widgets.dart';
-import '../../controllers/loginService.dart';
+import '../../controllers/login_service.dart';
 
 class AccountSettingsPage extends StatelessWidget {
   AccountSettingsPage({Key? key}) : super(key: key);

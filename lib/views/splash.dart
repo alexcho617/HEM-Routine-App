@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/onBoarding.dart';
 
-import '../controllers/loginService.dart';
+import '../controllers/login_service.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({Key? key}) : super(key: key);

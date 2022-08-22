@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
-import 'package:hem_routine_app/controllers/loginService.dart';
-import 'package:hem_routine_app/controllers/routineOffController.dart';
+import 'package:hem_routine_app/controllers/login_service.dart';
+import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/controllers/routine_completed_controller.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
-import 'package:hem_routine_app/views/setting/routine_detail.dart';
 
 import '../services/firestore.dart';
 import '../utils/calendarUtil.dart';
@@ -62,9 +61,10 @@ class RoutineDetailController extends GetxController {
     averageRating.value = routineSnapshot.get('averageRating');
     routineItem.value = routineSnapshot.get('routineItem');
     goals.value = routineSnapshot.get('goals');
-    for (var i in routineItem) {
-      isTapped.add(false);
-    }
+    // for (var i in routineItem) {
+    //   isTapped.add(false);
+    // }
+    isTapped.fillRange(0, routineItem.length, false);
   }
 
   Future<DocumentSnapshot> getRoutineSnapshot() async {

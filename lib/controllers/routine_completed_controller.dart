@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hem_routine_app/controllers/loginService.dart';
+import 'package:hem_routine_app/controllers/login_service.dart';
 import 'package:hem_routine_app/models/routine.dart';
 
 class RoutineCompletedController extends GetxController {

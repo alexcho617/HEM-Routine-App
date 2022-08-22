@@ -7,7 +7,6 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'dart:convert';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginService extends GetxController {
@@ -92,7 +91,7 @@ class LoginService extends GetxController {
           'isRated': true,
         })
         .then((value) => print("User Document Created"))
-        .catchError((error) => print("Faied to Add User document: ${error}"));
+        .catchError((error) => print("Faied to Add User document: $error"));
   }
 
   Future<void> profileSetting(
@@ -106,7 +105,7 @@ class LoginService extends GetxController {
           'gender': gender,
         })
         .then((value) => print("User Document Created"))
-        .catchError((error) => print("Faied to Add User document: ${error}"));
+        .catchError((error) => print("Faied to Add User document: $error"));
   }
 
   Future<void> deleteUser() {

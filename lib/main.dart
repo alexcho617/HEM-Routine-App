@@ -4,30 +4,27 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/calendarController.dart';
-import 'package:hem_routine_app/controllers/loginService.dart';
-import 'package:hem_routine_app/controllers/app_state_controller.dart';
-import 'package:hem_routine_app/firebase_options.dart';
-import 'package:hem_routine_app/utils/colors.dart';
-import 'package:hem_routine_app/views/report/report_widget.dart';
-import 'package:hem_routine_app/views/routine/routineBuild.dart';
-import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
-import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
-import 'package:hem_routine_app/views/home.dart';
-import 'package:hem_routine_app/views/login.dart';
-import 'package:hem_routine_app/views/onBoarding.dart';
-import 'package:hem_routine_app/views/routine/routine.dart';
-import 'package:hem_routine_app/views/setting/account_settings.dart';
-import 'package:hem_routine_app/views/setting/custom_routine_item.dart';
-import 'package:hem_routine_app/views/setting/settings.dart';
-import 'package:hem_routine_app/views/splash.dart';
-import 'package:hem_routine_app/views/test.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'package:hem_routine_app/views/widgetTestPage.dart';
-import 'controllers/routine_on_controller.dart';
+
+import 'controllers/login_service.dart';
+import 'controllers/app_state_controller.dart';
+import 'firebase_options.dart';
+import 'utils/colors.dart';
+import 'views/routine/routineBuild.dart';
+import 'views/routine/routineEntitySetting.dart';
+import 'views/bottom_pop_up/routineLog.dart';
+import 'views/home.dart';
+import 'views/login.dart';
+import 'views/onBoarding.dart';
+import 'views/routine/routine.dart';
+import 'views/setting/account_settings.dart';
+import 'views/setting/settings.dart';
+import 'views/splash.dart';
+import 'views/test.dart';
+import 'views/widgetTestPage.dart';
 import 'views/setting/completed_routines.dart';
 import 'views/setting/profile_settings.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,12 +37,12 @@ void main() async {
 }
 
 void initServices() {
-  print('starting services ...');
+  // print('starting services ...');
 
   /// Here is where you put get_storage, hive, shared_pref initialization.
   /// or moor connection, or whatever that's async.
   Get.put(LoginService());
-  print('All services started...');
+  // print('All services started...');
 }
 
 class MyApp extends StatelessWidget {
@@ -105,7 +102,7 @@ MaterialColor createMaterialColor(Color color) {
   for (int i = 1; i < 10; i++) {
     strengths.add(0.1 * i);
   }
-  strengths.forEach((strength) {
+  for (var strength in strengths) {
     final double ds = 0.5 - strength;
     swatch[(strength * 1000).round()] = Color.fromRGBO(
       r + ((ds < 0 ? r : (255 - r)) * ds).round(),
@@ -113,6 +110,6 @@ MaterialColor createMaterialColor(Color color) {
       b + ((ds < 0 ? b : (255 - b)) * ds).round(),
       1,
     );
-  });
+  }
   return MaterialColor(color.value, swatch);
 }
