@@ -47,8 +47,17 @@ class AccountSettingsPage extends StatelessWidget {
             style: AppleFont22_Black,
           ),
           onTap: (() {
-            loginService.signOut();
-            Get.offAll(() => SplashScreen());
+            showDialog(
+                context: context,
+                builder: ((context) {
+
+                  return signOutAlertDialog(() {
+                    Get.back();
+                  }, () {
+                    loginService.signOut();
+                    Get.offAll(() => SplashScreen());
+                  });
+                }));
           }),
           shape: Border(
             bottom: BorderSide(width: 0.8.w, color: grey500),

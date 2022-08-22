@@ -720,7 +720,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
             children.add(markerWidget);
           }
           //alex
-          //TODO 2: Where routine Markers are appearing
+          //Where routine Markers are appearing
           if (routineWidget != null) {
             children.add(routineWidget);
           }
@@ -737,7 +737,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
     );
   }
 
-  //TODO 1: Marker Logic here, get iconCode from calendarEvent and map to asset image.
+  // Marker Logic here, get iconCode from calendarEvent and map to asset image.
   Widget _buildSingleMarker(
       DateTime day, CalendarEvent event, double markerSize) {
     return widget.calendarBuilders.singleMarkerBuilder

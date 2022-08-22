@@ -55,9 +55,9 @@ class _CalendarState extends State<Calendar> {
                   return _eventLoader(selectedDay);
                 },
                 onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                  print(focusDay);
-                  print(
-                      controller.eventsLibrary[parseDay(focusDay)].toString());
+                  // print(focusDay);
+                  // print(
+                  //     controller.eventsLibrary[parseDay(focusDay)].toString());
 
                   controller.selectedDay.value = selectDay;
                   controller.focusedDate.value = focusDay;
@@ -105,12 +105,12 @@ class _CalendarState extends State<Calendar> {
         // print('Printing Routine -----'+routine.toString());
         if (routine.startDate == date) {
           // print('start');
-          return leftRoutineMarker(date,controller);
+          return leftRoutineMarker(date, controller);
         }
         //right border
         if (routine.endDate == date) {
           // print('end');
-          return rightRoutineMarker(date,controller);
+          return rightRoutineMarker(date, controller);
         }
         //inside rectangle border
         if (routine.startDate.isBefore(date) && routine.endDate.isAfter(date)) {
@@ -118,7 +118,7 @@ class _CalendarState extends State<Calendar> {
           // print(routine.endDate);
 
           // print('middle');
-          return middleRoutineMarker(date,controller);
+          return middleRoutineMarker(date, controller);
         }
 
         // else {
