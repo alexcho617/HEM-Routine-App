@@ -62,6 +62,7 @@ class RoutinePage extends StatelessWidget {
                             if (onController.isTodayFirstDay) {
                               // Today
                               onController.offRoutineToday();
+                              Navigator.pop(context);
                             } else {
                               // NOT Today
                               await onController.offRoutineNotToday();
@@ -106,7 +107,7 @@ class RoutinePage extends StatelessWidget {
                               height: 116.h,
                             ),
                             SizedBox(
-                              height: 308.h,
+                              height: 408 .h,
                               child: SingleChildScrollView(
                                 child: Obx(() {
                                   if (onController.currentCount.value.isEmpty) {
@@ -118,7 +119,7 @@ class RoutinePage extends StatelessWidget {
                                   } else {
                                     return SizedBox(
                                       width: 390.w,
-                                      height: 400.h,
+                                      height: 1000.h,
                                       child: routineItemList(),
                                     );
                                   }

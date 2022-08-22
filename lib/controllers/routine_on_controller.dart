@@ -413,10 +413,10 @@ class RoutineOnController extends GetxController {
 
   Future<void> offRoutineNotToday() async {
     // print("function: offRoutineNotToday called");
-    routineDeactivate();
-    routineHistoryDeactivate();
-    isRatedChecker();
-    routineOff();
+    // routineDeactivate();
+    // routineHistoryDeactivate();
+    // isRatedChecker();
+    // routineOff();
   }
 
   Future<void> isRatedChecker() async {
@@ -424,6 +424,7 @@ class RoutineOnController extends GetxController {
     appStateController.rateRoutineId = routineDocumentSnapshot!.id;
     appStateController.rateRoutineHistoryId = routineHistoryDocumentSnapshot.id;
     FirebaseFirestore.instance.collection('user').doc(uid).update({
+      'isRated' : false,
       'rateRoutineId': routineDocumentSnapshot!.id,
       'rateRoutineHistoryId': routineHistoryDocumentSnapshot.id,
     });
