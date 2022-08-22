@@ -128,6 +128,9 @@ class AppStateController extends GetxController {
   }
 
   Future<void> rankRoutineHistory() async {
+    await firestore.collection('user').doc(uid).update({
+      'isRated': true,
+    });
     await firestore
         .collection('user')
         .doc(uid)
