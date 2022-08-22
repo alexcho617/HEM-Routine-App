@@ -1,12 +1,14 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../controllers/login_service.dart';
-import '../models/routineItem.dart';
+import '../models/routine_item.dart';
 import '../widgets/widgets.dart';
-import '../models/calendarEvent.dart';
+import '../models/calendar_event.dart';
 import '../models/routine.dart';
 
 //아마 프로그램 흐름상 routine item읽어오는 건 다른 Controller로 구분해야 한다.

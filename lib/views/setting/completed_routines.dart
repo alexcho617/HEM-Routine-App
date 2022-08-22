@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
-import 'package:hem_routine_app/views/routine/routineBuild.dart';
+import 'package:hem_routine_app/views/routine/routine_build.dart';
 import 'package:hem_routine_app/views/setting/routine_detail.dart';
 import 'package:hem_routine_app/views/setting/settings.dart';
 import '../../utils/colors.dart';

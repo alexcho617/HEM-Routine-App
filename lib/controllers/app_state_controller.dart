@@ -9,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'login_service.dart';
 import 'calendar_controller.dart';
-import '../models/calendarEvent.dart';
+import '../models/calendar_event.dart';
 import '../utils/colors.dart';
 import '../utils/constants.dart';
 

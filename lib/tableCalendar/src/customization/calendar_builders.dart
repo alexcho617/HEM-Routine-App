@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'package:flutter/widgets.dart';
-import 'package:hem_routine_app/models/calendarEvent.dart';
-import 'package:hem_routine_app/models/calendarRoutine.dart';
+import 'package:hem_routine_app/models/calendar_event.dart';
+import 'package:hem_routine_app/models/calendar_routine.dart';
 
-import '../../../models/routineItem.dart';
+import '../../../models/routine_item.dart';
 import '../shared/utils.dart' show DayBuilder, FocusedDayBuilder;
 
 /// Signature for a function that creates a single event marker for a given `day`.

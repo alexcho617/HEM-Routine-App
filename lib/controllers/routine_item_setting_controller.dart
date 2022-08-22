@@ -2,7 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hem_routine_app/models/routineItem.dart';
+import 'package:hem_routine_app/models/routine_item.dart';
 import 'login_service.dart';
 
 class RotuineItemSettingController extends GetxController {

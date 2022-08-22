@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hem_routine_app/models/routineItem.dart';
+import 'package:hem_routine_app/models/routine_item.dart';
 import 'colors.dart';
 
 TextStyle BottomNavigationOptionStyle =

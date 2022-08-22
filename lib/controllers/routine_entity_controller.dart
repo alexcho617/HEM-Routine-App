@@ -7,7 +7,7 @@ import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:hem_routine_app/services/firestore.dart';
 import 'package:hem_routine_app/utils/calendarUtil.dart';
-import '../models/routineEntity.dart';
+import '../models/routine_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RoutineEntityController extends GetxController {

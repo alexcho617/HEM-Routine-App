@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:hem_routine_app/models/calendarEvent.dart';
-import 'package:hem_routine_app/models/calendarRoutine.dart';
+import 'package:hem_routine_app/models/calendar_event.dart';
+import 'package:hem_routine_app/models/calendar_routine.dart';
 import 'package:hem_routine_app/services/firestore.dart';
 import 'package:hem_routine_app/utils/calendarUtil.dart';
 import 'login_service.dart';

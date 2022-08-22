@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/login_service.dart';

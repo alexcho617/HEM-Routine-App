@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hem_routine_app/controllers/login_service.dart';
 
 import 'package:hem_routine_app/views/home.dart';
-import 'package:hem_routine_app/views/widgetTestPage.dart';
+import 'package:hem_routine_app/views/widget_test_page.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:get/get.dart';
 

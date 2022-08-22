@@ -210,7 +210,7 @@ class CalendarStyle {
     //this is not used. Instead, child is used as marker in the _buildSingleMarker in table_calendar.dart
     this.markerDecoration = const BoxDecoration(
         shape: BoxShape.circle,
-        color: const Color.fromRGBO(0x4F, 0x6D, 0xC9, 1)),
+        color: Color.fromRGBO(0x4F, 0x6D, 0xC9, 1)),
     //alex
     this.canRoutineMarkersOverflow = true,
     this.routineMarkersAutoAligned = true,
@@ -234,27 +234,27 @@ class CalendarStyle {
       shape: BoxShape.circle,
     ),
     this.selectedTextStyle = const TextStyle(
-      color: const Color(0xFFFAFAFA),
+      color: Color(0xFFFAFAFA),
       fontSize: 16.0,
     ),
     this.selectedDecoration = const BoxDecoration(
-      color: const Color(0xFF5C6BC0),
+      color: Color(0xFF5C6BC0),
       shape: BoxShape.circle,
     ),
     this.rangeStartTextStyle = const TextStyle(
-      color: const Color(0xFFFAFAFA),
+      color: Color(0xFFFAFAFA),
       fontSize: 16.0,
     ),
     this.rangeStartDecoration = const BoxDecoration(
-      color: const Color(0xFF6699FF),
+      color: Color(0xFF6699FF),
       shape: BoxShape.circle,
     ),
     this.rangeEndTextStyle = const TextStyle(
-      color: const Color(0xFFFAFAFA),
+      color: Color(0xFFFAFAFA),
       fontSize: 16.0,
     ),
     this.rangeEndDecoration = const BoxDecoration(
-      color: const Color(0xFF6699FF),
+      color: Color(0xFF6699FF),
       shape: BoxShape.circle,
     ),
     this.withinRangeTextStyle = const TextStyle(),

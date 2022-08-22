@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/login_service.dart';
 import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/controllers/routine_item_setting_controller.dart';
-import 'package:hem_routine_app/models/routineItem.dart';
+import 'package:hem_routine_app/models/routine_item.dart';
 import 'package:hem_routine_app/utils/constants.dart';
 
 import '../widgets/widgets.dart';

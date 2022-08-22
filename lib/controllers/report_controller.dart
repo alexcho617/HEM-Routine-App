@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:hem_routine_app/models/calendarEvent.dart';
+import 'package:hem_routine_app/models/calendar_event.dart';
 import 'package:hem_routine_app/services/firestore.dart';
 
 //firestore.dart에 정의된 최근 7일,이번달, 지난 달 함수들 사용할것.

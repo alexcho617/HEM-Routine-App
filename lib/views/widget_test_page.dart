@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/views/calendar/calendar.dart';
-import '../models/routineItem.dart';
+import '../models/routine_item.dart';
 import '../widgets/widgets.dart';
 import '../controllers/routine_on_controller.dart';
 

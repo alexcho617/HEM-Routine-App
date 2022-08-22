@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/custom_routine_item_contoller.dart';
-import 'package:hem_routine_app/models/routineItem.dart';
+import 'package:hem_routine_app/models/routine_item.dart';
 import 'package:hem_routine_app/utils/constants.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/setting/custom_routine_item.dart';

@@ -9,7 +9,7 @@ import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/constants.dart';
 import 'package:intl/intl.dart';
 
-import '../models/calendarEvent.dart';
+import '../models/calendar_event.dart';
 
 LoginService loginService = Get.find();
 

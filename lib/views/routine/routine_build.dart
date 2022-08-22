@@ -9,7 +9,7 @@ import 'package:hem_routine_app/controllers/login_service.dart';
 import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/routine/routineEntitySetting.dart';
+import 'package:hem_routine_app/views/routine/routine_entity_setting.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 
 class RoutineBuildPage extends StatelessWidget {
@@ -79,7 +79,7 @@ class RoutineBuildPage extends StatelessWidget {
                       Container(
                         height: 139.h,
                         child: CupertinoPicker(
-                          children: pageController.routinePeriod,
+                          children: RoutineOffController.routinePeriod,
                           onSelectedItemChanged: (value) {
                             // print(value);
                             pageController.routinePeriodIndex.value = value + 1;

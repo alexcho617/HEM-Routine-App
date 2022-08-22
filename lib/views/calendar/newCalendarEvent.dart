@@ -10,7 +10,7 @@ import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
 // import 'package:hem_routine_app/views/setting/completed_routines.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
-import '../../models/calendarEvent.dart';
+import '../../models/calendar_event.dart';
 import '../../utils/calendarUtil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
