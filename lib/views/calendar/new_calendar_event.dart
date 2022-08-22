@@ -22,7 +22,7 @@ class NewCalendarEvent extends StatefulWidget {
 }
 
 class _NewCalendarEventState extends State<NewCalendarEvent> {
-  Widget TypeButton(
+  Widget typeButton(
       Image selectedImage, Image unSelectedImage, String label, String index) {
     return Column(
       children: [
@@ -135,19 +135,19 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      TypeButton(Image.asset('assets/button/type/00.png'),
+                      typeButton(Image.asset('assets/button/type/00.png'),
                           Image.asset('assets/button/type/0.png'), '물변', '0'),
-                      TypeButton(Image.asset('assets/button/type/11.png'),
+                      typeButton(Image.asset('assets/button/type/11.png'),
                           Image.asset('assets/button/type/1.png'), '진흙변', '1'),
-                      TypeButton(Image.asset('assets/button/type/22.png'),
+                      typeButton(Image.asset('assets/button/type/22.png'),
                           Image.asset('assets/button/type/2.png'), '무른변', '2'),
-                      TypeButton(Image.asset('assets/button/type/33.png'),
+                      typeButton(Image.asset('assets/button/type/33.png'),
                           Image.asset('assets/button/type/3.png'), '매끈변', '3'),
-                      TypeButton(Image.asset('assets/button/type/44.png'),
+                      typeButton(Image.asset('assets/button/type/44.png'),
                           Image.asset('assets/button/type/4.png'), '금간변', '4'),
-                      TypeButton(Image.asset('assets/button/type/55.png'),
+                      typeButton(Image.asset('assets/button/type/55.png'),
                           Image.asset('assets/button/type/5.png'), '딱딱변', '5'),
-                      TypeButton(Image.asset('assets/button/type/66.png'),
+                      typeButton(Image.asset('assets/button/type/66.png'),
                           Image.asset('assets/button/type/6.png'), '토끼변', '6'),
                     ],
                   ),

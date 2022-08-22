@@ -56,7 +56,7 @@ class AppStateController extends GetxController {
         status.value = true;
       });
     });
-    print('Routine is active');
+    // print('Routine is active');
   }
 
   Future<void> isUserHaveRated() async {

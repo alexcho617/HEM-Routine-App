@@ -20,7 +20,6 @@ import 'views/routine/routine.dart';
 import 'views/setting/account_settings.dart';
 import 'views/setting/settings.dart';
 import 'views/splash.dart';
-import 'views/test.dart';
 import 'views/widget_test_page.dart';
 import 'views/setting/completed_routines.dart';
 import 'views/setting/profile_settings.dart';

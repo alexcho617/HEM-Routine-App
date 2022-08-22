@@ -238,6 +238,7 @@ class RoutineOffController extends GetxController {
         // addRoutine();
       }
     }
+    return null;
   }
 
   String parseRoutineMessage(CalendarEvent event) {

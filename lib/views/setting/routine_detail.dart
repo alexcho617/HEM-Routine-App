@@ -1,15 +1,14 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/routine_detail_controller.dart';
-import 'package:hem_routine_app/tableCalendar/table_calendar.dart';
-import 'package:hem_routine_app/utils/constants.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/routine/routine.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
-import '../../utils/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import '../../controllers/routine_detail_controller.dart';
+import '../../utils/constants.dart';
+import '../../utils/functions.dart';
+import '../routine/routine.dart';
+import '../../widgets/widgets.dart';
+import '../../utils/colors.dart';
 
 class RoutineDetailPage extends StatefulWidget {
   RoutineDetailPage({super.key, required this.uid});
