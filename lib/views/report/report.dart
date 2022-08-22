@@ -38,7 +38,6 @@ class _ReportPageState extends State<ReportPage> {
                   'Report',
                   style: ReportTitleFont,
                 ),
-                //TODO: report refreshing
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                   child: Row(
@@ -51,7 +50,6 @@ class _ReportPageState extends State<ReportPage> {
                         ),
                         overflow: TextOverflow.clip,
                       ),
-                      //TODO: temp button
                       IconButton(
                           onPressed: () async {
                             await _reportController.refreshData();

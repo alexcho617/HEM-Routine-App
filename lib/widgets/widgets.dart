@@ -511,7 +511,6 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
   );
 }
 
-
 Widget goalCountAlertDialog(VoidCallback? onPressed) {
   return AlertDialog(
     shape: RoundedRectangleBorder(
@@ -529,8 +528,7 @@ Widget goalCountAlertDialog(VoidCallback? onPressed) {
           width: 312.w,
           height: 120.h,
           child: Center(
-              child: 
-              Text(
+              child: Text(
             '목표 횟수는 1 ~ 20회 사이로 기입해주세요.',
             style: AppleFont16_Black,
             textAlign: TextAlign.center,
@@ -559,7 +557,6 @@ Widget goalCountAlertDialog(VoidCallback? onPressed) {
     ),
   );
 }
-
 
 Widget circluarGuage(double percent) {
   return SizedBox(
@@ -960,16 +957,18 @@ Widget starRankIndicator(double rank) {
           builder: (context) {
             if (rank < 2) {
               return Image.asset('assets/stars/1.png');
-            }if (rank < 3) {
+            }
+            if (rank < 3) {
               return Image.asset('assets/stars/2.png');
-            }if (rank < 4) {
+            }
+            if (rank < 4) {
               return Image.asset('assets/stars/3.png');
-            }if (rank < 5) {
+            }
+            if (rank < 5) {
               return Image.asset('assets/stars/4.png');
-            }else{
+            } else {
               return Image.asset('assets/stars/5.png');
             }
-            
           },
         ),
       ),
@@ -1042,6 +1041,76 @@ Widget dataAlertDialog(
                 child: Center(
                   child: Text(
                     '데이터 초기화',
+                    style: AppleFont16_White,
+                  ),
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
+Widget signOutAlertDialog(
+    VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: EdgeInsets.all(0),
+    titlePadding: EdgeInsets.all(0),
+    actionsPadding: EdgeInsets.all(0),
+    contentPadding: EdgeInsets.all(0),
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 176.h),
+      child: Column(children: [
+        Container(
+          width: 312.w,
+          height: 120.h,
+          child: Center(
+              child: Text(
+            '로그아웃 하시겠습니까?',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        Row(
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                width: 124.w,
+                height: 56.h,
+                child: Center(
+                    child: Text(
+                  '취소',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+            InkWell(
+              onTap: onPressedDelete,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: primary,
+                ),
+                width: 188.w,
+                height: 56.h,
+                child: Center(
+                  child: Text(
+                    '로그아웃',
                     style: AppleFont16_White,
                   ),
                 ),
@@ -1212,7 +1281,6 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                                 controller: controller.inputControllers[index],
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 14.sp),
-                               
                               )),
                           // {controller.routineEntities[index].goalCount}'
                           Text(
@@ -1279,7 +1347,6 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                             controller: controller.inputControllers[index],
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 14.sp),
-                           
                           )),
                       // {controller.routineEntities[index].goalCount}'
                       Text(
