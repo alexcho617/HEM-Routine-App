@@ -128,6 +128,8 @@ Widget circularColorChart(RxList x) {
     legend: Legend(isVisible: false),
     series: <CircularSeries>[
       DoughnutSeries(
+        animationDelay: 0,
+        animationDuration: 100,
         dataSource: chartdatas,
         startAngle: 270,
         endAngle: 270,
