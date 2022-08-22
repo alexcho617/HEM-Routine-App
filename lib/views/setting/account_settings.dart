@@ -50,11 +50,11 @@ class AccountSettingsPage extends StatelessWidget {
             showDialog(
                 context: context,
                 builder: ((context) {
-
-                  return signOutAlertDialog(() {
+                  return signOutAlertDialog(() async {
                     Get.back();
                   }, () {
                     loginService.signOut();
+
                     Get.offAll(() => SplashScreen());
                   });
                 }));

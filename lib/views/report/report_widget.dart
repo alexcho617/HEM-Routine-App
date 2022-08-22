@@ -57,6 +57,8 @@ Widget circularAnalysisChart(RxList x) {
     legend: Legend(isVisible: true, position: LegendPosition.bottom, toggleSeriesVisibility: false),
     series: <CircularSeries>[
       DoughnutSeries(
+        animationDelay: 0,
+        animationDuration: 1000,
         dataSource: chartdatas,
         startAngle: 270,
         endAngle: 270,

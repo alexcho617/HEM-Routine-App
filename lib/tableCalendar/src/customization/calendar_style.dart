@@ -1,7 +1,7 @@
 // Copyright 2019 Aleksander Woźniak
 // SPDX-License-Identifier: Apache-2.0
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 /// Class containing styling and configuration for `TableCalendar`'s content.
 class CalendarStyle {
@@ -209,8 +209,7 @@ class CalendarStyle {
     this.rangeHighlightColor = const Color(0xFFBBDDFF),
     //this is not used. Instead, child is used as marker in the _buildSingleMarker in table_calendar.dart
     this.markerDecoration = const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Color.fromRGBO(0x4F, 0x6D, 0xC9, 1)),
+        shape: BoxShape.circle, color: Color.fromRGBO(0x4F, 0x6D, 0xC9, 1)),
     //alex
     this.canRoutineMarkersOverflow = true,
     this.routineMarkersAutoAligned = true,
@@ -234,11 +233,12 @@ class CalendarStyle {
       shape: BoxShape.circle,
     ),
     this.selectedTextStyle = const TextStyle(
-      color: Color(0xFFFAFAFA),
-      fontSize: 16.0,
+      color: Color.fromRGBO(0x3C, 0x3C, 0x3C, 1),
+
+      // fontSize: 16.0,
     ),
     this.selectedDecoration = const BoxDecoration(
-      color: Color(0xFF5C6BC0),
+      color: Colors.transparent,
       shape: BoxShape.circle,
     ),
     this.rangeStartTextStyle = const TextStyle(
