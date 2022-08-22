@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -8,7 +10,7 @@ import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../utils/functions.dart';
 import '../../widgets/widgets.dart';
-import 'editCalendarEvent.dart';
+import 'edit_calendar_event.dart';
 
 class CalendarLog extends StatefulWidget {
   const CalendarLog({Key? key}) : super(key: key);
@@ -237,7 +239,7 @@ class _CalendarLogState extends State<CalendarLog> {
                                   horizontal: 21.0.w, vertical: 8.0.h),
                               child: const Divider(
                                 color:
-                                    const Color.fromRGBO(0x60, 0x60, 0x60, 1),
+                                    Color.fromRGBO(0x60, 0x60, 0x60, 1),
                                 thickness: 2,
                               ),
                             ),

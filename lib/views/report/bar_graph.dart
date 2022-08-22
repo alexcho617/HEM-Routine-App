@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/report_controller.dart';
-import 'package:hem_routine_app/utils/calendarUtil.dart';
-import 'package:hem_routine_app/utils/colors.dart';
-import 'package:hem_routine_app/utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../controllers/report_controller.dart';
+import '../../utils/calendarUtil.dart';
+import '../../utils/constants.dart';
 
 class BarGraph extends StatefulWidget {
   const BarGraph({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class _BarGraphState extends State<BarGraph> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                yAxis(
+                YAxis(
                   gap: SizedBox(
                     height: blockHeight / 5 - 10.h,
                   ),
@@ -44,7 +44,7 @@ class _BarGraphState extends State<BarGraph> {
                     child: SizedBox(
                       width: 321,
                       height: blockHeight,
-                      child: canvas(
+                      child: Canvas(
                         gap: SizedBox(
                           height: blockHeight / 5 - 10.h,
                         ),
@@ -74,7 +74,7 @@ class _BarGraphState extends State<BarGraph> {
         var events = _controller.weekEvents[key];
         bars.add(Column(
           children: [
-            Container(
+            SizedBox(
               //delete border
               // decoration: BoxDecoration(
               //     border: Border.all(width: 1, color: Colors.black),
@@ -110,7 +110,7 @@ class _BarGraphState extends State<BarGraph> {
         bars.add(
           Column(
             children: [
-              Container(
+              SizedBox(
                 // decoration: BoxDecoration(
                 //     border: Border.all(width: 1, color: Colors.black),
                 //     color: blue50),
@@ -155,8 +155,8 @@ class _BarGraphState extends State<BarGraph> {
   }
 }
 
-class yAxis extends StatelessWidget {
-  const yAxis({
+class YAxis extends StatelessWidget {
+  const YAxis({
     Key? key,
     required this.gap,
   }) : super(key: key);
@@ -204,8 +204,8 @@ class yAxis extends StatelessWidget {
   }
 }
 
-class canvas extends StatelessWidget {
-  const canvas({
+class Canvas extends StatelessWidget {
+  const Canvas({
     Key? key,
     required this.gap,
   }) : super(key: key);
@@ -220,23 +220,23 @@ class canvas extends StatelessWidget {
         SizedBox(
           height: 12.h,
         ),
-        Divider(
+        const Divider(
           thickness: 1,
         ),
         gap,
-        Divider(
+        const Divider(
           thickness: 1,
         ),
         gap,
-        Divider(
+        const Divider(
           thickness: 1,
         ),
         gap,
-        Divider(
+        const Divider(
           thickness: 1,
         ),
         gap,
-        Divider(
+        const Divider(
           thickness: 1,
         ),
       ],

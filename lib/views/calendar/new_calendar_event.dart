@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/calendar_controller.dart';
-import 'package:hem_routine_app/controllers/login_service.dart';
-import 'package:hem_routine_app/services/firestore.dart';
-// import 'package:hem_routine_app/tableCalendar/src/widgets/custom_icon_button.dart';
-import 'package:hem_routine_app/utils/colors.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/home.dart';
-// import 'package:hem_routine_app/views/setting/completed_routines.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
-import '../../models/calendar_event.dart';
-import '../../utils/calendarUtil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/calendar_controller.dart';
+import '../../controllers/login_service.dart';
+import '../../services/firestore.dart';
+import '../../utils/colors.dart';
+import '../../utils/functions.dart';
+import '../home.dart';
+import '../../widgets/widgets.dart';
+import '../../models/calendar_event.dart';
+import '../../utils/calendarUtil.dart';
 
 class NewCalendarEvent extends StatefulWidget {
   const NewCalendarEvent({Key? key}) : super(key: key);
@@ -59,24 +58,22 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
     );
   }
 
-  Widget HardnessButton(
+  Widget hardnessButton(
       Image selectedImage, Image unSelectedImage, String label, String index) {
-    return Container(
-      child: Column(
-        children: [
-          IconButton(
-            iconSize: 64.sp,
-            icon: hardnessCode == index ? selectedImage : unSelectedImage,
-            onPressed: () {
-              setState(() {
-                hardnessCode = index;
-                iconCode = typeCode + colorCode + hardnessCode;
-              });
-            },
-          ),
-          Text(label)
-        ],
-      ),
+    return Column(
+      children: [
+        IconButton(
+          iconSize: 64.sp,
+          icon: hardnessCode == index ? selectedImage : unSelectedImage,
+          onPressed: () {
+            setState(() {
+              hardnessCode = index;
+              iconCode = typeCode + colorCode + hardnessCode;
+            });
+          },
+        ),
+        Text(label)
+      ],
     );
   }
 
@@ -134,7 +131,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                   Container(
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: Text('배변 형태(묽기) 선택')),
+                      child: const Text('배변 형태(묽기) 선택')),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -160,7 +157,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                   Container(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       alignment: Alignment.centerLeft,
-                      child: Text('배변 색 선택')),
+                      child: const Text('배변 색 선택')),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -186,26 +183,26 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                   Container(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       alignment: Alignment.centerLeft,
-                      child: Text('배변감 선택')),
+                      child: const Text('배변감 선택')),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      HardnessButton(
+                      hardnessButton(
                           Image.asset('assets/button/hardness/00.png'),
                           Image.asset('assets/button/hardness/0.png'),
                           '많이 불편',
                           '0'),
-                      HardnessButton(
+                      hardnessButton(
                           Image.asset('assets/button/hardness/11.png'),
                           Image.asset('assets/button/hardness/1.png'),
                           '불편',
                           '1'),
-                      HardnessButton(
+                      hardnessButton(
                           Image.asset('assets/button/hardness/22.png'),
                           Image.asset('assets/button/hardness/2.png'),
                           '편함',
                           '2'),
-                      HardnessButton(
+                      hardnessButton(
                           Image.asset('assets/button/hardness/33.png'),
                           Image.asset('assets/button/hardness/3.png'),
                           '매우 편함',
@@ -218,7 +215,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                   Container(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       alignment: Alignment.centerLeft,
-                      child: Text('메모')),
+                      child: const Text('메모')),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8.w),
                     child: TextFormField(
@@ -260,7 +257,6 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                             });
                       } on Exception catch (e) {
                         kangminBack(context);
-                        print(e);
                       }
 
                       eventTextController.clear();

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -110,7 +112,7 @@ class RoutineDetailController extends GetxController {
             'dayComplete': 0.0,
           });
         } on Exception catch (e) {
-          print("line 94: " + e.toString());
+          print(e);
         }
 
         for (int j = 0; j < routineItem.length; j++) {
@@ -125,7 +127,7 @@ class RoutineDetailController extends GetxController {
               'eventTime': []
             });
           } on Exception catch (e) {
-            print("line 109: " + e.toString());
+            print(e);
           }
         }
       }

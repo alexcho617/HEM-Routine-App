@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,9 +40,7 @@ class RoutineEntityController extends GetxController {
   }
 
   Future<bool> addRoutine() async {
-    print(loginService.auth.value.currentUser!.uid);
-    DateTime later =
-        now.add(Duration(days: controller.routinePeriodIndex.value));
+    // print(loginService.auth.value.currentUser!.uid);
     List<String> routineItems = [];
     List<int> routineGoalCount = [];
     for (int i = 0; i < routineEntities.length; i++) {

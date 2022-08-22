@@ -74,7 +74,7 @@ Widget circularAnalysisChart(RxList x) {
           isVisible: true,
           builder: (data, point, series, pointIndex, seriesIndex) {
             if (data.y == 0) {
-              return Text("");
+              return const Text("");
             } else {
               return Text(
                 (data.y * 100).toStringAsFixed(0) + "%",
@@ -147,7 +147,7 @@ Widget circularColorChart(RxList x) {
           isVisible: true,
           builder: (data, point, series, pointIndex, seriesIndex) {
             if (data.y == 0) {
-              return Text("");
+              return const Text("");
             } else {
               return Text(
                 (data.y * 100).toStringAsFixed(0) + "%",
@@ -234,7 +234,7 @@ List<LineChartBarData> lineBarsData(RxList x) {
 
 Widget monthlyRateChart(RxList x) {
   if (x.isEmpty) {
-    return CircularProgressIndicator();
+    return const CircularProgressIndicator();
   }
   final lineChartBarsData = lineBarsData(x);
   final showIndex = [0, 1, 2, 3, 4, 5];

@@ -9,7 +9,7 @@ import 'package:hem_routine_app/models/calendar_routine.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/calendar/calendar_log.dart';
-import 'package:hem_routine_app/views/calendar/newCalendarEvent.dart';
+import 'package:hem_routine_app/views/calendar/new_calendar_event.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../tableCalendar/src/customization/calendar_builders.dart';
@@ -140,7 +140,7 @@ Widget emptyRoutineMarker(DateTime date, CalendarController controller) {
       height: 14.0.h,
       child: Text(
           style: TextStyle(color: primary),
-          '${controller.getNumberOfEventsFromDay(date) ?? ''}'),
+          controller.getNumberOfEventsFromDay(date) ?? ''),
       // margin: const EdgeInsets.symmetric(horizontal: 10.5),
     ),
   );
@@ -153,7 +153,7 @@ Widget rightRoutineMarker(DateTime date, CalendarController controller) {
       alignment: Alignment.center,
       child: Text(
           style: TextStyle(color: primary),
-          '${controller.getNumberOfEventsFromDay(date) ?? ''}'),
+          controller.getNumberOfEventsFromDay(date) ?? ''),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
@@ -173,7 +173,7 @@ Widget middleRoutineMarker(DateTime date, CalendarController controller) {
       alignment: Alignment.center,
       child: Text(
           style: TextStyle(color: primary),
-          '${controller.getNumberOfEventsFromDay(date) ?? ''}'),
+          controller.getNumberOfEventsFromDay(date) ?? ''),
       decoration: BoxDecoration(shape: BoxShape.rectangle, color: blue100),
       width: 57.0.w,
       height: 14.0.h,
@@ -189,7 +189,7 @@ Widget leftRoutineMarker(DateTime date, CalendarController controller) {
       alignment: Alignment.center,
       child: Text(
           style: TextStyle(color: primary),
-          '${controller.getNumberOfEventsFromDay(date) ?? ''}'),
+          controller.getNumberOfEventsFromDay(date) ?? ''),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),

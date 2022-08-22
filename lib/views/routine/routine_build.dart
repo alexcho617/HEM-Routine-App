@@ -1,16 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/login_service.dart';
-import 'package:hem_routine_app/controllers/routine_off_controller.dart';
-import 'package:hem_routine_app/utils/colors.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/routine/routine_entity_setting.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
+import '../../controllers/routine_off_controller.dart';
+import '../../utils/functions.dart';
+import 'routine_entity_setting.dart';
+import '../../widgets/widgets.dart';
 
 class RoutineBuildPage extends StatelessWidget {
   RoutineBuildPage({Key? key}) : super(key: key);
@@ -49,8 +44,8 @@ class RoutineBuildPage extends StatelessWidget {
                         decoration: InputDecoration(
                           suffixIcon: Obx(() => IconButton(
                                 icon: pageController.isValid.value
-                                    ? Icon(Icons.cancel_outlined)
-                                    : Icon(
+                                    ? const Icon(Icons.cancel_outlined)
+                                    : const Icon(
                                         Icons.error,
                                         color: Colors.red,
                                       ),
@@ -76,7 +71,7 @@ class RoutineBuildPage extends StatelessWidget {
                         style:
                             TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
                       ),
-                      Container(
+                      SizedBox(
                         height: 139.h,
                         child: CupertinoPicker(
                           children: RoutineOffController.routinePeriod,

@@ -23,7 +23,7 @@ class EditCalendarEvent extends StatefulWidget {
 }
 
 class _EditCalendarEventState extends State<EditCalendarEvent> {
-  Widget TypeButton(
+  Widget typeButton(
       Image selectedImage, Image unSelectedImage, String label, String index) {
     return Column(
       children: [
@@ -41,7 +41,7 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
     );
   }
 
-  Widget ColorButton(
+  Widget colorButton(
       Image selectedImage, Image unSelectedImage, String label, String index) {
     return Column(
       children: [
@@ -59,24 +59,22 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
     );
   }
 
-  Widget HardnessButton(
+  Widget hardnessButton(
       Image selectedImage, Image unSelectedImage, String label, String index) {
-    return Container(
-      child: Column(
-        children: [
-          IconButton(
-            iconSize: 64.sp,
-            icon: hardnessCode == index ? selectedImage : unSelectedImage,
-            onPressed: () {
-              setState(() {
-                hardnessCode = index;
-                iconCode = typeCode + colorCode + hardnessCode;
-              });
-            },
-          ),
-          Text(label)
-        ],
-      ),
+    return Column(
+      children: [
+        IconButton(
+          iconSize: 64.sp,
+          icon: hardnessCode == index ? selectedImage : unSelectedImage,
+          onPressed: () {
+            setState(() {
+              hardnessCode = index;
+              iconCode = typeCode + colorCode + hardnessCode;
+            });
+          },
+        ),
+        Text(label)
+      ],
     );
   }
 
@@ -113,7 +111,7 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
         foregroundColor: Colors.black,
         centerTitle: false,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -136,9 +134,9 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
                   }),
                 );
               },
-              icon: Icon(Icons.delete_outline_rounded))
+              icon: const Icon(Icons.delete_outline_rounded))
         ],
-        title: Text('배변 기록'),
+        title: const Text('배변 기록'),
       ),
       body: SafeArea(
         child: Padding(
@@ -174,23 +172,23 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.w),
                   alignment: Alignment.centerLeft,
-                  child: Text('배변 형태(묽기) 선택')),
+                  child: const Text('배변 형태(묽기) 선택')),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  TypeButton(Image.asset('assets/button/type/00.png'),
+                  typeButton(Image.asset('assets/button/type/00.png'),
                       Image.asset('assets/button/type/0.png'), '물변', '0'),
-                  TypeButton(Image.asset('assets/button/type/11.png'),
+                  typeButton(Image.asset('assets/button/type/11.png'),
                       Image.asset('assets/button/type/1.png'), '진흙변', '1'),
-                  TypeButton(Image.asset('assets/button/type/22.png'),
+                  typeButton(Image.asset('assets/button/type/22.png'),
                       Image.asset('assets/button/type/2.png'), '무른변', '2'),
-                  TypeButton(Image.asset('assets/button/type/33.png'),
+                  typeButton(Image.asset('assets/button/type/33.png'),
                       Image.asset('assets/button/type/3.png'), '매끈변', '3'),
-                  TypeButton(Image.asset('assets/button/type/44.png'),
+                  typeButton(Image.asset('assets/button/type/44.png'),
                       Image.asset('assets/button/type/4.png'), '금간변', '4'),
-                  TypeButton(Image.asset('assets/button/type/55.png'),
+                  typeButton(Image.asset('assets/button/type/55.png'),
                       Image.asset('assets/button/type/5.png'), '딱딱변', '5'),
-                  TypeButton(Image.asset('assets/button/type/66.png'),
+                  typeButton(Image.asset('assets/button/type/66.png'),
                       Image.asset('assets/button/type/6.png'), '토끼변', '6'),
                 ],
               ),
@@ -200,23 +198,23 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.w),
                   alignment: Alignment.centerLeft,
-                  child: Text('배변 색 선택')),
+                  child: const Text('배변 색 선택')),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ColorButton(Image.asset('assets/button/color/00.png'),
+                  colorButton(Image.asset('assets/button/color/00.png'),
                       Image.asset('assets/button/color/0.png'), '회색', '0'),
-                  ColorButton(Image.asset('assets/button/color/11.png'),
+                  colorButton(Image.asset('assets/button/color/11.png'),
                       Image.asset('assets/button/color/1.png'), '붉은색', '1'),
-                  ColorButton(Image.asset('assets/button/color/22.png'),
+                  colorButton(Image.asset('assets/button/color/22.png'),
                       Image.asset('assets/button/color/2.png'), '초록색', '2'),
-                  ColorButton(Image.asset('assets/button/color/33.png'),
+                  colorButton(Image.asset('assets/button/color/33.png'),
                       Image.asset('assets/button/color/3.png'), '노란색', '3'),
-                  ColorButton(Image.asset('assets/button/color/44.png'),
+                  colorButton(Image.asset('assets/button/color/44.png'),
                       Image.asset('assets/button/color/4.png'), '갈색', '4'),
-                  ColorButton(Image.asset('assets/button/color/55.png'),
+                  colorButton(Image.asset('assets/button/color/55.png'),
                       Image.asset('assets/button/color/5.png'), '고동색', '5'),
-                  ColorButton(Image.asset('assets/button/color/66.png'),
+                  colorButton(Image.asset('assets/button/color/66.png'),
                       Image.asset('assets/button/color/6.png'), '흑색', '6'),
                 ],
               ),
@@ -226,20 +224,20 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.w),
                   alignment: Alignment.centerLeft,
-                  child: Text('배변감 선택')),
+                  child: const Text('배변감 선택')),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  HardnessButton(
+                  hardnessButton(
                       Image.asset('assets/button/hardness/00.png'),
                       Image.asset('assets/button/hardness/0.png'),
                       '많이 불편',
                       '0'),
-                  HardnessButton(Image.asset('assets/button/hardness/11.png'),
+                  hardnessButton(Image.asset('assets/button/hardness/11.png'),
                       Image.asset('assets/button/hardness/1.png'), '불편', '1'),
-                  HardnessButton(Image.asset('assets/button/hardness/22.png'),
+                  hardnessButton(Image.asset('assets/button/hardness/22.png'),
                       Image.asset('assets/button/hardness/2.png'), '편함', '2'),
-                  HardnessButton(
+                  hardnessButton(
                       Image.asset('assets/button/hardness/33.png'),
                       Image.asset('assets/button/hardness/3.png'),
                       '매우 편함',
@@ -252,7 +250,7 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 8.w),
                   alignment: Alignment.centerLeft,
-                  child: Text('메모')),
+                  child: const Text('메모')),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.w),
                 child: TextFormField(

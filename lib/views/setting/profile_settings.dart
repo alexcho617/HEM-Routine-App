@@ -1,12 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/home.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
+
+import '../home.dart';
+import '../../widgets/widgets.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../controllers/login_service.dart';
@@ -47,12 +45,12 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('사용자 이름'),
+                    const Text('사용자 이름'),
                     TextFormField(
                       decoration: InputDecoration(
                           hintText: '사용자 이름 입력(최대 10자)',
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.replay_circle_filled_rounded),
+                            icon: const Icon(Icons.replay_circle_filled_rounded),
                             onPressed: () {
                               //controller.stashname();
                             },
@@ -70,7 +68,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 16.h),
-                      child: Text('성별'),
+                      child: const Text('성별'),
                     ),
                     genderchooseButton(() {
                       //when pressed Male
@@ -86,7 +84,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                     SizedBox(
                       height: 40.h,
                     ),
-                    Text('생년월일'),
+                    const Text('생년월일'),
                     SizedBox(
                       height: 16.h,
                     ),
@@ -124,7 +122,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       loginService.profileSetting(
           nameController.text, selectedDateTime, isMale ? "Male" : "Female");
       ScaffoldMessenger.of(context.findAncestorStateOfType<HomePageState>()!.context)
-          .showSnackBar(SnackBar(content: Text("저장되었습니다")));
+          .showSnackBar(const SnackBar(content: Text("저장되었습니다")));
       Navigator.pop(context);
     }
   }
@@ -136,7 +134,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
+        SizedBox(
           width: 163.w,
           height: 48.h,
           child: ElevatedButton(
@@ -154,7 +152,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 163.w,
           height: 48.h,
           child: ElevatedButton(
@@ -182,7 +180,7 @@ void onPressed() {
 }
 
 Widget saveButtonLong(VoidCallback? onPressed, Color color) {
-  return Container(
+  return SizedBox(
     width: 335.w,
     height: 48.h,
     child: ElevatedButton(

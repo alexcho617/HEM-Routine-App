@@ -1,14 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/routine_on_controller.dart';
-import 'package:hem_routine_app/utils/colors.dart';
-import 'package:hem_routine_app/utils/constants.dart';
-import 'package:hem_routine_app/views/home.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
+
+import '../../controllers/routine_on_controller.dart';
+import '../../utils/colors.dart';
+import '../../utils/constants.dart';
 import '../../widgets/widgets.dart';
 
 class RoutineLogPage extends StatelessWidget {
@@ -28,8 +27,8 @@ class RoutineLogPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                padding: EdgeInsets.all(0),
-                constraints: BoxConstraints(),
+                padding: EdgeInsets.all(0.r),
+                constraints: const BoxConstraints(),
                 onPressed: () {
                   if (controller.selectedDayIndex.value > 0) {
                     controller.selectedDayIndex - 1;
@@ -47,8 +46,8 @@ class RoutineLogPage extends StatelessWidget {
                 ),
               ),
               IconButton(
-                padding: EdgeInsets.all(0),
-                constraints: BoxConstraints(),
+                padding: EdgeInsets.all(0.r),
+                constraints: const BoxConstraints(),
                 onPressed: () {
                   if (controller.selectedDayIndex.value <
                       controller.todayIndex.value) {
@@ -153,7 +152,7 @@ class RoutineLogPage extends StatelessWidget {
                           // dense: true,
                           // visualDensity: VisualDensity(vertical: 0),
                           contentPadding: EdgeInsets.symmetric(
-                              vertical: 0.0, horizontal: 16.0),
+                              vertical: 0.0.h, horizontal: 16.0.w),
                           leading: CircleAvatar(
                             radius: 40.r,
                             backgroundColor: grey400,
@@ -179,7 +178,7 @@ class RoutineLogPage extends StatelessWidget {
                             }),
                           ),
                           trailing: IconButton(
-                            icon: Icon(Icons.delete),
+                            icon: const Icon(Icons.delete),
                             onPressed: () {
                               // 정말로 수행 기록을 삭제하시겠습니까?
                               showDialog(

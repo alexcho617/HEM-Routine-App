@@ -1,15 +1,13 @@
 //define global widgets here such as appbar
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/routine_entity_controller.dart';
-import 'package:hem_routine_app/controllers/routine_off_controller.dart';
-import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 
-import 'package:hem_routine_app/models/routine.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/calendar/calendar.dart';
-import 'package:hem_routine_app/views/setting/account_settings.dart';
+import '../controllers/routine_entity_controller.dart';
+import '../controllers/routine_off_controller.dart';
+import '../utils/functions.dart';
 import '../utils/constants.dart';
 import '../utils/colors.dart';
 
@@ -21,7 +19,7 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 // import 'package:hem_routine_app/views/calendar/calendar.dart';
 
 Widget nextButtonBig(VoidCallback? onPressed) {
-  return Container(
+  return SizedBox(
     width: 335.w,
     height: 48.h,
     child: ElevatedButton(
@@ -46,7 +44,7 @@ Widget disabledNextButtonBig(VoidCallback? onPressed) {
     width: 335.w,
     height: 48.h,
     decoration: BoxDecoration(
-      color: Color.fromARGB(255, 212, 212, 212),
+      color: const Color.fromARGB(255, 212, 212, 212),
       borderRadius: BorderRadius.circular(8.r),
     ),
     child: Center(
@@ -60,7 +58,7 @@ Widget disabledNextButtonBig(VoidCallback? onPressed) {
 
 Widget nextAndBackButton(
     VoidCallback? onPressedBack, VoidCallback onPressedNext) {
-  return Container(
+  return SizedBox(
     width: 335.w,
     height: 48.h,
     child: Row(
@@ -76,7 +74,7 @@ Widget nextAndBackButton(
 }
 
 Widget backButtonSmall(VoidCallback? onPressed) {
-  return Container(
+  return SizedBox(
     width: 107.w,
     height: 48.h,
     child: ElevatedButton(
@@ -87,7 +85,7 @@ Widget backButtonSmall(VoidCallback? onPressed) {
       ),
       style: ElevatedButton.styleFrom(
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        primary: Color.fromARGB(255, 212, 212, 212),
+        primary: const Color.fromARGB(255, 212, 212, 212),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.r),
         ),
@@ -97,7 +95,7 @@ Widget backButtonSmall(VoidCallback? onPressed) {
 }
 
 Widget nextButtonSmall(VoidCallback? onPressed) {
-  return Container(
+  return SizedBox(
     width: 204.w,
     height: 48.h,
     child: ElevatedButton(
@@ -118,7 +116,7 @@ Widget nextButtonSmall(VoidCallback? onPressed) {
 }
 
 Widget routineButton(VoidCallback? onPressedBack, VoidCallback onPressedNext) {
-  return Container(
+  return SizedBox(
     width: 335.w,
     height: 48.h,
     child: Row(
@@ -134,7 +132,7 @@ Widget routineButton(VoidCallback? onPressedBack, VoidCallback onPressedNext) {
 }
 
 Widget routineChagngeButton(VoidCallback? onPressed) {
-  return Container(
+  return SizedBox(
     width: 107.w,
     height: 48.h,
     child: ElevatedButton(
@@ -155,7 +153,7 @@ Widget routineChagngeButton(VoidCallback? onPressed) {
 }
 
 Widget restartRoutineButton(VoidCallback? onPressed) {
-  return Container(
+  return SizedBox(
     width: 204.w,
     height: 48.h,
     child: ElevatedButton(
@@ -176,7 +174,7 @@ Widget restartRoutineButton(VoidCallback? onPressed) {
 }
 
 Widget saveButtonGray(VoidCallback? onPressed) {
-  return Container(
+  return SizedBox(
     width: 200.w,
     height: 48.h,
     child: ElevatedButton(
@@ -197,7 +195,7 @@ Widget saveButtonGray(VoidCallback? onPressed) {
 }
 
 Widget saveButtonBlue(VoidCallback? onPressed) {
-  return Container(
+  return SizedBox(
     width: 200.w,
     height: 48.h,
     child: ElevatedButton(
@@ -218,7 +216,7 @@ Widget saveButtonBlue(VoidCallback? onPressed) {
 }
 
 Widget makeMyRoutineButton(VoidCallback? onPressed) {
-  return Container(
+  return SizedBox(
     width: 200.w,
     height: 48.h,
     child: ElevatedButton(
@@ -239,7 +237,7 @@ Widget makeMyRoutineButton(VoidCallback? onPressed) {
 }
 
 Widget addButton(VoidCallback? onPressed) {
-  return Container(
+  return SizedBox(
     width: 200.w,
     height: 48.h,
     child: ElevatedButton(
@@ -247,7 +245,7 @@ Widget addButton(VoidCallback? onPressed) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.add),
+          const Icon(Icons.add),
           SizedBox(
             width: 6.w,
           ),
@@ -269,7 +267,7 @@ Widget addButton(VoidCallback? onPressed) {
 }
 
 Widget addRoutineButton(VoidCallback? onPressed) {
-  return Container(
+  return SizedBox(
     width: 348.w,
     height: 56.h,
     child: OutlinedButton(
@@ -312,13 +310,13 @@ Widget plusSquareButton(VoidCallback? onPressed) {
           color: grey500,
           blurRadius: 1,
           spreadRadius: 1,
-          offset: Offset(1, 1),
+          offset: const Offset(1, 1),
         )
       ],
     ),
     child: IconButton(
       iconSize: 24.r,
-      icon: Icon(Icons.add),
+      icon: const Icon(Icons.add),
       onPressed: onPressed,
       color: primary,
     ),
@@ -332,14 +330,14 @@ Widget deleteAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
-    content: Container(
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
+    content: SizedBox(
       height: 176.h,
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 120.h,
           child: Center(
@@ -402,13 +400,13 @@ Widget deleteEventAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
     content: Container(
       child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 120.h,
           child: Center(
@@ -470,14 +468,14 @@ Widget saveAlertDialog(VoidCallback? onPressed) {
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
-    content: Container(
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
+    content: SizedBox(
       height: 176.h,
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 120.h,
           child: Center(
@@ -517,14 +515,14 @@ Widget goalCountAlertDialog(VoidCallback? onPressed) {
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
-    content: Container(
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
+    content: SizedBox(
       height: 176.h,
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 120.h,
           child: Center(
@@ -642,13 +640,13 @@ Widget achieveAlertDialog(String name, VoidCallback? onPressed) {
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
     content: Container(
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 302.h,
           child: Column(
@@ -657,13 +655,13 @@ Widget achieveAlertDialog(String name, VoidCallback? onPressed) {
                 // TODO: Change This SizedBox Widget to Icon
                 height: 178.w,
               ),
-              Container(
+              SizedBox(
                   height: 40.h,
                   child: Text(
                     '오늘의 루틴 목표 달성!',
                     style: AppleFont22_Black,
                   )),
-              Container(
+              SizedBox(
                 height: 48.h,
                 child: Text(
                   '$name 님이 설정하신\n루틴 일일 목표를 100% 달성했어요!',
@@ -705,14 +703,14 @@ Widget routineStartAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
-    content: Container(
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
+    content: SizedBox(
       height: 358.h,
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 302.h,
           child: Column(
@@ -721,13 +719,13 @@ Widget routineStartAlertDialog(
                 // TODO: Change This SizedBox Widget to Icon
                 height: 178.w,
               ),
-              Container(
+              SizedBox(
                   height: 40.h,
                   child: Text(
                     '루틴을 도전하세요!',
                     style: AppleFont22_Black,
                   )),
-              Container(
+              SizedBox(
                 height: 48.h,
                 child: Text(
                   '설정하신 루틴을\n오늘부터 도전해 보세요!',
@@ -785,12 +783,12 @@ Widget routineStartAlertDialog(
 }
 
 Widget selectedRoutineButton(VoidCallback? onPressed, String type) {
-  return Container(
+  return SizedBox(
     height: 40.h,
     child: ElevatedButton(
       onPressed: onPressed,
       child: Text(
-        ' ${type} ',
+        ' $type ',
         style: AppleFont14_White,
       ),
       style: ElevatedButton.styleFrom(
@@ -807,12 +805,12 @@ Widget selectedRoutineButton(VoidCallback? onPressed, String type) {
 }
 
 Widget unSelectedRoutineButton(VoidCallback? onPressed, String type) {
-  return Container(
+  return SizedBox(
     height: 40.h,
     child: ElevatedButton(
       onPressed: onPressed,
       child: Text(
-        ' ${type} ',
+        ' $type ',
         style: AppleFont14_Grey600,
       ),
       style: ElevatedButton.styleFrom(
@@ -829,7 +827,7 @@ Widget unSelectedRoutineButton(VoidCallback? onPressed, String type) {
 }
 
 Widget customBottomSheet(BuildContext context, Widget contents) {
-  return Container(
+  return SizedBox(
     height: 674.h,
     child: Scaffold(body: contents),
   );
@@ -990,14 +988,14 @@ Widget dataAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
     content: ConstrainedBox(
       constraints: BoxConstraints(maxHeight: 176.h),
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 120.h,
           child: Center(
@@ -1060,14 +1058,14 @@ Widget signOutAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
     content: ConstrainedBox(
       constraints: BoxConstraints(maxHeight: 176.h),
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 120.h,
           child: Center(
@@ -1130,14 +1128,14 @@ Widget withDrawalAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
     content: ConstrainedBox(
       constraints: BoxConstraints(maxHeight: 176.h),
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 120.h,
           child: Center(
@@ -1253,7 +1251,7 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                       ),
                       leading: Padding(
                         padding: EdgeInsets.symmetric(vertical: 11.h),
-                        child: Icon(Icons.menu),
+                        child: const Icon(Icons.menu),
                       ),
                       contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
                       horizontalTitleGap: 0,
@@ -1294,7 +1292,7 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                         ],
                       ),
                       trailing: IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                         onPressed: () {
                           controller.deleteRoutineEntities(index);
                         },
@@ -1320,7 +1318,7 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                   ),
                   leading: Padding(
                     padding: EdgeInsets.symmetric(vertical: 11.h),
-                    child: Icon(Icons.menu),
+                    child: const Icon(Icons.menu),
                   ),
                   contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
                   horizontalTitleGap: 0,
@@ -1360,7 +1358,7 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                     ],
                   ),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       controller.deleteRoutineEntities(index);
                     },
@@ -1383,7 +1381,7 @@ Widget customAppBar(context, String name) {
     foregroundColor: black,
     centerTitle: false,
     leading: IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
       onPressed: () {
         kangminBack(context);
       },
@@ -1450,14 +1448,14 @@ Widget routineCopyAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
     content: ConstrainedBox(
       constraints: BoxConstraints(maxHeight: 203.h),
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 147.h,
           child: Center(
@@ -1531,14 +1529,14 @@ Widget routineRestartAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
     content: ConstrainedBox(
       constraints: BoxConstraints(maxHeight: 203.h),
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 147.h,
           child: Center(
@@ -1613,14 +1611,14 @@ Widget routineDeleteAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
     content: ConstrainedBox(
       constraints: BoxConstraints(maxHeight: 184.h),
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 128.h,
           child: Center(
@@ -1695,14 +1693,14 @@ Widget routineItemDeleteAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
     content: ConstrainedBox(
       constraints: BoxConstraints(maxHeight: 184.h),
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 128.h,
           child: Center(
@@ -1785,14 +1783,14 @@ Widget routineStopAlertDialog(
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
-    content: Container(
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
+    content: SizedBox(
       height: 196.h,
       child: Column(children: [
-        Container(
+        SizedBox(
           width: 312.w,
           height: 140.h,
           child: Center(

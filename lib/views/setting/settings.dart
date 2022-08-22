@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/routine_completed_controller.dart';
-import 'package:hem_routine_app/utils/colors.dart';
-import 'package:hem_routine_app/utils/constants.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/setting/account_settings.dart';
-import 'package:hem_routine_app/views/setting/completed_routines.dart';
-import 'package:hem_routine_app/views/setting/routineitem_settings.dart';
-import 'package:hem_routine_app/views/setting/service_info.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
+
+import '../../controllers/routine_completed_controller.dart';
+import '../../utils/colors.dart';
+import '../../utils/constants.dart';
+import '../../utils/functions.dart';
+import 'account_settings.dart';
+import 'completed_routines.dart';
+import 'routineitem_settings.dart';
+import 'service_info.dart';
 
 import '../../controllers/routine_item_setting_controller.dart';
 
@@ -37,12 +37,12 @@ class _SettingsPageState extends State<SettingsPage> {
           foregroundColor: black,
           centerTitle: false,
           leading: IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               //
             },
           ),
-          title: Text('설정'),
+          title: const Text('설정'),
         ),
         ListTile(
           leading: Icon(
@@ -72,7 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
           onTap: () {
             Get.put(RoutineCompletedController()).getLatestData();
             // kangmin(context, CompletedRoutinesPage());
-            Get.to(CompletedRoutinesPage());
+            Get.to(const CompletedRoutinesPage());
           },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),
@@ -105,7 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
             style: AppleFont22_Black,
           ),
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
-          trailing: Container(
+          trailing: SizedBox(
             width: 80.w,
             child: FlutterSwitch(
               width: 80.w,
@@ -134,7 +134,7 @@ class _SettingsPageState extends State<SettingsPage> {
             style: AppleFont22_Black,
           ),
           onTap: () {
-            kangmin(context, ServiceInfoPage());
+            kangmin(context, const ServiceInfoPage());
           },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),

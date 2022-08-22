@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:hem_routine_app/controllers/login_service.dart';
-import 'package:hem_routine_app/controllers/routine_off_controller.dart';
-import 'package:hem_routine_app/controllers/routine_detail_controller.dart';
-import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/app_state_controller.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/calendar/calendar.dart';
-import 'package:hem_routine_app/views/home.dart';
-import 'package:hem_routine_app/views/routine/routine_build.dart';
-import 'package:hem_routine_app/views/routine/routine_entity_setting.dart';
-import 'package:hem_routine_app/views/bottom_pop_up/routineLog.dart';
-import 'package:hem_routine_app/views/setting/routine_detail.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../../controllers/login_service.dart';
+import '../../controllers/routine_off_controller.dart';
+import '../../controllers/routine_on_controller.dart';
+import '../../controllers/app_state_controller.dart';
+import '../../utils/functions.dart';
+import '../home.dart';
+import 'routine_build.dart';
+import '../bottom_pop_up/routine_log.dart';
+import '../setting/routine_detail.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../widgets/widgets.dart';
@@ -119,7 +113,7 @@ class RoutinePage extends StatelessWidget {
                                     return SizedBox(
                                       width: 50.w,
                                       height: 50.h,
-                                      child: CircularProgressIndicator(),
+                                      child: const CircularProgressIndicator(),
                                     );
                                   } else {
                                     return SizedBox(
@@ -325,7 +319,7 @@ class RoutinePage extends StatelessWidget {
               ),
               leading: Padding(
                 padding: EdgeInsets.symmetric(vertical: 11.h),
-                child: Icon(Icons.menu),
+                child: const Icon(Icons.menu),
               ),
               contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
               horizontalTitleGap: 0,
@@ -386,7 +380,7 @@ class RoutinePage extends StatelessWidget {
                                 ),
                               ),
                             )
-                          : CircularProgressIndicator(),
+                          : const CircularProgressIndicator(),
                     );
                   }),
                 ],

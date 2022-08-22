@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-
 
 import '../widgets/widgets.dart';
-import '../controllers/routine_on_controller.dart';
 
 class WidgetTestPage extends StatefulWidget {
   const WidgetTestPage({Key? key}) : super(key: key);
@@ -18,8 +15,6 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
   
   @override
   Widget build(BuildContext context) {
-    RoutineOnController routineItemController = Get.put(RoutineOnController());
-    // RoutineOnController routineIController = Get.find();
     return Scaffold(
       appBar: AppBar(title: const Text('Widget Test')),
       body: Center(
@@ -79,7 +74,7 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
               const Text('CircularGuage'),
               Padding(
                 padding: REdgeInsets.all(8),
-                child: Container(
+                child: SizedBox(
                   height: 50,
                   child: circluarGuage(0.75),
                 ),
@@ -87,7 +82,7 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
               const Text('HalfCircularGuage'),
               Padding(
                 padding: REdgeInsets.all(8),
-                child: Container(
+                child: SizedBox(
                   height: 240,
                   child: halfCircluarGuage(0.75),
                 ),
@@ -95,7 +90,7 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
               const Text('AcheiveAlertDialog'),
               Padding(
                 padding: REdgeInsets.all(8),
-                child: achieveAlertDialog('\$\ 사용자', voidFunction),
+                child: achieveAlertDialog('\$ 사용자', voidFunction),
               ),
               const Text('RoutineStartAlertDialog'),
               Padding(
@@ -122,13 +117,5 @@ class _WidgetTestPageState extends State<WidgetTestPage> {
   dynamic dynamicFunction() {
     // dymanic function for lint
     return dynamic;
-  }
-
-  void testFuntion1() {
-    print("Test Function 1 Called!");
-  }
-
-  void testFuntion2() {
-    print("Test Function 2 Called!");
   }
 }

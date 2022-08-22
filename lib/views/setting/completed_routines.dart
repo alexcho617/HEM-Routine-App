@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/home.dart';
-import 'package:hem_routine_app/views/routine/routine_build.dart';
-import 'package:hem_routine_app/views/setting/routine_detail.dart';
-import 'package:hem_routine_app/views/setting/settings.dart';
-import '../../utils/colors.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/material.dart';
+
+import '../../utils/colors.dart';
+import '../../utils/functions.dart';
 import '../../widgets/widgets.dart';
 import '../../utils/constants.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../controllers/routine_completed_controller.dart';
+import '../routine/routine_build.dart';
+import 'routine_detail.dart';
 
 class CompletedRoutinesPage extends StatefulWidget {
   const CompletedRoutinesPage({Key? key}) : super(key: key);
@@ -35,12 +34,12 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                       foregroundColor: black,
                       centerTitle: false,
                       leading: IconButton(
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Get.back();
                         },
                       ),
-                      title: Text("내가 수행한 루틴"),
+                      title: const Text("내가 수행한 루틴"),
                     ),
                     SizedBox(
                       height: 170.h,
@@ -74,12 +73,12 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                       foregroundColor: black,
                       centerTitle: false,
                       leading: IconButton(
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         onPressed: () {
                           Get.back();
                         },
                       ),
-                      title: Text("내가 수행한 루틴"),
+                      title: const Text("내가 수행한 루틴"),
                     ),
                     Padding(
                       padding: EdgeInsets.all(20.r),

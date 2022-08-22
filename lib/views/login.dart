@@ -11,21 +11,18 @@ import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
-
-  
-  
   GoogleSignInAccount? googleCredential = null;
   LoginService service = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    print("This is build function in login page");
+    // print("This is build function in login page");
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login Page"),
+        title: const Text("Login Page"),
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -46,13 +43,13 @@ class LoginPage extends StatelessWidget {
               onPressed: () {
                 Get.to(HomePage());
               },
-              child: Text('bypass'),
+              child: const Text('bypass'),
             ),
             TextButton(
               onPressed: (() {
-                Get.to(WidgetTestPage());
+                Get.to(const WidgetTestPage());
               }),
-              child: Text('Widgets'),
+              child: const Text('Widgets'),
             ),
             Text('${service.auth.value.currentUser}')
           ],

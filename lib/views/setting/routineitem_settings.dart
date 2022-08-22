@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/custom_routine_item_contoller.dart';
-import 'package:hem_routine_app/controllers/routine_item_setting_controller.dart';
-import 'package:hem_routine_app/utils/colors.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/setting/custom_routine_item.dart';
 
+import '../../controllers/routine_item_setting_controller.dart';
+import '../../utils/colors.dart';
+import '../../utils/functions.dart';
 import '../../utils/constants.dart';
 import '../../widgets/widgets.dart';
 
@@ -114,7 +112,7 @@ class RoutineItemSettingsPage extends StatelessWidget {
                                   ? Column(
                                       children: [
                                         routineItem(index, context),
-                                        Container(
+                                        SizedBox(
                                           width: 348.w,
                                           height: 56.h,
                                           child: ElevatedButton(
@@ -203,7 +201,7 @@ class RoutineItemSettingsPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               side: pageController.customRoutineItems[index].isChecked
                   ? BorderSide(color: primary, width: 1)
-                  : BorderSide(color: Colors.transparent, width: 1),
+                  : const BorderSide(color: Colors.transparent, width: 1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: ListTile(
@@ -234,12 +232,12 @@ class RoutineItemSettingsPage extends StatelessWidget {
                     style: TextStyle(fontSize: 12.sp, color: primary),
                   ),
                   pageController.customRoutineItems[index].isCustom
-                      ? Container(
+                      ? SizedBox(
                           height: 41.h,
                           child: IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.settings_outlined)))
-                      : SizedBox.shrink()
+                              icon: const Icon(Icons.settings_outlined)))
+                      : const SizedBox.shrink()
                 ],
               ),
             ),

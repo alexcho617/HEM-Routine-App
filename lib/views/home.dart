@@ -1,13 +1,9 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:hem_routine_app/views/calendar/calendar.dart';
-import 'package:hem_routine_app/views/report/report.dart';
-import 'package:hem_routine_app/views/setting/settings.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
 
-import '../controllers/routine_on_controller.dart';
+import 'calendar/calendar.dart';
+import 'report/report.dart';
+import 'setting/settings.dart';
+import '../widgets/widgets.dart';
 import '../utils/colors.dart';
 import 'routine/routine.dart';
 
@@ -21,10 +17,10 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final _pages = [
-    Calendar(),
+    const Calendar(),
     RoutinePage(),
-    ReportPage(),
-    SettingsPage(),
+    const ReportPage(),
+    const SettingsPage(),
   ];
   static List<GlobalKey<NavigatorState>> navigatorKeyList =
       List.generate(4, (index) => GlobalKey<NavigatorState>());
@@ -68,7 +64,7 @@ class HomePageState extends State<HomePage>
           ),
         ),
         bottomNavigationBar: Container(
-          color: Color.fromRGBO(238, 240, 255, 1),
+          color: const Color.fromRGBO(238, 240, 255, 1),
           child: TabBar(
             controller: tabController,
             isScrollable: false,

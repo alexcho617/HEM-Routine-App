@@ -30,7 +30,7 @@ class _ReportPageState extends State<ReportPage> {
       padding: EdgeInsets.symmetric(horizontal: 12.0.w),
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 192.h,
             child: Column(
               children: [
@@ -54,7 +54,7 @@ class _ReportPageState extends State<ReportPage> {
                           onPressed: () async {
                             await _reportController.refreshData();
                           },
-                          icon: Icon(Icons.refresh))
+                          icon: const Icon(Icons.refresh))
                     ],
                   ),
                 ),
@@ -135,7 +135,7 @@ class _ReportPageState extends State<ReportPage> {
                     }),
                   ),
                 ),
-                Divider(
+                const Divider(
                   thickness: 2,
                 ),
               ],
@@ -143,14 +143,14 @@ class _ReportPageState extends State<ReportPage> {
           ),
           Obx(() {
             return _reportController.isLoading.value
-                ? Container(
+                ? SizedBox(
                     height: 100.h,
                     width: 100.w,
                     child: CircularProgressIndicator(
                       color: primary,
                     ),
                   )
-                : Container(
+                : SizedBox(
                     height: 530.h,
                     child: SingleChildScrollView(
                       child: Column(
@@ -189,7 +189,7 @@ class _ReportPageState extends State<ReportPage> {
                               ),
                             ],
                           ),
-                          Container(
+                          SizedBox(
                             width: 300.w,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -295,10 +295,10 @@ class _ReportPageState extends State<ReportPage> {
                             ],
                           ),
                           GetBuilder<ReportController>(builder: (context) {
-                            return BarGraph();
+                            return const BarGraph();
                           }),
 
-                          SizedBox(
+                          const SizedBox(
                             height: 24,
                           )
                         ],

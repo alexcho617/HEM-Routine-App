@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/custom_routine_item_contoller.dart';
-import 'package:hem_routine_app/controllers/routine_off_controller.dart';
-import 'package:hem_routine_app/utils/colors.dart';
-import 'package:hem_routine_app/utils/constants.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
+
+import '../../controllers/custom_routine_item_contoller.dart';
+import '../../utils/colors.dart';
+import '../../utils/constants.dart';
+import '../../utils/functions.dart';
+import '../../widgets/widgets.dart';
 
 class CustomRoutineItemPage extends StatelessWidget {
   //TODO: 일단 form으로 validation 하는 거 먼저 하자.
@@ -31,17 +29,17 @@ class CustomRoutineItemPage extends StatelessWidget {
               foregroundColor: Colors.black,
               centerTitle: false,
               leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   Get.delete<CustomRoutineItemController>();
                   Navigator.pop(context);
                 },
               ),
-              title: Text('루틴 항목 직접 만들기'),
+              title: const Text('루틴 항목 직접 만들기'),
               actions: [
                 IconButton(
                     padding: EdgeInsets.only(right: 21.h),
-                    icon: Icon(Icons.delete_outline),
+                    icon: const Icon(Icons.delete_outline),
                     onPressed: () {
                       showDialog(
                           context: context,
@@ -85,8 +83,8 @@ class CustomRoutineItemPage extends StatelessWidget {
                         decoration: InputDecoration(
                           suffixIcon: Obx(() => IconButton(
                                 icon: pageController.isValid[0]
-                                    ? Icon(Icons.cancel_outlined)
-                                    : Icon(
+                                    ? const Icon(Icons.cancel_outlined)
+                                    : const Icon(
                                         Icons.error,
                                         color: Colors.red,
                                       ),
@@ -121,8 +119,8 @@ class CustomRoutineItemPage extends StatelessWidget {
                         decoration: InputDecoration(
                           suffixIcon: Obx(() => IconButton(
                                 icon: pageController.isValid[1]
-                                    ? Icon(Icons.cancel_outlined)
-                                    : Icon(
+                                    ? const Icon(Icons.cancel_outlined)
+                                    : const Icon(
                                         Icons.error,
                                         color: Colors.red,
                                       ),
@@ -194,7 +192,7 @@ class CustomRoutineItemPage extends StatelessWidget {
   }
 
   Widget storeButton(VoidCallback? onPressed) {
-    return Container(
+    return SizedBox(
       width: 335.w,
       height: 48.h,
       child: ElevatedButton(
@@ -219,7 +217,7 @@ class CustomRoutineItemPage extends StatelessWidget {
       width: 335.w,
       height: 48.h,
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 212, 212, 212),
+        color: const Color.fromARGB(255, 212, 212, 212),
         borderRadius: BorderRadius.circular(8.r),
       ),
       child: Center(

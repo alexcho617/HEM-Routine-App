@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/routine_detail_controller.dart';
@@ -35,13 +37,13 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                     foregroundColor: Colors.black,
                     centerTitle: false,
                     leading: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: const Icon(Icons.arrow_back),
                       onPressed: () {
                         Get.delete<RoutineDetailController>();
                         Navigator.pop(context);
                       },
                     ),
-                    title: Text('루틴 상세보기'),
+                    title: const Text('루틴 상세보기'),
                     actions: [
                       IconButton(
                         onPressed: () {

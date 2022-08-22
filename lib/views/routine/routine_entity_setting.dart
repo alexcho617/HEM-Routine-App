@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: unnecessary_string_interpolations
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/routine_entity_controller.dart';
-import 'package:hem_routine_app/controllers/routine_off_controller.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../../controllers/routine_entity_controller.dart';
+import '../../controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:hem_routine_app/utils/colors.dart';
@@ -13,7 +14,6 @@ import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/bottom_pop_up/routine_item_add.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../utils/constants.dart';
 
@@ -68,7 +68,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
                             SizedBox(
                               height: 36.h,
                             ),
-                            Container(
+                            SizedBox(
                               height: 105.33.h,
                               width: 160.w,
                               child: Image.asset('assets/appIcon.png'),
@@ -87,7 +87,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
                             SizedBox(
                               height: 202.h,
                             ),
-                            Container(
+                            SizedBox(
                               width: 335.w,
                               height: 48.h,
                               child: ElevatedButton(
@@ -101,7 +101,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                   tapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
-                                  primary: Color.fromARGB(255, 212, 212, 212),
+                                  primary: const Color.fromARGB(255, 212, 212, 212),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.r),
                                   ),
@@ -122,11 +122,11 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                 SizedBox(
                                   width: 22.w,
                                 ),
-                                Text('루틴 항목 추가'),
+                                const Text('루틴 항목 추가'),
                               ],
                             ),
                             SingleChildScrollView(
-                                child: Container(
+                                child: SizedBox(
                               height: 347.h,
                               child:
                                   addRoutineItemList(routineEntityController),
@@ -239,7 +239,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
       foregroundColor: black,
       centerTitle: false,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.pop(context);
           Get.delete<RoutineEntityController>();
@@ -252,7 +252,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
 
   Widget storeRoutineButton(
       VoidCallback? onPressedBack, VoidCallback onPressedNext) {
-    return Container(
+    return SizedBox(
       width: 335.w,
       height: 48.h,
       child: Row(
@@ -268,7 +268,7 @@ class RoutineEntitySettingPage extends StatelessWidget {
   }
 
   Widget storeSmall(VoidCallback? onPressed) {
-    return Container(
+    return SizedBox(
       width: 204.w,
       height: 48.h,
       child: ElevatedButton(

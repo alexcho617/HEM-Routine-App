@@ -30,7 +30,7 @@ CalendarStyle kCalendarStyle = CalendarStyle(
   isTodayHighlighted: true,
   markerSizeScale: 1.0,
   markersAlignment: Alignment.center,
-  markerDecoration: BoxDecoration(
+  markerDecoration: const BoxDecoration(
     image: DecorationImage(
       image: AssetImage('assets/characterIconYellow.png'),
     ),
@@ -42,7 +42,7 @@ CalendarStyle kCalendarStyle = CalendarStyle(
     shape: BoxShape.rectangle,
     borderRadius: BorderRadius.circular(5.0),
   ),
-  selectedTextStyle: TextStyle(color: Colors.white),
+  selectedTextStyle: const TextStyle(color: Colors.white),
   todayDecoration: BoxDecoration(
     color: Colors.purpleAccent,
     shape: BoxShape.rectangle,
@@ -216,10 +216,10 @@ Widget calendarAlertDialog(CalendarEvent event, VoidCallback? onPressed) {
         borderRadius: BorderRadius.all(
       Radius.circular(20.r),
     )),
-    insetPadding: EdgeInsets.all(0),
-    titlePadding: EdgeInsets.all(0),
-    actionsPadding: EdgeInsets.all(0),
-    contentPadding: EdgeInsets.all(0),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
     content: SizedBox(
       height: 470.h,
       child: Column(children: [
@@ -332,7 +332,6 @@ Widget calendarAlertDialog(CalendarEvent event, VoidCallback? onPressed) {
 }
 
 String parseCalendarMessage(CalendarEvent event) {
-  String user = loginService.name.value;
   if ((event.type == '0') && (event.hardness == '9')) {
     return "속이 많이 좋지 않으신 것 같아요. 😨";
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hem_routine_app/widgets/widgets.dart';
+
+import '../../widgets/widgets.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
-import '../../utils/functions.dart';
 
 class ServiceInfoPage extends StatefulWidget {
   const ServiceInfoPage({Key? key}) : super(key: key);

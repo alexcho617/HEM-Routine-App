@@ -6,17 +6,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
 import 'controllers/login_service.dart';
 import 'controllers/app_state_controller.dart';
 import 'firebase_options.dart';
 import 'utils/colors.dart';
 import 'views/routine/routine_build.dart';
 import 'views/routine/routine_entity_setting.dart';
-import 'views/bottom_pop_up/routineLog.dart';
+import 'views/bottom_pop_up/routine_log.dart';
 import 'views/home.dart';
 import 'views/login.dart';
-import 'views/onBoarding.dart';
+import 'views/on_boarding.dart';
 import 'views/routine/routine.dart';
 import 'views/setting/account_settings.dart';
 import 'views/setting/settings.dart';
@@ -51,7 +50,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(AppStateController());
-    
+
     return ScreenUtilInit(
         designSize: const Size(390, 844),
         minTextAdapt: true,
@@ -76,8 +75,7 @@ class MyApp extends StatelessWidget {
               '/splash': (context) => SplashScreen(),
               '/login': (context) => LoginPage(),
               '/widgetTest': (context) => WidgetTestPage(),
-              '/onBoarding': (context) => onBoardingPage(),
-              '/test': (context) => App(),
+              '/onBoarding': (context) => OnBoardingPage(),
               '/routine': (context) => RoutinePage(),
               '/bottomSheet': (context) => RoutineLogPage(),
               '/routineBuild': (context) => RoutineBuildPage(),

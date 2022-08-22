@@ -60,7 +60,7 @@ class RoutineItemAddPage extends StatelessWidget {
                           return Column(
                             children: [
                               routineItem(index, context),
-                              Container(
+                              SizedBox(
                                 width: 348.w,
                                 height: 56.h,
                                 child: ElevatedButton(
@@ -177,13 +177,13 @@ class RoutineItemAddPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 side: pageController.routineItems[index].isChecked
                     ? BorderSide(color: primary, width: 1)
-                    : BorderSide(color: Colors.transparent, width: 1),
+                    : const BorderSide(color: Colors.transparent, width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ListTile(
                 leading: Checkbox(
                   //2
-                  side: BorderSide(color: Colors.black, width: 0.5),
+                  side: const BorderSide(color: Colors.black, width: 0.5),
                   value: pageController.routineItems[index].isChecked,
                   onChanged: (value) {
                     if (pageController.routineItems[index].isChecked) {
@@ -222,7 +222,7 @@ class RoutineItemAddPage extends StatelessWidget {
                       style: TextStyle(fontSize: 12.sp, color: primary),
                     ),
                     pageController.routineItems[index].isCustom
-                        ? Container(
+                        ? SizedBox(
                             height: 41.h,
                             child: IconButton(
                                 onPressed: () {
@@ -237,8 +237,8 @@ class RoutineItemAddPage extends StatelessWidget {
                                               HomePageState.currentIndex]
                                           .currentContext);
                                 },
-                                icon: Icon(Icons.settings_outlined)))
-                        : SizedBox.shrink()
+                                icon: const Icon(Icons.settings_outlined)))
+                        : const SizedBox.shrink()
                   ],
                 ),
               ),
@@ -272,14 +272,14 @@ class RoutineItemAddPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               side: pageController.routineItems[index].isChecked
                   ? BorderSide(color: primary, width: 1)
-                  : BorderSide(
+                  : const BorderSide(
                       color: Color.fromARGB(0, 202, 130, 130), width: 1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: ListTile(
               leading: Checkbox(
                 //2
-                side: BorderSide(color: Colors.black, width: 0.5),
+                side: const BorderSide(color: Colors.black, width: 0.5),
                 value: pageController.routineItems[index].isChecked,
                 onChanged: (value) {
                   if (pageController.routineItems[index].isChecked) {
@@ -318,7 +318,7 @@ class RoutineItemAddPage extends StatelessWidget {
                     style: TextStyle(fontSize: 12.sp, color: primary),
                   ),
                   pageController.routineItems[index].isCustom
-                      ? Container(
+                      ? SizedBox(
                           height: 41.h,
                           child: IconButton(
                               onPressed: () {
@@ -333,8 +333,8 @@ class RoutineItemAddPage extends StatelessWidget {
                                             HomePageState.currentIndex]
                                         .currentContext);
                               },
-                              icon: Icon(Icons.settings_outlined)))
-                      : SizedBox.shrink()
+                              icon: const Icon(Icons.settings_outlined)))
+                      : const SizedBox.shrink()
                 ],
               ),
             ),
@@ -342,12 +342,12 @@ class RoutineItemAddPage extends StatelessWidget {
         ),
       );
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 
   Widget routineAdd(int number, context) {
-    return Container(
+    return SizedBox(
       width: 200.w,
       height: 48.h,
       child: ElevatedButton(
@@ -387,15 +387,15 @@ class RoutineItemAddPage extends StatelessWidget {
           borderRadius: BorderRadius.all(
         Radius.circular(20.r),
       )),
-      insetPadding: EdgeInsets.all(0),
-      titlePadding: EdgeInsets.all(0),
-      actionsPadding: EdgeInsets.all(0),
-      contentPadding: EdgeInsets.all(0),
-      content: Container(
+      insetPadding: const EdgeInsets.all(0),
+      titlePadding: const EdgeInsets.all(0),
+      actionsPadding: const EdgeInsets.all(0),
+      contentPadding: const EdgeInsets.all(0),
+      content: SizedBox(
         width: 312.w,
         height: 176.h,
         child: Column(children: [
-          Container(
+          SizedBox(
             width: 312.w,
             height: 120.h,
             child: Center(
