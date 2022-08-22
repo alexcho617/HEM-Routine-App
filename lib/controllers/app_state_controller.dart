@@ -43,14 +43,18 @@ class AppStateController extends GetxController {
 
   @override
   void onInit() async {
-    if (loginService.auth.value.currentUser != null) {
-      uid = loginService.auth.value.currentUser!.uid;
-      await isRoutineActive();
-      await isUserHaveRated();
+    try {
+      if (loginService.auth.value.currentUser != null) {
+        uid = loginService.auth.value.currentUser!.uid;
+        await isRoutineActive();
+        await isUserHaveRated();
+      }
+    } finally {
+      if (!isRated) {
+        await fetchRateRoutine();
+      }
     }
-    if (!isRated) {
-      await fetchRateRoutine();
-    }
+
     super.onInit();
   }
 
@@ -76,7 +80,7 @@ class AppStateController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) async {
       //check isRated
       isRated = await documentSnapshot.get('isRated');
-      if (!isRated) {
+      if (isRated == false) {
         rateRoutineId = documentSnapshot.get('rateRoutineId');
         rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
       }
@@ -140,6 +144,32 @@ class AppStateController extends GetxController {
         .doc(rateRoutineHistoryId)
         .update({
       'rating': rank.value,
+    });
+    await setAverageRating();
+  }
+
+  Future<void> setAverageRating() async {
+    double avgRating = 0.0;
+    await firestore
+        .collection('user')
+        .doc(uid)
+        .collection('routine')
+        .doc(rateRoutineId)
+        .collection('routineHistory')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        avgRating += doc.get('rating');
+      });
+      avgRating /= querySnapshot.size;
+    });
+    await firestore
+        .collection('user')
+        .doc(uid)
+        .collection('routine')
+        .doc(rateRoutineId)
+        .update({
+      'averageRating': avgRating,
     });
   }
 

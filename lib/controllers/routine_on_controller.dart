@@ -82,7 +82,9 @@ class RoutineOnController extends GetxController {
     }
   }
 
-  Future<dynamic> getRoutineData() async {
+  Future<DocumentSnapshot?> getRoutineData() async {
+    // routineDocumentSnapshot null 일 경우 처리??
+    DocumentSnapshot? documentSnapshot;
     await FirebaseFirestore.instance
         .collection('user')
         .doc(uid)
@@ -91,10 +93,11 @@ class RoutineOnController extends GetxController {
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
-        routineDocumentSnapshot = doc;
+        // routineDocumentSnapshot = doc;
+        documentSnapshot = doc;
       });
     });
-    return routineDocumentSnapshot;
+    return documentSnapshot;
   }
 
   Future<DocumentSnapshot> getRoutineHistoryData() async {
@@ -424,7 +427,7 @@ class RoutineOnController extends GetxController {
     appStateController.rateRoutineId = routineDocumentSnapshot!.id;
     appStateController.rateRoutineHistoryId = routineHistoryDocumentSnapshot.id;
     FirebaseFirestore.instance.collection('user').doc(uid).update({
-      'isRated' : false,
+      'isRated': false,
       'rateRoutineId': routineDocumentSnapshot!.id,
       'rateRoutineHistoryId': routineHistoryDocumentSnapshot.id,
     });
