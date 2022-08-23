@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/calendar_controller.dart';
+import 'package:hem_routine_app/controllers/report_controller.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/setting/profile_settings.dart';
@@ -50,6 +52,40 @@ class AccountSettingsPage extends StatelessWidget {
               bottom: BorderSide(width: 0.8.w, color: grey500),
             ),
           ),
+// <<<<<<< HEAD
+        //   onTap: () {
+        //     kangmin(context, ProfileSettingsPage());
+        //   },
+        //   shape: Border(
+        //     bottom: BorderSide(width: 0.8.w, color: grey500),
+        //   ),
+        // ),
+        // ListTile(
+        //   leading: Icon(
+        //     Icons.logout,
+        //     size: 28.r,
+        //     color: black,
+        //   ),
+        //   title: Text(
+        //     '로그아웃',
+        //     style: AppleFont22_Black,
+        //   ),
+        //   onTap: (() {
+        //     showDialog(
+        //         context: context,
+        //         builder: ((context) {
+        //           return signOutAlertDialog(() async {
+        //             Get.back();
+        //           }, () {
+        //             //TODO: 로그아웃 시 컨트롤러 없애기.
+        //             loginService.signOut();
+        //             // ReportController _reportController = Get.find();
+        //             // _reportController.onClose(() {
+        //             //   print();
+        //             // });
+        //             // CalendarController _calendarController = Get.find();
+        //             // _calendarController.dispose();
+// =======
           ListTile(
             leading: Icon(
               Icons.logout,
@@ -68,6 +104,7 @@ class AccountSettingsPage extends StatelessWidget {
                       Get.back();
                     }, () {
                       loginService.signOut();
+// >>>>>>> 3d750ca0523deb2ee882362817014287392bdc86
 
                       Get.offAll(() => SplashScreen());
                     });

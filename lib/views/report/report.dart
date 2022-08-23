@@ -43,13 +43,15 @@ class _ReportPageState extends State<ReportPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RichText(
-                        text: TextSpan(
-                          text: '${_loginService.name}님의 리포트',
-                          style: AppleFont24_Black,
-                        ),
-                        overflow: TextOverflow.clip,
-                      ),
+                      Obx(() {
+                        return RichText(
+                          text: TextSpan(
+                            text: '${_loginService.name}님의 리포트',
+                            style: AppleFont24_Black,
+                          ),
+                          overflow: TextOverflow.clip,
+                        );
+                      }),
                       IconButton(
                           onPressed: () async {
                             await _reportController.refreshData();

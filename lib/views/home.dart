@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/report_controller.dart';
 
+import '../controllers/calendar_controller.dart';
 import 'calendar/calendar.dart';
 import 'report/report.dart';
 import 'setting/settings.dart';
@@ -43,6 +46,11 @@ class HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    Get.put(CalendarController());
+    Get.put(ReportController());
+    // Get.put(CalendarController());
+
+
     return WillPopScope(
       onWillPop: () async {
         return !(await navigatorKeyList[currentIndex].currentState!.maybePop());
