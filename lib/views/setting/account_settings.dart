@@ -95,7 +95,7 @@ class AccountSettingsPage extends StatelessWidget {
                       Get.back();
                     }, () {
                       loginService.deleteUser();
-                      Get.offAll(HomePage());
+                      Get.offAll(() => SplashScreen());
                     });
                   }));
             },
