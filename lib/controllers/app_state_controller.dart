@@ -77,8 +77,10 @@ class AppStateController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) async {
       //check isRated
       isRated = await documentSnapshot.get('isRated');
-      rateRoutineId = documentSnapshot.get('rateRoutineId');
-      rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
+      if (isRated == false) {
+        rateRoutineId = documentSnapshot.get('rateRoutineId');
+        rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
+      }
     }).then((value) async {
       if (isRated == false) {
         await fetchRateRoutine();
