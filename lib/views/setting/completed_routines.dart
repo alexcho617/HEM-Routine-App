@@ -60,6 +60,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                     ),
                     makeMyRoutineButton(() {
                       //나만의 쾌변 루틴 만들기
+                      Get.back();
                       yechan(context, 1, RoutineBuildPage());
                     })
                   ],
