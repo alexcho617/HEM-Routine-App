@@ -39,8 +39,6 @@ class LoginService extends GetxController {
         .get();
   }
 
-  
-
   Future<void> signInwithGoogle() async {
     googleCredential = await GoogleSignIn(
       scopes: [
@@ -78,7 +76,9 @@ class LoginService extends GetxController {
       addUserDocument();
     }
 
+    Get.find<AppStateController>().uid = auth.value.currentUser!.uid;
     Get.find<AppStateController>().isRoutineActive();
+    Get.find<AppStateController>().isUserHaveRated();
   }
 
   Future<void> signOut() async {
