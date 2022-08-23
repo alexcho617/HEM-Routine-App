@@ -32,6 +32,8 @@ class AppStateController extends GetxController {
   dynamic rateRoutineHistoryEndDate;
   dynamic rateRoutineHistoryComplete;
 
+  dynamic complete = 0.0.obs;
+
   String getLatestCalendarMessage() {
     CalendarEvent? latestEvent =
         Get.find<CalendarController>().getLatestCalendarEvent();
@@ -76,10 +78,8 @@ class AppStateController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) async {
       //check isRated
       isRated = await documentSnapshot.get('isRated');
-      
-        rateRoutineId = documentSnapshot.get('rateRoutineId');
-        rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
-      
+      rateRoutineId = documentSnapshot.get('rateRoutineId');
+      rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
     });
   }
 
@@ -116,7 +116,7 @@ class AppStateController extends GetxController {
     });
   }
 
-  void showRatingScreen(BuildContext context) {
+  Future<void> showRatingScreen(BuildContext context) async {
     if (!isRated) {
       showDialog(
         context: context,
@@ -256,7 +256,8 @@ class AppStateController extends GetxController {
           SizedBox(
             height: 12.h,
           ),
-          Text("수행기간: $rateRoutineDays일 | 평균 달성도: $rateRoutineHistoryComplete%",
+          Text(
+              "수행기간: $rateRoutineDays일 | 평균 달성도: ${(complete.value * 100).toStringAsFixed(0)}%",
               style: AppleFont16_Black),
           SizedBox(
             height: 20.h,

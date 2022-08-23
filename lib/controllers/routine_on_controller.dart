@@ -183,7 +183,7 @@ class RoutineOnController extends GetxController {
     return percent;
   }
 
-  double getAvgPercent() {
+  double getAvgPercentDay() {
     double avg = 0.0;
     if (goals.value.isEmpty || goals == null || goals.value == null) return avg;
     for (int i = 0; i < goals.value.length; i++) {
@@ -245,7 +245,7 @@ class RoutineOnController extends GetxController {
   }
 
   Future<void> getAvgPercents() async {
-    dayCompletes.value[selectedDayIndex.value] = getAvgPercent();
+    dayCompletes.value[selectedDayIndex.value] = getAvgPercentDay();
   }
 
   Future<void> dayComplete() async {
@@ -418,10 +418,21 @@ class RoutineOnController extends GetxController {
 
   Future<void> offRoutineNotToday() async {
     // print("function: offRoutineNotToday called");
-    routineDeactivate();
-    routineHistoryDeactivate();
+    await setRoutineHistoryComplete();
+
+    await routineDeactivate();
+    await routineHistoryDeactivate();
     isRatedChecker();
     routineOff();
+  }
+
+  Future<double> setRoutineHistoryComplete() async {
+    double completeTemp = getAvgPercentRoutineHistory();
+    Get.find<AppStateController>().complete.value = completeTemp;
+    await routineHistoryDocumentSnapshot.reference.update({
+      'complete': completeTemp,
+    });
+    return completeTemp;
   }
 
   Future<void> isRatedChecker() async {
@@ -516,5 +527,14 @@ class RoutineOnController extends GetxController {
 
   void routineOff() {
     appStateController.status.value = false;
+  }
+
+  double getAvgPercentRoutineHistory() {
+    double avg = 0.0;
+    for (int i = 0; i < days.value; i++) {
+      avg += dayCompletes[i];
+    }
+    avg /= days.value;
+    return avg;
   }
 }

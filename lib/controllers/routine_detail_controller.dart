@@ -132,6 +132,13 @@ class RoutineDetailController extends GetxController {
         }
       }
       newRoutineHistoryDocumentId = routineHistoryDoc.id;
+      await FirebaseFirestore.instance
+          .collection('user')
+          .doc(loginService.auth.value.currentUser!.uid)
+          .update({
+            'rateRoutineId' : id,
+            'rateRoutineHistoryId' : newRoutineHistoryDocumentId,
+          });
       await routineSnapshot.reference.update({'isActive': true});
       Get.find<AppStateController>().status.value = true;
     });
@@ -166,7 +173,12 @@ class RoutineDetailController extends GetxController {
 
     await addRoutineHistory();
     await addCalendarRoutine();
+     
     await Get.find<RoutineOnController>().getData();
+
+    await Get.find<AppStateController>().isUserHaveRated();
+    await Get.find<AppStateController>().fetchRateRoutine();
+    await Get.find<AppStateController>().setIsRatedTrue();
 
     Get.back();
   }

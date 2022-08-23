@@ -22,7 +22,8 @@ class RoutineEntityController extends GetxController {
 
   List<TextEditingController> inputControllers = <TextEditingController>[];
   DateTime now = DateTime.now();
-  String uid = '';
+  String routineId = '';
+  String routineHistoryId = '';
 
   void buildRoutineEntities() {
     RoutineOffController controller = Get.find();
@@ -62,7 +63,7 @@ class RoutineEntityController extends GetxController {
     }).then((DocumentReference routineDoc) async {
       // print(routineDoc.id);
 
-      uid = routineDoc.id;
+      routineId = routineDoc.id;
     });
     return false;
   }
@@ -81,11 +82,11 @@ class RoutineEntityController extends GetxController {
 
     await controller.firestore
         .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
-        .doc(uid)
+        .doc(routineId)
         .update({'isActive': true});
     await controller.firestore
         .collection(
-            'user/${loginService.auth.value.currentUser!.uid}/routine/$uid/routineHistory')
+            'user/${loginService.auth.value.currentUser!.uid}/routine/$routineId/routineHistory')
         .add({
       'routineItem': routineItems,
       'complete': 0,
@@ -97,8 +98,8 @@ class RoutineEntityController extends GetxController {
       'rating': 0,
       'goals': routineGoalCount,
     }).then((DocumentReference routineHistoryDoc) async {
+      routineHistoryId = routineHistoryDoc.id;
       //start alex calenderRoutine
-
       await controller.firestore //add calendar routine doc
           .collection(
               'user/${loginService.auth.value.currentUser!.uid}/calendarRoutine')
@@ -123,7 +124,7 @@ class RoutineEntityController extends GetxController {
         // print('Executed!');
         await controller.firestore
             .collection(
-                'user/${loginService.auth.value.currentUser!.uid}/routine/$uid/routineHistory/${routineHistoryDoc.id}/days')
+                'user/${loginService.auth.value.currentUser!.uid}/routine/$routineId/routineHistory/${routineHistoryDoc.id}/days')
             .doc('$i')
             .set({
           'dayComplete': 0.0,
@@ -133,7 +134,7 @@ class RoutineEntityController extends GetxController {
           // print('Executed2');
           await controller.firestore
               .collection(
-                  'user/${loginService.auth.value.currentUser!.uid}/routine/$uid/routineHistory/${routineHistoryDoc.id}/days/$i/routineItemHistory')
+                  'user/${loginService.auth.value.currentUser!.uid}/routine/$routineId/routineHistory/${routineHistoryDoc.id}/days/$i/routineItemHistory')
               .add({
             'currentCount': 0,
             'goal': routineGoalCount[j],
@@ -142,6 +143,13 @@ class RoutineEntityController extends GetxController {
           });
         }
       }
+      await controller.firestore
+          .collection('user')
+          .doc(loginService.auth.value.currentUser!.uid)
+          .update({
+            'rateRoutineId' : routineId,
+            'rateRoutineHistoryId' : routineHistoryId,
+          });
     });
 
     Get.find<RoutineOnController>().getData();

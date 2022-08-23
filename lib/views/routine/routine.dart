@@ -67,7 +67,7 @@ class RoutinePage extends StatelessWidget {
                               // NOT Today
                               await onController.offRoutineNotToday();
                               Navigator.pop(context);
-                              appStateController.showRatingScreen(context);
+                              await appStateController.showRatingScreen(context);
                             }
                           });
                         }));
@@ -78,6 +78,7 @@ class RoutinePage extends StatelessWidget {
           ),
           appStateController.status.value
               ? //WHEN ON
+              onController.selectedDayIndex.value!= -99 ?
               Column(
                   children: [
                     SizedBox(
@@ -152,6 +153,7 @@ class RoutinePage extends StatelessWidget {
                     ),
                   ],
                 )
+                : CircularProgressIndicator()
               : // WHEN OFF
               Column(
                   children: [
