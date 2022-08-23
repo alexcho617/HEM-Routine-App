@@ -1604,6 +1604,70 @@ Widget routineRestartAlertDialog(
   );
 }
 
+Widget routineInProgressAlertDialog(VoidCallback? onPressedCancel) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
+    content: ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 203.h),
+      child: Column(children: [
+        SizedBox(
+          width: 312.w,
+          height: 147.h,
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(12.r),
+                child: Text(
+                  "루틴 진행중",
+                  style: AppleFont16_BlackBold,
+                ),
+              ),
+              Text(
+                '현재 다른 루틴을 진행 중입니다.\n',
+                style: AppleFont16_Black,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          )),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              onTap: onPressedCancel,
+              child: Ink(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                    bottomRight: Radius.circular(20.r),
+                  ),
+                  color: grey500,
+                ),
+                height: 56.h,
+                width: 312.w,
+                child: Center(
+                    child: Text(
+                  '뒤로가기',
+                  style: AppleFont16_Black,
+                )),
+              ),
+            ),
+          ],
+        )
+      ]),
+    ),
+  );
+}
+
 Widget routineDeleteAlertDialog(
     VoidCallback? onPressedCancel, VoidCallback? onPressedDelete) {
   return AlertDialog(

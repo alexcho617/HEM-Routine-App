@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import '../../controllers/routine_detail_controller.dart';
 import '../../utils/constants.dart';
 import '../../utils/functions.dart';
@@ -209,9 +210,17 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
               },
               () {
                 // 루틴 다시 도전!
+                AppStateController _appStateController = Get.find();
+
                 showDialog(
                   context: context,
                   builder: ((context) {
+                    if (_appStateController.status.value == true) {
+                      return routineInProgressAlertDialog(() {
+                        //취소
+                        Get.back();
+                      });
+                    }
                     return routineRestartAlertDialog(() {
                       //취소
                       Get.back();
