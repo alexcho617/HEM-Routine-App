@@ -147,8 +147,9 @@ class RoutineEntityController extends GetxController {
     Get.find<RoutineOnController>().getData();
     Get.find<RoutineOffController>().getRoutineList();
 
-    Get.find<AppStateController>().fetchRateRoutine();
-    Get.find<AppStateController>().setIsRatedTrue();
+    await Get.find<AppStateController>().isUserHaveRated();
+    await Get.find<AppStateController>().fetchRateRoutine();
+    await Get.find<AppStateController>().setIsRatedTrue();
   }
 
   void deleteRoutineEntities(int index) {

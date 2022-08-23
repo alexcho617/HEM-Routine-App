@@ -49,9 +49,8 @@ class AppStateController extends GetxController {
       await isRoutineActive();
       await isUserHaveRated();
     }
-    if (isRated == false) {
-      await fetchRateRoutine();
-    }
+    await fetchRateRoutine();
+
     super.onInit();
   }
 
@@ -77,10 +76,10 @@ class AppStateController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) async {
       //check isRated
       isRated = await documentSnapshot.get('isRated');
-      if (isRated == false) {
+      
         rateRoutineId = documentSnapshot.get('rateRoutineId');
         rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
-      }
+      
     });
   }
 
@@ -102,7 +101,6 @@ class AppStateController extends GetxController {
       rateRoutineName = documentSnapshot.get('name');
       rateRoutineDays = documentSnapshot.get('days');
     });
-    //TODO : rateRoutineHistoryStartDate를 못 받아옴
     await firestore
         .collection('user')
         .doc(uid)
