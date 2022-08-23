@@ -83,8 +83,6 @@ class MyApp extends StatelessWidget {
               '/routineEntrySetting': (context) => RoutineEntitySettingPage(),
               '/profileSettings': (context) => ProfileSettingsPage(),
               '/completedRoutines': (context) => CompletedRoutinesPage(),
-
-              // '/test1' : (context) => MyStatefulWidget(),
             },
           );
         });

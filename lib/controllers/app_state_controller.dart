@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
+import 'package:hem_routine_app/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
@@ -43,18 +44,14 @@ class AppStateController extends GetxController {
 
   @override
   void onInit() async {
-    try {
-      if (loginService.auth.value.currentUser != null) {
-        uid = loginService.auth.value.currentUser!.uid;
-        await isRoutineActive();
-        await isUserHaveRated();
-      }
-    } finally {
-      if (!isRated) {
-        await fetchRateRoutine();
-      }
+    if (loginService.auth.value.currentUser != null) {
+      uid = loginService.auth.value.currentUser!.uid;
+      await isRoutineActive();
+      await isUserHaveRated();
     }
-
+    if (isRated == false) {
+      await fetchRateRoutine();
+    }
     super.onInit();
   }
 
@@ -87,6 +84,13 @@ class AppStateController extends GetxController {
     });
   }
 
+  Future<void> setIsRatedTrue() async {
+    isRated = true;
+    await firestore.collection('user').doc(uid).update({
+      'isRated': true,
+    });
+  }
+
   Future<void> fetchRateRoutine() async {
     await firestore
         .collection('user')
@@ -98,6 +102,7 @@ class AppStateController extends GetxController {
       rateRoutineName = documentSnapshot.get('name');
       rateRoutineDays = documentSnapshot.get('days');
     });
+    //TODO : rateRoutineHistoryStartDate를 못 받아옴
     await firestore
         .collection('user')
         .doc(uid)
@@ -123,6 +128,14 @@ class AppStateController extends GetxController {
             // print("selected rank : ${rank.value}");
             rankRoutineHistory();
             Navigator.pop(context);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  // 피드백 정상적 제출 Alert
+                  return feedbackAlertDialog(() {
+                    Navigator.pop(context);
+                  });
+                });
           });
         }),
       );

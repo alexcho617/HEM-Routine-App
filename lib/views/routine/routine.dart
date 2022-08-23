@@ -142,7 +142,7 @@ class RoutinePage extends StatelessWidget {
                             );
                           },
                           child:
-                              halfCircluarGuage(onController.getAvgPercent()),
+                              halfCircluarGuage(onController.dayCompletes[onController.selectedDayIndex.value]),
                         ),
                       ],
                     ),

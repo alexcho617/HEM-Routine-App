@@ -1845,3 +1845,50 @@ Widget routineStopAlertDialog(
     ),
   );
 }
+
+Widget feedbackAlertDialog(VoidCallback? onPressed) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+      Radius.circular(20.r),
+    )),
+    insetPadding: const EdgeInsets.all(0),
+    titlePadding: const EdgeInsets.all(0),
+    actionsPadding: const EdgeInsets.all(0),
+    contentPadding: const EdgeInsets.all(0),
+    content: SizedBox(
+      height: 176.h,
+      child: Column(children: [
+        SizedBox(
+          width: 312.w,
+          height: 120.h,
+          child: Center(
+              child: Text(
+            '피드백이 정상적으로\n제출 되었습니다.',
+            style: AppleFont16_Black,
+            textAlign: TextAlign.center,
+          )),
+        ),
+        InkWell(
+          onTap: onPressed,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(20.r),
+              ),
+              color: primary,
+            ),
+            width: 312.w,
+            height: 56.h,
+            child: Center(
+              child: Text(
+                '확인',
+                style: AppleFont16_White,
+              ),
+            ),
+          ),
+        )
+      ]),
+    ),
+  );
+}
