@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/calendar_controller.dart';
 import 'package:hem_routine_app/controllers/login_service.dart';
 import 'package:hem_routine_app/controllers/routine_off_controller.dart';
@@ -145,6 +146,10 @@ class RoutineEntityController extends GetxController {
 
     Get.find<RoutineOnController>().getData();
     Get.find<RoutineOffController>().getRoutineList();
+
+    await Get.find<AppStateController>().isUserHaveRated();
+    await Get.find<AppStateController>().fetchRateRoutine();
+    await Get.find<AppStateController>().setIsRatedTrue();
   }
 
   void deleteRoutineEntities(int index) {
@@ -177,7 +182,8 @@ class RoutineEntityController extends GetxController {
   bool validateGoalCount() {
     bool result = true;
     for (int i = 0; i < routineEntities.length; i++) {
-      if (inputControllers[i].text.isEmpty || int.parse(inputControllers[i].text) > 20) {
+      if (inputControllers[i].text.isEmpty ||
+          int.parse(inputControllers[i].text) > 20) {
         // print('false');
         inputControllers[i].clear();
         result = false;

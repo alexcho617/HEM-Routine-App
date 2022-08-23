@@ -235,9 +235,11 @@ class RoutineOnController extends GetxController {
         });
       });
     });
-
+    await getDayCompletes();
     await getAvgPercents();
     await dayComplete();
+
+    update();
 
     isFinished.value = true;
   }

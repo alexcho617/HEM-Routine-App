@@ -142,7 +142,11 @@ class RoutinePage extends StatelessWidget {
                             );
                           },
                           child:
-                              halfCircluarGuage(onController.getAvgPercent()),
+                              GetBuilder<RoutineOnController>(
+                                builder: (context) {
+                                  return halfCircluarGuage(onController.dayCompletes[onController.selectedDayIndex.value]);
+                                }
+                              ),
                         ),
                       ],
                     ),
@@ -367,20 +371,24 @@ class RoutinePage extends StatelessWidget {
                       width: 34.w,
                       height: 34.h,
                       child: onController.isFinished.value
-                          ? InkWell(
-                              onTap: () async {
-                                return onController.onPlusPressed(index);
-                              },
-                              child: Ink(
-                                child: CircleAvatar(
-                                  backgroundColor: blue600,
-                                  child: Icon(
-                                    Icons.add,
-                                    color: grey50,
+                          ? GetBuilder<RoutineOnController>(
+                            builder: (context) {
+                              return InkWell(
+                                  onTap: () async {
+                                    return onController.onPlusPressed(index);
+                                  },
+                                  child: Ink(
+                                    child: CircleAvatar(
+                                      backgroundColor: blue600,
+                                      child: Icon(
+                                        Icons.add,
+                                        color: grey50,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            )
+                                );
+                            }
+                          )
                           : const CircularProgressIndicator(),
                     );
                   }),
