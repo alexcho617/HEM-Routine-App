@@ -227,9 +227,10 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                     }, () {
                       // 루틴 시작
                       Get.back();
-                      controller.fetchData(context);
-
+                      Get.back();
+                      Get.back();
                       yechan(context, 1, RoutinePage());
+                      controller.fetchData(context);
                     });
                   }),
                 );

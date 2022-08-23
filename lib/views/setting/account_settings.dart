@@ -16,111 +16,126 @@ class AccountSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        customAppBar(context, '계정 설정'),
-        ListTile(
-          leading: Icon(
-            Icons.person,
-            size: 28.r,
-            color: black,
+    return Scaffold(
+      body: ListView(
+        children: [
+          AppBar(
+            elevation: 0,
+            backgroundColor: background,
+            foregroundColor: black,
+            centerTitle: false,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+            title: const Text("계정 설정"),
           ),
-          title: Text(
-            '프로필 설정',
-            style: AppleFont22_Black,
+          ListTile(
+            leading: Icon(
+              Icons.person,
+              size: 28.r,
+              color: black,
+            ),
+            title: Text(
+              '프로필 설정',
+              style: AppleFont22_Black,
+            ),
+            onTap: () {
+              // kangmin(context, ProfileSettingsPage());
+              Get.to(ProfileSettingsPage());
+            },
+            shape: Border(
+              bottom: BorderSide(width: 0.8.w, color: grey500),
+            ),
           ),
-          onTap: () {
-            kangmin(context, ProfileSettingsPage());
-          },
-          shape: Border(
-            bottom: BorderSide(width: 0.8.w, color: grey500),
-          ),
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.logout,
-            size: 28.r,
-            color: black,
-          ),
-          title: Text(
-            '로그아웃',
-            style: AppleFont22_Black,
-          ),
-          onTap: (() {
-            showDialog(
-                context: context,
-                builder: ((context) {
-                  return signOutAlertDialog(() async {
-                    Get.back();
-                  }, () {
-                    loginService.signOut();
+          ListTile(
+            leading: Icon(
+              Icons.logout,
+              size: 28.r,
+              color: black,
+            ),
+            title: Text(
+              '로그아웃',
+              style: AppleFont22_Black,
+            ),
+            onTap: (() {
+              showDialog(
+                  context: context,
+                  builder: ((context) {
+                    return signOutAlertDialog(() async {
+                      Get.back();
+                    }, () {
+                      loginService.signOut();
 
-                    Get.offAll(() => SplashScreen());
-                  });
-                }));
-          }),
-          shape: Border(
-            bottom: BorderSide(width: 0.8.w, color: grey500),
-          ),
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.settings_backup_restore,
-            size: 28.r,
-            color: black,
-          ),
-          title: Text(
-            '데이터 초기화',
-            style: AppleFont22_Black,
-          ),
-          onTap: () {
-            showDialog(
-                context: context,
-                builder: ((context) {
-                  return dataAlertDialog(() {
-                    Get.back();
-                  }, () {
-                    loginService.deleteUser();
-                    Get.offAll(HomePage());
-                  });
-                }));
-          },
-          shape: Border(
-            bottom: BorderSide(width: 0.8.w, color: grey500),
-          ),
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.person_remove,
-            size: 28.r,
-            color: black,
-          ),
-          title: Text(
-            '회원 탈퇴',
-            style: AppleFont22_Black,
-          ),
-          shape: Border(
-            bottom: BorderSide(width: 0.8.w, color: grey500),
-          ),
-          onTap: () {
-            showDialog(
-                context: context,
-                builder: ((context) {
-                  return withDrawalAlertDialog(() {
-                    Get.back();
-                  }, (() {
-                    loginService.deleteUser();
-                    loginService.signOut();
-                    Get.offAll(SplashScreen());
+                      Get.offAll(() => SplashScreen());
+                    });
                   }));
-                }));
-          },
-        ),
-        Container(
-          height: 75.h,
-          color: Colors.grey[50],
-        )
-      ],
+            }),
+            shape: Border(
+              bottom: BorderSide(width: 0.8.w, color: grey500),
+            ),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.settings_backup_restore,
+              size: 28.r,
+              color: black,
+            ),
+            title: Text(
+              '데이터 초기화',
+              style: AppleFont22_Black,
+            ),
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: ((context) {
+                    return dataAlertDialog(() {
+                      Get.back();
+                    }, () {
+                      loginService.deleteUser();
+                      Get.offAll(HomePage());
+                    });
+                  }));
+            },
+            shape: Border(
+              bottom: BorderSide(width: 0.8.w, color: grey500),
+            ),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.person_remove,
+              size: 28.r,
+              color: black,
+            ),
+            title: Text(
+              '회원 탈퇴',
+              style: AppleFont22_Black,
+            ),
+            shape: Border(
+              bottom: BorderSide(width: 0.8.w, color: grey500),
+            ),
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: ((context) {
+                    return withDrawalAlertDialog(() {
+                      Get.back();
+                    }, (() {
+                      loginService.deleteUser();
+                      loginService.signOut();
+                      Get.offAll(SplashScreen());
+                    }));
+                  }));
+            },
+          ),
+          Container(
+            height: 75.h,
+            color: Colors.grey[50],
+          )
+        ],
+      ),
     );
   }
 }
