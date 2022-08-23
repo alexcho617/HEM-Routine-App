@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/calendar_controller.dart';
+import 'package:hem_routine_app/controllers/report_controller.dart';
 import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/setting/profile_settings.dart';
@@ -53,7 +55,14 @@ class AccountSettingsPage extends StatelessWidget {
                   return signOutAlertDialog(() async {
                     Get.back();
                   }, () {
+                    //TODO: 로그아웃 시 컨트롤러 없애기.
                     loginService.signOut();
+                    // ReportController _reportController = Get.find();
+                    // _reportController.onClose(() {
+                    //   print();
+                    // });
+                    // CalendarController _calendarController = Get.find();
+                    // _calendarController.dispose();
 
                     Get.offAll(() => SplashScreen());
                   });

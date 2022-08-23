@@ -69,25 +69,4 @@ class CalendarController extends GetxController {
     return routineLibrary.length;
   }
 
-  // void printAllEvents() {
-  //   print('---------PRINTING ALL EVENTS----------');
-  //   var keys = eventsLibrary.keys;
-
-  //   for (var key in keys) {
-  //     print('Date : $key');
-  //     List events = eventsLibrary[key];
-  //     for (var event in events) {
-  //       print(event.toString());
-  //     }
-  //   }
-  //   print('---------END OF ALL EVENTS----------');
-  // }
-
-  // void printAllRoutines() {
-  //   print('---------PRINTING ALL ROUTINES----------');
-  //   for (var routine in routineLibrary) {
-  //     print(routine.toString());
-  //   }
-  //   print('---------END OF ALL ROUTINES----------');
-  // }
 }

@@ -13,10 +13,6 @@ class ReportController extends GetxController {
   var sevenDayEventCount = '0'.obs;
 
   //기획 8
-  // var thisMonthEventCount = '0'.obs; //이게 0이면 이번 달 기록이 없음
-  // var wateryCount = '0'.obs;
-  // var smoothCount = '0'.obs;
-  // var hardCount = '0'.obs;
   RxList pieChartData = [].obs;
 
   //기획 9
@@ -34,20 +30,6 @@ class ReportController extends GetxController {
   void onInit() async {
     super.onInit();
     await refreshData();
-    // weekEvents = await fetchPastSevenDaysEvent();
-    // await getWeeklyEventCount();
-
-    // monthEvents = await fetchThisMonthsEvent();
-    // // sixMonthsEvents = await fetchPreviousMonthsEvent(5);
-    // await getPieChartData();
-    // lineChartData = await fetchSixMonthSmooth(5);
-    // routineList.value = await fetchAllRoutines();
-
-    // colorChartData7 = await fetchColorChartData(7);
-    // colorChartData30 = await fetchColorChartData(30);
-    // colorChartData90 = await fetchColorChartData(90);
-
-    // update();
   }
 
   Future<void> refreshData() async {
@@ -67,6 +49,25 @@ class ReportController extends GetxController {
 
     update();
   }
+
+  // @override
+  // void onClose() {
+  //   weekEvents = {}.obs;
+  //   monthEvents = {}.obs;
+  //   threeMonthsEvents = {}.obs;
+  //   weekEventsKeys = [];
+  //   sevenDayEventCount = '0'.obs;
+
+  //   pieChartData = [].obs;
+
+  //   lineChartData = [].obs;
+  //   colorChartData7 = [].obs;
+  //   colorChartData30 = [].obs;
+  //   colorChartData90 = [].obs;
+
+  //   routineList = [].obs;
+  //   isLoading = false.obs;
+  // }
 
   Future<void> getWeeklyEventCount() async {
     var count = 0;
