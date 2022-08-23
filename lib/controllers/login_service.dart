@@ -32,6 +32,16 @@ class LoginService extends GetxController {
     super.onInit();
   }
 
+  Future<void> authStateListner() async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
+  }
+
   Future<void> getSnapshot() async {
     userSnapshot = await FirebaseFirestore.instance
         .collection('user')
@@ -111,6 +121,7 @@ class LoginService extends GetxController {
   }
 
   Future<void> deleteUser() {
+    auth.value.currentUser!.delete();
     return users
         .doc(auth.value.currentUser!.uid)
         .delete()

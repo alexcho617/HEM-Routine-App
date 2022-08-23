@@ -28,8 +28,8 @@ class AppStateController extends GetxController {
 
   dynamic rateRoutineName;
   dynamic rateRoutineDays;
-  dynamic rateRoutineHistoryStartDate;
-  dynamic rateRoutineHistoryEndDate;
+  DateTime rateRoutineHistoryStartDate = DateTime.now();
+  DateTime rateRoutineHistoryEndDate = DateTime.now();
   dynamic rateRoutineHistoryComplete;
 
   dynamic complete = 0.0.obs;
@@ -81,7 +81,7 @@ class AppStateController extends GetxController {
       rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
     }).then((value) async {
       if (isRated == false) {
-        await Get.find<AppStateController>().fetchRateRoutine();
+        await fetchRateRoutine();
       }
     });
   }
@@ -114,8 +114,8 @@ class AppStateController extends GetxController {
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       rateRoutineHistoryComplete = documentSnapshot.get('complete');
-      rateRoutineHistoryStartDate = documentSnapshot.get('startDate');
-      rateRoutineHistoryEndDate = documentSnapshot.get('endDate');
+      rateRoutineHistoryStartDate = documentSnapshot.get('startDate').toDate();
+      rateRoutineHistoryEndDate = documentSnapshot.get('endDate').toDate();
     });
   }
 
@@ -232,7 +232,7 @@ class AppStateController extends GetxController {
       actionsPadding: EdgeInsets.all(0.r),
       contentPadding: EdgeInsets.all(0.r),
       content: SizedBox(
-        height: 302.h,
+        height: 304.h,
         child: Column(children: [
           SizedBox(height: 36.h),
           Center(
@@ -254,7 +254,7 @@ class AppStateController extends GetxController {
             height: 4.h,
           ),
           Text(
-              "(${formatDate(rateRoutineHistoryStartDate.toDate())} ~ ${formatDate(rateRoutineHistoryEndDate.toDate())})",
+              "(${formatDate(rateRoutineHistoryStartDate)} ~ ${formatDate(rateRoutineHistoryEndDate)})",
               style: AppleFont16_Grey600),
           SizedBox(
             height: 12.h,

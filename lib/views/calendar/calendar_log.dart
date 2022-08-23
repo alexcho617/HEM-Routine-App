@@ -104,7 +104,8 @@ class _CalendarLogState extends State<CalendarLog> {
                                       IconButton(
                                         onPressed: () {
                                           controller.editIndex = index;
-                                          kangmin(context, EditCalendarEvent());
+                                          // kangmin(context, EditCalendarEvent());
+                                          Get.to(EditCalendarEvent());
                                         },
                                         icon: Icon(
                                           Icons.edit_note,
@@ -238,8 +239,7 @@ class _CalendarLogState extends State<CalendarLog> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 21.0.w, vertical: 8.0.h),
                               child: const Divider(
-                                color:
-                                    Color.fromRGBO(0x60, 0x60, 0x60, 1),
+                                color: Color.fromRGBO(0x60, 0x60, 0x60, 1),
                                 thickness: 2,
                               ),
                             ),

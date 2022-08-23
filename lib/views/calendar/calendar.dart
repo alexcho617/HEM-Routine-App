@@ -74,8 +74,8 @@ class _CalendarState extends State<Calendar> {
           plusSquareButton(
             () {
               controller.newEventTime = DateTime.now();
-              // Get.to(NewCalendarEvent());
-              kangmin(context, NewCalendarEvent());
+              Get.to(NewCalendarEvent());
+              // kangmin(context, NewCalendarEvent());
             },
           ),
         ],

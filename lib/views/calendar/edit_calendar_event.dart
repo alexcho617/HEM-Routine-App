@@ -284,7 +284,8 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
 
                     _controller.eventsLibrary = await fetchAllEvents();
                     _controller.update();
-                    kangminBackUntil(context);
+                    // kangminBackUntil(context);
+                    Get.back();
 
                     showDialog(
                         context: context,
@@ -296,7 +297,8 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
                         });
                   } on Exception catch (e) {
                     print(e);
-                    kangminBackUntil(context);
+                    // kangminBackUntil(context);
+                    Get.back();
                   }
 
                   eventTextController.clear();

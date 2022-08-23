@@ -55,7 +55,8 @@ class _SettingsPageState extends State<SettingsPage> {
             style: AppleFont22_Black,
           ),
           onTap: () {
-            kangmin(context, AccountSettingsPage());
+            // kangmin(context, AccountSettingsPage());
+            Get.to(AccountSettingsPage());
           },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),
@@ -90,7 +91,8 @@ class _SettingsPageState extends State<SettingsPage> {
             RotuineItemSettingController controller =
                 Get.put(RotuineItemSettingController());
             controller.onInit();
-            kangmin(context, RoutineItemSettingsPage());
+            Get.to(RoutineItemSettingsPage());
+            // kangmin(context, RoutineItemSettingsPage());
           },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),
@@ -134,7 +136,8 @@ class _SettingsPageState extends State<SettingsPage> {
             style: AppleFont22_Black,
           ),
           onTap: () {
-            kangmin(context, const ServiceInfoPage());
+            // kangmin(context, const ServiceInfoPage());
+            Get.to(ServiceInfoPage());
           },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),

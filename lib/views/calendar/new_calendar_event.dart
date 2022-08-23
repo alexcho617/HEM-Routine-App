@@ -95,181 +95,237 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
   Widget build(BuildContext context) {
     CalendarController controller = Get.find();
     // bool isLoading = true;
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          customAppBar(context, '배변 기록'),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Container(
-                    width: 250.w,
-                    height: 24.h,
-                    decoration: BoxDecoration(
-                        color: blue50,
-                        borderRadius: BorderRadius.circular(15.sp)),
-                    child: InkWell(
-                      onTap: () => _showDatePicker(context),
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        DateFormat('yyyy-MM-dd, a hh시 mm분', 'ko_KR')
-                            .format(controller.newEventTime),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // customAppBar(context, '배변 기록'),
+            AppBar(
+              elevation: 0,
+              backgroundColor: background,
+              foregroundColor: black,
+              centerTitle: false,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Get.back();
+                },
+              ),
+              title: const Text('배변 기록'),
+            ),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 250.w,
+                      height: 24.h,
+                      decoration: BoxDecoration(
+                          color: blue50,
+                          borderRadius: BorderRadius.circular(15.sp)),
+                      child: InkWell(
+                        onTap: () => _showDatePicker(context),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          DateFormat('yyyy-MM-dd, a hh시 mm분', 'ko_KR')
+                              .format(controller.newEventTime),
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(8.0.sp),
-                    alignment: Alignment.center,
-                    child: Image(
-                      width: 140.w,
-                      height: 92.h,
-                      image: AssetImage("assets/marker/$iconCode.png"),
-                    ),
-                  ),
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: const Text('배변 형태(묽기) 선택')),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      typeButton(Image.asset('assets/button/type/00.png'),
-                          Image.asset('assets/button/type/0.png'), '물변', '0'),
-                      typeButton(Image.asset('assets/button/type/11.png'),
-                          Image.asset('assets/button/type/1.png'), '진흙변', '1'),
-                      typeButton(Image.asset('assets/button/type/22.png'),
-                          Image.asset('assets/button/type/2.png'), '무른변', '2'),
-                      typeButton(Image.asset('assets/button/type/33.png'),
-                          Image.asset('assets/button/type/3.png'), '매끈변', '3'),
-                      typeButton(Image.asset('assets/button/type/44.png'),
-                          Image.asset('assets/button/type/4.png'), '금간변', '4'),
-                      typeButton(Image.asset('assets/button/type/55.png'),
-                          Image.asset('assets/button/type/5.png'), '딱딱변', '5'),
-                      typeButton(Image.asset('assets/button/type/66.png'),
-                          Image.asset('assets/button/type/6.png'), '토끼변', '6'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 26.h,
-                  ),
-                  Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      alignment: Alignment.centerLeft,
-                      child: const Text('배변 색 선택')),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ColorButton(Image.asset('assets/button/color/00.png'),
-                          Image.asset('assets/button/color/0.png'), '회색', '0'),
-                      ColorButton(Image.asset('assets/button/color/11.png'),
-                          Image.asset('assets/button/color/1.png'), '붉은색', '1'),
-                      ColorButton(Image.asset('assets/button/color/22.png'),
-                          Image.asset('assets/button/color/2.png'), '초록색', '2'),
-                      ColorButton(Image.asset('assets/button/color/33.png'),
-                          Image.asset('assets/button/color/3.png'), '노란색', '3'),
-                      ColorButton(Image.asset('assets/button/color/44.png'),
-                          Image.asset('assets/button/color/4.png'), '갈색', '4'),
-                      ColorButton(Image.asset('assets/button/color/55.png'),
-                          Image.asset('assets/button/color/5.png'), '고동색', '5'),
-                      ColorButton(Image.asset('assets/button/color/66.png'),
-                          Image.asset('assets/button/color/6.png'), '흑색', '6'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 26.h,
-                  ),
-                  Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      alignment: Alignment.centerLeft,
-                      child: const Text('배변감 선택')),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      hardnessButton(
-                          Image.asset('assets/button/hardness/00.png'),
-                          Image.asset('assets/button/hardness/0.png'),
-                          '많이 불편',
-                          '0'),
-                      hardnessButton(
-                          Image.asset('assets/button/hardness/11.png'),
-                          Image.asset('assets/button/hardness/1.png'),
-                          '불편',
-                          '1'),
-                      hardnessButton(
-                          Image.asset('assets/button/hardness/22.png'),
-                          Image.asset('assets/button/hardness/2.png'),
-                          '편함',
-                          '2'),
-                      hardnessButton(
-                          Image.asset('assets/button/hardness/33.png'),
-                          Image.asset('assets/button/hardness/3.png'),
-                          '매우 편함',
-                          '3'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 26.h,
-                  ),
-                  Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      alignment: Alignment.centerLeft,
-                      child: const Text('메모')),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: '메모 입력',
-                        hintStyle: TextStyle(fontSize: 12.sp),
+                    Container(
+                      padding: EdgeInsets.all(8.0.sp),
+                      alignment: Alignment.center,
+                      child: Image(
+                        width: 140.w,
+                        height: 92.h,
+                        image: AssetImage("assets/marker/$iconCode.png"),
                       ),
-                      controller: eventTextController,
                     ),
-                  ),
-                  SizedBox(
-                    height: 26.h,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: saveButtonBlue(() async {
-                      LoginService loginService = Get.find();
-                      try {
-                        CalendarEvent newEvent = CalendarEvent(
-                            time: controller.newEventTime,
-                            color: colorCode,
-                            type: typeCode,
-                            hardness: hardnessCode,
-                            iconCode: iconCode,
-                            memo: eventTextController.text);
-                        await addEventToCalendar(
-                            newEvent, loginService.auth.value.currentUser!.uid);
+                    Container(
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: const Text('배변 형태(묽기) 선택')),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        typeButton(Image.asset('assets/button/type/00.png'),
+                            Image.asset('assets/button/type/0.png'), '물변', '0'),
+                        typeButton(
+                            Image.asset('assets/button/type/11.png'),
+                            Image.asset('assets/button/type/1.png'),
+                            '진흙변',
+                            '1'),
+                        typeButton(
+                            Image.asset('assets/button/type/22.png'),
+                            Image.asset('assets/button/type/2.png'),
+                            '무른변',
+                            '2'),
+                        typeButton(
+                            Image.asset('assets/button/type/33.png'),
+                            Image.asset('assets/button/type/3.png'),
+                            '매끈변',
+                            '3'),
+                        typeButton(
+                            Image.asset('assets/button/type/44.png'),
+                            Image.asset('assets/button/type/4.png'),
+                            '금간변',
+                            '4'),
+                        typeButton(
+                            Image.asset('assets/button/type/55.png'),
+                            Image.asset('assets/button/type/5.png'),
+                            '딱딱변',
+                            '5'),
+                        typeButton(
+                            Image.asset('assets/button/type/66.png'),
+                            Image.asset('assets/button/type/6.png'),
+                            '토끼변',
+                            '6'),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 26.h,
+                    ),
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        alignment: Alignment.centerLeft,
+                        child: const Text('배변 색 선택')),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ColorButton(
+                            Image.asset('assets/button/color/00.png'),
+                            Image.asset('assets/button/color/0.png'),
+                            '회색',
+                            '0'),
+                        ColorButton(
+                            Image.asset('assets/button/color/11.png'),
+                            Image.asset('assets/button/color/1.png'),
+                            '붉은색',
+                            '1'),
+                        ColorButton(
+                            Image.asset('assets/button/color/22.png'),
+                            Image.asset('assets/button/color/2.png'),
+                            '초록색',
+                            '2'),
+                        ColorButton(
+                            Image.asset('assets/button/color/33.png'),
+                            Image.asset('assets/button/color/3.png'),
+                            '노란색',
+                            '3'),
+                        ColorButton(
+                            Image.asset('assets/button/color/44.png'),
+                            Image.asset('assets/button/color/4.png'),
+                            '갈색',
+                            '4'),
+                        ColorButton(
+                            Image.asset('assets/button/color/55.png'),
+                            Image.asset('assets/button/color/5.png'),
+                            '고동색',
+                            '5'),
+                        ColorButton(
+                            Image.asset('assets/button/color/66.png'),
+                            Image.asset('assets/button/color/6.png'),
+                            '흑색',
+                            '6'),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 26.h,
+                    ),
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        alignment: Alignment.centerLeft,
+                        child: const Text('배변감 선택')),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        hardnessButton(
+                            Image.asset('assets/button/hardness/00.png'),
+                            Image.asset('assets/button/hardness/0.png'),
+                            '많이 불편',
+                            '0'),
+                        hardnessButton(
+                            Image.asset('assets/button/hardness/11.png'),
+                            Image.asset('assets/button/hardness/1.png'),
+                            '불편',
+                            '1'),
+                        hardnessButton(
+                            Image.asset('assets/button/hardness/22.png'),
+                            Image.asset('assets/button/hardness/2.png'),
+                            '편함',
+                            '2'),
+                        hardnessButton(
+                            Image.asset('assets/button/hardness/33.png'),
+                            Image.asset('assets/button/hardness/3.png'),
+                            '매우 편함',
+                            '3'),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 26.h,
+                    ),
+                    Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        alignment: Alignment.centerLeft,
+                        child: const Text('메모')),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: '메모 입력',
+                          hintStyle: TextStyle(fontSize: 12.sp),
+                        ),
+                        controller: eventTextController,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 26.h,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: saveButtonBlue(() async {
+                        LoginService loginService = Get.find();
+                        try {
+                          CalendarEvent newEvent = CalendarEvent(
+                              time: controller.newEventTime,
+                              color: colorCode,
+                              type: typeCode,
+                              hardness: hardnessCode,
+                              iconCode: iconCode,
+                              memo: eventTextController.text);
+                          await addEventToCalendar(newEvent,
+                              loginService.auth.value.currentUser!.uid);
 
-                        controller.eventsLibrary = await fetchAllEvents();
-                        controller.update();
-                        kangminBack(context);
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return calendarAlertDialog(newEvent, () {
-                                //on button Pressed
-                                Get.back();
+                          controller.eventsLibrary = await fetchAllEvents();
+                          controller.update();
+                          // kangminBack(context);
+                          Get.back();
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return calendarAlertDialog(newEvent, () {
+                                  //on button Pressed
+                                  Get.back();
+                                });
                               });
-                            });
-                      } on Exception catch (e) {
-                        kangminBack(context);
-                      }
+                        } on Exception catch (e) {
+                          // kangminBack(context);
+                          Get.back();
+                        }
 
-                      eventTextController.clear();
-                      // eventTextController.dispose(); 
+                        eventTextController.clear();
+                        // eventTextController.dispose();
 
-                      return;
-                    }),
-                  ),
-                ],
+                        return;
+                      }),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -303,10 +359,11 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                       setState(() {
                         //save time
                       });
-                      Navigator.of(context
-                              .findAncestorStateOfType<HomePageState>()!
-                              .context)
-                          .maybePop();
+                      // Navigator.of(context
+                      //         .findAncestorStateOfType<HomePageState>()!
+                      //         .context)
+                      //     .maybePop();
+                      Get.back();
                     },
                   )
                 ],
