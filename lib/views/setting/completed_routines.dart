@@ -231,7 +231,7 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "달성도 ${complete.toStringAsFixed(0)}%",
+                        "달성도 ${(complete * 100).toStringAsFixed(0)}%",
                         style: AppleFont14_Grey600,
                       ),
                       satisfaction(rating),

@@ -1,8 +1,10 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/login_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:intl/intl.dart';
 
 import '../models/event.dart';
@@ -418,7 +420,11 @@ class RoutineOnController extends GetxController {
 
   Future<void> offRoutineNotToday() async {
     // print("function: offRoutineNotToday called");
+    await appStateController.fetchRateRoutine();
     await setRoutineHistoryComplete();
+    await setRoutineComplete();
+
+    await Get.find<RoutineOffController>().getRoutineList();
 
     await routineDeactivate();
     await routineHistoryDeactivate();
@@ -433,6 +439,22 @@ class RoutineOnController extends GetxController {
       'complete': completeTemp,
     });
     return completeTemp;
+  }
+
+  Future<double> setRoutineComplete() async {
+    double avgComplete = 0.0;
+    await routineDocumentSnapshot!.reference
+        .collection('routineHistory')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        avgComplete += doc.get('complete');
+      });
+      avgComplete /= querySnapshot.size;
+    });
+    await routineDocumentSnapshot!.reference
+        .update({'averageComplete': avgComplete});
+    return avgComplete;
   }
 
   Future<void> isRatedChecker() async {
