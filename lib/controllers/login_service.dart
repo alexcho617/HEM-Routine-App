@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -18,12 +17,14 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+enum LoginStatus { ready, progress, done, fail }
+
 class LoginService extends GetxController {
   AuthCredential? appleCredential;
   GoogleSignInAccount? googleCredential;
   Rx<FirebaseAuth> auth = FirebaseAuth.instance.obs;
   AuthCredential? authCredential;
-
+  var loginStatus = LoginStatus.ready.obs;
   CollectionReference users = FirebaseFirestore.instance.collection('user');
 
   var uid = ''.obs;
@@ -34,11 +35,34 @@ class LoginService extends GetxController {
   void onInit() async {
     if (auth.value.currentUser != null) {
       userSnapshot = await getSnapshot();
-      uid.value = userSnapshot.id;
-      name.value = userSnapshot.get('name');
+      //register a token
+      setupToken();
+      if (userSnapshot.exists) {
+        uid.value = userSnapshot.id;
+        name.value = userSnapshot.get('name');
+      }
     }
-
     super.onInit();
+  }
+
+  Future<void> saveTokenToDatabase(String token) async {
+    // Assume user is logged in for this example
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
+    await FirebaseFirestore.instance.collection('user').doc(userId).update({
+      'tokens': FieldValue.arrayUnion([token]),
+    });
+  }
+
+  Future<void> setupToken() async {
+    // Get the token each time the application loads
+    String? token = await FirebaseMessaging.instance.getToken();
+
+    // Save the initial token to the database
+    await saveTokenToDatabase(token!);
+
+    // Any time the token refreshes, store this in the database too.
+    FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
   }
 
   Future<void> authStateListner() async {
@@ -85,10 +109,14 @@ class LoginService extends GetxController {
         authCredential = credential;
       } else {
         Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
+        loginStatus.value = LoginStatus.fail;
       }
     });
 
-    await dataRefreshSequence();
+    await dataRefreshSequence().then((value) {
+      loginStatus.value = LoginStatus.done;
+      update();
+    });
   }
 
   Future<void> signInWithApple() async {
@@ -115,9 +143,13 @@ class LoginService extends GetxController {
         authCredential = oauthCredential;
       } else {
         Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
+        loginStatus.value = LoginStatus.fail;
       }
     });
-    await dataRefreshSequence();
+    await dataRefreshSequence().then((value) {
+      loginStatus.value = LoginStatus.done;
+      update();
+    });
   }
 
   Future<void> dataRefreshSequence() async {

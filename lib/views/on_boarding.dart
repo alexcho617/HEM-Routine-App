@@ -18,7 +18,7 @@ class OnBoardingPage extends StatefulWidget {
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
-  LoginService controller = Get.find();
+  final LoginService _loginService = Get.find();
   late Material materialButton;
   late int index;
   final onboardingPagesList = [
@@ -231,27 +231,46 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   setIndex(1);
                 })
               else if (index == pagesLength - 1)
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 31.w),
-                  child: Column(
-                    children: [
-                      GoogleSignInButton(
-                        clientId:
-                            '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
-                        onTap: () async {
-                          //get apple credential
-                          controller.signInwithGoogle();
-                        },
-                      ),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      SignInWithAppleButton(onPressed: () {
-                        controller.signInWithApple();
-                      })
-                    ],
-                  ),
-                )
+                Obx(() {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 31.w),
+                    child:
+                        _loginService.loginStatus.value == LoginStatus.progress
+                            ? SizedBox(
+                                height: 100.h,
+                                width: 100.w,
+                                child: CircularProgressIndicator(
+                                  color: primary,
+                                ),
+                              )
+                            : Column(
+                                children: [
+                                  GoogleSignInButton(
+                                    clientId:
+                                        '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
+                                    onTap: () async {
+                                      setState(() {
+                                        _loginService.loginStatus.value =
+                                            LoginStatus.progress;
+                                      });
+                                      //get apple credential
+                                      _loginService.signInwithGoogle();
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  SignInWithAppleButton(onPressed: () {
+                                    setState(() {
+                                      _loginService.loginStatus.value =
+                                          LoginStatus.progress;
+                                    });
+                                    _loginService.signInWithApple();
+                                  })
+                                ],
+                              ),
+                  );
+                })
               else
                 nextAndBackButton(() {
                   setIndex(--index);

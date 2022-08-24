@@ -35,6 +35,7 @@ dependencies:
   simple_gesture_detector: ^0.2.0
   syncfusion_flutter_charts: ^20.2.43
   fl_chart: ^0.55.1
+  firebase_messaging: ^12.0.3
 
 
 dev_dependencies:
