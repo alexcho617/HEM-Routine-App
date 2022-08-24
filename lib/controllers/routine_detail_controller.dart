@@ -176,7 +176,7 @@ class RoutineDetailController extends GetxController {
      
     await Get.find<RoutineOnController>().getData();
 
-    await Get.find<AppStateController>().isUserHaveRated();
+    await Get.find<AppStateController>().isUserHaveRated(loginService.auth.value.currentUser!.uid);
     await Get.find<AppStateController>().fetchRateRoutine();
     await Get.find<AppStateController>().setIsRatedTrue();
 

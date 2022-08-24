@@ -88,7 +88,7 @@ class LoginService extends GetxController {
 
     Get.find<AppStateController>().uid = auth.value.currentUser!.uid;
     Get.find<AppStateController>().isRoutineActive();
-    Get.find<AppStateController>().isUserHaveRated();
+    Get.find<AppStateController>().isUserHaveRated(auth.value.currentUser!.uid);
   }
 
   Future<void> signOut() async {
