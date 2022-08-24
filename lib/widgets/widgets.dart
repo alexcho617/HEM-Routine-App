@@ -716,7 +716,14 @@ Widget routineStartAlertDialog(
           child: Column(
             children: [
               SizedBox(
-                // TODO: Change This SizedBox Widget to Icon
+                child: Padding(
+                  padding: EdgeInsets.all(8.0.r),
+                  child: Image(
+                    width: 160.w,
+                    height: 105.h,
+                    image: AssetImage('assets/appIcon.png'),
+                  ),
+                ),
                 height: 178.w,
               ),
               SizedBox(
@@ -1276,6 +1283,7 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                               constraints:
                                   BoxConstraints.tight(Size(30.w, 18.h)),
                               child: TextFormField(
+                                keyboardType: TextInputType.number,
                                 controller: controller.inputControllers[index],
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 14.sp),
