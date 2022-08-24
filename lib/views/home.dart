@@ -37,6 +37,12 @@ class HomePageState extends State<HomePage>
     }
     super.initState();
     tabController = TabController(vsync: this, length: 4);
+    if(Get.find<AppStateController>().status.value){
+      setState(() {
+        tabController.index = 1;
+        currentIndex = 1;
+      });
+    }
   }
 
   @override
