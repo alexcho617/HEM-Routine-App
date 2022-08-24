@@ -53,6 +53,7 @@ class RoutineEntityController extends GetxController {
         .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
         .add({
       'isActive': false,
+      'todaysRecord': false,
       'days': controller.routinePeriodIndex.value,
       'averageComplete': 0.0,
       'averageRating': 0.0,

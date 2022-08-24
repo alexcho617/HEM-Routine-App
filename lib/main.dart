@@ -40,6 +40,7 @@ void initServices() {
   /// Here is where you put get_storage, hive, shared_pref initialization.
   /// or moor connection, or whatever that's async.
   Get.put(LoginService());
+  Get.put(AppStateController());
   // print('All services started...');
 }
 
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(AppStateController());
+    
 
     return ScreenUtilInit(
         designSize: const Size(390, 844),

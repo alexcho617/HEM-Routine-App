@@ -279,10 +279,15 @@ class RoutineOnController extends GetxController {
     await getDayCompletes();
     await getAvgPercents();
     await dayComplete();
+    updateTodaysRecord();
 
     update();
 
     isFinished.value = true;
+  }
+
+  Future<void> updateTodaysRecord() async {
+    await routineDocumentSnapshot!.reference.update({'todaysRecord': true});
   }
 
   Future<void> getAvgPercents() async {

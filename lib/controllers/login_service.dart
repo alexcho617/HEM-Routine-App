@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -30,11 +31,33 @@ class LoginService extends GetxController {
   @override
   void onInit() async {
     await getSnapshot();
+    //register a token
+    setupToken();
     if (userSnapshot.exists) {
       uid.value = userSnapshot.id;
       name.value = userSnapshot.get('name');
     }
     super.onInit();
+  }
+
+  Future<void> saveTokenToDatabase(String token) async {
+    // Assume user is logged in for this example
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
+    await FirebaseFirestore.instance.collection('user').doc(userId).update({
+      'tokens': FieldValue.arrayUnion([token]),
+    });
+  }
+  
+  Future<void> setupToken() async {
+    // Get the token each time the application loads
+    String? token = await FirebaseMessaging.instance.getToken();
+
+    // Save the initial token to the database
+    await saveTokenToDatabase(token!);
+
+    // Any time the token refreshes, store this in the database too.
+    FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
   }
 
   Future<void> authStateListner() async {
@@ -159,8 +182,8 @@ class LoginService extends GetxController {
         .set({
           'name': auth.value.currentUser!.displayName,
           'isRated': true,
-          'rateRoutineId' : "",
-          'rateRoutineHistoryId' : "",
+          'rateRoutineId': "",
+          'rateRoutineHistoryId': "",
         })
         .then((value) => print("User Document Created"))
         .catchError((error) => print("Faied to Add User document: $error"));
