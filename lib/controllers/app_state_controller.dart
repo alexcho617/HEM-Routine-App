@@ -25,7 +25,6 @@ class AppStateController extends GetxController {
   //For Rating Logic
   bool? isRated = null;
   Future<bool> isRatedLoaded = Future<bool>.value(false);
-
   dynamic rateRoutineId;
   dynamic rateRoutineHistoryId;
 

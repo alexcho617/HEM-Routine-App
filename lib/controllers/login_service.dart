@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -18,12 +16,14 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+enum LoginStatus { ready, progress, done, fail }
+
 class LoginService extends GetxController {
   AuthCredential? appleCredential;
   GoogleSignInAccount? googleCredential;
   Rx<FirebaseAuth> auth = FirebaseAuth.instance.obs;
   AuthCredential? authCredential;
-
+  var loginStatus = LoginStatus.ready.obs;
   CollectionReference users = FirebaseFirestore.instance.collection('user');
 
   var uid = ''.obs;
@@ -85,10 +85,14 @@ class LoginService extends GetxController {
         authCredential = credential;
       } else {
         Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
+        loginStatus.value = LoginStatus.fail;
       }
     });
 
-    await dataRefreshSequence();
+    await dataRefreshSequence().then((value) {
+      loginStatus.value = LoginStatus.done;
+      update();
+    });
   }
 
   Future<void> signInWithApple() async {
@@ -115,9 +119,13 @@ class LoginService extends GetxController {
         authCredential = oauthCredential;
       } else {
         Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
+        loginStatus.value = LoginStatus.fail;
       }
     });
-    await dataRefreshSequence();
+    await dataRefreshSequence().then((value) {
+      loginStatus.value = LoginStatus.done;
+      update();
+    });
   }
 
   Future<void> dataRefreshSequence() async {
