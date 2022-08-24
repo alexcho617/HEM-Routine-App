@@ -241,7 +241,7 @@ class AppStateController extends GetxController {
       actionsPadding: EdgeInsets.all(0.r),
       contentPadding: EdgeInsets.all(0.r),
       content: SizedBox(
-        height: 304.h,
+        height: 302.h,
         child: Column(children: [
           SizedBox(height: 36.h),
           Center(
