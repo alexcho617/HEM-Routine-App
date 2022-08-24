@@ -37,7 +37,7 @@ class HomePageState extends State<HomePage>
     }
     super.initState();
     tabController = TabController(vsync: this, length: 4);
-    if(Get.find<AppStateController>().status.value){
+    if (Get.find<AppStateController>().status.value) {
       setState(() {
         tabController.index = 1;
         currentIndex = 1;
@@ -55,8 +55,12 @@ class HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     Get.put(CalendarController());
     Get.put(ReportController());
-    // Get.put(CalendarController());
-  Future.delayed(Duration.zero, () => Get.find<AppStateController>().showRatingScreen(context));
+    AppStateController appStateController = Get.find();
+
+    // Future.delayed(Duration(milliseconds: 2500), () => Get.find<AppStateController>().showRatingScreen(context));
+    appStateController.isRatedLoaded.then((value) {
+      appStateController.showRatingScreen(context);
+    });
     return WillPopScope(
       onWillPop: () async {
         return !(await navigatorKeyList[currentIndex].currentState!.maybePop());

@@ -23,7 +23,9 @@ class AppStateController extends GetxController {
   late String uid;
 
   //For Rating Logic
-  late bool isRated;
+  bool? isRated = null;
+  Future<bool> isRatedLoaded = Future<bool>.value(false);
+
   dynamic rateRoutineId;
   dynamic rateRoutineHistoryId;
 
@@ -51,7 +53,8 @@ class AppStateController extends GetxController {
       // int _currentIndex = HomePageState.tabController.index;
       uid = loginService.auth.value.currentUser!.uid;
       await isRoutineActive();
-      await isUserHaveRated(uid);
+      isRatedLoaded = isRatedLoader(await isUserHaveRated(uid));
+      // isRated = await isUserHaveRated(uid);
     }
 
     super.onInit();
@@ -71,7 +74,7 @@ class AppStateController extends GetxController {
     // print('Routine is active');
   }
 
-  Future<void> isUserHaveRated(String uid) async {
+  Future<bool> isUserHaveRated(String uid) async {
     await firestore
         .collection('user')
         .doc(uid)
@@ -79,7 +82,7 @@ class AppStateController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) async {
       //check isRated
       isRated = await documentSnapshot.get('isRated');
-
+      print("isUserHaveRated_isRated : $isRated ");
       rateRoutineId = documentSnapshot.get('rateRoutineId');
       rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
     }).then((value) async {
@@ -87,6 +90,11 @@ class AppStateController extends GetxController {
         await fetchRateRoutine();
       }
     });
+    return isRated!;
+  }
+
+  Future<bool> isRatedLoader(bool isR) async {
+    return true;
   }
 
   Future<void> setIsRatedTrue() async {
@@ -123,7 +131,7 @@ class AppStateController extends GetxController {
   }
 
   Future<void> showRatingScreen(BuildContext context) async {
-    if (!isRated) {
+    if (isRated == false) {
       showDialog(
         context: context,
         builder: ((context) {

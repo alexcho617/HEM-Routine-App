@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -20,6 +22,7 @@ class LoginService extends GetxController {
   AuthCredential? appleCredential;
   GoogleSignInAccount? googleCredential;
   Rx<FirebaseAuth> auth = FirebaseAuth.instance.obs;
+  AuthCredential? authCredential;
 
   CollectionReference users = FirebaseFirestore.instance.collection('user');
 
@@ -29,11 +32,12 @@ class LoginService extends GetxController {
 
   @override
   void onInit() async {
-    await getSnapshot();
-    if (userSnapshot.exists) {
+    if (auth.value.currentUser != null) {
+      userSnapshot = await getSnapshot();
       uid.value = userSnapshot.id;
       name.value = userSnapshot.get('name');
     }
+
     super.onInit();
   }
 
@@ -47,8 +51,8 @@ class LoginService extends GetxController {
     });
   }
 
-  Future<void> getSnapshot() async {
-    userSnapshot = await FirebaseFirestore.instance
+  Future<DocumentSnapshot> getSnapshot() async {
+    return userSnapshot = await FirebaseFirestore.instance
         .collection('user')
         .doc(auth.value.currentUser!.uid)
         .get();
@@ -78,6 +82,7 @@ class LoginService extends GetxController {
         Get.to(HomePage());
         uid.value = auth.value.currentUser!.uid;
         name.value = auth.value.currentUser!.displayName!;
+        authCredential = credential;
       } else {
         Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
       }
@@ -107,6 +112,7 @@ class LoginService extends GetxController {
       if (auth.value.currentUser != null) {
         Get.to(HomePage());
         uid.value = auth.value.currentUser!.uid;
+        authCredential = oauthCredential;
       } else {
         Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
       }
@@ -122,6 +128,7 @@ class LoginService extends GetxController {
     if (userSnapshot == null || !userSnapshot.exists) {
       addUserDocument();
     }
+    Get.put(RoutineCompletedController());
 
     Get.find<AppStateController>().uid = auth.value.currentUser!.uid;
     Get.find<AppStateController>().isRoutineActive();
@@ -144,6 +151,7 @@ class LoginService extends GetxController {
     } else {
       print('currentUser not null');
     }
+    Get.put(RoutineCompletedController());
     Get.find<CalendarController>().clearAllData();
     //clear routine
     Get.find<RoutineOnController>().clearAllData();
@@ -180,12 +188,37 @@ class LoginService extends GetxController {
         .catchError((error) => print("Faied to Add User document: $error"));
   }
 
-  Future<void> dataDelete() {
-    return users
+  Future<void> dataDelete() async {
+    //delete Events
+    await users
         .doc(auth.value.currentUser!.uid)
-        .delete()
-        .then((value) => print("User Deleted"))
-        .catchError((error) => print("Failed to delete user: $error"));
+        .collection('Events')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.delete();
+      });
+    }).catchError((error) => print("Failed to delete Events: $error"));
+    //delete calendarRoutine
+    await users
+        .doc(auth.value.currentUser!.uid)
+        .collection('Events')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.delete();
+      });
+    }).catchError((error) => print("Failed to delete calendarRoutine: $error"));
+    //delete routine
+    await users
+        .doc(auth.value.currentUser!.uid)
+        .collection('Events')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.delete();
+      });
+    }).catchError((error) => print("Failed to delete routine: $error"));
   }
 
   String generateNonce([int length = 32]) {
@@ -201,4 +234,16 @@ class LoginService extends GetxController {
     final digest = sha256.convert(bytes);
     return digest.toString();
   }
+
+  // Future<void> deleteUser() async {
+  //   try {
+  //     await auth.value.currentUser!.reauthenticateWithCredential(authCredential!);
+  //     await auth.value.currentUser!.delete();
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'requires-recent-login') {
+  //       print(
+  //           'The user must reauthenticate before this operation can be executed.');
+  //     }
+  //   }
+  // }
 }
