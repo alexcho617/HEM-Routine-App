@@ -240,61 +240,60 @@ class AppStateController extends GetxController {
       titlePadding: EdgeInsets.all(0.r),
       actionsPadding: EdgeInsets.all(0.r),
       contentPadding: EdgeInsets.all(0.r),
-      content: SizedBox(
-        height: 302.h,
-        child: Column(children: [
-          SizedBox(height: 36.h),
-          Center(
-              child: Text(
-            '이번 루틴 어떠셨어요?',
-            style: AppleFont22_Black,
-            textAlign: TextAlign.center,
-          )),
-          Obx(() {
-            return starRankIndicator();
-          }),
-          Divider(
-            indent: 24.w,
-            endIndent: 24.h,
-            color: grey600,
-          ),
-          Text("$rateRoutineName", style: AppleFont22_Black),
-          SizedBox(
-            height: 4.h,
-          ),
-          Text(
-              "(${formatDate(rateRoutineHistoryStartDate)} ~ ${formatDate(rateRoutineHistoryEndDate)})",
-              style: AppleFont16_Grey600),
-          SizedBox(
-            height: 12.h,
-          ),
-          Text(
-              "수행기간: $rateRoutineDays일 | 평균 달성도: ${(complete.value * 100).toStringAsFixed(0)}%",
-              style: AppleFont16_Black),
-          SizedBox(
-            height: 20.h,
-          ),
-          InkWell(
-            onTap: onPressed,
-            child: Ink(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(20.r),
-                ),
-                color: primary,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+        SizedBox(height: 36.h),
+        Center(
+            child: Text(
+          '이번 루틴 어떠셨어요?',
+          style: AppleFont22_Black,
+          textAlign: TextAlign.center,
+        )),
+        Obx(() {
+          return starRankIndicator();
+        }),
+        Divider(
+          indent: 24.w,
+          endIndent: 24.h,
+          color: grey600,
+        ),
+        Text("$rateRoutineName", style: AppleFont22_Black),
+        SizedBox(
+          height: 4.h,
+        ),
+        Text(
+            "(${formatDate(rateRoutineHistoryStartDate)} ~ ${formatDate(rateRoutineHistoryEndDate)})",
+            style: AppleFont16_Grey600),
+        SizedBox(
+          height: 12.h,
+        ),
+        Text(
+            "수행기간: $rateRoutineDays일 | 평균 달성도: ${(complete.value * 100).toStringAsFixed(0)}%",
+            style: AppleFont16_Black),
+        SizedBox(
+          height: 20.h,
+        ),
+        InkWell(
+          onTap: onPressed,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(20.r),
               ),
-              width: 312.w,
-              height: 56.h,
-              child: Center(
-                child: Text(
-                  '평가 제출',
-                  style: AppleFont16_White,
-                ),
+              color: primary,
+            ),
+            width: 312.w,
+            height: 56.h,
+            child: Center(
+              child: Text(
+                '평가 제출',
+                style: AppleFont16_White,
               ),
             ),
-          )
-        ]),
-      ),
+          ),
+        )
+      ]),
     );
   }
 
