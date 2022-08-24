@@ -101,6 +101,8 @@ class LoginService extends GetxController {
         .set({
           'name': auth.value.currentUser!.displayName,
           'isRated': true,
+          'rateRoutineId' : "",
+          'rateRoutineHistoryId' : "",
         })
         .then((value) => print("User Document Created"))
         .catchError((error) => print("Faied to Add User document: $error"));
