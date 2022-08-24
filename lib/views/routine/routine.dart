@@ -96,10 +96,14 @@ class RoutinePage extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.all(5.r),
-                          child: dayPicker(
-                              onController.selectedDayIndex.value,
-                              onController.days.value,
-                              onController.todayIndex.value),
+                          child: GetBuilder<RoutineOnController>(
+                            builder: (context) {
+                              return dayPicker(
+                                  onController.selectedDayIndex.value,
+                                  onController.days.value,
+                                  onController.todayIndex.value);
+                            }
+                          ),
                         ),
                         Stack(
                           alignment: AlignmentDirectional.topCenter,
