@@ -10,6 +10,7 @@ import 'package:cloud_firestore_web/cloud_firestore_web.dart';
 import 'package:firebase_auth_web/firebase_auth_web.dart';
 import 'package:firebase_core_web/firebase_core_web.dart';
 import 'package:firebase_database_web/firebase_database_web.dart';
+import 'package:firebase_messaging_web/firebase_messaging_web.dart';
 import 'package:flutter_facebook_auth_web/flutter_facebook_auth_web.dart';
 import 'package:google_sign_in_web/google_sign_in_web.dart';
 import 'package:sign_in_with_apple_web/sign_in_with_apple_web.dart';
@@ -22,6 +23,7 @@ void registerPlugins(Registrar registrar) {
   FirebaseAuthWeb.registerWith(registrar);
   FirebaseCoreWeb.registerWith(registrar);
   FirebaseDatabaseWeb.registerWith(registrar);
+  FirebaseMessagingWeb.registerWith(registrar);
   FlutterFacebookAuthPlugin.registerWith(registrar);
   GoogleSignInPlugin.registerWith(registrar);
   SignInWithApplePlugin.registerWith(registrar);
