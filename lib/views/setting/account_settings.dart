@@ -53,38 +53,38 @@ class AccountSettingsPage extends StatelessWidget {
             ),
           ),
 // <<<<<<< HEAD
-        //   onTap: () {
-        //     kangmin(context, ProfileSettingsPage());
-        //   },
-        //   shape: Border(
-        //     bottom: BorderSide(width: 0.8.w, color: grey500),
-        //   ),
-        // ),
-        // ListTile(
-        //   leading: Icon(
-        //     Icons.logout,
-        //     size: 28.r,
-        //     color: black,
-        //   ),
-        //   title: Text(
-        //     '로그아웃',
-        //     style: AppleFont22_Black,
-        //   ),
-        //   onTap: (() {
-        //     showDialog(
-        //         context: context,
-        //         builder: ((context) {
-        //           return signOutAlertDialog(() async {
-        //             Get.back();
-        //           }, () {
-        //             //TODO: 로그아웃 시 컨트롤러 없애기.
-        //             loginService.signOut();
-        //             // ReportController _reportController = Get.find();
-        //             // _reportController.onClose(() {
-        //             //   print();
-        //             // });
-        //             // CalendarController _calendarController = Get.find();
-        //             // _calendarController.dispose();
+          //   onTap: () {
+          //     kangmin(context, ProfileSettingsPage());
+          //   },
+          //   shape: Border(
+          //     bottom: BorderSide(width: 0.8.w, color: grey500),
+          //   ),
+          // ),
+          // ListTile(
+          //   leading: Icon(
+          //     Icons.logout,
+          //     size: 28.r,
+          //     color: black,
+          //   ),
+          //   title: Text(
+          //     '로그아웃',
+          //     style: AppleFont22_Black,
+          //   ),
+          //   onTap: (() {
+          //     showDialog(
+          //         context: context,
+          //         builder: ((context) {
+          //           return signOutAlertDialog(() async {
+          //             Get.back();
+          //           }, () {
+          //             //TODO: 로그아웃 시 컨트롤러 없애기.
+          //             loginService.signOut();
+          //             // ReportController _reportController = Get.find();
+          //             // _reportController.onClose(() {
+          //             //   print();
+          //             // });
+          //             // CalendarController _calendarController = Get.find();
+          //             // _calendarController.dispose();
 // =======
           ListTile(
             leading: Icon(
@@ -131,7 +131,7 @@ class AccountSettingsPage extends StatelessWidget {
                     return dataAlertDialog(() {
                       Get.back();
                     }, () {
-                      loginService.deleteUser();
+                      loginService.dataDelete();
                       Get.offAll(() => SplashScreen());
                     });
                   }));
@@ -160,7 +160,7 @@ class AccountSettingsPage extends StatelessWidget {
                     return withDrawalAlertDialog(() {
                       Get.back();
                     }, (() {
-                      loginService.deleteUser();
+                      loginService.dataDelete();
                       loginService.signOut();
                       Get.offAll(SplashScreen());
                     }));

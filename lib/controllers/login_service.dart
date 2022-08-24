@@ -159,8 +159,8 @@ class LoginService extends GetxController {
         .set({
           'name': auth.value.currentUser!.displayName,
           'isRated': true,
-          'rateRoutineId' : "",
-          'rateRoutineHistoryId' : "",
+          'rateRoutineId': "",
+          'rateRoutineHistoryId': "",
         })
         .then((value) => print("User Document Created"))
         .catchError((error) => print("Faied to Add User document: $error"));
@@ -180,8 +180,7 @@ class LoginService extends GetxController {
         .catchError((error) => print("Faied to Add User document: $error"));
   }
 
-  Future<void> deleteUser() {
-    auth.value.currentUser!.delete();
+  Future<void> dataDelete() {
     return users
         .doc(auth.value.currentUser!.uid)
         .delete()
