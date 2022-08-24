@@ -65,8 +65,47 @@ class RoutineOnController extends GetxController {
   @override
   void onInit() async {
     uid = loginService.auth.value.currentUser!.uid;
-    super.onInit();
     await getData();
+    super.onInit();
+  }
+
+  Future<void> getAllData() async {
+    uid = loginService.auth.value.currentUser!.uid;
+    await getData();
+  }
+
+  void clearAllData() {
+    name = "".obs;
+    goals = [].obs;
+    routineItems = [].obs;
+    todayIndex = 0.obs;
+    today = DateTime.now().obs;
+    startday = DateTime.now().obs;
+    days = 0.obs;
+    selectedDayIndex = (-99).obs;
+    isToday = true;
+
+    selectedFilter = 0;
+    selectedFilterString = "전체";
+
+    currentCount = [].obs;
+
+    dayCompletes = [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0, //14
+    ].obs;
   }
 
   Future<void> getData() async {

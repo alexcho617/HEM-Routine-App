@@ -50,24 +50,23 @@ class ReportController extends GetxController {
     update();
   }
 
-  // @override
-  // void onClose() {
-  //   weekEvents = {}.obs;
-  //   monthEvents = {}.obs;
-  //   threeMonthsEvents = {}.obs;
-  //   weekEventsKeys = [];
-  //   sevenDayEventCount = '0'.obs;
+  void clearAllData() {
+    weekEvents = {}.obs;
+    monthEvents = {}.obs;
+    threeMonthsEvents = {}.obs;
+    weekEventsKeys = [];
+    sevenDayEventCount = '0'.obs;
 
-  //   pieChartData = [].obs;
+    pieChartData = [].obs;
 
-  //   lineChartData = [].obs;
-  //   colorChartData7 = [].obs;
-  //   colorChartData30 = [].obs;
-  //   colorChartData90 = [].obs;
+    lineChartData = [].obs;
+    colorChartData7 = [].obs;
+    colorChartData30 = [].obs;
+    colorChartData90 = [].obs;
 
-  //   routineList = [].obs;
-  //   isLoading = false.obs;
-  // }
+    routineList = [].obs;
+    isLoading = false.obs;
+  }
 
   Future<void> getWeeklyEventCount() async {
     var count = 0;

@@ -58,6 +58,12 @@ class RoutineOffController extends GetxController {
     super.onInit();
   }
 
+  Future<void> getAllData() async {
+    getRoutineList();
+    getRoutineItemList();
+    update();
+  }
+
   void initValues() {
     inputController.clear();
     isValid.value = true;

@@ -16,6 +16,18 @@ class CalendarController extends GetxController {
     update();
   }
 
+  void getAllData() async {
+    eventsLibrary = await fetchAllEvents();
+    routineLibrary = await fetchAllCalendarRoutines();
+    getCalendarLog();
+    update();
+  }
+
+  void clearAllData() {
+    eventsLibrary.clear();
+    routineLibrary.clear();
+  }
+
   LoginService loginService = Get.find();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -38,7 +50,7 @@ class CalendarController extends GetxController {
     keyList.sort();
     if (keyList.isNotEmpty) {
       List<CalendarEvent> latestDayEvents = eventsLibrary[keyList.last];
-      latest =latestDayEvents.first;
+      latest = latestDayEvents.first;
     }
     return latest;
   }
@@ -68,5 +80,4 @@ class CalendarController extends GetxController {
   int getRoutineCount() {
     return routineLibrary.length;
   }
-
 }

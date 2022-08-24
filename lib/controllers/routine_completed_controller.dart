@@ -20,6 +20,11 @@ class RoutineCompletedController extends GetxController {
     await getData(routineCompleted);
   }
 
+  void clearAllData() {
+    routines = [].obs;
+    sorting = "이름 순".obs;
+  }
+
   Future<QuerySnapshot> getRoutineCompleted() async {
     return await FirebaseFirestore.instance
         .collection('user')
