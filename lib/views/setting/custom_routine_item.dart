@@ -174,7 +174,7 @@ class CustomRoutineItemPage extends StatelessWidget {
                                         .validate()) {
                                       pageController.beforeBack();
                                       Get.delete<CustomRoutineItemController>();
-                                      Get.back();
+                                      kangminBack(context);
                                     }
                                   })
                                 : disabledStoreButton(() {});
