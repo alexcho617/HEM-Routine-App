@@ -205,8 +205,7 @@ class RoutinePage extends StatelessWidget {
                               style: AppleFont16_Black,
                             ),
                           ),
-                          GetBuilder(
-                              init: offController,
+                          GetBuilder<RoutineOffController>(
                               builder: (context) {
                                 return SizedBox(
                                   width: 392.w,
