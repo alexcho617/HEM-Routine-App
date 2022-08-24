@@ -78,3 +78,5 @@ ios/Flutter/Flutter 3.podspec
 .flutter-plugins-dependencies
 */.DS_Store
 ios/Podfile.lock
+ios/Podfile
+*.lock
