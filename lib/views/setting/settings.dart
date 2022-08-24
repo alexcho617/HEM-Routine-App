@@ -90,7 +90,7 @@ class _SettingsPageState extends State<SettingsPage> {
           onTap: () {
             RotuineItemSettingController controller =
                 Get.put(RotuineItemSettingController());
-            controller.onInit();
+            controller.customInit();
             Get.to(RoutineItemSettingsPage());
             // kangmin(context, RoutineItemSettingsPage());
           },

@@ -20,11 +20,10 @@ class RotuineItemSettingController extends GetxController {
     '기타'
   ];
 
-  @override
-  void onInit() {
+  
+  void customInit() {
     filter.value = categories[0];
     getCustomRoutineItemNameList();
-    super.onInit();
   }
 
   void getCustomRoutineItemNameList() async {
