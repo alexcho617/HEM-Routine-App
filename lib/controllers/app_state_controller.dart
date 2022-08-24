@@ -82,7 +82,7 @@ class AppStateController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) async {
       //check isRated
       isRated = await documentSnapshot.get('isRated');
-      print("isUserHaveRated_isRated : $isRated ");
+      // print("isUserHaveRated_isRated : $isRated ");
       rateRoutineId = documentSnapshot.get('rateRoutineId');
       rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
     }).then((value) async {
