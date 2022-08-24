@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/routine_off_controller.dart';
+import '../views/home.dart';
 import 'login_service.dart';
 import 'calendar_controller.dart';
 import '../models/calendar_event.dart';
@@ -47,9 +48,10 @@ class AppStateController extends GetxController {
   @override
   void onInit() async {
     if (loginService.auth.value.currentUser != null) {
+      // int _currentIndex = HomePageState.tabController.index;
       uid = loginService.auth.value.currentUser!.uid;
       await isRoutineActive();
-      await isUserHaveRated();
+      await isUserHaveRated(uid);
     }
 
     super.onInit();
@@ -69,7 +71,7 @@ class AppStateController extends GetxController {
     // print('Routine is active');
   }
 
-  Future<void> isUserHaveRated() async {
+  Future<void> isUserHaveRated(String uid) async {
     await firestore
         .collection('user')
         .doc(uid)
@@ -77,10 +79,9 @@ class AppStateController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) async {
       //check isRated
       isRated = await documentSnapshot.get('isRated');
-      if (isRated == false) {
-        rateRoutineId = documentSnapshot.get('rateRoutineId');
-        rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
-      }
+
+      rateRoutineId = documentSnapshot.get('rateRoutineId');
+      rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
     }).then((value) async {
       if (isRated == false) {
         await fetchRateRoutine();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/report_controller.dart';
 
 import '../controllers/calendar_controller.dart';
@@ -49,8 +50,7 @@ class HomePageState extends State<HomePage>
     Get.put(CalendarController());
     Get.put(ReportController());
     // Get.put(CalendarController());
-
-
+  Future.delayed(Duration.zero, () => Get.find<AppStateController>().showRatingScreen(context));
     return WillPopScope(
       onWillPop: () async {
         return !(await navigatorKeyList[currentIndex].currentState!.maybePop());
