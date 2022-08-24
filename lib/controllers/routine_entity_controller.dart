@@ -157,7 +157,7 @@ class RoutineEntityController extends GetxController {
 
     await Get.find<AppStateController>().isUserHaveRated(loginService.auth.value.currentUser!.uid);
     await Get.find<AppStateController>().fetchRateRoutine();
-    await Get.find<AppStateController>().setIsRatedTrue();
+    // await Get.find<AppStateController>().setIsRatedTrue();
   }
 
   void deleteRoutineEntities(int index) {

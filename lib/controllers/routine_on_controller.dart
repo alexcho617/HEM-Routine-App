@@ -463,7 +463,6 @@ class RoutineOnController extends GetxController {
     await setRoutineHistoryComplete();
     await setRoutineComplete();
 
-    await Get.find<RoutineOffController>().getRoutineList();
 
     await routineDeactivate();
     await routineHistoryDeactivate();

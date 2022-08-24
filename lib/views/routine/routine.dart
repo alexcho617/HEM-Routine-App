@@ -68,6 +68,7 @@ class RoutinePage extends StatelessWidget {
                               await onController.offRoutineNotToday();
                               Navigator.pop(context);
                               await appStateController.showRatingScreen(context);
+                              await Get.find<RoutineOffController>().getRoutineList();
                             }
                           });
                         }));
