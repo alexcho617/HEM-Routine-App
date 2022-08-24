@@ -81,7 +81,7 @@ class AppStateController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) async {
       //check isRated
       isRated = await documentSnapshot.get('isRated');
-      print("isUserHaveRated_isRated : $isRated ");
+      // print("isUserHaveRated_isRated : $isRated ");
       rateRoutineId = documentSnapshot.get('rateRoutineId');
       rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
     }).then((value) async {
@@ -240,7 +240,7 @@ class AppStateController extends GetxController {
       actionsPadding: EdgeInsets.all(0.r),
       contentPadding: EdgeInsets.all(0.r),
       content: SizedBox(
-        height: 304.h,
+        height: 302.h,
         child: Column(children: [
           SizedBox(height: 36.h),
           Center(

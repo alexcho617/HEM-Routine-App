@@ -236,7 +236,7 @@ class RoutineOnController extends GetxController {
   }
 
   Future<void> getDayCompletes() async {
-    routineHistoryDocumentSnapshot.reference
+    await routineHistoryDocumentSnapshot.reference
         .collection('days')
         .get()
         .then((QuerySnapshot querySnapshot) {
@@ -244,6 +244,7 @@ class RoutineOnController extends GetxController {
         dayCompletes.value[int.parse(doc.id) - 1] = doc.get('dayComplete');
       });
     });
+    update();
   }
 
   Rx<bool> isFinished = true.obs;
@@ -462,7 +463,6 @@ class RoutineOnController extends GetxController {
     await appStateController.fetchRateRoutine();
     await setRoutineHistoryComplete();
     await setRoutineComplete();
-
 
     await routineDeactivate();
     await routineHistoryDeactivate();

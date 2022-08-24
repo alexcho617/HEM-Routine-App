@@ -67,8 +67,10 @@ class RoutinePage extends StatelessWidget {
                               // NOT Today
                               await onController.offRoutineNotToday();
                               Navigator.pop(context);
-                              await appStateController.showRatingScreen(context);
-                              await Get.find<RoutineOffController>().getRoutineList();
+                              await appStateController
+                                  .showRatingScreen(context);
+                              await Get.find<RoutineOffController>()
+                                  .getRoutineList();
                             }
                           });
                         }));
@@ -79,82 +81,88 @@ class RoutinePage extends StatelessWidget {
           ),
           appStateController.status.value
               ? //WHEN ON
-              onController.selectedDayIndex.value!= -99 ?
-              Column(
-                  children: [
-                    SizedBox(
-                      height: 19.h,
-                    ),
-                    Text(
-                      onController.name.value,
-                      style: AppleFont24_Black,
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(5.r),
-                      child: dayPicker(
-                          onController.selectedDayIndex.value,
-                          onController.days.value,
-                          onController.todayIndex.value),
-                    ),
-                    Stack(
-                      alignment: AlignmentDirectional.topCenter,
+              onController.selectedDayIndex.value != -99
+                  ? Column(
                       children: [
-                        Column(
+                        SizedBox(
+                          height: 19.h,
+                        ),
+                        Text(
+                          onController.name.value,
+                          style: AppleFont24_Black,
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(5.r),
+                          child: GetBuilder<RoutineOnController>(
+                            builder: (context) {
+                              return dayPicker(
+                                  onController.selectedDayIndex.value,
+                                  onController.days.value,
+                                  onController.todayIndex.value);
+                            }
+                          ),
+                        ),
+                        Stack(
+                          alignment: AlignmentDirectional.topCenter,
                           children: [
-                            SizedBox(
-                              width: 225.w,
-                              height: 116.h,
+                            Column(
+                              children: [
+                                SizedBox(
+                                  width: 225.w,
+                                  height: 116.h,
+                                ),
+                                SizedBox(
+                                  height: 408.h,
+                                  child: SingleChildScrollView(
+                                    child: Obx(() {
+                                      if (onController
+                                          .currentCount.value.isEmpty) {
+                                        return SizedBox(
+                                          width: 50.w,
+                                          height: 50.h,
+                                          child:
+                                              const CircularProgressIndicator(),
+                                        );
+                                      } else {
+                                        return SizedBox(
+                                          width: 390.w,
+                                          height: 1000.h,
+                                          child: routineItemList(),
+                                        );
+                                      }
+                                    }),
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              height: 408 .h,
-                              child: SingleChildScrollView(
-                                child: Obx(() {
-                                  if (onController.currentCount.value.isEmpty) {
-                                    return SizedBox(
-                                      width: 50.w,
-                                      height: 50.h,
-                                      child: const CircularProgressIndicator(),
-                                    );
-                                  } else {
-                                    return SizedBox(
-                                      width: 390.w,
-                                      height: 1000.h,
-                                      child: routineItemList(),
-                                    );
-                                  }
-                                }),
-                              ),
+                            InkWell(
+                              onTap: () {
+                                showCupertinoModalBottomSheet(
+                                  context: context
+                                      .findAncestorStateOfType<HomePageState>()!
+                                      .context,
+                                  expand: false,
+                                  builder: (context) {
+                                    onController.fetchEvent();
+                                    return RoutineLogPage();
+                                  },
+                                );
+                              },
+                              child: GetBuilder<RoutineOnController>(
+                                  builder: (context) {
+                                return halfCircluarGuage(
+                                    onController.dayCompletes[
+                                        onController.selectedDayIndex.value]);
+                              }),
                             ),
                           ],
                         ),
-                        InkWell(
-                          onTap: () {
-                            showCupertinoModalBottomSheet(
-                              context: context
-                                  .findAncestorStateOfType<HomePageState>()!
-                                  .context,
-                              expand: false,
-                              builder: (context) {
-                                onController.fetchEvent();
-                                return RoutineLogPage();
-                              },
-                            );
-                          },
-                          child:
-                              GetBuilder<RoutineOnController>(
-                                builder: (context) {
-                                  return halfCircluarGuage(onController.dayCompletes[onController.selectedDayIndex.value]);
-                                }
-                              ),
-                        ),
                       ],
-                    ),
-                  ],
-                )
-                : CircularProgressIndicator()
+                    )
+                  : CircularProgressIndicator()
               : // WHEN OFF
               Column(
                   children: [
@@ -374,24 +382,22 @@ class RoutinePage extends StatelessWidget {
                       width: 34.w,
                       height: 34.h,
                       child: onController.isFinished.value
-                          ? GetBuilder<RoutineOnController>(
-                            builder: (context) {
+                          ? GetBuilder<RoutineOnController>(builder: (context) {
                               return InkWell(
-                                  onTap: () async {
-                                    return onController.onPlusPressed(index);
-                                  },
-                                  child: Ink(
-                                    child: CircleAvatar(
-                                      backgroundColor: blue600,
-                                      child: Icon(
-                                        Icons.add,
-                                        color: grey50,
-                                      ),
+                                onTap: () async {
+                                  return onController.onPlusPressed(index);
+                                },
+                                child: Ink(
+                                  child: CircleAvatar(
+                                    backgroundColor: blue600,
+                                    child: Icon(
+                                      Icons.add,
+                                      color: grey50,
                                     ),
                                   ),
-                                );
-                            }
-                          )
+                                ),
+                              );
+                            })
                           : const CircularProgressIndicator(),
                     );
                   }),
