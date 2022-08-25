@@ -9,6 +9,7 @@ import 'package:hem_routine_app/controllers/calendar_controller.dart';
 import 'package:hem_routine_app/controllers/custom_routine_item_contoller.dart';
 import 'package:hem_routine_app/controllers/report_controller.dart';
 import 'package:hem_routine_app/controllers/routine_completed_controller.dart';
+import 'package:hem_routine_app/controllers/routine_item_setting_controller.dart';
 import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:hem_routine_app/views/home.dart';
@@ -224,6 +225,11 @@ class LoginService extends GetxController {
   }
 
   Future<void> dataDelete() async {
+    RoutineCompletedController _routineCompletedController =
+        Get.put(RoutineCompletedController());
+    RotuineItemSettingController _routineItemSettingController =
+        Get.put(RotuineItemSettingController());
+
     //delete Events
     await users
         .doc(auth.value.currentUser!.uid)
@@ -268,8 +274,8 @@ class LoginService extends GetxController {
     Get.find<RoutineOnController>().getAllData();
     Get.find<RoutineOffController>().getAllData();
     Get.find<ReportController>().refreshData();
-    Get.find<RoutineCompletedController>().getLatestData();
-    Get.find<CustomRoutineItemController>().getRoutineItemNameList();
+    _routineCompletedController.getLatestData();
+    _routineItemSettingController.getCustomRoutineItemNameList();
   }
 
   String generateNonce([int length = 32]) {
