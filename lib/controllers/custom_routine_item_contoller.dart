@@ -185,6 +185,7 @@ class CustomRoutineItemController extends GetxController {
         if (routineItemNames.contains(inputController[index].text)) {
           if (args.crud == CRUD.update &&
               args.routineItem!.name == inputController[index].text) {
+            return null;
           } else {
             isValid[index] = false;
             activateButton[index] = false;
