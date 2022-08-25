@@ -65,13 +65,13 @@ class _ReportPageState extends State<ReportPage> {
                   height: 6.h,
                 ),
                 Container(
-                  height: 102.h,
+                  height: 98.h,
                   width: 350.w,
                   decoration: BoxDecoration(
                       color: blue100,
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(10.0.r),
                     child: Obx(() {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -137,8 +137,8 @@ class _ReportPageState extends State<ReportPage> {
                     }),
                   ),
                 ),
-                const Divider(
-                  thickness: 2,
+                Divider(
+                  thickness: 2.h,
                 ),
               ],
             ),
