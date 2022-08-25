@@ -23,6 +23,7 @@ class RoutinePage extends StatelessWidget {
   LoginService loginService = Get.find();
   RoutineOnController onController = Get.put(RoutineOnController());
   RoutineOffController offController = Get.put(RoutineOffController());
+  bool showProgress = false;
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -65,8 +66,15 @@ class RoutinePage extends StatelessWidget {
                               Navigator.pop(context);
                             } else {
                               // NOT Today
+                              Navigator.pop(context);
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CircularProgressIndicator();
+                                  });
                               await onController.offRoutineNotToday();
                               Navigator.pop(context);
+
                               await appStateController
                                   .showRatingScreen(context);
                               await Get.find<RoutineOffController>()
@@ -97,13 +105,12 @@ class RoutinePage extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(5.r),
                           child: GetBuilder<RoutineOnController>(
-                            builder: (context) {
-                              return dayPicker(
-                                  onController.selectedDayIndex.value,
-                                  onController.days.value,
-                                  onController.todayIndex.value);
-                            }
-                          ),
+                              builder: (context) {
+                            return dayPicker(
+                                onController.selectedDayIndex.value,
+                                onController.days.value,
+                                onController.todayIndex.value);
+                          }),
                         ),
                         Stack(
                           alignment: AlignmentDirectional.topCenter,
