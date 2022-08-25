@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/auth.dart';
@@ -260,6 +262,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                                   SizedBox(
                                     height: 15.h,
                                   ),
+                                  Platform.isIOS?
                                   SignInWithAppleButton(onPressed: () {
                                     setState(() {
                                       _loginService.loginStatus.value =
@@ -267,6 +270,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                                     });
                                     _loginService.signInWithApple();
                                   })
+                                  :
+                                  const SizedBox.shrink(),
                                 ],
                               ),
                   );
