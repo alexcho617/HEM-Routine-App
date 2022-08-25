@@ -106,6 +106,11 @@ class RoutineOnController extends GetxController {
       0.0,
       0.0, //14
     ].obs;
+
+    events = [];
+
+    selectedEventDateTime = DateTime.now();
+    selectedEventIndex = -1;
   }
 
   Future<void> getData() async {

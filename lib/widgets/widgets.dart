@@ -1351,6 +1351,7 @@ Widget addRoutineItemList(RoutineEntityController controller) {
                       ConstrainedBox(
                           constraints: BoxConstraints.tight(Size(30.w, 18.h)),
                           child: TextFormField(
+                            keyboardType: TextInputType.number,
                             controller: controller.inputControllers[index],
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 14.sp),
