@@ -30,6 +30,7 @@ class HomePageState extends State<HomePage>
       List.generate(4, (index) => GlobalKey<NavigatorState>());
   static int currentIndex = 0;
   static late TabController tabController;
+  static final GlobalKey<ScaffoldState> scaffoldKey =GlobalKey<ScaffoldState>();
   @override
   void initState() {
     for (var page in _pages) {
@@ -66,7 +67,8 @@ class HomePageState extends State<HomePage>
         return !(await navigatorKeyList[currentIndex].currentState!.maybePop());
       },
       child: Scaffold(
-        // resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false
+        key: scaffoldKey,
         body: SafeArea(
           child: TabBarView(
             controller: tabController,

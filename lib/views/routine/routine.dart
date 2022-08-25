@@ -65,10 +65,42 @@ class RoutinePage extends StatelessWidget {
                               Navigator.pop(context);
                             } else {
                               // NOT Today
+<<<<<<< Updated upstream
                               await onController.offRoutineNotToday();
                               Navigator.pop(context);
                               await appStateController
                                   .showRatingScreen(context);
+=======
+                              Navigator.pop(context);
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return Dialog(
+                                      backgroundColor: Colors.white,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 20),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: const [
+                                            // The loading indicator
+                                            CircularProgressIndicator(),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            // Some text
+                                            Text('Loading...')
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  });
+                              await onController.offRoutineNotToday();
+                              Get.back();
+
+                              await appStateController.showRatingScreen(
+                                  HomePageState.scaffoldKey.currentContext!);
+>>>>>>> Stashed changes
                               await Get.find<RoutineOffController>()
                                   .getRoutineList();
                             }
