@@ -65,12 +65,6 @@ class RoutinePage extends StatelessWidget {
                               Navigator.pop(context);
                             } else {
                               // NOT Today
-<<<<<<< Updated upstream
-                              await onController.offRoutineNotToday();
-                              Navigator.pop(context);
-                              await appStateController
-                                  .showRatingScreen(context);
-=======
                               Navigator.pop(context);
                               showDialog(
                                   context: context,
@@ -100,7 +94,6 @@ class RoutinePage extends StatelessWidget {
 
                               await appStateController.showRatingScreen(
                                   HomePageState.scaffoldKey.currentContext!);
->>>>>>> Stashed changes
                               await Get.find<RoutineOffController>()
                                   .getRoutineList();
                             }
@@ -130,13 +123,12 @@ class RoutinePage extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(5.r),
                           child: GetBuilder<RoutineOnController>(
-                            builder: (context) {
-                              return dayPicker(
-                                  onController.selectedDayIndex.value,
-                                  onController.days.value,
-                                  onController.todayIndex.value);
-                            }
-                          ),
+                              builder: (context) {
+                            return dayPicker(
+                                onController.selectedDayIndex.value,
+                                onController.days.value,
+                                onController.todayIndex.value);
+                          }),
                         ),
                         Stack(
                           alignment: AlignmentDirectional.topCenter,
@@ -238,38 +230,35 @@ class RoutinePage extends StatelessWidget {
                               style: AppleFont16_Black,
                             ),
                           ),
-                          GetBuilder<RoutineOffController>(
-                              builder: (context) {
-                                return SizedBox(
-                                  width: 392.w,
-                                  height: 200.h,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        offController.routines.length > 10
-                                            ? 10
-                                            : offController.routines.length,
-                                    itemBuilder: (BuildContext context, int i) {
-                                      return routineCard(
-                                          offController.routines[i].name,
-                                          offController.routines[i].days,
-                                          offController
-                                              .routines[i].averageComplete,
-                                          offController
-                                              .routines[i].averageRating, () {
-                                        // yechan(
-                                        //     context,
-                                        //     3,
-                                        //     RoutineDetailPage(
-                                        //         uid: offController
-                                        //             .routines[i].id));
-                                        Get.to(RoutineDetailPage(
-                                            uid: offController.routines[i].id));
-                                      });
-                                    },
-                                  ),
-                                );
-                              })
+                          GetBuilder<RoutineOffController>(builder: (context) {
+                            return SizedBox(
+                              width: 392.w,
+                              height: 200.h,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: offController.routines.length > 10
+                                    ? 10
+                                    : offController.routines.length,
+                                itemBuilder: (BuildContext context, int i) {
+                                  return routineCard(
+                                      offController.routines[i].name,
+                                      offController.routines[i].days,
+                                      offController.routines[i].averageComplete,
+                                      offController.routines[i].averageRating,
+                                      () {
+                                    // yechan(
+                                    //     context,
+                                    //     3,
+                                    //     RoutineDetailPage(
+                                    //         uid: offController
+                                    //             .routines[i].id));
+                                    Get.to(RoutineDetailPage(
+                                        uid: offController.routines[i].id));
+                                  });
+                                },
+                              ),
+                            );
+                          })
                         ],
                       ),
                     ),
