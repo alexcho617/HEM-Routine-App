@@ -458,6 +458,9 @@ class RoutineOnController extends GetxController {
 
   Future<void> offRoutineToday() async {
     // print("function: offRoutineToday called");
+    await routineDocumentSnapshot!.reference.update({
+      'tryCount' : FieldValue.increment(-1),
+    });
     routineDeactivate();
     routineHistoryDelete();
     routineOff();

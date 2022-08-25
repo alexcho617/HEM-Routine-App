@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/custom_routine_item_contoller.dart';
 import 'package:hem_routine_app/controllers/routine_entity_controller.dart';
 import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/constants.dart';
+import 'package:hem_routine_app/views/setting/custom_routine_item.dart';
 import '../../utils/functions.dart';
 import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
@@ -66,13 +68,19 @@ class RoutineItemAddPage extends StatelessWidget {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     Get.back();
-                                    kangminToCustomRoutineItem(
+                                    // kangminToCustomRoutineItem(
+                                    //     ScreenArguments(CRUD.create,
+                                    //         FromWhere.routineItemAdd, null),
+                                    //     HomePageState
+                                    //         .navigatorKeyList[
+                                    //             HomePageState.currentIndex]
+                                    //         .currentContext);
+                                    Get.put(CustomRoutineItemController(
+                                        args: ScreenArguments(CRUD.create,
+                                            FromWhere.routineItemAdd, null)));
+                                    Get.to(CustomRoutineItemPage(
                                         ScreenArguments(CRUD.create,
-                                            FromWhere.routineItemAdd, null),
-                                        HomePageState
-                                            .navigatorKeyList[
-                                                HomePageState.currentIndex]
-                                            .currentContext);
+                                            FromWhere.routineItemAdd, null)));
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
