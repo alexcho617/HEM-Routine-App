@@ -34,11 +34,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 63.h),
-              child: const Align(
+              child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "때마다 찾아오는\n변비\n어떻게 관리하세요?",
-                  style: TextStyle(fontSize: 32),
+                  style: TextStyle(fontSize: 32.sp),
                 ),
               ),
             ),
@@ -63,11 +63,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 63.h),
-              child: const Align(
+              child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "심플하게\n배변을\n기록해보세요!",
-                  style: TextStyle(fontSize: 32),
+                  style: TextStyle(fontSize: 32.sp),
                 ),
               ),
             ),
@@ -92,11 +92,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 63.h),
-              child: const Align(
+              child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "나에게 맞는\n쾌변 루틴을\n만들어 보세요!",
-                  style: TextStyle(fontSize: 32),
+                  style: TextStyle(fontSize: 32.sp),
                 ),
               ),
             ),
@@ -121,11 +121,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(31.w, 139.h, 0, 63.h),
-              child: const Align(
+              child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "배변 습관\n분석 리포트로\n매일 관리해보세요!",
-                  style: TextStyle(fontSize: 32),
+                  style: TextStyle(fontSize: 32.sp),
                 ),
               ),
             ),
@@ -278,7 +278,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   setIndex(++index);
                 }),
               SizedBox(
-                height: 89.h,
+                height: 80.h,
               )
             ]);
           },

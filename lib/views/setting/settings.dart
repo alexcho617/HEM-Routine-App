@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/controllers/app_state_controller.dart';
 
 import '../../controllers/routine_completed_controller.dart';
 import '../../utils/colors.dart';
@@ -109,19 +110,20 @@ class _SettingsPageState extends State<SettingsPage> {
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
           trailing: SizedBox(
             width: 80.w,
-            child: FlutterSwitch(
-              width: 80.w,
-              height: 34.h,
-              showOnOff: true,
-              activeColor: primary,
-              inactiveColor: grey600,
-              value: true,
-              onToggle: (value) {
-                setState(() {
-                  print('쿠쿠루삥뽕');
-                });
-              },
+            child: Obx(
+              () => FlutterSwitch(
+                  width: 80.w,
+                  height: 34.h,
+                  showOnOff: true,
+                  activeColor: primary,
+                  inactiveColor: grey600,
+                  value: Get.find<AppStateController>().pushPermission.value,
+                  onToggle: (value) {
+                    Get.find<AppStateController>().changePushPermission(value);
+                  },
+                ),
             ),
+            
           ),
           onTap: onPressed,
         ),

@@ -25,6 +25,7 @@ class AppStateController extends GetxController {
   //For Rating Logic
   bool? isRated = null;
   Future<bool> isRatedLoaded = Future<bool>.value(false);
+  RxBool pushPermission = false.obs;
   dynamic rateRoutineId;
   dynamic rateRoutineHistoryId;
 
@@ -54,6 +55,7 @@ class AppStateController extends GetxController {
       await isRoutineActive();
       isRatedLoaded = isRatedLoader(await isUserHaveRated(uid));
       // isRated = await isUserHaveRated(uid);
+      await didUserPermitPush(uid);
     }
 
     super.onInit();
@@ -90,6 +92,25 @@ class AppStateController extends GetxController {
       }
     });
     return isRated!;
+  }
+
+  Future<void> didUserPermitPush(String uid) async {
+    await firestore
+        .collection('user')
+        .doc(uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) async {
+      //check permission
+      pushPermission.value = await documentSnapshot.get('pushPermission');
+      print("permission : ${pushPermission.value}");
+    });
+  }
+
+  Future<void> changePushPermission(bool value) async {
+    pushPermission.value = value;
+   await firestore.collection('user').doc(uid).update({
+      'pushPermission': value,
+    });
   }
 
   Future<bool> isRatedLoader(bool isR) async {
