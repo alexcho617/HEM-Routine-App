@@ -59,9 +59,9 @@ class RoutineItemSettingsPage extends StatelessWidget {
                     : Column(
                         // crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 10.h,
-                          ),
+                          // Container(
+                          //   height: 10.h,
+                          // ),
                           Obx(
                             () => Padding(
                               padding: EdgeInsets.all(20.0.r),
@@ -116,88 +116,94 @@ class RoutineItemSettingsPage extends StatelessWidget {
                           GetBuilder<RotuineItemSettingController>(
                               // id: 1,
                               builder: (_) {
-                            return ListView.builder(
-                              itemCount:
-                                  pageController.customRoutineItems.length,
-                              // physics: NeverScrollableScrollPhysics(),
-                              // physics: const AlwaysScrollableScrollPhysics(),
-                              // itemExtent: 95.h,
-                              itemBuilder: (BuildContext context, int index) {
-                                return index ==
-                                        pageController
-                                                .customRoutineItems.length -
-                                            1
-                                    ? Column(
-                                        children: [
-                                          routineItem(index, context),
-                                          SizedBox(
-                                            width: 348.w,
-                                            height: 56.h,
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                // Get.back();
-                                                // kangminToCustomRoutineItem(
-                                                //     ScreenArguments(
-                                                //         CRUD.create,
-                                                //         FromWhere
-                                                //             .routineItemSetting,
-                                                //         null),
-                                                //     context);
-                                                Get.put(
-                                                    CustomRoutineItemController(
-                                                  args: ScreenArguments(
-                                                      CRUD.create,
-                                                      FromWhere
-                                                          .routineItemSetting,
-                                                      null),
-                                                ));
-                                                Get.to(CustomRoutineItemPage(
-                                                  ScreenArguments(
-                                                      CRUD.create,
-                                                      FromWhere
-                                                          .routineItemSetting,
-                                                      null),
-                                                ));
-                                              },
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Icon(
-                                                    Icons.add,
-                                                    color: grey600,
+                            return SizedBox(
+                              height: 670.h,
+                              child: ListView.builder(
+                                itemCount:
+                                    pageController.customRoutineItems.length,
+                                // physics: NeverScrollableScrollPhysics(),
+                                // physics: const AlwaysScrollableScrollPhysics(),
+                                // itemExtent: 95.h,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return index ==
+                                          pageController
+                                                  .customRoutineItems.length -
+                                              1
+                                      ? Column(
+                                          children: [
+                                            routineItem(index, context),
+                                            SizedBox(
+                                              width: 348.w,
+                                              height: 56.h,
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                  // Get.back();
+                                                  // kangminToCustomRoutineItem(
+                                                  //     ScreenArguments(
+                                                  //         CRUD.create,
+                                                  //         FromWhere
+                                                  //             .routineItemSetting,
+                                                  //         null),
+                                                  //     context);
+                                                  Get.put(
+                                                      CustomRoutineItemController(
+                                                    args: ScreenArguments(
+                                                        CRUD.create,
+                                                        FromWhere
+                                                            .routineItemSetting,
+                                                        null),
+                                                  ));
+                                                  Get.to(CustomRoutineItemPage(
+                                                    ScreenArguments(
+                                                        CRUD.create,
+                                                        FromWhere
+                                                            .routineItemSetting,
+                                                        null),
+                                                  ));
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.add,
+                                                      color: grey600,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 6.w,
+                                                    ),
+                                                    Text(
+                                                      '나만의 루틴 항목 만들기',
+                                                      style:
+                                                          AppleFont14_Grey600,
+                                                    ),
+                                                  ],
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  shadowColor:
+                                                      Colors.transparent,
+                                                  tapTargetSize:
+                                                      MaterialTapTargetSize
+                                                          .shrinkWrap,
+                                                  primary: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                    side: BorderSide(
+                                                        color: grey600,
+                                                        width: 1),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.r),
                                                   ),
-                                                  SizedBox(
-                                                    width: 6.w,
-                                                  ),
-                                                  Text(
-                                                    '나만의 루틴 항목 만들기',
-                                                    style: AppleFont14_Grey600,
-                                                  ),
-                                                ],
-                                              ),
-                                              style: ElevatedButton.styleFrom(
-                                                shadowColor: Colors.transparent,
-                                                tapTargetSize:
-                                                    MaterialTapTargetSize
-                                                        .shrinkWrap,
-                                                primary: Colors.white,
-                                                shape: RoundedRectangleBorder(
-                                                  side: BorderSide(
-                                                      color: grey600, width: 1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12.r),
                                                 ),
                                               ),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    : routineItem(index, context);
-                              },
+                                            )
+                                          ],
+                                        )
+                                      : routineItem(index, context);
+                                },
 
-                              shrinkWrap: true,
+                                shrinkWrap: true,
+                              ),
                             );
                           }),
                           // ),
