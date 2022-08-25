@@ -362,36 +362,33 @@ class RoutinePage extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
               horizontalTitleGap: 0,
               minVerticalPadding: 22.w,
-              title: SizedBox(
-                height: 36.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 150.w,
-                      child: Text(
-                        onController.routineItems[index],
-                        style: AppleFont18_Black,
-                        overflow: TextOverflow.ellipsis,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 150.w,
+                    child: Text(
+                      onController.routineItems[index],
+                      style: AppleFont18_Black,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        '수행/목표',
+                        style: AppleFont14_Grey600,
                       ),
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          '수행/목표',
-                          style: AppleFont14_Grey600,
-                        ),
-                        Text(
-                          '${onController.currentCount[index]}/${onController.goals[index]}',
-                          style: AppleFont14_Grey600,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 5.w,
-                    ),
-                  ],
-                ),
+                      Text(
+                        '${onController.currentCount[index]}/${onController.goals[index]}',
+                        style: AppleFont14_Grey600,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                ],
               ),
               trailing: Stack(
                 alignment: Alignment.center,
