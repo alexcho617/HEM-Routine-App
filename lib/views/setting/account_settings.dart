@@ -103,10 +103,10 @@ class AccountSettingsPage extends StatelessWidget {
                     return signOutAlertDialog(() async {
                       Get.back();
                     }, () {
-                      loginService.signOut();
+                      loginService.signOut().then((value) {
+                        Get.offAll(() => SplashScreen());
+                      });
 // >>>>>>> 3d750ca0523deb2ee882362817014287392bdc86
-
-                      Get.offAll(() => SplashScreen());
                     });
                   }));
             }),
