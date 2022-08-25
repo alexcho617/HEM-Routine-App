@@ -76,6 +76,7 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                   Text(
                     controller.name.value,
                     style: AppleFont24_Black,
+                    textAlign: TextAlign.center,
                   ),
                   SizedBox(
                     height: 6.h,
