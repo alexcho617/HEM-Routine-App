@@ -6,11 +6,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/calendar_controller.dart';
+import 'package:hem_routine_app/controllers/custom_routine_item_contoller.dart';
 import 'package:hem_routine_app/controllers/report_controller.dart';
 import 'package:hem_routine_app/controllers/routine_completed_controller.dart';
 import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:hem_routine_app/views/home.dart';
+import 'package:hem_routine_app/views/setting/completed_routines.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'dart:convert';
 import 'dart:math';
@@ -235,7 +237,7 @@ class LoginService extends GetxController {
     //delete calendarRoutine
     await users
         .doc(auth.value.currentUser!.uid)
-        .collection('Events')
+        .collection('calendarRoutine')
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
@@ -245,13 +247,29 @@ class LoginService extends GetxController {
     //delete routine
     await users
         .doc(auth.value.currentUser!.uid)
-        .collection('Events')
+        .collection('routine')
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         doc.reference.delete();
       });
     }).catchError((error) => print("Failed to delete routine: $error"));
+    //delete userRoutineItems
+    await users
+        .doc(auth.value.currentUser!.uid)
+        .collection('userRoutineItems')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.delete();
+      });
+    }).catchError((error) => print("Failed to delete routine: $error"));
+    Get.find<CalendarController>().getAllData();
+    Get.find<RoutineOnController>().getAllData();
+    Get.find<RoutineOffController>().getAllData();
+    Get.find<ReportController>().refreshData();
+    Get.find<RoutineCompletedController>().getLatestData();
+    Get.find<CustomRoutineItemController>().getRoutineItemNameList();
   }
 
   String generateNonce([int length = 32]) {

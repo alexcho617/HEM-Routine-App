@@ -130,8 +130,8 @@ class AccountSettingsPage extends StatelessWidget {
                   builder: ((context) {
                     return dataAlertDialog(() {
                       Get.back();
-                    }, () {
-                      loginService.dataDelete();
+                    }, () async{
+                      await loginService.dataDelete();
                       Get.offAll(() => SplashScreen());
                     });
                   }));
