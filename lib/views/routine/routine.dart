@@ -90,6 +90,7 @@ class RoutinePage extends StatelessWidget {
                         Text(
                           onController.name.value,
                           style: AppleFont24_Black,
+                          textAlign: TextAlign.center,
                         ),
                         SizedBox(
                           height: 20.h,
@@ -115,7 +116,7 @@ class RoutinePage extends StatelessWidget {
                                   height: 116.h,
                                 ),
                                 SizedBox(
-                                  height: 408.h,
+                                  height: 380.h,
                                   child: SingleChildScrollView(
                                     child: Obx(() {
                                       if (onController
@@ -344,9 +345,13 @@ class RoutinePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      onController.routineItems[index],
-                      style: AppleFont18_Black,
+                    SizedBox(
+                      width: 150.w,
+                      child: Text(
+                        onController.routineItems[index],
+                        style: AppleFont18_Black,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     Column(
                       children: [

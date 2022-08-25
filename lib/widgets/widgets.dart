@@ -876,6 +876,7 @@ Widget routineCard(String name, int day, double percent, double rank,
                   child: Text(
                     name,
                     style: AppleFont16_Black,
+                    overflow: TextOverflow.ellipsis,
                   )),
             ),
             Padding(
