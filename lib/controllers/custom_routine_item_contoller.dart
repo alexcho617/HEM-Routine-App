@@ -202,7 +202,7 @@ class CustomRoutineItemController extends GetxController {
         activateButton[index] = false;
 
         return '내용을 입력해주세요';
-      } else if (value != null && value.length > 30 && index == 0) {
+      } else if (value != null && value.length > 30 && index == 1) {
         isValid[index] = false;
         activateButton[index] = false;
 
