@@ -23,6 +23,7 @@ class RoutinePage extends StatelessWidget {
   LoginService loginService = Get.find();
   RoutineOnController onController = Get.put(RoutineOnController());
   RoutineOffController offController = Get.put(RoutineOffController());
+  bool showProgress = false;
   @override
   Widget build(BuildContext context) {
     return Obx(

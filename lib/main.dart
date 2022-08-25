@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,10 +35,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   initServices();
+
   runApp(const MyApp());
 }
 
-void initServices() {
+void initServices() async {
   // print('starting services ...');
 
   /// Here is where you put get_storage, hive, shared_pref initialization.
@@ -43,6 +47,29 @@ void initServices() {
   Get.put(LoginService());
   Get.put(AppStateController());
   // print('All services started...');
+  if (Platform.isIOS) {
+    // iOS-specific code
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -50,8 +77,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return ScreenUtilInit(
         designSize: const Size(390, 844),
         minTextAdapt: true,
