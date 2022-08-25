@@ -214,9 +214,13 @@ class _CompletedRoutinesPageState extends State<CompletedRoutinesPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        name,
-                        style: AppleFont18_Black,
+                      SizedBox(
+                        width: 230.w,
+                        child: Text(
+                          name,
+                          style: AppleFont18_Black,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       Text(
                         "목표 $days일간",
