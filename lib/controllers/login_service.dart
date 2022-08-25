@@ -187,7 +187,7 @@ class LoginService extends GetxController {
     Get.find<CalendarController>().clearAllData();
     //clear routine
     Get.find<RoutineOnController>().clearAllData();
-    Get.find<RoutineOffController>().initValues();
+    Get.find<RoutineOffController>().clearAllData();
     Get.find<RoutineCompletedController>().clearAllData();
     //clear report
     Get.find<ReportController>().clearAllData();

@@ -64,6 +64,22 @@ class RoutineOffController extends GetxController {
     update();
   }
 
+  void clearAllData() {
+    existingRoutineName = [];
+    routineItems = [];
+    addedRoutineItems = [];
+    categories = ['전체'];
+    categoryButtons = <Widget>[];
+    categoryIndex = 0;
+    selectedRoutineItemCount = 0;
+
+    routines = [];
+    routinePeriodIndex = 1.obs;
+    onSubmitted = false.obs;
+    isValid = true.obs;
+    activateButton = false.obs;
+  }
+
   void initValues() {
     inputController.clear();
     isValid.value = true;
@@ -79,7 +95,7 @@ class RoutineOffController extends GetxController {
   }
 
   void initRoutineItemsValue() {
-    //TODO: 이전에 체크만 한 것들은 초기화시키되 내가 이미 추가한 것들은 체크된 상태로 두게끔
+    // 이전에 체크만 한 것들은 초기화시키되 내가 이미 추가한 것들은 체크된 상태로 두게끔
     for (int i = 0; i < routineItems.length; i++) {
       routineItems[i].isChecked = false;
       routineItems[i].isTapped = false;
