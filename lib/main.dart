@@ -40,13 +40,11 @@ void main() async {
 }
 
 void initServices() async {
-  // print('starting services ...');
-
   /// Here is where you put get_storage, hive, shared_pref initialization.
   /// or moor connection, or whatever that's async.
   Get.put(LoginService());
   Get.put(AppStateController());
-  // print('All services started...');
+  
   if (Platform.isIOS) {
     // iOS-specific code
     FirebaseMessaging messaging = FirebaseMessaging.instance;

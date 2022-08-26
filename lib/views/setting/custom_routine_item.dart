@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../controllers/custom_routine_item_contoller.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
-import '../../utils/functions.dart';
 import '../../widgets/widgets.dart';
 
 class CustomRoutineItemPage extends StatelessWidget {

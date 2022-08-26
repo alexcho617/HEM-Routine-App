@@ -95,7 +95,6 @@ class LoginService extends GetxController {
 
     final GoogleSignInAuthentication? googleAuth =
         await googleCredential?.authentication;
-    // print("auth_service.dart 38 : googleAuth assigned");
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(

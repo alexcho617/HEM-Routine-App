@@ -66,14 +66,12 @@ class CustomRoutineItemController extends GetxController {
   List<Widget> makeCategoryButtons() {
     List<Widget> categoryButtons = [];
     for (int i = 0; i < categories.length; i++) {
-      // print(i);
       categoryButtons.add(routineCategoryButton(i, categories[i]));
     }
     return categoryButtons;
   }
 
   void updateCategoryIndex(int index) {
-    // print('실행됨');
     categoryIndex = index;
     update();
   }
@@ -180,7 +178,6 @@ class CustomRoutineItemController extends GetxController {
 
         return null;
       } else {
-        // print('working');
         onSubmitted.value = false;
         if (routineItemNames.contains(inputController[index].text)) {
           if (args.crud == CRUD.update &&

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
-// import 'package:flutterfire_ui/auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hem_routine_app/controllers/login_service.dart';
 
@@ -16,7 +15,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print("This is build function in login page");
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text("Login Page"),

@@ -110,7 +110,6 @@ class RoutineOffController extends GetxController {
   void buildRoutineButtons() {
     categoryButtons.clear();
     for (int i = 0; i < categories.length; i++) {
-      // print(i);
       if (i == 0) {
         categoryButtons.add(
           SizedBox(
@@ -198,7 +197,6 @@ class RoutineOffController extends GetxController {
     //이름에 따라 sorting
     routineItems.sort(((a, b) => a.name.compareTo(b.name)));
 
-    // print(routineItems);
     buildRoutineButtons();
   }
 
@@ -213,7 +211,6 @@ class RoutineOffController extends GetxController {
   }
 
   void updateCategoryIndex(int index) {
-    // print('실행됨');
     categoryIndex = index;
     buildRoutineButtons();
     //index가 바뀌어도 어차피...routineList는 동일한 가봐.

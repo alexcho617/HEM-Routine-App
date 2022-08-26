@@ -42,7 +42,7 @@ class RoutineEntityController extends GetxController {
   }
 
   Future<bool> addRoutine() async {
-    // print(loginService.auth.value.currentUser!.uid);
+    
     List<String> routineItems = [];
     List<int> routineGoalCount = [];
     for (int i = 0; i < routineEntities.length; i++) {
@@ -62,8 +62,6 @@ class RoutineEntityController extends GetxController {
       'goals': routineGoalCount,
       'tryCount': 1,
     }).then((DocumentReference routineDoc) async {
-      // print(routineDoc.id);
-
       routineId = routineDoc.id;
     });
     return false;
@@ -76,7 +74,7 @@ class RoutineEntityController extends GetxController {
     List<String> routineItems = [];
     List<int> routineGoalCount = [];
     for (int i = 0; i < routineEntities.length; i++) {
-      // print(routineEntities.length);
+      
       routineItems.add(routineEntities[i].name);
       routineGoalCount.add(int.parse(inputControllers[i].text));
     }
@@ -121,8 +119,6 @@ class RoutineEntityController extends GetxController {
       //며칠 만큼 반복할 것인가
       //이게 지금 1인가봐
       for (int i = 1; i <= controller.routinePeriodIndex.value; i++) {
-        // print(controller.routinePeriodIndex.value);
-        // print('Executed!');
         await controller.firestore
             .collection(
                 'user/${loginService.auth.value.currentUser!.uid}/routine/$routineId/routineHistory/${routineHistoryDoc.id}/days')
@@ -132,7 +128,6 @@ class RoutineEntityController extends GetxController {
         });
         //이것도 1인듯
         for (int j = 0; j < routineItems.length; j++) {
-          // print('Executed2');
           await controller.firestore
               .collection(
                   'user/${loginService.auth.value.currentUser!.uid}/routine/$routineId/routineHistory/${routineHistoryDoc.id}/days/$i/routineItemHistory')
@@ -193,7 +188,6 @@ class RoutineEntityController extends GetxController {
     for (int i = 0; i < routineEntities.length; i++) {
       if (inputControllers[i].text.isEmpty ||
           int.parse(inputControllers[i].text) > 20) {
-        // print('false');
         inputControllers[i].clear();
         result = false;
       }

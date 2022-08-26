@@ -99,7 +99,7 @@ class RoutineLogPage extends StatelessWidget {
                                       controller.selectedFilterString =
                                           controller
                                               .routineItems.value[index - 1];
-                                      // print("selected : ${controller.selectedFilterString}");
+                                      
                                       controller.update();
                                     },
                                       '${controller.routineItems.value[index - 1]}'),
@@ -169,9 +169,9 @@ class RoutineLogPage extends StatelessWidget {
                             onTap: (() {
                               // controller
                               controller.selectedEventIndex = index;
-                              // print(controller.selectedEventIndex);
-                              // print(controller.events);
-                              // print(controller
+                              (controller.selectedEventIndex);
+                              (controller.events);
+                              (controller
                               //     .events[controller.selectedEventIndex]
                               //     .name);
                               _showDatePicker(context);

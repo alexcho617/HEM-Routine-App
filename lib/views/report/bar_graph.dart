@@ -133,24 +133,24 @@ class _BarGraphState extends State<BarGraph> {
   double getMarkerPosition(DateTime eventTime) {
     double spacingOffset = 190.h;
     double positionOffset = 4.h;
-    // print(eventTime.hour);
+    (eventTime.hour);
     num position = (eventTime.hour * 60 + eventTime.minute) *
             blockHeight /
             (1440 + spacingOffset) +
         positionOffset;
-    // print(position);
+    (position);
     return position.toDouble(); // assets 크기 절반?
   }
 
   double getTimelinePosition(DateTime eventTime) {
     double spacingOffset = 190.h;
     double positionOffset = 4.h;
-    // print(eventTime.hour);
+    (eventTime.hour);
     num position = (eventTime.hour * 60 + eventTime.minute) *
             blockHeight /
             (1440 + spacingOffset) +
         positionOffset;
-    // print(position);
+    (position);
     return position.toDouble(); // assets 크기 절반?
   }
 }

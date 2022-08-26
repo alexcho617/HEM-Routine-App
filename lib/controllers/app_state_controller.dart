@@ -72,7 +72,6 @@ class AppStateController extends GetxController {
         status.value = true;
       });
     });
-    // print('Routine is active');
   }
 
   Future<bool> isUserHaveRated(String uid) async {
@@ -83,7 +82,6 @@ class AppStateController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) async {
       //check isRated
       isRated = await documentSnapshot.get('isRated');
-      // print("isUserHaveRated_isRated : $isRated ");
       rateRoutineId = documentSnapshot.get('rateRoutineId');
       rateRoutineHistoryId = documentSnapshot.get('rateRoutineHistoryId');
     }).then((value) async {
@@ -157,7 +155,6 @@ class AppStateController extends GetxController {
         builder: ((context) {
           return routineRateDialog(() {
             // 평가 제출
-            // print("selected rank : ${rank.value}");
             rankRoutineHistory();
             Navigator.pop(context);
             showDialog(

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hem_routine_app/controllers/calendar_controller.dart';
-import 'package:hem_routine_app/controllers/report_controller.dart';
-import 'package:hem_routine_app/utils/functions.dart';
-import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/views/setting/profile_settings.dart';
 import 'package:hem_routine_app/views/splash.dart';
 import '../../utils/colors.dart';
