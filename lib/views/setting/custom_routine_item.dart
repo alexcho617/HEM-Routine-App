@@ -5,12 +5,9 @@ import 'package:get/get.dart';
 import '../../controllers/custom_routine_item_contoller.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
-import '../../utils/functions.dart';
 import '../../widgets/widgets.dart';
 
 class CustomRoutineItemPage extends StatelessWidget {
-  //TODO: 일단 form으로 validation 하는 거 먼저 하자.
-  // CustomRoutineItemPage({Key? key}) : super(key: key);
   CustomRoutineItemPage(this.args);
   ScreenArguments args;
   CustomRoutineItemController pageController = Get.find();

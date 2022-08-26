@@ -270,7 +270,7 @@ Future<RxList> fetchLineChartData(int monthsBefore) async {
           .then((QuerySnapshot querySnapshot) {
         bottom = querySnapshot.size;
       });
-      // print('BOTTOM : $bottom');
+      
       if (bottom == 0) {
         data.add(0.0);
       } else {
@@ -284,17 +284,17 @@ Future<RxList> fetchLineChartData(int monthsBefore) async {
             .then((QuerySnapshot querySnapshot) {
               top = querySnapshot.size;
             });
-        // print('TOP : $top');
+        
         data.add(((top / bottom) * 100).round() / 100);
       }
 
-      // print('$top / $bottom');
+      
     } on Exception catch (e) {
       Get.snackbar('에러', '$offSet달 전의 이벤트 데이터를 불러올 수 없습니다.');
       print(e);
     }
   }
-  // print(data);
+  
   return data;
 }
 
@@ -331,7 +331,7 @@ Future<RxList> fetchColorChartData(int days) async {
         top = querySnapshot.size;
         querySnapshot.docs.forEach((doc) {
           String color = doc.get("color");
-          // print(color);
+          
           colorMap[color] += 1;
         });
       } else {
@@ -344,16 +344,16 @@ Future<RxList> fetchColorChartData(int days) async {
           data.add(((colorMap[key] / bottom) * 100).round() / 100);
         }
       }
-      // print(data);
+      
       return data;
     });
 
-    // print('$top / $bottom');
+    
   } on Exception catch (e) {
     Get.snackbar('에러', '$daysAgo일 전의 색 데이터를 불러올 수 없습니다.');
     print(e);
   }
-  // print(data);
+  
   return data;
 }
 

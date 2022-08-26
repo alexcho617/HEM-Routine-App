@@ -7,7 +7,6 @@ import 'package:hem_routine_app/controllers/calendar_controller.dart';
 import 'package:hem_routine_app/models/calendar_event.dart';
 import 'package:hem_routine_app/models/calendar_routine.dart';
 import 'package:hem_routine_app/utils/colors.dart';
-import 'package:hem_routine_app/utils/functions.dart';
 import 'package:hem_routine_app/views/calendar/calendar_log.dart';
 import 'package:hem_routine_app/views/calendar/new_calendar_event.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -55,8 +54,8 @@ class _CalendarState extends State<Calendar> {
                   return _eventLoader(selectedDay);
                 },
                 onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                  // print(focusDay);
-                  // print(
+                  (focusDay);
+                  (
                   //     controller.eventsLibrary[parseDay(focusDay)].toString());
 
                   controller.selectedDay.value = selectDay;
@@ -98,26 +97,26 @@ class _CalendarState extends State<Calendar> {
     if (controller.routineLibrary.isNotEmpty) {
       //within range, need to improve logic with some kind of function something like bool isWithinRange()
       //left border
-      // print(date.toString());
+      (date.toString());
       for (var i = 0; i < controller.routineLibrary.length; i++) {
         CalendarRoutine routine = controller.routineLibrary[i];
-        // print('length' + controller.routines.length.toString());
-        // print('Printing Routine -----'+routine.toString());
+        ('length' + controller.routines.length.toString());
+        ('Printing Routine -----'+routine.toString());
         if (routine.startDate == date) {
-          // print('start');
+          ('start');
           return leftRoutineMarker(date, controller);
         }
         //right border
         if (routine.endDate == date) {
-          // print('end');
+          ('end');
           return rightRoutineMarker(date, controller);
         }
         //inside rectangle border
         if (routine.startDate.isBefore(date) && routine.endDate.isAfter(date)) {
-          // print(routine.startDate);
-          // print(routine.endDate);
+          (routine.startDate);
+          (routine.endDate);
 
-          // print('middle');
+          ('middle');
           return middleRoutineMarker(date, controller);
         }
 

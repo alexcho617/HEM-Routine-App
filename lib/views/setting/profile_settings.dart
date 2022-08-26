@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../home.dart';
-import '../../widgets/widgets.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../controllers/login_service.dart';

@@ -8,8 +8,6 @@ import '../../controllers/calendar_controller.dart';
 import '../../controllers/login_service.dart';
 import '../../services/firestore.dart';
 import '../../utils/colors.dart';
-import '../../utils/functions.dart';
-import '../home.dart';
 import '../../widgets/widgets.dart';
 import '../../models/calendar_event.dart';
 import '../../utils/calendarUtil.dart';

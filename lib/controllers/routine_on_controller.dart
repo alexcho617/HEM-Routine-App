@@ -191,12 +191,10 @@ class RoutineOnController extends GetxController {
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         //find index for routineItems by name and put currentCount value on it's index.
-        // print(doc.get('name'));
-        // print(currentCount);
+        
         int ind = routineItems.value.indexOf(doc.get('name'));
-        //print(doc.get('name') + " : " + ind.toString());
+        
         currentCount.value[ind] = doc.get('currentCount');
-        // print(currentCount.value);
       });
     });
   }
@@ -258,7 +256,7 @@ class RoutineOnController extends GetxController {
     DateTime nowdt = DateTime.now();
     String nowst =
         DateFormat("HH").format(nowdt) + DateFormat("mm").format(nowdt);
-    // print("nowst : $nowst");
+
     await routineHistoryDocumentSnapshot.reference
         .collection('days')
         .doc('${selectedDayIndex.value + 1}')
@@ -339,7 +337,6 @@ class RoutineOnController extends GetxController {
       });
     });
     sortByTime();
-    // print(events);
     update();
   }
 
@@ -383,7 +380,7 @@ class RoutineOnController extends GetxController {
         setEvents.add(i.eventTime);
       }
     }
-    // print("setEvents : $setEvents");
+
     // setEvents를 eventName을 name으로 가지는 document에 eventItem으로 update한다.
     await routineHistoryDocumentSnapshot.reference
         .collection('days')
@@ -420,7 +417,7 @@ class RoutineOnController extends GetxController {
         setEvents.add(i.eventTime);
       }
     }
-    // print("setEvents : $setEvents");
+
     // setEvents를 eventName을 name으로 가지는 document에 eventItem으로 update한다.
     await routineHistoryDocumentSnapshot.reference
         .collection('days')
@@ -462,7 +459,6 @@ class RoutineOnController extends GetxController {
   // FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<void> offRoutineToday() async {
-    // print("function: offRoutineToday called");
     await routineDocumentSnapshot!.reference.update({
       'tryCount' : FieldValue.increment(-1),
     });
@@ -472,7 +468,6 @@ class RoutineOnController extends GetxController {
   }
 
   Future<void> offRoutineNotToday() async {
-    // print("function: offRoutineNotToday called");
     await appStateController.fetchRateRoutine();
     await setRoutineHistoryComplete();
     await setRoutineComplete();

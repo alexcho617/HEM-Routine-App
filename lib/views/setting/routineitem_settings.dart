@@ -8,7 +8,6 @@ import '../../controllers/routine_item_setting_controller.dart';
 import '../../utils/colors.dart';
 import '../../utils/functions.dart';
 import '../../utils/constants.dart';
-import '../../widgets/widgets.dart';
 
 class RoutineItemSettingsPage extends StatelessWidget {
   RoutineItemSettingsPage({Key? key}) : super(key: key);

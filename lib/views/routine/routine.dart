@@ -288,9 +288,9 @@ class RoutinePage extends StatelessWidget {
                   onController.selectedDayIndex.value = index;
                   onController.getCurrCount();
                 }
-                // print("focused day : $focusedDay   today : $today");
+                ("focused day : $focusedDay   today : $today");
                 // } else {
-                //   // print("Clicked out of date!");
+                //   ("Clicked out of date!");
                 // }
               },
               child: Ink(

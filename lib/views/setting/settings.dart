@@ -7,7 +7,6 @@ import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import '../../controllers/routine_completed_controller.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
-import '../../utils/functions.dart';
 import 'account_settings.dart';
 import 'completed_routines.dart';
 import 'routineitem_settings.dart';
