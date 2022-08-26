@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,7 +39,7 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
     );
   }
 
-  Widget ColorButton(
+  Widget colorButton(
       Image selectedImage, Image unSelectedImage, String label, String index) {
     return Column(
       children: [
@@ -191,37 +192,37 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        ColorButton(
+                        colorButton(
                             Image.asset('assets/button/color/00.png'),
                             Image.asset('assets/button/color/0.png'),
                             '회색',
                             '0'),
-                        ColorButton(
+                        colorButton(
                             Image.asset('assets/button/color/11.png'),
                             Image.asset('assets/button/color/1.png'),
                             '붉은색',
                             '1'),
-                        ColorButton(
+                        colorButton(
                             Image.asset('assets/button/color/22.png'),
                             Image.asset('assets/button/color/2.png'),
                             '초록색',
                             '2'),
-                        ColorButton(
+                        colorButton(
                             Image.asset('assets/button/color/33.png'),
                             Image.asset('assets/button/color/3.png'),
                             '노란색',
                             '3'),
-                        ColorButton(
+                        colorButton(
                             Image.asset('assets/button/color/44.png'),
                             Image.asset('assets/button/color/4.png'),
                             '갈색',
                             '4'),
-                        ColorButton(
+                        colorButton(
                             Image.asset('assets/button/color/55.png'),
                             Image.asset('assets/button/color/5.png'),
                             '고동색',
                             '5'),
-                        ColorButton(
+                        colorButton(
                             Image.asset('assets/button/color/66.png'),
                             Image.asset('assets/button/color/6.png'),
                             '흑색',
@@ -309,6 +310,9 @@ class _NewCalendarEventState extends State<NewCalendarEvent> {
                               });
                         } on Exception catch (e) {
                           // kangminBack(context);
+                          if (kDebugMode) {
+                            print(e);
+                          }
                           Get.back();
                         }
 

@@ -8,9 +8,10 @@ import 'package:hem_routine_app/views/widget_test_page.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
-  GoogleSignInAccount? googleCredential = null;
+  GoogleSignInAccount? googleCredential;
   LoginService service = Get.find();
 
   @override

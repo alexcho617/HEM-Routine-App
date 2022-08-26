@@ -652,8 +652,8 @@ Widget achieveAlertDialog(String name, VoidCallback? onPressed) {
           child: Column(
             children: [
               SizedBox(
-                // TODO: Change This SizedBox Widget to Icon
                 height: 178.w,
+                child: Image.asset('assets/appIcon.png'),
               ),
               SizedBox(
                   height: 40.h,
@@ -721,7 +721,7 @@ Widget routineStartAlertDialog(
                   child: Image(
                     width: 160.w,
                     height: 105.h,
-                    image: AssetImage('assets/appIcon.png'),
+                    image: const AssetImage('assets/appIcon.png'),
                   ),
                 ),
                 height: 178.w,

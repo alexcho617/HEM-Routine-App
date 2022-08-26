@@ -17,6 +17,7 @@ import 'package:hem_routine_app/widgets/widgets.dart';
 
 import '../../utils/constants.dart';
 
+// ignore: must_be_immutable
 class RoutineEntitySettingPage extends StatelessWidget {
   RoutineEntitySettingPage({Key? key}) : super(key: key);
 

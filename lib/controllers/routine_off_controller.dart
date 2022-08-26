@@ -234,7 +234,7 @@ class RoutineOffController extends GetxController {
         activateButton.value = false;
 
         return '내용을 입력해주세요';
-      } else if (value != null && value.length > 20) {
+      } else if (value.length > 20) {
         isValid.value = false;
         activateButton.value = false;
 

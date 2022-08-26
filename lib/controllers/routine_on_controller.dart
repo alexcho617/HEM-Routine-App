@@ -1,10 +1,8 @@
-// ignore_for_file: avoid_function_literals_in_foreach_calls
-import 'package:firebase_core/firebase_core.dart';
+// ignore_for_file: avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/login_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:intl/intl.dart';
 
 import '../models/event.dart';

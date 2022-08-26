@@ -7,6 +7,7 @@ import '../../utils/constants.dart';
 import '../../controllers/login_service.dart';
 
 class ProfileSettingsPage extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
   ProfileSettingsPage({Key? key}) : super(key: key);
 
   @override

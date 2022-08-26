@@ -1,4 +1,4 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, invalid_use_of_protected_member
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../widgets/widgets.dart';
 
+// ignore: must_be_immutable
 class RoutineLogPage extends StatelessWidget {
   RoutineLogPage({Key? key}) : super(key: key);
   RoutineOnController controller = Get.find<RoutineOnController>();

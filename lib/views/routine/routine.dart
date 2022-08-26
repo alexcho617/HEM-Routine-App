@@ -17,6 +17,7 @@ import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../widgets/widgets.dart';
 
+// ignore: must_be_immutable
 class RoutinePage extends StatelessWidget {
   RoutinePage({Key? key}) : super(key: key);
   AppStateController appStateController = Get.find();
@@ -188,7 +189,7 @@ class RoutinePage extends StatelessWidget {
                         ),
                       ],
                     )
-                  : CircularProgressIndicator()
+                  : const CircularProgressIndicator()
               : // WHEN OFF
               Column(
                   children: [

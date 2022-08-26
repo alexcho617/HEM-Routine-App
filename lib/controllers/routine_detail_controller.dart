@@ -1,5 +1,4 @@
-// ignore_for_file: avoid_print
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -63,7 +62,7 @@ class RoutineDetailController extends GetxController {
     averageRating.value = routineSnapshot.get('averageRating');
     routineItem.value = routineSnapshot.get('routineItem');
     goals.value = routineSnapshot.get('goals');
-    for (var i in routineItem) {
+    for (var _ in routineItem) {
       isTapped.add(false);
     }
     // isTapped.fillRange(0, routineItem.length, false);
@@ -112,7 +111,9 @@ class RoutineDetailController extends GetxController {
             'dayComplete': 0.0,
           });
         } on Exception catch (e) {
-          print(e);
+          if (kDebugMode) {
+            print(e);
+          }
         }
 
         for (int j = 0; j < routineItem.length; j++) {
@@ -127,7 +128,9 @@ class RoutineDetailController extends GetxController {
               'eventTime': []
             });
           } on Exception catch (e) {
-            print(e);
+            if (kDebugMode) {
+              print(e);
+            }
           }
         }
       }
@@ -194,8 +197,11 @@ class RoutineDetailController extends GetxController {
       'startDate': parseDay(now),
       'endDate': parseDay(later),
       'name': name.value,
-    }).onError((error, _) =>
-            print("Error adding document to calendarRoutine: $error"));
+    }).onError((error, _) {
+      if (kDebugMode) {
+        print("Error adding document to calendarRoutine: $error");
+      }
+    });
     calendarController.routineLibrary = await fetchAllCalendarRoutines();
     calendarController.update();
   }

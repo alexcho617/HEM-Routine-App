@@ -12,6 +12,7 @@ import '../routine/routine.dart';
 import '../../widgets/widgets.dart';
 import '../../utils/colors.dart';
 
+// ignore: must_be_immutable
 class RoutineDetailPage extends StatefulWidget {
   RoutineDetailPage({super.key, required this.uid});
   dynamic uid;
@@ -205,7 +206,6 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                       Get.back();
                     }, () {
                       // 신규 루틴 생성
-                      // TODO : Navigate to 5-3-1 and make new routine and load previous routine info and routine
                       Get.back();
                       Get.back();
                       Get.back();

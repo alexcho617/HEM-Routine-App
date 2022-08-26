@@ -172,23 +172,23 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
   }
 
-  Material get _signupButton {
-    return Material(
-      borderRadius: defaultProceedButtonBorderRadius,
-      color: defaultProceedButtonColor,
-      child: InkWell(
-        borderRadius: defaultProceedButtonBorderRadius,
-        onTap: () {},
-        child: const Padding(
-          padding: defaultProceedButtonPadding,
-          child: Text(
-            'Sign up',
-            style: defaultProceedButtonTextStyle,
-          ),
-        ),
-      ),
-    );
-  }
+  // Material get _signupButton {
+  //   return Material(
+  //     borderRadius: defaultProceedButtonBorderRadius,
+  //     color: defaultProceedButtonColor,
+  //     child: InkWell(
+  //       borderRadius: defaultProceedButtonBorderRadius,
+  //       onTap: () {},
+  //       child: const Padding(
+  //         padding: defaultProceedButtonPadding,
+  //         child: Text(
+  //           'Sign up',
+  //           style: defaultProceedButtonTextStyle,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -7,6 +7,7 @@ import 'on_boarding.dart';
 
 import '../controllers/login_service.dart';
 
+// ignore: must_be_immutable
 class SplashScreen extends StatelessWidget {
   SplashScreen({Key? key}) : super(key: key);
   LoginService service = Get.find();

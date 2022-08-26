@@ -138,7 +138,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           onTap: () {
             // kangmin(context, const ServiceInfoPage());
-            Get.to(ServiceInfoPage());
+            Get.to(const ServiceInfoPage());
           },
           shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
         ),

@@ -41,7 +41,7 @@ void kangminBack(context) {
 
 void yechan(BuildContext context, int indexToSwitch, Widget page) async {
   //현재 보고 있는 page를 모두 pop하고 다른 page로 전환할 때 쓰는 함수
-  int _currentIndex = HomePageState.tabController.index;
+  // int _currentIndex = HomePageState.tabController.index;
   kangminBackUntil(context);
 
   HomePageState.tabController.index = indexToSwitch;

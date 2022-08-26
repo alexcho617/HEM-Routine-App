@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
+import 'package:flutter/foundation.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 
@@ -8,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hem_routine_app/controllers/routine_off_controller.dart';
-import '../views/home.dart';
 import 'login_service.dart';
 import 'calendar_controller.dart';
 import '../models/calendar_event.dart';
@@ -23,7 +23,7 @@ class AppStateController extends GetxController {
   late String uid;
 
   //For Rating Logic
-  bool? isRated = null;
+  bool? isRated;
   Future<bool> isRatedLoaded = Future<bool>.value(false);
   RxBool pushPermission = false.obs;
   dynamic rateRoutineId;
@@ -100,7 +100,9 @@ class AppStateController extends GetxController {
         .then((DocumentSnapshot documentSnapshot) async {
       //check permission
       pushPermission.value = await documentSnapshot.get('pushPermission');
-      print("permission : ${pushPermission.value}");
+      if (kDebugMode) {
+        print("permission : ${pushPermission.value}");
+      }
     });
   }
 

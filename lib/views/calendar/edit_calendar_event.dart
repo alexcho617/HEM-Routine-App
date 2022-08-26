@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class EditCalendarEvent extends StatefulWidget {
-  EditCalendarEvent();
+  // ignore: prefer_const_constructors_in_immutables
+  EditCalendarEvent({Key? key}) : super(key: key);
 
   @override
   State<EditCalendarEvent> createState() => _EditCalendarEventState();
@@ -296,7 +298,9 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
                           });
                         });
                   } on Exception catch (e) {
-                    print(e);
+                    if (kDebugMode) {
+                      print(e);
+                    }
                     // kangminBackUntil(context);
                     Get.back();
                   }

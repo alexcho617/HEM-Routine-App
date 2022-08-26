@@ -1,19 +1,18 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_function_literals_in_foreach_calls
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/calendar_controller.dart';
-import 'package:hem_routine_app/controllers/custom_routine_item_contoller.dart';
 import 'package:hem_routine_app/controllers/report_controller.dart';
 import 'package:hem_routine_app/controllers/routine_completed_controller.dart';
 import 'package:hem_routine_app/controllers/routine_item_setting_controller.dart';
 import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/controllers/routine_on_controller.dart';
 import 'package:hem_routine_app/views/home.dart';
-import 'package:hem_routine_app/views/setting/completed_routines.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'dart:convert';
 import 'dart:math';
@@ -71,9 +70,13 @@ class LoginService extends GetxController {
   Future<void> authStateListner() async {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
-        print('User is currently signed out!');
+        if (kDebugMode) {
+          print('User is currently signed out!');
+        }
       } else {
-        print('User is signed in!');
+        if (kDebugMode) {
+          print('User is signed in!');
+        }
       }
     });
   }
@@ -159,7 +162,7 @@ class LoginService extends GetxController {
         .collection('user')
         .doc(auth.value.currentUser!.uid)
         .get();
-    if (userSnapshot == null || !userSnapshot.exists) {
+    if (!userSnapshot.exists) {
       addUserDocument();
     }
     Get.put(RoutineCompletedController());
@@ -180,11 +183,11 @@ class LoginService extends GetxController {
     //   auth.value.currentUser!.delete();
     // }
 
-    if (auth.value.currentUser == null) {
-      print('current user null');
-    } else {
-      print('currentUser not null');
-    }
+    // if (auth.value.currentUser == null) {
+    //   print('current user null');
+    // } else {
+    //   print('currentUser not null');
+    // }
     Get.put(RoutineCompletedController());
     Get.find<CalendarController>().clearAllData();
     //clear routine
@@ -205,8 +208,16 @@ class LoginService extends GetxController {
           'rateRoutineHistoryId': "",
           'pushPermission': true,
         })
-        .then((value) => print("User Document Created"))
-        .catchError((error) => print("Faied to Add User document: $error"));
+        .then((value) {
+          if (kDebugMode) {
+            print("User Document Created");
+          }
+        })
+        .catchError((error) {
+          if (kDebugMode) {
+            print("Faied to Add User document: $error");
+          }
+        });
   }
 
   Future<void> profileSetting(
@@ -219,8 +230,16 @@ class LoginService extends GetxController {
           'birthDate': birthDate,
           'gender': gender,
         })
-        .then((value) => print("User Document Created"))
-        .catchError((error) => print("Faied to Add User document: $error"));
+        .then((value) {
+          if (kDebugMode) {
+            print("User Document Created");
+          }
+        })
+        .catchError((error) {
+          if (kDebugMode) {
+            print("Faied to Add User document: $error");
+          }
+        });
   }
 
   Future<void> dataDelete() async {
@@ -238,7 +257,11 @@ class LoginService extends GetxController {
       querySnapshot.docs.forEach((doc) {
         doc.reference.delete();
       });
-    }).catchError((error) => print("Failed to delete Events: $error"));
+    }).catchError((error) {
+      if (kDebugMode) {
+        print("Failed to delete Events: $error");
+      }
+    });
     //delete calendarRoutine
     await users
         .doc(auth.value.currentUser!.uid)
@@ -248,7 +271,11 @@ class LoginService extends GetxController {
       querySnapshot.docs.forEach((doc) {
         doc.reference.delete();
       });
-    }).catchError((error) => print("Failed to delete calendarRoutine: $error"));
+    }).catchError((error) {
+      if (kDebugMode) {
+        print("Failed to delete calendarRoutine: $error");
+      }
+    });
     //delete routine
     await users
         .doc(auth.value.currentUser!.uid)
@@ -258,7 +285,11 @@ class LoginService extends GetxController {
       querySnapshot.docs.forEach((doc) {
         doc.reference.delete();
       });
-    }).catchError((error) => print("Failed to delete routine: $error"));
+    }).catchError((error) {
+      if (kDebugMode) {
+        print("Failed to delete routine: $error");
+      }
+    });
     //delete userRoutineItems
     await users
         .doc(auth.value.currentUser!.uid)
@@ -268,7 +299,11 @@ class LoginService extends GetxController {
       querySnapshot.docs.forEach((doc) {
         doc.reference.delete();
       });
-    }).catchError((error) => print("Failed to delete routine: $error"));
+    }).catchError((error) {
+      if (kDebugMode) {
+        print("Failed to delete routine: $error");
+      }
+    });
     Get.find<CalendarController>().getAllData();
     Get.find<RoutineOnController>().getAllData();
     Get.find<RoutineOffController>().getAllData();

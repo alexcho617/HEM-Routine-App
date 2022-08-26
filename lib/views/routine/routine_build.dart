@@ -7,6 +7,7 @@ import '../../utils/functions.dart';
 import 'routine_entity_setting.dart';
 import '../../widgets/widgets.dart';
 
+// ignore: must_be_immutable
 class RoutineBuildPage extends StatelessWidget {
   RoutineBuildPage({Key? key}) : super(key: key);
 

@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../widgets/widgets.dart';
 import '../../controllers/login_service.dart';
 
+// ignore: must_be_immutable
 class AccountSettingsPage extends StatelessWidget {
   AccountSettingsPage({Key? key}) : super(key: key);
   LoginService loginService = Get.find();

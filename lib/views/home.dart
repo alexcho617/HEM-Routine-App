@@ -12,6 +12,7 @@ import '../utils/colors.dart';
 import 'routine/routine.dart';
 
 class HomePage extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
   HomePage({Key? key}) : super(key: key);
 
   @override
@@ -34,6 +35,7 @@ class HomePageState extends State<HomePage>
   @override
   void initState() {
     for (var page in _pages) {
+      // ignore: invalid_use_of_protected_member
       page.createElement();
     }
     super.initState();

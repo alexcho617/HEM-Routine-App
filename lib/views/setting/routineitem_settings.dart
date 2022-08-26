@@ -9,6 +9,7 @@ import '../../utils/colors.dart';
 import '../../utils/functions.dart';
 import '../../utils/constants.dart';
 
+// ignore: must_be_immutable
 class RoutineItemSettingsPage extends StatelessWidget {
   RoutineItemSettingsPage({Key? key}) : super(key: key);
   RotuineItemSettingController pageController =

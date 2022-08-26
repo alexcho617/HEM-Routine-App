@@ -319,7 +319,7 @@ Future<RxList> fetchColorChartData(int days) async {
 
   try {
     int bottom = 0;
-    int top = 0;
+    // int top = 0;
     await eventCollectionReference
         .where("time", isGreaterThan: daysAgo)
         .orderBy("time", descending: true)
@@ -328,7 +328,7 @@ Future<RxList> fetchColorChartData(int days) async {
       bottom = querySnapshot.size;
       if (bottom != 0) {
         //do counting here
-        top = querySnapshot.size;
+        // top = querySnapshot.size;
         querySnapshot.docs.forEach((doc) {
           String color = doc.get("color");
           

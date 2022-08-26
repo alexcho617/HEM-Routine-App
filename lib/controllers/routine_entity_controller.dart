@@ -1,6 +1,5 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
@@ -108,8 +107,11 @@ class RoutineEntityController extends GetxController {
         'startDate': parseDay(now),
         'endDate': parseDay(later),
         'name': controller.inputController.text,
-      }).onError((error, _) =>
-              print("Error adding document to calendarRoutine: $error"));
+      }).onError((error, _) {
+        if (kDebugMode) {
+          print("Error adding document to calendarRoutine: $error");
+        }
+      });
 
       //fetch routine collection and add to routineLibrary
       calendarController.routineLibrary = await fetchAllCalendarRoutines();
