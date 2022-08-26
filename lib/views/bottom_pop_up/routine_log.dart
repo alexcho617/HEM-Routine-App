@@ -169,11 +169,7 @@ class RoutineLogPage extends StatelessWidget {
                             onTap: (() {
                               // controller
                               controller.selectedEventIndex = index;
-                              (controller.selectedEventIndex);
-                              (controller.events);
-                              (controller
-                              //     .events[controller.selectedEventIndex]
-                              //     .name);
+                              
                               _showDatePicker(context);
                             }),
                           ),

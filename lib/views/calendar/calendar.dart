@@ -54,9 +54,6 @@ class _CalendarState extends State<Calendar> {
                   return _eventLoader(selectedDay);
                 },
                 onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                  (focusDay);
-                  (
-                  //     controller.eventsLibrary[parseDay(focusDay)].toString());
 
                   controller.selectedDay.value = selectDay;
                   controller.focusedDate.value = focusDay;
@@ -97,26 +94,19 @@ class _CalendarState extends State<Calendar> {
     if (controller.routineLibrary.isNotEmpty) {
       //within range, need to improve logic with some kind of function something like bool isWithinRange()
       //left border
-      (date.toString());
+      
       for (var i = 0; i < controller.routineLibrary.length; i++) {
         CalendarRoutine routine = controller.routineLibrary[i];
-        ('length' + controller.routines.length.toString());
-        ('Printing Routine -----'+routine.toString());
+        
         if (routine.startDate == date) {
-          ('start');
           return leftRoutineMarker(date, controller);
         }
         //right border
         if (routine.endDate == date) {
-          ('end');
           return rightRoutineMarker(date, controller);
         }
         //inside rectangle border
         if (routine.startDate.isBefore(date) && routine.endDate.isAfter(date)) {
-          (routine.startDate);
-          (routine.endDate);
-
-          ('middle');
           return middleRoutineMarker(date, controller);
         }
 

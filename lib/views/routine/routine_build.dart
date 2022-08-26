@@ -76,7 +76,6 @@ class RoutineBuildPage extends StatelessWidget {
                         child: CupertinoPicker(
                           children: RoutineOffController.routinePeriod,
                           onSelectedItemChanged: (value) {
-                            (value);
                             pageController.routinePeriodIndex.value = value + 1;
                           },
                           itemExtent: 25.h,
