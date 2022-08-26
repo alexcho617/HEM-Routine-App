@@ -77,7 +77,7 @@ class AccountSettingsPage extends StatelessWidget {
           //           return signOutAlertDialog(() async {
           //             Get.back();
           //           }, () {
-          //             //TODO: 로그아웃 시 컨트롤러 없애기.
+          
           //             loginService.signOut();
           //             // ReportController _reportController = Get.find();
           //             // _reportController.onClose(() {
