@@ -69,19 +69,12 @@ class RoutineItemAddPage extends StatelessWidget {
                                 child: ElevatedButton(
                                   onPressed: () {
                                     Get.back();
-                                    // kangminToCustomRoutineItem(
-                                    //     ScreenArguments(CRUD.create,
-                                    //         FromWhere.routineItemAdd, null),
-                                    //     HomePageState
-                                    //         .navigatorKeyList[
-                                    //             HomePageState.currentIndex]
-                                    //         .currentContext);
                                     Get.put(CustomRoutineItemController(
                                         args: ScreenArguments(CRUD.create,
-                                            FromWhere.routineItemAdd, null)));
+                                            FromWhere.routineItemAdd, null, index)));
                                     Get.to(CustomRoutineItemPage(
                                         ScreenArguments(CRUD.create,
-                                            FromWhere.routineItemAdd, null)));
+                                            FromWhere.routineItemAdd, null, index)));
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -235,16 +228,17 @@ class RoutineItemAddPage extends StatelessWidget {
                             height: 41.h,
                             child: IconButton(
                                 onPressed: () {
-                                  Navigator.maybePop(context);
-                                  kangminToCustomRoutineItem(
-                                      ScreenArguments(
+                                  Navigator.pop(context);
+                                  Get.put(CustomRoutineItemController(
+                                      args: ScreenArguments(
                                           CRUD.update,
                                           FromWhere.routineItemAdd,
-                                          pageController.routineItems[index]),
-                                      HomePageState
-                                          .navigatorKeyList[
-                                              HomePageState.currentIndex]
-                                          .currentContext);
+                                          pageController.routineItems[index],
+                                          index)));
+                                  Get.to(CustomRoutineItemPage(ScreenArguments(
+                                      CRUD.update,
+                                      FromWhere.routineItemAdd,
+                                      pageController.routineItems[index], index)));
                                 },
                                 icon: const Icon(Icons.settings_outlined)))
                         : const SizedBox.shrink()
@@ -331,16 +325,16 @@ class RoutineItemAddPage extends StatelessWidget {
                           height: 41.h,
                           child: IconButton(
                               onPressed: () {
-                                Navigator.maybePop(context);
-                                kangminToCustomRoutineItem(
-                                    ScreenArguments(
-                                        CRUD.update,
-                                        FromWhere.routineItemAdd,
-                                        pageController.routineItems[index]),
-                                    HomePageState
-                                        .navigatorKeyList[
-                                            HomePageState.currentIndex]
-                                        .currentContext);
+                                Navigator.pop(context);
+                                Get.put(CustomRoutineItemController(
+                                      args: ScreenArguments(
+                                          CRUD.update,
+                                          FromWhere.routineItemAdd,
+                                          pageController.routineItems[index], index)));
+                                  Get.to(CustomRoutineItemPage(ScreenArguments(
+                                      CRUD.update,
+                                      FromWhere.routineItemAdd,
+                                      pageController.routineItems[index], index)));
                               },
                               icon: const Icon(Icons.settings_outlined)))
                       : const SizedBox.shrink()

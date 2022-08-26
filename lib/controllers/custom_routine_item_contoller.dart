@@ -22,7 +22,6 @@ class CustomRoutineItemController extends GetxController {
   int categoryIndex = 0;
   //
   List<String> routineItemNames = [];
-
   List<TextEditingController> inputController =
       List<TextEditingController>.generate(
           2, (index) => TextEditingController());
@@ -124,29 +123,46 @@ class CustomRoutineItemController extends GetxController {
   }
 
   Future<void> deleteCustomRoutineItem() async {
+    RoutineOffController routineOffController = Get.find();
     await firestore
         .collection(
             'user/${Get.find<LoginService>().auth.value.currentUser!.uid}/userRoutineItems')
         .doc(args.routineItem!.docID)
         .delete();
     if (args.fromWhere == FromWhere.routineItemAdd) {
-      //아 근데 그냥 가져오는데 리스트는 그대로 둬야 한다.
-      await refreshRoutineItems();
+      //TODO: 이걸 삭제로 아 crud가 없네
+      routineOffController.routineItems.removeAt(args.index);
     } else if (args.fromWhere == FromWhere.routineItemSetting) {
       Get.find<RotuineItemSettingController>().getCustomRoutineItemNameList();
     }
   }
 
   //이게 돌아왔을 때 routine Off가 꺼졌을 수도 있으니까. 이걸 잘 처리해야 해.
-  Future<void> refreshRoutineItems() async {
+  Future<void> refreshRoutineItems(String docID) async {
     RoutineOffController routineOffController = Get.find();
     //only custom routine items list are updated.
-    routineOffController.routineItems.add(RoutineItem(
-      name: inputController[0].text,
-      description: inputController[1].text,
-      category: categories[categoryIndex],
-      isCustom: true,
-    ));
+    //TODO: 이걸 제대로 수정
+    if (args.crud == CRUD.create) {
+      routineOffController.routineItems.add(RoutineItem(
+        name: inputController[0].text,
+        description: inputController[1].text,
+        category: categories[categoryIndex],
+        isCustom: true,
+        docID: docID,
+      ));
+    }
+    else if(args.crud == CRUD.update){
+      routineOffController.routineItems.removeAt(args.index);
+      routineOffController.routineItems.add(RoutineItem(
+        name: inputController[0].text,
+        description: inputController[1].text,
+        category: categories[categoryIndex],
+        isCustom: true,
+        docID: docID,
+      ));
+    }
+    
+
     //이름에 따라 sorting
     routineOffController.routineItems
         .sort(((a, b) => a.name.compareTo(b.name)));
@@ -223,7 +239,7 @@ class CustomRoutineItemController extends GetxController {
     } else if (args.crud == CRUD.delete) {}
     if (args.fromWhere == FromWhere.routineItemAdd) {
       //아 근데 그냥 가져오는데 리스트는 그대로 둬야 한다.
-      await refreshRoutineItems();
+      await refreshRoutineItems(args.routineItem!.docID);
     } else if (args.fromWhere == FromWhere.routineItemSetting) {
       Get.find<RotuineItemSettingController>().getCustomRoutineItemNameList();
     }

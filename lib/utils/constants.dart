@@ -219,6 +219,7 @@ class ScreenArguments {
   CRUD crud;
   FromWhere fromWhere;
   RoutineItem? routineItem;
+  int index;
 
-  ScreenArguments(this.crud, this.fromWhere, this.routineItem);
+  ScreenArguments(this.crud, this.fromWhere, this.routineItem, this.index);
 }

@@ -151,14 +151,14 @@ class RoutineItemSettingsPage extends StatelessWidget {
                                                         CRUD.create,
                                                         FromWhere
                                                             .routineItemSetting,
-                                                        null),
+                                                        null, -1),
                                                   ));
                                                   Get.to(CustomRoutineItemPage(
                                                     ScreenArguments(
                                                         CRUD.create,
                                                         FromWhere
                                                             .routineItemSetting,
-                                                        null),
+                                                        null, -1),
                                                   ));
                                                 },
                                                 child: Row(
@@ -224,7 +224,7 @@ class RoutineItemSettingsPage extends StatelessWidget {
         onTap: () {
           kangminToCustomRoutineItem(
               ScreenArguments(CRUD.update, FromWhere.routineItemSetting,
-                  pageController.customRoutineItems[index]),
+                  pageController.customRoutineItems[index], -1),
               context);
         },
         onLongPress: () {
