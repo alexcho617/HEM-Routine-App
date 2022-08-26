@@ -100,6 +100,7 @@ class RoutineDetailController extends GetxController {
       'isActive': true,
       'name': name.value,
       'rating': 0.0,
+      'isCompleted' : [false,false,false,false,false,false,false,false,false,false,false,false,false,false],
     }).then((DocumentReference routineHistoryDoc) async {
       for (int i = 1; i <= days.value; i++) {
         try {

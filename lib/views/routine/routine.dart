@@ -289,7 +289,6 @@ class RoutinePage extends StatelessWidget {
                   onController.selectedDayIndex.value = index;
                   onController.getCurrCount();
                 }
-
               },
               child: Ink(
                 child: Column(
@@ -403,10 +402,14 @@ class RoutinePage extends StatelessWidget {
                       width: 34.w,
                       height: 34.h,
                       child: onController.isFinished.value
-                          ? GetBuilder<RoutineOnController>(builder: (context) {
+                          ? GetBuilder<RoutineOnController>(builder: (_) {
                               return InkWell(
                                 onTap: () async {
-                                  return onController.onPlusPressed(index);
+                                  return onController
+                                      .onPlusPressed(index)
+                                      .then((_) {
+                                    onController.checkComplete(context);
+                                  });
                                 },
                                 child: Ink(
                                   child: CircleAvatar(

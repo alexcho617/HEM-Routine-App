@@ -95,6 +95,7 @@ class RoutineEntityController extends GetxController {
       'name': controller.inputController.text,
       'rating': 0,
       'goals': routineGoalCount,
+      'isCompleted' : [false,false,false,false,false,false,false,false,false,false,false,false,false,false],
     }).then((DocumentReference routineHistoryDoc) async {
       routineHistoryId = routineHistoryDoc.id;
       //start alex calenderRoutine

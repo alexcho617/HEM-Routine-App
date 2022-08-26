@@ -1,8 +1,10 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
 import 'package:hem_routine_app/controllers/login_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hem_routine_app/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 
 import '../models/event.dart';
@@ -51,6 +53,23 @@ class RoutineOnController extends GetxController {
     0.0,
     0.0, //14
   ].obs;
+
+  List<dynamic> isCompleted = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
 
   DocumentSnapshot? routineDocumentSnapshot;
   late DocumentSnapshot routineHistoryDocumentSnapshot;
@@ -104,6 +123,23 @@ class RoutineOnController extends GetxController {
       0.0,
       0.0, //14
     ].obs;
+
+    isCompleted = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
 
     events = [];
 
@@ -189,9 +225,9 @@ class RoutineOnController extends GetxController {
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         //find index for routineItems by name and put currentCount value on it's index.
-        
+
         int ind = routineItems.value.indexOf(doc.get('name'));
-        
+
         currentCount.value[ind] = doc.get('currentCount');
       });
     });
@@ -227,7 +263,9 @@ class RoutineOnController extends GetxController {
 
   double getAvgPercentDay() {
     double avg = 0.0;
-    if (goals.value.isEmpty || goals == null || goals.value == null) return avg;
+    if (goals.value.isEmpty || goals == null || goals.value == null) {
+      return avg;
+    }
     for (int i = 0; i < goals.value.length; i++) {
       avg += getPercent(currentCount.value[i], goals.value[i]);
     }
@@ -244,6 +282,17 @@ class RoutineOnController extends GetxController {
       querySnapshot.docs.forEach((doc) {
         dayCompletes.value[int.parse(doc.id) - 1] = doc.get('dayComplete');
       });
+    });
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc(uid)
+        .collection('routine')
+        .doc(routineDocumentSnapshot!.id)
+        .collection('routineHistory')
+        .doc(routineHistoryDocumentSnapshot.id)
+        .get()
+        .then((value) {
+      isCompleted = value.get('isCompleted');
     });
     update();
   }
@@ -458,7 +507,7 @@ class RoutineOnController extends GetxController {
 
   Future<void> offRoutineToday() async {
     await routineDocumentSnapshot!.reference.update({
-      'tryCount' : FieldValue.increment(-1),
+      'tryCount': FieldValue.increment(-1),
     });
     routineDeactivate();
     routineHistoryDelete();
@@ -602,5 +651,21 @@ class RoutineOnController extends GetxController {
     }
     avg /= days.value;
     return avg;
+  }
+
+  Future<void> checkComplete(BuildContext context) async {
+    if (dayCompletes.value[todayIndex.value] * 100.round() >= 100 &&
+        isCompleted[todayIndex.value] == false) {
+      isCompleted[todayIndex.value] = true;
+      showDialog(
+          context: context,
+          builder: ((context) {
+            return achieveAlertDialog(loginService.name.value, () {
+              Get.back();
+            });
+          }));
+      await routineHistoryDocumentSnapshot.reference
+          .update({'isCompleted': isCompleted});
+    }
   }
 }

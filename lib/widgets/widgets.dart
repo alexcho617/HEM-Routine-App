@@ -645,7 +645,9 @@ Widget achieveAlertDialog(String name, VoidCallback? onPressed) {
     actionsPadding: const EdgeInsets.all(0),
     contentPadding: const EdgeInsets.all(0),
     content: Container(
-      child: Column(children: [
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
         SizedBox(
           width: 312.w,
           height: 302.h,
