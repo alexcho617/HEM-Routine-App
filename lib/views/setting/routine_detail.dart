@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/app_state_controller.dart';
+import 'package:hem_routine_app/views/routine/routine_build.dart';
 import '../../controllers/routine_detail_controller.dart';
 import '../../utils/constants.dart';
 import '../../utils/functions.dart';
@@ -198,13 +199,17 @@ class _RoutineDetailPageState extends State<RoutineDetailPage> {
                 // 루틴 변경
                 showDialog(
                   context: context,
-                  builder: ((context) {
+                  builder: ((dialogcontext) {
                     return routineCopyAlertDialog(() {
                       //취소
                       Get.back();
                     }, () {
                       // 신규 루틴 생성
                       // TODO : Navigate to 5-3-1 and make new routine and load previous routine info and routine
+                      Get.back();
+                      Get.back();
+                      Get.back();
+                      yechan(context, 1, RoutineBuildPage());
                     });
                   }),
                 );
