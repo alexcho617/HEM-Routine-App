@@ -130,7 +130,6 @@ class CustomRoutineItemController extends GetxController {
         .doc(args.routineItem!.docID)
         .delete();
     if (args.fromWhere == FromWhere.routineItemAdd) {
-      //TODO: 이걸 삭제로 아 crud가 없네
       routineOffController.routineItems.removeAt(args.index);
     } else if (args.fromWhere == FromWhere.routineItemSetting) {
       Get.find<RotuineItemSettingController>().getCustomRoutineItemNameList();
@@ -141,7 +140,6 @@ class CustomRoutineItemController extends GetxController {
   Future<void> refreshRoutineItems(String docID) async {
     RoutineOffController routineOffController = Get.find();
     //only custom routine items list are updated.
-    //TODO: 이걸 제대로 수정
     if (args.crud == CRUD.create) {
       routineOffController.routineItems.add(RoutineItem(
         name: inputController[0].text,
