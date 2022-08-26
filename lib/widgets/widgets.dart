@@ -654,8 +654,8 @@ Widget achieveAlertDialog(String name, VoidCallback? onPressed) {
           child: Column(
             children: [
               SizedBox(
-                height: 178.w,
-                child: Image.asset('assets/appIcon.png'),
+                height: 178.h,
+                child: Center(child: Image.asset('assets/appIcon.png',height: 100.h,)),
               ),
               SizedBox(
                   height: 40.h,

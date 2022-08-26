@@ -7,8 +7,6 @@ import 'package:hem_routine_app/controllers/routine_off_controller.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:hem_routine_app/utils/constants.dart';
 import 'package:hem_routine_app/views/setting/custom_routine_item.dart';
-import '../../utils/functions.dart';
-import 'package:hem_routine_app/views/home.dart';
 import 'package:hem_routine_app/widgets/widgets.dart';
 import '../../widgets/widgets.dart';
 

@@ -7,8 +7,9 @@ import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../widgets/widgets.dart';
 
+// ignore: must_be_immutable
 class CustomRoutineItemPage extends StatelessWidget {
-  CustomRoutineItemPage(this.args);
+  CustomRoutineItemPage(this.args, {Key? key}) : super(key: key);
   ScreenArguments args;
   CustomRoutineItemController pageController = Get.find();
 
