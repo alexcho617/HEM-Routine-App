@@ -55,17 +55,21 @@ class RoutineCompletedController extends GetxController {
 
   void sortByName() {
     routines.sort(((a, b) => a.name.compareTo(b.name)));
+    update();
   }
 
   void sortByRank() {
     routines.sort(((b, a) => a.averageRating.compareTo(b.averageRating)));
+    update();
   }
 
   void sortByCompleted() {
     routines.sort(((b, a) => a.averageComplete.compareTo(b.averageComplete)));
+    update();
   }
 
   void sortByTry() {
     routines.sort(((b, a) => a.tryCount.compareTo(b.tryCount)));
+    update();
   }
 }
