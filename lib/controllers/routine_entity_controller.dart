@@ -190,7 +190,7 @@ class RoutineEntityController extends GetxController {
     bool result = true;
     for (int i = 0; i < routineEntities.length; i++) {
       if (inputControllers[i].text.isEmpty ||
-          int.parse(inputControllers[i].text) > 20) {
+          int.parse(inputControllers[i].text) > 20 || int.parse(inputControllers[i].text) <= 0) {
         inputControllers[i].clear();
         result = false;
       }
