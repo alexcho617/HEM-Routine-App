@@ -8,8 +8,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterfire_ui/i10n.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hem_routine_app/views/localization.dart';
 
 import 'controllers/login_service.dart';
 import 'controllers/app_state_controller.dart';
@@ -45,7 +47,7 @@ void initServices() async {
   /// or moor connection, or whatever that's async.
   Get.put(LoginService());
   Get.put(AppStateController());
-  
+
   if (Platform.isIOS) {
     // iOS-specific code
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -89,10 +91,13 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, _) {
           return GetMaterialApp(
-            localizationsDelegates: const [
+            localizationsDelegates: [
+              FlutterFireUILocalizations.withDefaultOverrides(
+                  const LabelOverrides()),
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate
+              GlobalCupertinoLocalizations.delegate,
+              // FlutterFireUILocalizations.delegate,
             ],
             supportedLocales: const [Locale('ko', 'KR'), Locale('en', 'US')],
             debugShowCheckedModeBanner: false,

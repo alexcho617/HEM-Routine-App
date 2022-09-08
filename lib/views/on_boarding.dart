@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:hem_routine_app/utils/constants.dart';
+import 'package:hem_routine_app/views/email_sign_in.dart';
 import 'package:onboarding/onboarding.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:get/get.dart';
@@ -133,7 +135,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             ),
             Image.asset(
               'assets/onboarding/4.png',
-              height: 200.h,
+              height: 150.h,
             ),
             Expanded(child: Container()),
           ],
@@ -247,6 +249,24 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                               )
                             : Column(
                                 children: [
+                                  ElevatedButton(
+                                      onPressed: () async {
+                                        // setState(() {
+                                        //   _loginService.loginStatus.value =
+                                        //       LoginStatus.progress;
+                                        // });
+                                        Get.to(EmailSignInPage());
+                                      },
+                                      child: SizedBox(
+                                          width: 320.w,
+                                          child: Center(
+                                              child: Text(
+                                            "Sign in with Email",
+                                            style: AppleFont18_White,
+                                          )))),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
                                   GoogleSignInButton(
                                     clientId:
                                         '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
@@ -262,16 +282,15 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                                   SizedBox(
                                     height: 15.h,
                                   ),
-                                  Platform.isIOS?
-                                  SignInWithAppleButton(onPressed: () {
-                                    setState(() {
-                                      _loginService.loginStatus.value =
-                                          LoginStatus.progress;
-                                    });
-                                    _loginService.signInWithApple();
-                                  })
-                                  :
-                                  const SizedBox.shrink(),
+                                  Platform.isIOS
+                                      ? SignInWithAppleButton(onPressed: () {
+                                          setState(() {
+                                            _loginService.loginStatus.value =
+                                                LoginStatus.progress;
+                                          });
+                                          _loginService.signInWithApple();
+                                        })
+                                      : const SizedBox.shrink(),
                                 ],
                               ),
                   );

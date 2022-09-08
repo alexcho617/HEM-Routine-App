@@ -172,6 +172,14 @@ TextStyle AppleFont16_Grey600 = TextStyle(
   color: grey600,
 );
 
+TextStyle AppleFont18_White = TextStyle(
+  fontFamily: 'AppleSDGothicNeoM',
+  fontWeight: FontWeight.w400,
+  fontSize: 16.sp,
+  letterSpacing: 0.5.sp,
+  color: white,
+);
+
 TextStyle AppleFont18_Black = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
