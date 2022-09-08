@@ -20,7 +20,7 @@ class CustomRoutineItemController extends GetxController {
   Rx<bool> onSubmitted = false.obs;
   RxList<bool> activateButton = [false, false].obs;
   int categoryIndex = 0;
-  //
+  String createdDocID = '';
   List<String> routineItemNames = [];
   List<TextEditingController> inputController =
       List<TextEditingController>.generate(
@@ -107,7 +107,7 @@ class CustomRoutineItemController extends GetxController {
       'name': inputController[0].text,
       'description': inputController[1].text,
       'category': categories[categoryIndex],
-    });
+    }).then((value) => createdDocID = value.id);
   }
 
   Future<void> updateCustomRoutineItem(String docID) async {
@@ -148,8 +148,7 @@ class CustomRoutineItemController extends GetxController {
         isCustom: true,
         docID: docID,
       ));
-    }
-    else if(args.crud == CRUD.update){
+    } else if (args.crud == CRUD.update) {
       routineOffController.routineItems.removeAt(args.index);
       routineOffController.routineItems.add(RoutineItem(
         name: inputController[0].text,
@@ -159,7 +158,6 @@ class CustomRoutineItemController extends GetxController {
         docID: docID,
       ));
     }
-    
 
     //이름에 따라 sorting
     routineOffController.routineItems
@@ -237,7 +235,12 @@ class CustomRoutineItemController extends GetxController {
     } else if (args.crud == CRUD.delete) {}
     if (args.fromWhere == FromWhere.routineItemAdd) {
       //아 근데 그냥 가져오는데 리스트는 그대로 둬야 한다.
-      await refreshRoutineItems(args.routineItem!.docID);
+
+      if (args.crud == CRUD.update) {
+        await refreshRoutineItems(args.routineItem!.docID);
+      } else if (args.crud == CRUD.create) {
+        await refreshRoutineItems(createdDocID);
+      }
     } else if (args.fromWhere == FromWhere.routineItemSetting) {
       Get.find<RotuineItemSettingController>().getCustomRoutineItemNameList();
     }

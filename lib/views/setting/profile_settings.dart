@@ -66,6 +66,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                                   Icons.replay_circle_filled_rounded),
                               onPressed: () {
                                 //controller.stashname();
+                                nameController.clear();
                               },
                             )),
                         controller: nameController,
