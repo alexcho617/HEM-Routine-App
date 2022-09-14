@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../controllers/profile_setting_controller.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../controllers/login_service.dart';
@@ -17,10 +19,7 @@ class ProfileSettingsPage extends StatefulWidget {
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   final _formKey = GlobalKey<FormState>();
   LoginService loginService = Get.find();
-  final nameController = TextEditingController();
-  DateTime selectedDateTime = DateTime.now();
-  bool isMale = true;
-  bool enableBtn = false;
+  ProfileSettingController controller = Get.put(ProfileSettingController());
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   key: _formKey,
                   onChanged: (() {
                     setState(() {
-                      enableBtn = _formKey.currentState!.validate();
+                      controller.enableBtn = _formKey.currentState!.validate();
                     });
                   }),
                   child: Column(
@@ -66,10 +65,10 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                                   Icons.replay_circle_filled_rounded),
                               onPressed: () {
                                 //controller.stashname();
-                                nameController.clear();
+                                controller.nameController.clear();
                               },
                             )),
-                        controller: nameController,
+                        controller: controller.nameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return '사용자 이름을 입력하세요';
@@ -87,12 +86,12 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                       genderchooseButton(() {
                         //when pressed Male
                         setState(() {
-                          isMale = true;
+                          controller.isMale = true;
                         });
                       }, () {
                         //when pressed Female
                         setState(() {
-                          isMale = false;
+                          controller.isMale = false;
                         });
                       }),
                       SizedBox(
@@ -110,7 +109,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                         height: 66.h,
                       ),
                       saveButtonLong(
-                          saveButtonPressed, enableBtn ? primary : grey600),
+                          saveButtonPressed, controller.enableBtn ? primary : grey600),
                     ],
                   ),
                 ),
@@ -123,23 +122,23 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   }
 
   Widget buildDatePicker() => CupertinoDatePicker(
-        initialDateTime: selectedDateTime,
+        initialDateTime: controller.selectedDateTime,
         mode: CupertinoDatePickerMode.date,
         onDateTimeChanged: (DateTime value) {
           setState(() {
-            selectedDateTime = value;
+            controller.selectedDateTime = value;
           });
         },
       );
 
   void saveButtonPressed() {
-    if (enableBtn) {
+    if (controller.enableBtn) {
       loginService.profileSetting(
-          nameController.text, selectedDateTime, isMale ? "Male" : "Female");
+          controller.nameController.text, controller.selectedDateTime, controller.isMale ? "Male" : "Female");
       // ScaffoldMessenger.of(
       //         context.findAncestorStateOfType<HomePageState>()!.context)
       //     .showSnackBar(const SnackBar(content: Text("저장되었습니다")));
-      Get.snackbar('수정 완료','저장되었습니다.');
+      Get.snackbar('수정 완료', '저장되었습니다.');
       Navigator.pop(context);
     }
   }
@@ -162,7 +161,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             ),
             style: ElevatedButton.styleFrom(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              primary: isMale ? primary : grey600,
+              primary: controller.isMale ? primary : grey600,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.r),
               ),
@@ -180,7 +179,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             ),
             style: ElevatedButton.styleFrom(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              primary: isMale ? grey600 : primary,
+              primary: controller.isMale ? grey600 : primary,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.r),
               ),
