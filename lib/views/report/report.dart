@@ -30,134 +30,127 @@ class _ReportPageState extends State<ReportPage> {
       padding: EdgeInsets.symmetric(horizontal: 12.0.w),
       child: Column(
         children: [
-          SizedBox(
-            height: 192.h,
-            child: Column(
-              children: [
-                Text(
-                  'Report',
-                  style: ReportTitleFont,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Obx(() {
-                        return RichText(
-                          text: TextSpan(
-                            text: '${_loginService.name}님의 리포트',
-                            style: AppleFont24_Black,
-                          ),
-                          overflow: TextOverflow.clip,
-                        );
-                      }),
-                      IconButton(
-                          onPressed: () async {
-                            await _reportController.refreshData();
-                          },
-                          icon: const Icon(Icons.refresh))
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  // height: 24.h,
-                  height: 6.h,
-                ),
-                Container(
-                  height: 98.h,
-                  width: 350.w,
-                  decoration: BoxDecoration(
-                      color: blue100,
-                      borderRadius: BorderRadius.circular(10.r)),
-                  child: Padding(
-                    padding: EdgeInsets.all(10.0.r),
-                    child: Obx(() {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                '주간 배변 횟수',
-                                style: AppleFont14_Black,
-                              ),
-                              Text(
-                                '${_reportController.sevenDayEventCount.value}회',
-                                style: AppleFont22_Blue600,
-                              ),
-                              if (int.parse(_reportController
-                                      .sevenDayEventCount.value) <
-                                  3)
-                                Text(
-                                  '적은 편',
-                                  style: AppleFont12_Blue600,
-                                )
-                              else if (int.parse(_reportController
-                                      .sevenDayEventCount.value) >
-                                  20)
-                                Text(
-                                  '많은 편',
-                                  style: AppleFont12_Blue600,
-                                )
-                              else
-                                Text(
-                                  '적당한 편',
-                                  style: AppleFont12_Blue600,
-                                ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                '수행 완료 루틴',
-                                style: AppleFont14_Black,
-                              ),
-                              Text(
-                                  '${_reportController.getCompletedRoutines()}회',
-                                  style: AppleFont22_Blue600),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                '평균 루틴 달성도',
-                                style: AppleFont14_Black,
-                              ),
-                              Text(
-                                  (_reportController.getAvgRoutineCompletion() *
-                                              100)
-                                          .toStringAsFixed(0) +
-                                      "%",
-                                  style: AppleFont22_Blue600),
-                            ],
-                          )
-                        ],
-                      );
-                    }),
-                  ),
-                ),
-                Divider(
-                  thickness: 2.h,
-                ),
-              ],
-            ),
-          ),
           Obx(() {
             return _reportController.isLoading.value
-                ? SizedBox(
-                    height: 100.h,
-                    width: 100.w,
-                    child: CircularProgressIndicator(
-                      color: primary,
-                    ),
-                  )
+                ? Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.0.h),
+                  child: Center(
+                    child: SizedBox(
+                        height: 100.r,
+                        width: 100.r,
+                        child: CircularProgressIndicator(
+                          color: primary,
+                        ),
+                      ),
+                  ),
+                )
                 : SizedBox(
-                    height: 530.h,
+                    height: 730.h,
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Obx(() {
+                                  return RichText(
+                                    text: TextSpan(
+                                      text: '${_loginService.name}님의 리포트',
+                                      style: AppleFont24_Black,
+                                    ),
+                                    overflow: TextOverflow.clip,
+                                  );
+                                }),
+                                IconButton(
+                                    onPressed: () async {
+                                      await _reportController.refreshData();
+                                    },
+                                    icon: const Icon(Icons.refresh))
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            // height: 24.h,
+                            height: 6.h,
+                          ),
+                          Container(
+                            height: 98.h,
+                            width: 350.w,
+                            decoration: BoxDecoration(
+                                color: blue100,
+                                borderRadius: BorderRadius.circular(10.r)),
+                            child: Padding(
+                              padding: EdgeInsets.all(10.0.r),
+                              child: Obx(() {
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text(
+                                          '주간 배변 횟수',
+                                          style: AppleFont14_Black,
+                                        ),
+                                        Text(
+                                          '${_reportController.sevenDayEventCount.value}회',
+                                          style: AppleFont22_Blue600,
+                                        ),
+                                        if (int.parse(_reportController
+                                                .sevenDayEventCount.value) <
+                                            3)
+                                          Text(
+                                            '적은 편',
+                                            style: AppleFont12_Blue600,
+                                          )
+                                        else if (int.parse(_reportController
+                                                .sevenDayEventCount.value) >
+                                            20)
+                                          Text(
+                                            '많은 편',
+                                            style: AppleFont12_Blue600,
+                                          )
+                                        else
+                                          Text(
+                                            '적당한 편',
+                                            style: AppleFont12_Blue600,
+                                          ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          '수행 완료 루틴',
+                                          style: AppleFont14_Black,
+                                        ),
+                                        Text(
+                                            '${_reportController.getCompletedRoutines()}회',
+                                            style: AppleFont22_Blue600),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          '평균 루틴 달성도',
+                                          style: AppleFont14_Black,
+                                        ),
+                                        Text(
+                                            (_reportController
+                                                            .getAvgRoutineCompletion() *
+                                                        100)
+                                                    .toStringAsFixed(0) +
+                                                "%",
+                                            style: AppleFont22_Blue600),
+                                      ],
+                                    )
+                                  ],
+                                );
+                              }),
+                            ),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -300,9 +293,9 @@ class _ReportPageState extends State<ReportPage> {
                             return const BarGraph();
                           }),
 
-                          const SizedBox(
-                            height: 24,
-                          )
+                          // SizedBox(
+                          //   height: 24.h,
+                          // )
                         ],
                       ),
                     ),

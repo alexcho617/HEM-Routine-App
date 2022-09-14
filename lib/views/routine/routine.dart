@@ -399,8 +399,8 @@ class RoutinePage extends StatelessWidget {
                   ),
                   Obx(() {
                     return SizedBox(
-                      width: 34.w,
-                      height: 34.h,
+                      width: 34.r,
+                      height: 34.r,
                       child: onController.isFinished.value
                           ? GetBuilder<RoutineOnController>(builder: (_) {
                               return InkWell(
