@@ -17,7 +17,7 @@ class _BarGraphState extends State<BarGraph> {
   double blockHeight = 300.h;
   double blockWidth = 45.w;
 
-  double totalHeight = 350.h;
+  // double totalHeight = 350.h;
   double totalWidth = 350.w;
 
   double markerHeight = 30.h;
@@ -36,14 +36,14 @@ class _BarGraphState extends State<BarGraph> {
               children: [
                 YAxis(
                   gap: SizedBox(
-                    height: blockHeight / 5 - 10.h,
+                    height: blockHeight / 5 - 8.h,
                   ),
                 ),
                 Stack(children: [
                   Positioned(
                     child: SizedBox(
-                      width: 321,
-                      height: blockHeight,
+                      width: 321.w,
+                      height: blockHeight + 5.h,
                       child: Canvas(
                         gap: SizedBox(
                           height: blockHeight / 5 - 10.h,

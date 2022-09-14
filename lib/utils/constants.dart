@@ -179,7 +179,13 @@ TextStyle AppleFont18_White = TextStyle(
   letterSpacing: 0.5.sp,
   color: white,
 );
-
+TextStyle AppleFont22_White = TextStyle(
+  fontFamily: 'AppleSDGothicNeoM',
+  fontWeight: FontWeight.w400,
+  fontSize: 22.sp,
+  letterSpacing: 0.5.sp,
+  color: white,
+);
 TextStyle AppleFont18_Black = TextStyle(
   fontFamily: 'AppleSDGothicNeoM',
   fontWeight: FontWeight.w400,
