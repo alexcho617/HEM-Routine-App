@@ -31,6 +31,8 @@ class LoginService extends GetxController {
 
   var uid = ''.obs;
   var name = ''.obs;
+  var gender = '';
+  var birthDay = DateTime.now();
   late DocumentSnapshot userSnapshot;
 
   @override
@@ -199,47 +201,58 @@ class LoginService extends GetxController {
   }
 
   Future<void> addUserDocument() {
-    return users
+    return users.doc(auth.value.currentUser!.uid).set({
+      'name': auth.value.currentUser!.displayName,
+      'isRated': true,
+      'rateRoutineId': "",
+      'rateRoutineHistoryId': "",
+      'pushPermission': true,
+    }).then((value) {
+      if (kDebugMode) {
+        print("User Document Created");
+      }
+    }).catchError((error) {
+      if (kDebugMode) {
+        print("Faied to Add User document: $error");
+      }
+    });
+  }
+
+  Future<bool> getProfile() async {
+    // TODO: handle no field or make field at start
+    late bool _b;
+    await users
         .doc(auth.value.currentUser!.uid)
-        .set({
-          'name': auth.value.currentUser!.displayName,
-          'isRated': true,
-          'rateRoutineId': "",
-          'rateRoutineHistoryId': "",
-          'pushPermission': true,
-        })
-        .then((value) {
-          if (kDebugMode) {
-            print("User Document Created");
-          }
-        })
-        .catchError((error) {
-          if (kDebugMode) {
-            print("Faied to Add User document: $error");
-          }
-        });
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      name.value = documentSnapshot.get('name');
+      birthDay = documentSnapshot.get('birthDate').toDate();
+      gender = documentSnapshot.get('gender');
+      _b = true;
+    });
+    return _b;
+  }
+
+  Future<DateTime> getBirthDay() async{
+    return birthDay;
   }
 
   Future<void> profileSetting(
       String newName, DateTime birthDate, String gender) {
     name.value = newName;
-    return users
-        .doc(auth.value.currentUser!.uid)
-        .update({
-          'name': newName,
-          'birthDate': birthDate,
-          'gender': gender,
-        })
-        .then((value) {
-          if (kDebugMode) {
-            print("User Document Created");
-          }
-        })
-        .catchError((error) {
-          if (kDebugMode) {
-            print("Faied to Add User document: $error");
-          }
-        });
+    return users.doc(auth.value.currentUser!.uid).update({
+      'name': newName,
+      'birthDate': birthDate,
+      'gender': gender,
+    }).then((value) {
+      if (kDebugMode) {
+        print("User Document Created");
+      }
+    }).catchError((error) {
+      if (kDebugMode) {
+        print("Faied to Add User document: $error");
+      }
+    });
   }
 
   Future<void> dataDelete() async {
