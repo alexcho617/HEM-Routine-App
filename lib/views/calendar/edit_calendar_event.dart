@@ -286,8 +286,9 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
 
                     _controller.eventsLibrary = await fetchAllEvents();
                     _controller.update();
-                    // kangminBackUntil(context);
+                    
                     Get.back();
+                    
 
                     showDialog(
                         context: context,
@@ -302,7 +303,7 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
                       print(e);
                     }
                     // kangminBackUntil(context);
-                    Get.back();
+                    // Get.back();
                   }
 
                   eventTextController.clear();
@@ -349,15 +350,16 @@ class _EditCalendarEventState extends State<EditCalendarEvent> {
 
                   // Close the modal
                   CupertinoButton(
-                    child: const Text('저장'),
+                    child: const Text('선택'),
                     onPressed: () {
                       setState(() {
                         //save time
                       });
-                      Navigator.of(context
-                              .findAncestorStateOfType<HomePageState>()!
-                              .context)
-                          .maybePop();
+                      // Navigator.of(context
+                      //         .findAncestorStateOfType<HomePageState>()!
+                      //         .context)
+                      //     .maybePop();
+                      Get.back();
                     },
                   )
                 ],

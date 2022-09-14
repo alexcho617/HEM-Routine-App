@@ -178,34 +178,6 @@ class RoutineEntitySettingPage extends StatelessWidget {
                                         });
                                       }));
                                 }
-// =======
-//                                 await routineEntityController.addRoutine();
-
-//                                 showDialog(
-//                                     context: context,
-//                                     builder: ((context) {
-//                                       return saveAlertDialog(() {
-//                                         Navigator.pop(context);
-//                                         showDialog(
-//                                             context: context,
-//                                             builder: (context) {
-//                                               return routineStartAlertDialog(
-//                                                   () async {
-//                                                 Get.delete<
-//                                                     RoutineEntityController>();
-//                                                 pageController.initValues();
-//                                                 Navigator.pop(context);
-//                                                 kangminBackUntil(context);
-//                                               }, () async {
-
-//                                                 await _fetchData(context);
-//                                                 Navigator.pop(context);
-//                                                 kangminBackUntil(context);
-//                                               });
-//                                             });
-//                                       });
-//                                     }));
-// >>>>>>> 5f37d3b729c2bca489341be89a0e5fb580fe1091
                               }),
                             ),
                           ],
