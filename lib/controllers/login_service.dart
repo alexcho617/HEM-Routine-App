@@ -178,7 +178,7 @@ class LoginService extends GetxController {
   }
 
   Future<void> signOut() async {
-    auth.value.signOut();
+    await auth.value.signOut();
     // if (auth.value.currentUser != null) {
     //   auth.value.currentUser!.delete();
     // }
