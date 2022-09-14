@@ -250,28 +250,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              ElevatedButton(
-                                style:
-                                    ElevatedButton.styleFrom(primary: primary),
-                                onPressed: () async {
-                                  // setState(() {
-                                  //   _loginService.loginStatus.value =
-                                  //       LoginStatus.progress;
-                                  // });
-                                  Get.to(EmailSignInPage());
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(Icons.email),
-                                    SizedBox(width: 8.w,),
-                                    Text(
-                                      "Sign in with Email",
-                                      style: AppleFont22_White,
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              
                               SizedBox(
                                 height: 10.h,
                               ),
