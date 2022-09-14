@@ -219,21 +219,20 @@ class LoginService extends GetxController {
   }
 
   Future<bool> getProfile() async {
-    // TODO: handle no field or make field at start
     late bool _b;
-    await users
-        .doc(auth.value.currentUser!.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      name.value = documentSnapshot.get('name');
-      birthDay = documentSnapshot.get('birthDate').toDate();
-      gender = documentSnapshot.get('gender');
-      _b = true;
-    });
+      await users
+          .doc(auth.value.currentUser!.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        name.value = documentSnapshot.get('name');
+        birthDay = documentSnapshot.get('birthDate').toDate();
+        gender = documentSnapshot.get('gender');
+        _b = true;
+      });
     return _b;
   }
 
-  Future<DateTime> getBirthDay() async{
+  Future<DateTime> getBirthDay() async {
     return birthDay;
   }
 

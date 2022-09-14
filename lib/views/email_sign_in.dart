@@ -36,7 +36,8 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
                           text: ' 약관 ',
                           recognizer: TapGestureRecognizer()
                             ..onTap = () async {
-                              var url = Uri.parse('https://trite-drive-686.notion.site/HEM-43e9bdebaee0423b92f960ebd747afde');
+                              var url = Uri.parse(
+                                  'https://trite-drive-686.notion.site/HEM-43e9bdebaee0423b92f960ebd747afde');
                               if (!await launchUrl(url)) {
                                 throw 'Could not launch $url';
                               }
@@ -50,7 +51,7 @@ class _EmailSignInPageState extends State<EmailSignInPage> {
                   ),
                 );
               }),
-              providerConfigs: [
+              providerConfigs: const [
                 EmailProviderConfiguration(),
               ]);
         }
