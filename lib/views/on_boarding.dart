@@ -108,7 +108,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               'assets/onboarding/3.png',
               height: 200.h,
             ),
-            Expanded(child: Container()),
+            // Expanded(child: Container()),
           ],
         ),
       ),
@@ -211,7 +211,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           footerBuilder: (context, dragDistance, pagesLength, setIndex) {
             return Column(children: [
               Padding(
-                padding: EdgeInsets.only(bottom: 110.h),
+                padding: EdgeInsets.only(bottom: 10.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -238,61 +238,69 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 Obx(() {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 31.w),
-                    child:
-                        _loginService.loginStatus.value == LoginStatus.progress
-                            ? SizedBox(
-                                height: 100.h,
-                                width: 100.w,
-                                child: CircularProgressIndicator(
-                                  color: primary,
+                    child: _loginService.loginStatus.value ==
+                            LoginStatus.progress
+                        ? SizedBox(
+                            height: 80.r,
+                            width: 80.r,
+                            child: CircularProgressIndicator(
+                              color: primary,
+                            ),
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              ElevatedButton(
+                                style:
+                                    ElevatedButton.styleFrom(primary: primary),
+                                onPressed: () async {
+                                  // setState(() {
+                                  //   _loginService.loginStatus.value =
+                                  //       LoginStatus.progress;
+                                  // });
+                                  Get.to(EmailSignInPage());
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.email),
+                                    SizedBox(width: 8.w,),
+                                    Text(
+                                      "Sign in with Email",
+                                      style: AppleFont22_White,
+                                    ),
+                                  ],
                                 ),
-                              )
-                            : Column(
-                                children: [
-                                  ElevatedButton(
-                                      onPressed: () async {
-                                        // setState(() {
-                                        //   _loginService.loginStatus.value =
-                                        //       LoginStatus.progress;
-                                        // });
-                                        Get.to(EmailSignInPage());
-                                      },
-                                      child: SizedBox(
-                                          width: 320.w,
-                                          child: Center(
-                                              child: Text(
-                                            "Sign in with Email",
-                                            style: AppleFont18_White,
-                                          )))),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  GoogleSignInButton(
-                                    clientId:
-                                        '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
-                                    onTap: () async {
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              GoogleSignInButton(
+                                clientId:
+                                    '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
+                                onTap: () async {
+                                  setState(() {
+                                    _loginService.loginStatus.value =
+                                        LoginStatus.progress;
+                                  });
+                                  //get apple credential
+                                  _loginService.signInwithGoogle();
+                                },
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Platform.isIOS
+                                  ? SignInWithAppleButton(onPressed: () {
                                       setState(() {
                                         _loginService.loginStatus.value =
                                             LoginStatus.progress;
                                       });
-                                      //get apple credential
-                                      _loginService.signInwithGoogle();
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: 15.h,
-                                  ),
-                                  Platform.isIOS
-                                      ? SignInWithAppleButton(onPressed: () {
-                                          setState(() {
-                                            _loginService.loginStatus.value =
-                                                LoginStatus.progress;
-                                          });
-                                          _loginService.signInWithApple();
-                                        })
-                                      : const SizedBox.shrink(),
-                                ],
-                              ),
+                                      _loginService.signInWithApple();
+                                    })
+                                  : const SizedBox.shrink(),
+                            ],
+                          ),
                   );
                 })
               else

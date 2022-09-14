@@ -101,7 +101,7 @@ class AppStateController extends GetxController {
       //check permission
       pushPermission.value = await documentSnapshot.get('pushPermission');
       if (kDebugMode) {
-        print("permission : ${pushPermission.value}");
+        // print("permission : ${pushPermission.value}");
       }
     });
   }

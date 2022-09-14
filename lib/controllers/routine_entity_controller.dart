@@ -163,13 +163,15 @@ class RoutineEntityController extends GetxController {
     RoutineOffController controller = Get.find();
 
     for (int i = 0; i < controller.routineItems.length; i++) {
-      if (controller.routineItems[i] == routineEntities[index].name) {
+      if (controller.routineItems[i].name == routineEntities[index].name) {
         controller.routineItems[i].isAdded = false;
+        controller.routineItems[i].isChecked = false;
       }
     }
     routineEntities.removeAt(index);
     inputControllers.removeAt(index);
     addedRoutineItemCount--;
+    controller.update();
     update();
   }
 

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hem_routine_app/utils/functions.dart';
 
 import '../../controllers/calendar_controller.dart';
 import '../../utils/calendarUtil.dart';
@@ -103,7 +104,7 @@ class _CalendarLogState extends State<CalendarLog> {
                                       IconButton(
                                         onPressed: () {
                                           controller.editIndex = index;
-                                          // kangmin(context, EditCalendarEvent());
+                                          kangminBack(context);
                                           Get.to(EditCalendarEvent());
                                         },
                                         icon: Icon(

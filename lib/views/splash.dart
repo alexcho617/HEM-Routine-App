@@ -1,4 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -50,7 +51,7 @@ class SplashScreen extends StatelessWidget {
           ],
         ),
       ),
-      nextScreen: service.auth.value.currentUser == null
+      nextScreen: FirebaseAuth.instance.currentUser == null
           ? const OnBoardingPage()
           : HomePage(),
     );

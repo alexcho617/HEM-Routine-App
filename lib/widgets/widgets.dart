@@ -729,7 +729,7 @@ Widget routineStartAlertDialog(
                 height: 178.w,
               ),
               SizedBox(
-                  height: 40.h,
+                  height: 35.h,
                   child: Text(
                     '루틴을 도전하세요!',
                     style: AppleFont22_Black,
@@ -915,7 +915,7 @@ Widget routineCard(String name, int day, double percent, double rank,
             color: primary,
           ),
           width: 144.w,
-          height: 40.h,
+          height: 37.h,
           child: Center(
             child: Text(
               '자세히 보기 >',
