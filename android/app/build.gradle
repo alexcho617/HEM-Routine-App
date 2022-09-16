@@ -18,7 +18,13 @@ if (flutterVersionCode == null) {
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '1.0.0'
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
 apply plugin: 'com.android.application'
@@ -31,7 +37,6 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     ndkVersion flutter.ndkVersion
     compileSdkVersion 31
-    buildToolsVersion '31.0.0'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -49,10 +54,19 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.hem_routine_app"
-        minSdkVersion 19
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 23
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
     }
 
     buildTypes {
@@ -70,4 +84,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.multidex:multidex:2.0.1'
 }
