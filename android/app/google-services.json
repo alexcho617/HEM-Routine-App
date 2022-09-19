@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:438160748395:android:5139bc927cef6b81ffe62e",
         "android_client_info": {
-          "package_name": "com.example.cloud_toy_proj"
+          "package_name": "com.hem.cloud_toy_proj"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "438160748395-cligtbqnt6tc3ltgpeolc0p8a44g9ggk.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.cloudToyProj"
+                "bundle_id": "com.hem.cloudToyProj"
               }
             }
           ]
@@ -45,7 +45,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:438160748395:android:42fd6d2496ec6ddcffe62e",
         "android_client_info": {
-          "package_name": "com.example.hem_routine_app"
+          "package_name": "com.hem.hem_routine_app"
         }
       },
       "oauth_client": [
@@ -70,7 +70,7 @@
               "client_id": "438160748395-cligtbqnt6tc3ltgpeolc0p8a44g9ggk.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.cloudToyProj"
+                "bundle_id": "com.hem.cloudToyProj"
               }
             }
           ]

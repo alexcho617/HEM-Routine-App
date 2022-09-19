@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '438160748395',
     projectId: 'hem-routine-app-dev',
     storageBucket: 'hem-routine-app-dev.appspot.com',
-    iosClientId: '438160748395-vld7ksdn471584at1vjmekl4fd3rd7qr.apps.googleusercontent.com',
-    iosBundleId: 'com.example.hemRoutineApp',
+    iosClientId:
+        '438160748395-vld7ksdn471584at1vjmekl4fd3rd7qr.apps.googleusercontent.com',
+    iosBundleId: 'com.hem.hemRoutineApp',
   );
 }

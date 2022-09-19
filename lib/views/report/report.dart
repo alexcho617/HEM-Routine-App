@@ -45,7 +45,7 @@ class _ReportPageState extends State<ReportPage> {
                   ),
                 )
                 : SizedBox(
-                    height: 730.h,
+                    height: 720.h,
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
