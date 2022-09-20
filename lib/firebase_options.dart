@@ -65,6 +65,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'hem-routine-app-dev.appspot.com',
     iosClientId:
         '438160748395-vld7ksdn471584at1vjmekl4fd3rd7qr.apps.googleusercontent.com',
-    iosBundleId: 'com.hem.hemRoutineApp',
+    iosBundleId: 'com.swfact.hemRoutineApp',
   );
 }

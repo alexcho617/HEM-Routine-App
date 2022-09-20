@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hem.hem_routine_app">
+    package="com.swfact.hem_routine_app">
    <application
         android:label="hem_routine_app"
         android:name="${applicationName}"
