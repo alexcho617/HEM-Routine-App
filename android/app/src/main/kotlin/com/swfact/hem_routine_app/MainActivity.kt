@@ -1,4 +1,4 @@
-package com.hem.hem_routine_app
+package com.swfact.hem_routine_app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -7,12 +7,28 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:438160748395:android:5139bc927cef6b81ffe62e",
+        "mobilesdk_app_id": "1:438160748395:android:3dcd57a7b041fb32ffe62e",
         "android_client_info": {
-          "package_name": "com.hem.cloud_toy_proj"
+          "package_name": "com.swfact.hem_routine_app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "438160748395-43namt69s3t8gl4rm7iq030cf6ji8m77.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.swfact.hem_routine_app",
+            "certificate_hash": "173791c97fce634e166a6c894e5072c238a6e335"
+          }
+        },
+        {
+          "client_id": "438160748395-dqtm52p3q42p5i5n1idvip7ceamoosj5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.swfact.hem_routine_app",
+            "certificate_hash": "3ca4b7daf385991c99ed28958d09a0588c24eb1a"
+          }
+        },
         {
           "client_id": "438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com",
           "client_type": 3
@@ -31,46 +47,11 @@
               "client_type": 3
             },
             {
-              "client_id": "438160748395-cligtbqnt6tc3ltgpeolc0p8a44g9ggk.apps.googleusercontent.com",
+              "client_id": "438160748395-1kttiubsbo2f6iabhm0adp0gv0di8b1b.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.hem.cloudToyProj"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:438160748395:android:42fd6d2496ec6ddcffe62e",
-        "android_client_info": {
-          "package_name": "com.hem.hem_routine_app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDENMWOD6788FUMTfm2w0J2kqs1iaIeyX4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "438160748395-cligtbqnt6tc3ltgpeolc0p8a44g9ggk.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.hem.cloudToyProj"
+                "bundle_id": "com.example.hemRoutineApp",
+                "app_store_id": "1644043592"
               }
             }
           ]
