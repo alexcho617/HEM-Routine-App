@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDENMWOD6788FUMTfm2w0J2kqs1iaIeyX4',
-    appId: '1:438160748395:android:42fd6d2496ec6ddcffe62e',
+    appId: '1:438160748395:android:3dcd57a7b041fb32ffe62e',
     messagingSenderId: '438160748395',
     projectId: 'hem-routine-app-dev',
     storageBucket: 'hem-routine-app-dev.appspot.com',
@@ -59,12 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCnOvTlNd0b-7KG_QQ6qVShH_5DKAfmrxM',
-    appId: '1:438160748395:ios:ebc22194b71e1b2effe62e',
+    appId: '1:438160748395:ios:93b59c6a2f0ab143ffe62e',
     messagingSenderId: '438160748395',
     projectId: 'hem-routine-app-dev',
     storageBucket: 'hem-routine-app-dev.appspot.com',
-    iosClientId:
-        '438160748395-vld7ksdn471584at1vjmekl4fd3rd7qr.apps.googleusercontent.com',
+    androidClientId: '438160748395-43namt69s3t8gl4rm7iq030cf6ji8m77.apps.googleusercontent.com',
+    iosClientId: '438160748395-2k0qk893o0olb6gsapsqgn7e6iugb18d.apps.googleusercontent.com',
     iosBundleId: 'com.swfact.hemRoutineApp',
   );
 }
