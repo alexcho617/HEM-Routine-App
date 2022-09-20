@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "438160748395-0j2urc4q9ptim72js74r3qb57s8vm43e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.swfact.hem_routine_app",
+            "certificate_hash": "ce2fb7fd19dbbd0fe3e9fe52aa859d865f0d9891"
+          }
+        },
+        {
           "client_id": "438160748395-43namt69s3t8gl4rm7iq030cf6ji8m77.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
