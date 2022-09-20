@@ -238,7 +238,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 Obx(() {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 31.w),
-                    child: _loginService.loginStatus.value ==
+                    child: 
+                    _loginService.loginStatus.value ==
                             LoginStatus.progress
                         ? SizedBox(
                             height: 80.r,
@@ -247,7 +248,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                               color: primary,
                             ),
                           )
-                        : Column(
+                        : 
+                        Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               

@@ -91,39 +91,44 @@ class LoginService extends GetxController {
   }
 
   Future<void> signInwithGoogle() async {
-    googleCredential = await GoogleSignIn(
-      scopes: [
-        'email',
-        'https://www.googleapis.com/auth/contacts.readonly',
-      ],
-    ).signIn();
+    try {
+      googleCredential = await GoogleSignIn(
+        scopes: [
+          'email',
+          'https://www.googleapis.com/auth/contacts.readonly',
+        ],
+      ).signIn();
 
-    final GoogleSignInAuthentication? googleAuth =
-        await googleCredential?.authentication;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleCredential?.authentication;
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
 
-    // Once signed in, return the UserCredential
-    await auth.value.signInWithCredential(credential).then((value) {
-      if (auth.value.currentUser != null) {
-        Get.to(HomePage());
-        uid.value = auth.value.currentUser!.uid;
-        name.value = auth.value.currentUser!.displayName!;
-        authCredential = credential;
-      } else {
-        Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
-        loginStatus.value = LoginStatus.fail;
-      }
-    });
+      // Once signed in, return the UserCredential
+      await auth.value.signInWithCredential(credential).then((value) {
+        if (auth.value.currentUser != null) {
+          Get.to(HomePage());
+          uid.value = auth.value.currentUser!.uid;
+          name.value = auth.value.currentUser!.displayName!;
+          authCredential = credential;
+        } else {
+          Get.snackbar('로그인 실패', '로그인에 실패하였습니다.');
+          loginStatus.value = LoginStatus.fail;
+        }
+      });
 
-    await dataRefreshSequence().then((value) {
-      loginStatus.value = LoginStatus.done;
-      update();
-    });
+      await dataRefreshSequence().then((value) {
+        loginStatus.value = LoginStatus.done;
+        update();
+      });
+    } catch (e) {
+      print(e);
+      loginStatus.value = LoginStatus.fail;
+    }
   }
 
   Future<void> signInWithApple() async {
@@ -220,15 +225,15 @@ class LoginService extends GetxController {
 
   Future<bool> getProfile() async {
     late bool _b;
-      await users
-          .doc(auth.value.currentUser!.uid)
-          .get()
-          .then((DocumentSnapshot documentSnapshot) {
-        name.value = documentSnapshot.get('name');
-        birthDay = documentSnapshot.get('birthDate').toDate();
-        gender = documentSnapshot.get('gender');
-        _b = true;
-      });
+    await users
+        .doc(auth.value.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      name.value = documentSnapshot.get('name');
+      birthDay = documentSnapshot.get('birthDate').toDate();
+      gender = documentSnapshot.get('gender');
+      _b = true;
+    });
     return _b;
   }
 
