@@ -27,178 +27,185 @@ class RoutineEntitySettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        height: 745.h,
-        color: Colors.grey[50],
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                customAppBar(context, '루틴 항목 설정'),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 43.h,
-                ),
-                Text(
-                  '${pageController.inputController.text}',
-                  style: TextStyle(
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'AppleSDGothicNeo'),
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Text(
-                  '(기간: ${pageController.routinePeriodIndex.value}일간)',
-                  style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'AppleSDGothicNeo',
-                      color: grey500),
-                ),
-                SizedBox(
-                  height: 33.h,
-                ),
-                GetBuilder<RoutineEntityController>(builder: (_) {
-                  return routineEntityController.addedRoutineItemCount == 0
-                      ? Column(
-                          children: [
-                            SizedBox(
-                              height: 36.h,
-                            ),
-                            SizedBox(
-                              height: 105.33.h,
-                              width: 160.w,
-                              child: Image.asset('assets/appIcon.png'),
-                            ),
-                            SizedBox(
-                              height: 45.67.h,
-                            ),
-                            Text(
-                              '루틴 항목을 추가해주세요.',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'AppleSDGothicNeo',
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: SingleChildScrollView(
+        child: Container(
+          height: 745.h,
+          color: Colors.grey[50],
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  customAppBar(context, '루틴 항목 설정'),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 43.h,
+                  ),
+                  Text(
+                    '${pageController.inputController.text}',
+                    style: TextStyle(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'AppleSDGothicNeo'),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    '(기간: ${pageController.routinePeriodIndex.value}일간)',
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'AppleSDGothicNeo',
+                        color: grey500),
+                  ),
+                  SizedBox(
+                    height: 33.h,
+                  ),
+                  GetBuilder<RoutineEntityController>(builder: (_) {
+                    return routineEntityController.addedRoutineItemCount == 0
+                        ? Column(
+                            children: [
+                              SizedBox(
+                                height: 36.h,
                               ),
-                            ),
-                            SizedBox(
-                              height: 202.h,
-                            ),
-                            SizedBox(
-                              width: 335.w,
-                              height: 48.h,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
-                                  '이전',
-                                  style: AppleFont14_Grey700,
+                              SizedBox(
+                                height: 105.33.h,
+                                width: 160.w,
+                                child: Image.asset('assets/appIcon.png'),
+                              ),
+                              SizedBox(
+                                height: 45.67.h,
+                              ),
+                              Text(
+                                '루틴 항목을 추가해주세요.',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'AppleSDGothicNeo',
                                 ),
-                                style: ElevatedButton.styleFrom(
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  primary: const Color.fromARGB(255, 212, 212, 212),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              SizedBox(
+                                height: 202.h,
+                              ),
+                              SizedBox(
+                                width: 335.w,
+                                height: 48.h,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    '이전',
+                                    style: AppleFont14_Grey700,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                    primary: const Color.fromARGB(
+                                        255, 212, 212, 212),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                    ),
                                   ),
                                 ),
+                              )
+                            ],
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 5.h,
+                                color: Colors.grey[50],
                               ),
-                            )
-                          ],
-                        )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 5.h,
-                              color: Colors.grey[50],
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 22.w,
-                                ),
-                                const Text('루틴 항목 추가'),
-                              ],
-                            ),
-                            SingleChildScrollView(
-                                child: SizedBox(
-                              height: 347.h,
-                              child:
-                                  addRoutineItemList(routineEntityController),
-                            )),
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 28.w),
-                              child: storeRoutineButton(() async {
-                                Navigator.pop(context);
-                              }, () async {
-// <<<<<<< HEAD
-                                if (routineEntityController
-                                    .validateGoalCount()) {
-                                  await routineEntityController.addRoutine();
-                                  showDialog(
-                                      context: context,
-                                      builder: ((context) {
-                                        return saveAlertDialog(() {
-                                          Navigator.pop(context);
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return routineStartAlertDialog(
-                                                    () async {
-                                                  Get.delete<
-                                                      RoutineEntityController>();
-                                                  pageController.initValues();
-                                                  Navigator.pop(context);
-                                                  kangminBackUntil(context);
-                                                }, () async {
-                                                  await _fetchData(context);
-                                                  Navigator.pop(context);
-                                                  kangminBackUntil(context);
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 22.w,
+                                  ),
+                                  const Text('루틴 항목 추가'),
+                                ],
+                              ),
+                              SingleChildScrollView(
+                                  child: SizedBox(
+                                height: 347.h,
+                                child:
+                                    addRoutineItemList(routineEntityController),
+                              )),
+                              SizedBox(
+                                height: 30.h,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 28.w),
+                                child: storeRoutineButton(() async {
+                                  Navigator.pop(context);
+                                }, () async {
+                                  // <<<<<<< HEAD
+                                  if (routineEntityController
+                                      .validateGoalCount()) {
+                                    await routineEntityController.addRoutine();
+                                    showDialog(
+                                        context: context,
+                                        builder: ((context) {
+                                          return saveAlertDialog(() {
+                                            Navigator.pop(context);
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return routineStartAlertDialog(
+                                                      () async {
+                                                    Get.delete<
+                                                        RoutineEntityController>();
+                                                    pageController.initValues();
+                                                    Navigator.pop(context);
+                                                    kangminBackUntil(context);
+                                                  }, () async {
+                                                    await _fetchData(context);
+                                                    Navigator.pop(context);
+                                                    kangminBackUntil(context);
+                                                  });
                                                 });
-                                              });
-                                        });
-                                      }));
-                                  await Get.find<RoutineOffController>()
-                                      .getRoutineList();
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: ((context) {
-                                        return goalCountAlertDialog(() {
-                                          Navigator.pop(context);
-                                        });
-                                      }));
-                                }
-                              }),
-                            ),
-                          ],
-                        );
+                                          });
+                                        }));
+                                    await Get.find<RoutineOffController>()
+                                        .getRoutineList();
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: ((context) {
+                                          return goalCountAlertDialog(() {
+                                            Navigator.pop(context);
+                                          });
+                                        }));
+                                  }
+                                }),
+                              ),
+                            ],
+                          );
+                  }),
+                ],
+              ),
+              Positioned(
+                child: addButton(() {
+                  showCupertinoModalBottomSheet(
+                    context: context
+                        .findAncestorStateOfType<HomePageState>()!
+                        .context,
+                    expand: false,
+                    builder: (context) => RoutineItemAddPage(),
+                  );
+                  pageController.initRoutineItemsValue();
                 }),
-              ],
-            ),
-            Positioned(
-              child: addButton(() {
-                showCupertinoModalBottomSheet(
-                  context:
-                      context.findAncestorStateOfType<HomePageState>()!.context,
-                  expand: false,
-                  builder: (context) => RoutineItemAddPage(),
-                );
-                pageController.initRoutineItemsValue();
-              }),
-              bottom: 241.h,
-              right: 95.w,
-            )
-          ],
+                bottom: 241.h,
+                right: 95.w,
+              )
+            ],
+          ),
         ),
       ),
     );
