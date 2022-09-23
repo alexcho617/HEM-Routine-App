@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/models/calendar_event.dart';
 import 'package:hem_routine_app/services/firestore.dart';
@@ -33,21 +34,23 @@ class ReportController extends GetxController {
   }
 
   Future<void> refreshData() async {
-    isLoading.value = true;
-    weekEvents = await fetchPastSevenDaysEvent();
-    await getWeeklyEventCount();
+    if (FirebaseAuth.instance.currentUser != null) {
+      isLoading.value = true;
+      weekEvents = await fetchPastSevenDaysEvent();
+      await getWeeklyEventCount();
 
-    monthEvents = await fetchThisMonthsEvent();
-    pieChartData = await fetchPieChartData();
-    lineChartData = await fetchLineChartData(5);
-    routineList.value = await fetchAllRoutines();
+      monthEvents = await fetchThisMonthsEvent();
+      pieChartData = await fetchPieChartData();
+      lineChartData = await fetchLineChartData(5);
+      routineList.value = await fetchAllRoutines();
 
-    colorChartData7 = await fetchColorChartData(7);
-    colorChartData30 = await fetchColorChartData(30);
-    colorChartData90 = await fetchColorChartData(90);
-    isLoading.value = false;
+      colorChartData7 = await fetchColorChartData(7);
+      colorChartData30 = await fetchColorChartData(30);
+      colorChartData90 = await fetchColorChartData(90);
+      isLoading.value = false;
 
-    update();
+      update();
+    }
   }
 
   void clearAllData() {
