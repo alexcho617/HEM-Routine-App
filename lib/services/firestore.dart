@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls, avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/controllers/calendar_controller.dart';
 import 'package:hem_routine_app/controllers/report_controller.dart';
@@ -33,7 +34,6 @@ Future<void> addEventToCalendar(CalendarEvent newEvent, String uid) async {
         }))
         .then((DocumentReference docRef) =>
             docRef.update({'eventId': docRef.id}));
-    // Get.snackbar('배변기록', '배변 기록이 추가되었습니다.', isDismissible: true);
   } on Exception catch (e) {
     Get.snackbar('에러', '배변 기록 추가 실패');
     print(e);
@@ -56,7 +56,6 @@ Future<void> editCalendarEvent(
       'hardness': newEvent.hardness,
       'iconCode': newEvent.iconCode
     }));
-    // Get.snackbar('배변기록', '배변 기록이 업데이트되었습니다.', isDismissible: true);
   } on Exception catch (e) {
     Get.snackbar('에러', '배변 기록 업데이트 실패');
     print(e);
@@ -117,7 +116,7 @@ Future<RxMap> fetchPastSevenDaysEvent() async {
       });
     });
   } on Exception catch (e) {
-    Get.snackbar('에러', '한 주간의 이벤트 데이터를 불러올 수 없습니다.');
+    // Get.snackbar('에러', '한 주간의 이벤트 데이터를 불러올 수 없습니다.');
     print(e);
   }
   return eventMap;
@@ -157,7 +156,7 @@ Future<RxMap> fetchThisMonthsEvent() async {
       });
     });
   } on Exception catch (e) {
-    Get.snackbar('에러', '한 달간의 이벤트 데이터를 불러올 수 없습니다.');
+    // Get.snackbar('에러', '한 달간의 이벤트 데이터를 불러올 수 없습니다.');
     print(e);
   }
   return eventMap;
@@ -203,7 +202,7 @@ Future<RxMap> fetchPreviousMonthsEvent(int monthsBefore) async {
       });
     });
   } on Exception catch (e) {
-    Get.snackbar('에러', '지난 $monthsBefore달 간의 이벤트 데이터를 불러올 수 없습니다.');
+    // Get.snackbar('에러', '지난 $monthsBefore달 간의 이벤트 데이터를 불러올 수 없습니다.');
     print(e);
   }
   return eventMap;
@@ -270,7 +269,7 @@ Future<RxList> fetchLineChartData(int monthsBefore) async {
           .then((QuerySnapshot querySnapshot) {
         bottom = querySnapshot.size;
       });
-      
+
       if (bottom == 0) {
         data.add(0.0);
       } else {
@@ -284,17 +283,15 @@ Future<RxList> fetchLineChartData(int monthsBefore) async {
             .then((QuerySnapshot querySnapshot) {
               top = querySnapshot.size;
             });
-        
+
         data.add(((top / bottom) * 100).round() / 100);
       }
-
-      
     } on Exception catch (e) {
-      Get.snackbar('에러', '$offSet달 전의 이벤트 데이터를 불러올 수 없습니다.');
+      // Get.snackbar('에러', '$offSet달 전의 이벤트 데이터를 불러올 수 없습니다.');
       print(e);
     }
   }
-  
+
   return data;
 }
 
@@ -312,48 +309,47 @@ Future<RxList> fetchColorChartData(int days) async {
     "9": 0 // 9는 선택을 하지 않은것
   }.obs;
   DateTime daysAgo = DateTime.now().subtract(Duration(days: days));
-  CollectionReference eventCollectionReference = _firestore
-      .collection('user')
-      .doc(loginService.auth.value.currentUser!.uid)
-      .collection('Events');
+  if (FirebaseAuth.instance.currentUser != null) {
+    CollectionReference eventCollectionReference = _firestore
+        .collection('user')
+        .doc(loginService.auth.value.currentUser!.uid)
+        .collection('Events');
 
-  try {
-    int bottom = 0;
-    // int top = 0;
-    await eventCollectionReference
-        .where("time", isGreaterThan: daysAgo)
-        .orderBy("time", descending: true)
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      bottom = querySnapshot.size;
-      if (bottom != 0) {
-        //do counting here
-        // top = querySnapshot.size;
-        querySnapshot.docs.forEach((doc) {
-          String color = doc.get("color");
-          
-          colorMap[color] += 1;
-        });
-      } else {
-        return "기록 없음";
-      }
+    try {
+      int bottom = 0;
+      // int top = 0;
+      await eventCollectionReference
+          .where("time", isGreaterThan: daysAgo)
+          .orderBy("time", descending: true)
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        bottom = querySnapshot.size;
+        if (bottom != 0) {
+          //do counting here
+          // top = querySnapshot.size;
+          querySnapshot.docs.forEach((doc) {
+            String color = doc.get("color");
 
-      var keyList = colorMap.keys.toList();
-      for (var key in keyList) {
-        if (key != "9") {
-          data.add(((colorMap[key] / bottom) * 100).round() / 100);
+            colorMap[color] += 1;
+          });
+        } else {
+          return "기록 없음";
         }
-      }
-      
-      return data;
-    });
 
-    
-  } on Exception catch (e) {
-    Get.snackbar('에러', '$daysAgo일 전의 색 데이터를 불러올 수 없습니다.');
-    print(e);
+        var keyList = colorMap.keys.toList();
+        for (var key in keyList) {
+          if (key != "9") {
+            data.add(((colorMap[key] / bottom) * 100).round() / 100);
+          }
+        }
+
+        return data;
+      });
+    } on Exception catch (e) {
+      // Get.snackbar('에러', '$daysAgo일 전의 색 데이터를 불러올 수 없습니다.');
+      print(e);
+    }
   }
-  
   return data;
 }
 
@@ -396,7 +392,7 @@ Future<RxMap> fetchAllEvents() async {
       });
     });
   } on Exception catch (e) {
-    Get.snackbar('에러', '캘린더 데이터를 불러올 수 없습니다.');
+    // Get.snackbar('에러', '캘린더 데이터를 불러올 수 없습니다.');
     print(e);
   }
   calendarController.getCalendarLog();
@@ -408,28 +404,33 @@ Future<RxMap> fetchAllEvents() async {
 Future<List<Routine>> fetchAllRoutines() async {
   List<Routine> routineList = [];
   try {
-    await _firestore
-        .collection('user/${loginService.auth.value.currentUser!.uid}/routine')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        Routine currentRoutine = Routine();
+    if (loginService.auth.value.currentUser != null) {
+      await _firestore
+          .collection(
+              'user/${loginService.auth.value.currentUser!.uid}/routine')
+          .get()
+          .then((QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          Routine currentRoutine = Routine();
 
-        currentRoutine.averageComplete = doc["averageComplete"];
-        currentRoutine.averageRating = doc["averageRating"];
-        currentRoutine.days = doc["days"];
-        currentRoutine.goals = doc["goals"];
-        currentRoutine.id = doc.id;
-        currentRoutine.name = doc["name"];
-        currentRoutine.routineItem = doc["routineItem"];
-        currentRoutine.tryCount = doc["tryCount"];
+          currentRoutine.averageComplete = doc["averageComplete"];
+          currentRoutine.averageRating = doc["averageRating"];
+          currentRoutine.days = doc["days"];
+          currentRoutine.goals = doc["goals"];
+          currentRoutine.id = doc.id;
+          currentRoutine.name = doc["name"];
+          currentRoutine.routineItem = doc["routineItem"];
+          currentRoutine.tryCount = doc["tryCount"];
 
-        routineList.add(currentRoutine);
-      }
-    });
+          routineList.add(currentRoutine);
+        }
+      });
+    } else {
+      print('firestore.dart_fetchAllRoutines():auth is null');
+    }
   } on Exception catch (e) {
     print(e);
-    Get.snackbar('에러', '루틴 데이터를 불러올 수 없습니다.');
+    // Get.snackbar('에러', '루틴 데이터를 불러올 수 없습니다.');
   }
 
   return routineList;
@@ -457,7 +458,7 @@ Future<List<CalendarRoutine>> fetchAllCalendarRoutines() async {
     });
   } on Exception catch (e) {
     print(e);
-    Get.snackbar('에러', '루틴 데이터를 불러올 수 없습니다.');
+    // Get.snackbar('에러', '루틴 데이터를 불러올 수 없습니다.');
   }
 
   return routineList;

@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/views/setting/profile_settings.dart';
 import 'package:hem_routine_app/views/splash.dart';
+import '../../controllers/app_state_controller.dart';
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,7 +76,7 @@ class AccountSettingsPage extends StatelessWidget {
           //           return signOutAlertDialog(() async {
           //             Get.back();
           //           }, () {
-          
+
           //             loginService.signOut();
           //             // ReportController _reportController = Get.find();
           //             // _reportController.onClose(() {
@@ -99,8 +101,8 @@ class AccountSettingsPage extends StatelessWidget {
                   builder: ((context) {
                     return signOutAlertDialog(() async {
                       Get.back();
-                    }, () {
-                      loginService.signOut().then((value) {
+                    }, () async {
+                      await loginService.signOut().then((value) {
                         Get.offAll(() => SplashScreen());
                       });
 // >>>>>>> 3d750ca0523deb2ee882362817014287392bdc86
@@ -127,9 +129,13 @@ class AccountSettingsPage extends StatelessWidget {
                   builder: ((context) {
                     return dataAlertDialog(() {
                       Get.back();
-                    }, () async{
-                      await loginService.dataDelete();
-                      Get.offAll(() => SplashScreen());
+                    }, () async {
+                      await loginService
+                          .dataDelete()
+                          .then((value) => Get.offAll(() => SplashScreen()));
+                      // await loginService.signOut().then((value) {
+
+                      // });
                     });
                   }));
             },
@@ -156,9 +162,13 @@ class AccountSettingsPage extends StatelessWidget {
                   builder: ((context) {
                     return withDrawalAlertDialog(() {
                       Get.back();
-                    }, (() {
-                      loginService.dataDelete();
-                      loginService.signOut();
+                    }, (() async {
+                      await loginService.dataDelete();
+                      await loginService.firestoreUserDelete();
+
+                      Get.find<AppStateController>().status.value = false;
+
+                      await FirebaseAuth.instance.currentUser!.delete();
                       Get.offAll(SplashScreen());
                     }));
                   }));

@@ -259,6 +259,10 @@ class LoginService extends GetxController {
     });
   }
 
+  Future<void> firestoreUserDelete() async {
+    await users.doc(auth.value.currentUser!.uid).delete();
+  }
+
   Future<void> dataDelete() async {
     RoutineCompletedController _routineCompletedController =
         Get.put(RoutineCompletedController());
@@ -321,6 +325,18 @@ class LoginService extends GetxController {
         print("Failed to delete routine: $error");
       }
     });
+
+//
+    Get.find<AppStateController>().status.value = false;
+    Get.find<CalendarController>().clearAllData();
+    //clear routine
+    Get.find<RoutineOnController>().clearAllData();
+    Get.find<RoutineOffController>().clearAllData();
+    Get.find<RoutineCompletedController>().clearAllData();
+    //clear report
+    Get.find<ReportController>().clearAllData();
+//
+
     Get.find<CalendarController>().getAllData();
     Get.find<RoutineOnController>().getAllData();
     Get.find<RoutineOffController>().getAllData();
