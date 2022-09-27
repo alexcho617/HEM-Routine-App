@@ -223,7 +223,7 @@ class RoutineItemAddPage extends StatelessWidget {
                     ),
                     pageController.routineItems[index].isCustom
                         ? SizedBox(
-                            height: 41.h,
+                            height: 34.h,
                             child: IconButton(
                                 onPressed: () {
                                   Navigator.pop(context);
