@@ -448,7 +448,6 @@ Future<List<CalendarRoutine>> fetchAllCalendarRoutines() async {
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
         CalendarRoutine currentRoutine = CalendarRoutine();
-
         currentRoutine.startDate = parseDay(doc["startDate"].toDate());
         currentRoutine.endDate = parseDay(doc["endDate"].toDate());
         currentRoutine.duration = doc["duration"];

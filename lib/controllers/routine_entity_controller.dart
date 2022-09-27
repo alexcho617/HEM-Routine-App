@@ -41,7 +41,6 @@ class RoutineEntityController extends GetxController {
   }
 
   Future<bool> addRoutine() async {
-    
     List<String> routineItems = [];
     List<int> routineGoalCount = [];
     for (int i = 0; i < routineEntities.length; i++) {
@@ -73,7 +72,6 @@ class RoutineEntityController extends GetxController {
     List<String> routineItems = [];
     List<int> routineGoalCount = [];
     for (int i = 0; i < routineEntities.length; i++) {
-      
       routineItems.add(routineEntities[i].name);
       routineGoalCount.add(int.parse(inputControllers[i].text));
     }
@@ -95,7 +93,22 @@ class RoutineEntityController extends GetxController {
       'name': controller.inputController.text,
       'rating': 0,
       'goals': routineGoalCount,
-      'isCompleted' : [false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+      'isCompleted': [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
     }).then((DocumentReference routineHistoryDoc) async {
       routineHistoryId = routineHistoryDoc.id;
       //start alex calenderRoutine
@@ -106,7 +119,12 @@ class RoutineEntityController extends GetxController {
           .set({
         'duration': controller.routinePeriodIndex.value,
         'startDate': parseDay(now),
-        'endDate': parseDay(later),
+        //Calendar Routine Marker를 위해 하루를 빼서 올린다.
+        'endDate': parseDay(
+          later.subtract(
+            const Duration(days: 1),
+          ),
+        ),
         'name': controller.inputController.text,
       }).onError((error, _) {
         if (kDebugMode) {
@@ -146,15 +164,16 @@ class RoutineEntityController extends GetxController {
           .collection('user')
           .doc(loginService.auth.value.currentUser!.uid)
           .update({
-            'rateRoutineId' : routineId,
-            'rateRoutineHistoryId' : routineHistoryId,
-          });
+        'rateRoutineId': routineId,
+        'rateRoutineHistoryId': routineHistoryId,
+      });
     });
 
     Get.find<RoutineOnController>().getData();
     Get.find<RoutineOffController>().getRoutineList();
 
-    await Get.find<AppStateController>().isUserHaveRated(loginService.auth.value.currentUser!.uid);
+    await Get.find<AppStateController>()
+        .isUserHaveRated(loginService.auth.value.currentUser!.uid);
     await Get.find<AppStateController>().fetchRateRoutine();
     // await Get.find<AppStateController>().setIsRatedTrue();
   }
@@ -192,7 +211,8 @@ class RoutineEntityController extends GetxController {
     bool result = true;
     for (int i = 0; i < routineEntities.length; i++) {
       if (inputControllers[i].text.isEmpty ||
-          int.parse(inputControllers[i].text) > 20 || int.parse(inputControllers[i].text) <= 0) {
+          int.parse(inputControllers[i].text) > 20 ||
+          int.parse(inputControllers[i].text) <= 0) {
         inputControllers[i].clear();
         result = false;
       }
