@@ -710,11 +710,13 @@ Widget routineStartAlertDialog(
     actionsPadding: const EdgeInsets.all(0),
     contentPadding: const EdgeInsets.all(0),
     content: SizedBox(
-      height: 358.h,
-      child: Column(children: [
+      height: 362.h,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
         SizedBox(
           width: 312.w,
-          height: 302.h,
+          height: 306.h,
           child: Column(
             children: [
               SizedBox(
@@ -735,7 +737,7 @@ Widget routineStartAlertDialog(
                     style: AppleFont22_Black,
                   )),
               SizedBox(
-                height: 48.h,
+                height: 54.h,
                 child: Text(
                   '설정하신 루틴을\n오늘부터 도전해 보세요!',
                   style: AppleFont16_Black,

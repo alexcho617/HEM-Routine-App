@@ -352,9 +352,11 @@ class RoutinePage extends StatelessWidget {
                 // ),
                 borderRadius: BorderRadius.circular(12.r),
               ),
-              leading: Padding(
-                padding: EdgeInsets.symmetric(vertical: 11.h),
-                child: const Icon(Icons.menu),
+              leading: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.menu),
+                ],
               ),
               contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
               horizontalTitleGap: 0,
