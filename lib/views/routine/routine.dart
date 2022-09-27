@@ -142,7 +142,7 @@ class RoutinePage extends StatelessWidget {
                                   height: 116.h,
                                 ),
                                 SizedBox(
-                                  height: 380.h,
+                                  height: 400.h,
                                   child: SingleChildScrollView(
                                     child: Obx(() {
                                       if (onController
@@ -156,7 +156,7 @@ class RoutinePage extends StatelessWidget {
                                       } else {
                                         return SizedBox(
                                           width: 390.w,
-                                          height: 1000.h,
+                                          height: (onController.routineItems.length) * 110.h,
                                           child: routineItemList(),
                                         );
                                       }
@@ -322,6 +322,7 @@ class RoutinePage extends StatelessWidget {
   Widget routineItemList() {
     int itemLength = onController.routineItems.length;
     return ReorderableListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
       padding: EdgeInsets.all(10.r),
       proxyDecorator: ((child, index, animation) {
         return Material(
@@ -361,33 +362,36 @@ class RoutinePage extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
               horizontalTitleGap: 0,
               minVerticalPadding: 22.w,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 150.w,
-                    child: Text(
-                      onController.routineItems[index],
-                      style: AppleFont18_Black,
-                      overflow: TextOverflow.ellipsis,
+              title: SizedBox(
+                height: 40.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 150.w,
+                      child: Text(
+                        onController.routineItems[index],
+                        style: AppleFont18_Black,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        '수행/목표',
-                        style: AppleFont14_Grey600,
-                      ),
-                      Text(
-                        '${onController.currentCount[index]}/${onController.goals[index]}',
-                        style: AppleFont14_Grey600,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                ],
+                    Column(
+                      children: [
+                        Text(
+                          '수행/목표',
+                          style: AppleFont14_Grey600,
+                        ),
+                        Text(
+                          '${onController.currentCount[index]}/${onController.goals[index]}',
+                          style: AppleFont14_Grey600,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                  ],
+                ),
               ),
               trailing: Stack(
                 alignment: Alignment.center,
