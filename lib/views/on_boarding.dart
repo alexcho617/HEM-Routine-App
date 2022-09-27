@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutterfire_ui/auth.dart';
@@ -8,6 +9,7 @@ import 'package:hem_routine_app/views/email_sign_in.dart';
 import 'package:onboarding/onboarding.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../controllers/login_service.dart';
 import '../widgets/widgets.dart';
@@ -238,8 +240,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 Obx(() {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 31.w),
-                    child: 
-                    _loginService.loginStatus.value ==
+                    child: _loginService.loginStatus.value ==
                             LoginStatus.progress
                         ? SizedBox(
                             height: 80.r,
@@ -248,39 +249,66 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                               color: primary,
                             ),
                           )
-                        : 
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              GoogleSignInButton(
-                                clientId:
-                                    '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
-                                onTap: () async {
-                                  setState(() {
-                                    _loginService.loginStatus.value =
-                                        LoginStatus.progress;
-                                  });
-                                  //get apple credential
-                                  _loginService.signInwithGoogle();
-                                },
-                              ),
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                              Platform.isIOS
-                                  ? SignInWithAppleButton(onPressed: () {
-                                      setState(() {
-                                        _loginService.loginStatus.value =
-                                            LoginStatus.progress;
-                                      });
-                                      _loginService.signInWithApple();
-                                    })
-                                  : const SizedBox.shrink(),
-                            ],
+                        : SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                GoogleSignInButton(
+                                  clientId:
+                                      '438160748395-iukm50ov2pqdatcp7o118njr4msg9fg5.apps.googleusercontent.com',
+                                  onTap: () async {
+                                    setState(() {
+                                      _loginService.loginStatus.value =
+                                          LoginStatus.progress;
+                                    });
+                                    //get apple credential
+                                    _loginService.signInwithGoogle();
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Platform.isIOS
+                                    ? SignInWithAppleButton(onPressed: () {
+                                        setState(() {
+                                          _loginService.loginStatus.value =
+                                              LoginStatus.progress;
+                                        });
+                                        _loginService.signInWithApple();
+                                      })
+                                    : const SizedBox.shrink(),
+                                SizedBox(
+                                  height: 30.h,
+                                ),
+                                RichText(
+                                  text: TextSpan(children: [
+                                    TextSpan(
+                                        style: AppleFont14_Grey600,
+                                        text: '회원가입을 하시면 본'),
+                                    TextSpan(
+                                        style: AppleFont14_Blue600,
+                                        text: ' 약관 ',
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () async {
+                                            var url = Uri.parse(
+                                                'https://trite-drive-686.notion.site/HEM-43e9bdebaee0423b92f960ebd747afde');
+                                            if (!await launchUrl(url)) {
+                                              throw 'Could not launch $url';
+                                            }
+                                          }),
+                                    TextSpan(
+                                        style: AppleFont14_Grey600,
+                                        text:
+                                            '에 따라 기재된 회원정보를 수집, 이용하는 것에 동의하는 것으로 간주합니다.'),
+                                  ]),
+                                  // 'By signing in, you agree to the ' + '',
+                                  // style: AppleFont14_Grey700,
+                                ),
+                              ],
+                            ),
                           ),
                   );
                 })
