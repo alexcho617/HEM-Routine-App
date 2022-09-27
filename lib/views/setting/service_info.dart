@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hem_routine_app/utils/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/constants.dart';
@@ -21,18 +22,18 @@ class _ServiceInfoPageState extends State<ServiceInfoPage> {
         children: [
           // customAppBar(context, '서비스 안내'),
           AppBar(
-                elevation: 0,
-                backgroundColor: background,
-                foregroundColor: black,
-                centerTitle: false,
-                leading: IconButton(
-                  icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Get.back();
-                  },
-                ),
-                title: const Text('서비스 안내'),
-              ),
+            elevation: 0,
+            backgroundColor: background,
+            foregroundColor: black,
+            centerTitle: false,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+            title: const Text('서비스 안내'),
+          ),
           ListTile(
             title: Text(
               '서비스 이용약관',
@@ -48,8 +49,12 @@ class _ServiceInfoPageState extends State<ServiceInfoPage> {
               '개인 정보 처리 방침',
               style: AppleFont22_Black,
             ),
-            onTap: () {
-              //
+            onTap: () async {
+              var url = Uri.parse(
+                  'https://trite-drive-686.notion.site/HEM-43e9bdebaee0423b92f960ebd747afde');
+              if (!await launchUrl(url)) {
+                throw 'Could not launch $url';
+              }
             },
             shape: Border(bottom: BorderSide(width: 0.8.w, color: grey500)),
           ),
@@ -90,6 +95,7 @@ class _ServiceInfoPageState extends State<ServiceInfoPage> {
       ),
     );
   }
+
   Widget smallText(String string) {
     return Padding(
       padding: EdgeInsets.all(4.r),
