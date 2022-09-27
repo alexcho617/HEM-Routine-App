@@ -72,6 +72,8 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return '사용자 이름을 입력하세요';
+                          } else if (value.length > 10) {
+                            return '10까지 입력 가능합니다.';
                           }
                           return null;
                         },
@@ -108,8 +110,8 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                       SizedBox(
                         height: 66.h,
                       ),
-                      saveButtonLong(
-                          saveButtonPressed, controller.enableBtn ? primary : grey600),
+                      saveButtonLong(saveButtonPressed,
+                          controller.enableBtn ? primary : grey600),
                     ],
                   ),
                 ),
@@ -133,8 +135,8 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
 
   void saveButtonPressed() {
     if (controller.enableBtn) {
-      loginService.profileSetting(
-          controller.nameController.text, controller.selectedDateTime, controller.isMale ? "Male" : "Female");
+      loginService.profileSetting(controller.nameController.text,
+          controller.selectedDateTime, controller.isMale ? "Male" : "Female");
       // ScaffoldMessenger.of(
       //         context.findAncestorStateOfType<HomePageState>()!.context)
       //     .showSnackBar(const SnackBar(content: Text("저장되었습니다")));
