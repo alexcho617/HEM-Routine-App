@@ -19,7 +19,7 @@ PooPooRazzi also provides comfort level prediction for the next monthes based on
 [![](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)]()
 [![](https://img.shields.io/badge/Firestore-orange?style=for-the-badge&logo=google&logoColor=white)]()
 [![](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)]()
-MVC Pattern
+
 
 
 
