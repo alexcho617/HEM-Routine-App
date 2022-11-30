@@ -8,6 +8,7 @@ PooPooRazzi also provides comfort level prediction for the next monthes based on
 
 ![Logo](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_0%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9.png?alt=media&token=c9064bc7-d3f7-4080-9e7e-9eedf2b41f50)
 
+[!](https://www.youtube.com/watch?v=EDdkB7m8e6U&ab_channel=%EC%9D%B4%EA%B0%95%EB%AF%BC)
 
 ## Roadmap
 
