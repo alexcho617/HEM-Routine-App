@@ -6,7 +6,7 @@
 PooPooRazzi is a routine application for people who experience constipation. It provides defication tracking calendar, and routine funcitons for users to proactively solve their bowel problems.
 PooPooRazzi also provides comfort level prediction for the next monthes based on Machine Learning using ARIMA Plus time series prediction.
 
-![Logo](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_0%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9.png?alt=media&token=c9064bc7-d3f7-4080-9e7e-9eedf2b41f50)
+![Logo](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_0%E1%84%85%E1%85%A9%E1%84%80%E1%85%A9.png?alt=media&token=c9064bc7-d3f7-4080-9e7e-9eedf2b41f50) 
 
 [프로모션 영상/Promotional Video](https://www.youtube.com/watch?v=EDdkB7m8e6U&ab_channel=%EC%9D%B4%EA%B0%95%EB%AF%BC)
 
@@ -33,7 +33,7 @@ PooPooRazzi also provides comfort level prediction for the next monthes based on
 
 
 
-![Calendar](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_2%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=a24a550a-12ae-4c94-8682-297827fcc2d8)
+![Calendar | width = 50](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_2%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=a24a550a-12ae-4c94-8682-297827fcc2d8)
 ![Event](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_3%E1%84%87%E1%85%A2%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%B5%E1%84%85%E1%85%A9%E1%86%A8%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=a9a26d1b-c2c7-4725-8e26-089af77c1603)
 ![Routine](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_6%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB%20%E1%84%89%E1%85%AE%E1%84%92%E1%85%A2%E1%86%BC%20%E1%84%8C%E1%85%AE%E1%86%BC%20%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=28177cfb-ea07-4a05-a179-e1db31366090)
 ![Rating](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_7%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%A9%E1%86%BC%E1%84%85%E1%85%AD%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=28881db2-f991-42fc-ac53-d53d7687660b)
