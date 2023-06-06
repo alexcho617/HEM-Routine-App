@@ -31,13 +31,20 @@ PooPooRazzi also provides comfort level prediction for the next monthes based on
 
 
 
-<img src="https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_2%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=a24a550a-12ae-4c94-8682-297827fcc2d8" width=50% height=50%>
+<img src="https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_2%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=a24a550a-12ae-4c94-8682-297827fcc2d8" width=33%>
 
-![Calendar](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_2%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=a24a550a-12ae-4c94-8682-297827fcc2d8)
-![Event](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_3%E1%84%87%E1%85%A2%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%B5%E1%84%85%E1%85%A9%E1%86%A8%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=a9a26d1b-c2c7-4725-8e26-089af77c1603)
-![Routine](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_6%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB%20%E1%84%89%E1%85%AE%E1%84%92%E1%85%A2%E1%86%BC%20%E1%84%8C%E1%85%AE%E1%86%BC%20%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=28177cfb-ea07-4a05-a179-e1db31366090)
-![Rating](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_7%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%A9%E1%86%BC%E1%84%85%E1%85%AD%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=28881db2-f991-42fc-ac53-d53d7687660b)
-![Report](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_8%E1%84%85%E1%85%B5%E1%84%91%E1%85%A9%E1%84%90%E1%85%B3%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=5a55e08d-c6f4-414f-b5ee-479e0d24f66e)
+
+<img src="[https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_2%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=a24a550a-12ae-4c94-8682-297827fcc2d8](https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_2%E1%84%86%E1%85%A6%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=a24a550a-12ae-4c94-8682-297827fcc2d8)" width=33%>
+
+
+<img src="https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_3%E1%84%87%E1%85%A2%E1%84%87%E1%85%A7%E1%86%AB%E1%84%80%E1%85%B5%E1%84%85%E1%85%A9%E1%86%A8%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=a9a26d1b-c2c7-4725-8e26-089af77c1603" width=33%>
+
+<img src="https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_6%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB%20%E1%84%89%E1%85%AE%E1%84%92%E1%85%A2%E1%86%BC%20%E1%84%8C%E1%85%AE%E1%86%BC%20%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=28177cfb-ea07-4a05-a179-e1db31366090" width=33%>
+
+<img src="https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_7%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%A9%E1%86%BC%E1%84%85%E1%85%AD%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=28881db2-f991-42fc-ac53-d53d7687660b" width=33%>
+
+<img src="https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_8%E1%84%85%E1%85%B5%E1%84%91%E1%85%A9%E1%84%90%E1%85%B3%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=5a55e08d-c6f4-414f-b5ee-479e0d24f66e" width=33%>
+<img src="" width=33%>
 
 
 
