@@ -34,6 +34,8 @@ PooPooRazzi also provides comfort level prediction for the next monthes based on
 <img src="https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_7%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%A9%E1%86%BC%E1%84%85%E1%85%AD%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=28881db2-f991-42fc-ac53-d53d7687660b" width=30%>
 <img src="https://firebasestorage.googleapis.com/v0/b/portfolio-f64ed.appspot.com/o/%E1%84%8F%E1%85%AB%E1%84%87%E1%85%A7%E1%86%AB%E1%84%85%E1%85%AE%E1%84%90%E1%85%B5%E1%86%AB_8%E1%84%85%E1%85%B5%E1%84%91%E1%85%A9%E1%84%90%E1%85%B3%E1%84%92%E1%85%AA%E1%84%86%E1%85%A7%E1%86%AB.jpeg?alt=media&token=5a55e08d-c6f4-414f-b5ee-479e0d24f66e" width=30%>
 
+## ETL 파이프라인
+![ETL](https://github.com/alexcho617/HEM-Routine-App/assets/38528052/807dd4bc-02c0-46e8-aa2c-ecd122f06c8d)
 
 
 ## License
